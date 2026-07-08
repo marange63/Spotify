@@ -48,11 +48,42 @@ def _human_date(date_str: str) -> str:
     return f"{d:%B} {d.day}, {d.year}"
 
 
+def _tz_label(dt: _dt.datetime) -> str:
+    """A compact UTC-offset label, e.g. 'UTC-4' or 'UTC+5:30'. Derived from the
+    offset (not the zone name) because the ISO round-trip through feed_state keeps
+    only the offset — so this is stable and identical on Windows and POSIX."""
+    off = dt.utcoffset()
+    if not off:
+        return "UTC"
+    total = int(off.total_seconds())
+    sign = "+" if total >= 0 else "-"
+    hours, mins = divmod(abs(total) // 60, 60)
+    return f"UTC{sign}{hours}" + (f":{mins:02d}" if mins else "")
+
+
+def _human_datetime(dt: _dt.datetime) -> str:
+    """A tz-aware datetime -> 'July 8, 2026 at 5:23 PM (UTC-4)'. Built manually
+    (not strftime) so it's identical on Windows and POSIX."""
+    hour12 = dt.hour % 12 or 12
+    ampm = "AM" if dt.hour < 12 else "PM"
+    return f"{dt:%B} {dt.day}, {dt.year} at {hour12}:{dt.minute:02d} {ampm} ({_tz_label(dt)})"
+
+
 def _pub_datetime(date_str: str, seq: int) -> _dt.datetime:
-    """A stable, ordered timestamp for an episode. ``seq`` nudges same-day episodes
-    apart (by minutes) so their order within a day is deterministic."""
+    """Fallback timestamp for legacy episodes with no recorded ``published_at``.
+    ``seq`` nudges same-day episodes apart (by minutes) so their order within a
+    day is deterministic. New episodes carry a real ``published_at`` instead."""
     d = _dt.date.fromisoformat(date_str)
     return _dt.datetime(d.year, d.month, d.day, 12, 0, tzinfo=_dt.timezone.utc) + _dt.timedelta(minutes=seq)
+
+
+def _episode_datetime(e: dict) -> _dt.datetime:
+    """The episode's publish instant: the real recorded time if present, else the
+    legacy noon-UTC placeholder. Always tz-aware so records sort/compare cleanly."""
+    pa = e.get("published_at")
+    if pa:
+        return _dt.datetime.fromisoformat(pa)
+    return _pub_datetime(e["date"], e.get("seq", 0))
 
 
 def _fmt_duration(seconds: int) -> str:
@@ -92,6 +123,7 @@ def add_episode(prompt_id: str, name: str, summary: str, mp3_path: str,
         "summary": summary,
         "date": date,
         "seq": same_day,
+        "published_at": _dt.datetime.now().astimezone().isoformat(timespec="seconds"),
         "audio_file": audio_name,
         "length": length,
         "duration": duration,
@@ -110,21 +142,21 @@ def build_feed() -> str:
     cover_url = f"{base}/cover.jpg"
     feed_url = f"{base}/feed.xml"
 
-    # newest first: by pubDate (date + intra-day seq)
-    episodes = sorted(
-        state["episodes"],
-        key=lambda e: (e["date"], e.get("seq", 0)),
-        reverse=True,
-    )
+    # newest first: by real publish instant (falls back to legacy placeholder)
+    episodes = sorted(state["episodes"], key=_episode_datetime, reverse=True)
 
     items = []
     for e in episodes:
-        pub = format_datetime(_pub_datetime(e["date"], e.get("seq", 0)))
+        dt = _episode_datetime(e)
+        pub = format_datetime(dt)
+        desc = e["summary"]
+        if e.get("published_at"):  # only stamp a time we actually recorded
+            desc = f"{desc}\n\nPublished {_human_datetime(dt)}."
         audio_url = f"{base}/audio/{e['audio_file']}"
         item = f"""    <item>
       <title>{escape(e['title'])}</title>
-      <description>{escape(e['summary'])}</description>
-      <itunes:summary>{escape(e['summary'])}</itunes:summary>
+      <description>{escape(desc)}</description>
+      <itunes:summary>{escape(desc)}</itunes:summary>
       <enclosure url="{escape(audio_url)}" length="{e['length']}" type="audio/mpeg"/>
       <guid isPermaLink="false">{escape(e['guid'])}</guid>
       <pubDate>{pub}</pubDate>

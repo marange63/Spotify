@@ -9,7 +9,8 @@
       "seq": 3,
       "audio_file": "frontier-ai-labs-2026-07-08.mp3",
       "length": 2466864,
-      "duration": 411
+      "duration": 411,
+      "published_at": "2026-07-08T17:23:20-04:00"
     },
     {
       "guid": "new-prompt-2026-07-08",
@@ -20,7 +21,8 @@
       "seq": 3,
       "audio_file": "new-prompt-2026-07-08.mp3",
       "length": 2245680,
-      "duration": 374
+      "duration": 374,
+      "published_at": "2026-07-08T17:24:26-04:00"
     },
     {
       "guid": "new-prompt-2-2026-07-08",
@@ -31,7 +33,8 @@
       "seq": 3,
       "audio_file": "new-prompt-2-2026-07-08.mp3",
       "length": 2256480,
-      "duration": 376
+      "duration": 376,
+      "published_at": "2026-07-08T17:24:53-04:00"
     },
     {
       "guid": "new-prompt-3-2026-07-08",
@@ -42,7 +45,8 @@
       "seq": 3,
       "audio_file": "new-prompt-3-2026-07-08.mp3",
       "length": 2527200,
-      "duration": 421
+      "duration": 421,
+      "published_at": "2026-07-08T17:25:24-04:00"
     }
   ]
 }
