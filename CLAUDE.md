@@ -1,13 +1,28 @@
 # Daily Briefings project
 
-**Goal:** a personal daily podcast of expert-level audio briefings. You keep a library of standing
-prompts (topics); on command, Claude Code turns each into a fresh, researched spoken briefing and
-publishes it as an episode in the **Daily Briefings** Spotify show — replacing the prior version of
-each so the feed stays current.
+**Goal:** a public daily podcast of expert-level audio briefings, **Cautious Optimism Briefings**. You
+keep a library of standing prompts (topics); on command, Claude Code turns each into a fresh, researched
+spoken briefing and publishes it as a new episode in the show.
 
-**How it's built:** a key-free Tkinter window (`main.py`) manages the prompt library (`prompts.json`);
-Claude Code does the research + writing; `edge-tts` makes the audio; the `save-to-spotify` CLI
-publishes. One episode per enabled prompt, identified by its Spotify episode URI.
+**How it's built (current — public podcast via self-hosted RSS):** a key-free Tkinter window (`main.py`)
+manages the prompt library (`prompts.json`); Claude Code does the research + writing; `edge-tts` makes
+the audio; **`feed.py` builds a podcast RSS feed and the audio + cover + `feed.xml` are served publicly
+by GitHub Pages out of `./docs`; Spotify for Creators ingests that feed URL.** This makes episodes
+public and shareable (links work for anyone; the show is searchable on Spotify). Publishing is a
+`git push` — Pages serves it and Spotify re-ingests on its refresh schedule.
+
+**Archive model:** each publish is a **new, permanent episode** with a unique per-day GUID
+(`<prompt_id>-<YYYY-MM-DD>`), so followers get normal new-episode notifications and a browsable
+back-catalogue. This replaced the older "replace the prior version" model, which existed only to keep a
+*private* single-listener library tidy.
+
+**Legacy (private) path:** the `save-to-spotify` CLI + `episode.publish_replacing` published to a
+*private* "Daily Briefings" show whose episodes were not shareable (links dead-ended for other people).
+`episode.py` is kept for its TTS helpers (`synthesize`) but the private publish path is retired.
+
+- **Show:** Cautious Optimism Briefings · Feed: https://marange63.github.io/Spotify/feed.xml
+- **Pages site:** https://marange63.github.io/Spotify/ (served from `main` branch, `/docs` folder)
+- **Owner/verification email:** wamfour@gmail.com (in the feed's `itunes:owner`)
 
 ## Editorial standard for every briefing
 
@@ -56,54 +71,67 @@ The project now runs on a **prompt library** (`prompts.json`), not a single dail
 1. Run `main.py` (PyCharm Run button, or `python main.py`) — the prompt-library window opens. Add,
    edit, enable/disable, and delete named prompts. Each prompt is a full instruction for one briefing.
    The window has no model and needs no API key; it only edits `prompts.json`.
-2. In Claude Code, say **"make my daily briefing."** For **each enabled prompt**, Claude:
-   - researches it (editorial standard + preferred sources above; honor any length the prompt states,
-     else ~700 words) and writes the script to `briefings/<id>.txt`;
-   - runs `episode.publish_replacing(...)` — TTS → upload a **dated** episode (`"<name> — <date>"`) to
-     the Daily Briefings show → wait until READY → **delete that prompt's previous episode** (tracked
-     by `last_episode_uri`) → save the new URI back into `prompts.json`.
-   Then it deletes any `orphans` (episodes of prompts you removed in the window) and clears the list.
+2. In Claude Code, say **"make my daily briefing."** For **each enabled prompt**, Claude researches it
+   (editorial standard + preferred sources above; honor any length the prompt states, else ~700 words)
+   and writes the script to `briefings/<id>.txt`. Then it publishes the whole batch to the public feed:
+
+   ```bash
+   # after all briefings/<id>.txt are written for today; runs in the Spotify conda env
+   conda run -n Spotify --no-capture-output python publish_feed.py --summaries <summaries.json>
+   ```
+
+   `publish_feed.py` — for each enabled prompt: TTS (`episode.synthesize`) → `feed.add_episode(...)`
+   (copies the mp3 to `docs/audio/<id>-<date>.mp3`, records it in `feed_state.json`) → then
+   `feed.build_feed()` rewrites `docs/feed.xml` → `git add docs feed_state.json && commit && push`.
+   GitHub Pages serves the update; Spotify re-ingests on its next refresh (minutes to a few hours).
+   `--summaries` is a JSON map `{prompt_id: summary}` for episode descriptions (else the prompt name).
 3. This **auto-publishes** — no approval step (standing authorization). Claude reports a table of
-   name → link, and stops only to surface an error (a failed prompt keeps its old episode and the
-   batch continues).
+   name → episode, and stops only to surface an error (a failed prompt is skipped and the batch
+   continues; the feed still rebuilds/pushes with the successful ones).
 
-Identity is by **Spotify episode URI**, not by name — that's what makes "replace the previous version"
-reliable. Deletion happens only *after* the replacement is READY, so a prompt is never without a live
-episode. Exactly one live episode per enabled prompt.
+Identity is by **GUID** (`<prompt_id>-<date>`), unique per topic per day. Re-running the same prompt on
+the same date overwrites that day's episode in place (idempotent); a new date adds a new episode.
 
-### Re-running one prompt manually
-
-To (re)publish a single prompt without the full batch:
+### Re-publishing one prompt manually
 
 ```python
-from episode import publish_replacing, SHOW_ID
-publish_replacing("briefings/<id>.txt", "<Name> — <date>", "<summary>", SHOW_ID, "<prev_episode_uri or None>")
+import feed
+from episode import synthesize
+mp3 = synthesize("briefings/<id>.txt")
+feed.add_episode("<id>", "<Name>", "<summary>", mp3, "<YYYY-MM-DD>")
+feed.build_feed()
+# then: git add docs feed_state.json && git commit -m "…" && git push origin main
 ```
 
 ## Files & tools
 
-- `config.py` — single source of shared constants (`SHOW_ID`, `VOICE`, `TTS_MAX_RETRIES`, paths, and
-  `S2S` resolved via `shutil.which`) + `configure_logging()`. `library.py`/`episode.py` reference
-  `config.*` at call time (so it's patchable in tests).
+- `config.py` — single source of shared constants + `configure_logging()`. Public-podcast constants:
+  `PODCAST_TITLE`/`AUTHOR`/`OWNER_NAME`/`EMAIL`/`LANGUAGE`/`DESCRIPTION`/`CATEGORY`/`SUBCATEGORY`,
+  `FEED_BASE_URL` (`https://marange63.github.io/Spotify`), `DOCS_DIR`/`DOCS_AUDIO_DIR`/`FEED_FILE`/
+  `COVER_FILE`, `FEED_STATE_FILE`. Legacy: `SHOW_ID`, `VOICE`, `TTS_MAX_RETRIES`, `S2S`.
 - `main.py` — the prompt-library manager window (project entry point / green Run button).
-- `prompts.json` — the library: `{prompts: [{id, name, prompt, enabled, last_episode_uri,
-  last_published}], orphans: []}`. Edited by the window, read + written by the batch.
-- `library.py` — read/write + add/update/delete helpers for `prompts.json` (id stable across renames;
-  delete tombstones the episode URI into `orphans`). The **window** saves via `save_merged`, which
-  preserves the batch-owned tracking fields (`last_episode_uri` / `last_published` / `orphans`) from
-  disk so a still-open window can't clobber them; the **batch** uses the authoritative `save`.
-- `episode.py` — lifecycle helpers: `publish_replacing(text_path, title, summary, show_id, prev_uri)`,
-  plus `synthesize` / `upload_episode` / `wait_ready` / `delete_episode`. Resilient paragraph-wise TTS.
-- `briefings/<id>.txt` / `.mp3` — per-prompt scripts and audio.
-- Binary: `%USERPROFILE%\bin\save-to-spotify.exe`. edge-tts runs in the **`Spotify`** conda env.
-  Show: **Daily Briefings** = `spotify:show:033LxzC8UHlbiJmWLw3n2K`.
-- CLI surface used: `upload --title/--summary/--show-id` (prints the new URI),
-  `episodes status <id> --wait`, `episodes delete <id>`.
-- `tests/` — stdlib `unittest` suite (no network, no extra deps): `test_library.py` (CRUD +
-  `save_merged` merge/tombstone), `test_spotify.py` (CLI helpers, `subprocess` mocked), `test_tts.py`
-  (resilient synth, edge-tts mocked). Run: `python -m unittest discover -s tests -t .`
-- Legacy: root `briefing.txt` / `briefing.mp3` are leftovers from the earlier single-file flow;
-  current per-prompt outputs live in `briefings/`. `daily_instructions.txt` is retired.
+- `prompts.json` — the prompt library. Edited by the window, read by the batch. (The
+  `last_episode_uri`/`last_published` fields are legacy Save-to-Spotify tracking; the public feed tracks
+  episodes in `feed_state.json` instead.)
+- `library.py` — read/write + add/update/delete helpers for `prompts.json`.
+- **`feed.py`** — podcast RSS. `add_episode(prompt_id, name, summary, mp3_path, date)` copies the mp3 to
+  `docs/audio/<id>-<date>.mp3` and records it (bytes + duration via `mutagen`) in `feed_state.json`;
+  `build_feed()` renders `docs/feed.xml` (iTunes tags, newest-first). Archive model, stable per-day GUIDs.
+- **`publish_feed.py`** — the daily batch: synth → `add_episode` per enabled prompt → `build_feed` →
+  git commit + push. Flags: `--date`, `--summaries <json>`, `--no-push`.
+- **`feed_state.json`** — the accumulating episode archive the feed is built from (source of truth).
+- **`docs/`** — the GitHub Pages site: `cover.jpg` (1500×1500), `index.html`, `.nojekyll`, `feed.xml`,
+  `audio/<id>-<date>.mp3`. Served at `https://marange63.github.io/Spotify/` from `main` `/docs`.
+- **`tools/`** — `make_cover.py` (regenerates the cover via Pillow), `seed_feed.py` (one-off backfill).
+- `episode.py` — **used only for TTS now**: `synthesize` + resilient paragraph-wise `_synthesize`. The
+  `publish_replacing`/`upload_episode`/`wait_ready`/`delete_episode` helpers are the retired private path.
+- `briefings/<id>.txt` / `.mp3` — per-prompt scripts and working audio (the `.mp3` is git-ignored; the
+  published copy lives under `docs/audio/`).
+- Dependencies (in the **`Spotify`** conda env): `edge-tts`, `aiohttp`, `Pillow`, `mutagen`.
+- Legacy private path: binary `%USERPROFILE%\bin\save-to-spotify.exe`; private show **Daily Briefings**
+  = `spotify:show:033LxzC8UHlbiJmWLw3n2K` (episodes there are not publicly shareable).
+- `tests/` — stdlib `unittest` suite. Run: `python -m unittest discover -s tests -t .`
+- Legacy: root `briefing.txt` / `briefing.mp3` are leftovers from the earlier single-file flow.
 
 ## TTS reliability
 
