@@ -4,9 +4,19 @@
       "WebSearch",
       "Bash(conda run *)",
       "WebFetch(domain:open.spotify.com)",
-      "PowerShell(gh *)",
-      "PowerShell(git *)",
-      "PowerShell(git ls-remote *)"
+      "Bash(gh --version)",
+      "Bash(gh auth *)",
+      "Bash(git --version)",
+      "Bash(git config *)",
+      "Bash(curl -s -o /dev/null -w \"marange63/Spotify HTTP: %{http_code}\\\\n\" https://api.github.com/repos/marange63/Spotify)",
+      "Bash(curl -s https://api.github.com/repos/marange63/Spotify)",
+      "Read(//c/Windows/Fonts//**)",
+      "Bash(git add *)",
+      "Bash(git check-ignore *)",
+      "Bash(git reset *)",
+      "Bash(git commit -q -m ' *)",
+      "Bash(git push *)",
+      "WebFetch(domain:validator.w3.org)"
     ]
   }
 }
