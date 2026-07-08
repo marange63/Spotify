@@ -49,13 +49,17 @@ def _human_date(date_str: str) -> str:
 
 
 def _tz_label(dt: _dt.datetime) -> str:
-    """A compact UTC-offset label, e.g. 'UTC-4' or 'UTC+5:30'. Derived from the
-    offset (not the zone name) because the ISO round-trip through feed_state keeps
-    only the offset — so this is stable and identical on Windows and POSIX."""
+    """A friendly timezone label. The feed is published from US Eastern, so the
+    two Eastern offsets (EST -5, EDT -4) render as 'ET'. Any other offset falls
+    back to a compact 'UTC-n' form. Derived from the offset (not the zone name)
+    because the ISO round-trip through feed_state keeps only the offset — so this
+    is stable and identical on Windows and POSIX."""
     off = dt.utcoffset()
     if not off:
         return "UTC"
     total = int(off.total_seconds())
+    if total in (-5 * 3600, -4 * 3600):  # US Eastern (EST / EDT)
+        return "ET"
     sign = "+" if total >= 0 else "-"
     hours, mins = divmod(abs(total) // 60, 60)
     return f"UTC{sign}{hours}" + (f":{mins:02d}" if mins else "")
