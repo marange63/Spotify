@@ -92,6 +92,19 @@ The project now runs on a **prompt library** (`prompts.json`), not a single dail
 Identity is by **GUID** (`<prompt_id>-<date>`), unique per topic per day. Re-running the same prompt on
 the same date overwrites that day's episode in place (idempotent); a new date adds a new episode.
 
+### Novelty policy (avoid repeating the prior day)
+
+The **scheduled 5 AM run is strict by default**: for each prompt it first reads the existing
+`briefings/<id>.txt` (the previous run's briefing on that topic — it's still on disk before the
+overwrite) and must **not** repeat the same topics/themes/framing **unless there's genuinely new
+news or data** since then. This is 1-day memory (just the immediately-prior briefing), and it's an
+extension of the editorial standard's "lead with what's new."
+
+- **Scheduled (`tools/daily_run.ps1`, no args):** strict — the novelty clause is in the phase-1 prompt.
+- **Manual testing (`tools/daily_run.ps1 -RepeatOK`):** relaxed — writes fresh regardless of yesterday.
+- **Interactive ("make my daily briefing" via Claude in a session):** treat as **relaxed by default**
+  (this is testing); only apply the no-repeat rule if the user asks for it.
+
 ### Re-publishing one prompt manually
 
 ```python
