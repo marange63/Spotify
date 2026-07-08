@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(conda run *)",
+      "WebFetch(domain:open.spotify.com)",
+      "PowerShell(gh *)",
+      "PowerShell(git *)",
+      "PowerShell(git ls-remote *)"
+    ]
+  }
+}

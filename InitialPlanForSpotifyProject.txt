@@ -1,0 +1,67 @@
+
+
+I want you to set up Spotify's "Save to Spotify" CLI on this Windows 11
+machine and then produce and upload a test Personal Podcast episode. Work
+through the phases below in order. Stop and ask me before anything
+destructive, and stop and show me the error if any step fails. Use
+PowerShell commands and existing CLI tools throughout — do not write
+custom Python orchestration code.
+
+I will however be developing this using PyCharm, and minimally a Python function to run the project top level.
+
+But implement this using you best judgement on the most effective implementation plan
+
+Err on the side of asking too many questions of me as you go, first making a proposed plan
+
+PHASE 1 — Install the CLI
+1. Query the GitHub releases API for spotify/save-to-spotify and identify
+   the latest release and its save-to-spotify-windows-amd64-v{version}.zip
+   asset (plus its .sha256 file).
+2. Download both to a temp folder, verify the SHA-256 checksum, and stop
+   if it doesn't match.
+3. Extract the zip. Move the save-to-spotify .exe binary to
+   %USERPROFILE%\bin (create the folder if needed).
+4. Add %USERPROFILE%\bin to my USER Path environment variable if it isn't
+   already there (do not touch the system Path).
+5. Verify by running the binary with its full path: `save-to-spotify
+   version`. Note that new terminals will pick up the PATH change.
+
+PHASE 2 — Install the Claude Code skill
+1. The extracted zip contains a skills\save-to-spotify\ folder. Copy it
+   to %USERPROFILE%\.claude\skills\save-to-spotify\ so the skill is
+   available globally.
+2. Confirm the SKILL.md file is present in the destination.
+
+PHASE 3 — Authenticate
+1. Run `save-to-spotify auth login`. This opens my browser — pause and
+   tell me to complete the Spotify sign-in, then wait for my confirmation.
+2. After I confirm, run `save-to-spotify auth status` and verify the
+   token is valid before continuing.
+
+PHASE 4 — Set up text-to-speech
+1. I have Anaconda installed. Install the edge-tts package with pip into
+   my base conda environment (or tell me if you think a dedicated env is
+   warranted, and ask first).
+2. Verify with a short test: generate a 1-sentence mp3 using voice
+   en-US-GuyNeural and confirm the file exists and is non-trivial in size.
+
+PHASE 5 — Generate the test briefing
+1. Search the web for (a) today's news on Micron Technology, HBM, and AI
+   memory-market dynamics, and (b) this week's PGA Tour storylines and
+   results.
+2. Write a roughly 700-word briefing script (about 5 minutes of audio):
+   conversational, single narrator, no headers or bullet symbols, no
+   stage directions — just clean spoken prose. Open with a one-line
+   greeting and the date, cover markets first, then golf, and close with
+   a one-line sign-off. Save it as briefing.txt in this project folder.
+3. Convert it to briefing.mp3 with edge-tts using en-US-GuyNeural.
+
+PHASE 6 — Upload to Spotify
+1. Run: save-to-spotify upload .\briefing.mp3 --title "Test Briefing —
+   {today's date}" --summary "Micron/HBM market update and PGA Tour
+   notes" --new-show "Daily Briefings"
+2. Use the episodes status command with --wait to poll until the episode
+   is processed and playable.
+3. Give me the Spotify link and a summary of everything that was set up,
+   including exact file locations and the commands I'd rerun for future
+   episodes (using the existing show rather than --new-show).

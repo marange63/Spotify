@@ -1,0 +1,5 @@
+Attached is a CLAUDE.md file for a project I created to make prompt driven audio briefings
+
+Here is an example: "Make a 1500 word briefing on developments over the last few days relevant to competition between the Frontier AI Labs including, but not limited to, OpenAI, Anthropic, Google, Tesla, SpaceX, Mistral, and the Chinese Open Source alternatives."
+
+Based on what you know about me, create a couple of complementary prompts that will focus on the Capital Markets including Crypto, Digital Finance, Commodities, Equities, Foreign Exchange, Fixed Income, and Alternative INvestments
