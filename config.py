@@ -42,6 +42,7 @@ PODCAST_SUBCATEGORY = "Investing"
 FEED_BASE_URL = "https://marange63.github.io/Spotify"
 DOCS_DIR = os.path.join(HERE, "docs")
 DOCS_AUDIO_DIR = os.path.join(DOCS_DIR, "audio")
+DOCS_TRANSCRIPTS_DIR = os.path.join(DOCS_DIR, "transcripts")
 FEED_FILE = os.path.join(DOCS_DIR, "feed.xml")
 COVER_FILE = os.path.join(DOCS_DIR, "cover.jpg")
 # Accumulating archive of published episodes that the feed is generated from.

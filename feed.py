@@ -96,6 +96,59 @@ def _fmt_duration(seconds: int) -> str:
     return f"{h}:{m:02d}:{s:02d}" if h else f"{m}:{s:02d}"
 
 
+def _write_transcript(guid: str, name: str, date: str, prompt_id: str):
+    """Publish the briefing script as a readable transcript under docs/transcripts/:
+    ``<guid>.txt`` (plain) and ``<guid>.html`` (a styled page). The script *is* the
+    verbatim transcript — this is the exact narration, not machine-recognized text.
+    Best-effort: returns ``(txt_name, html_name)``, or ``(None, None)`` if the source
+    script is missing (so publishing never fails over a transcript)."""
+    src = os.path.join(config.BRIEFINGS_DIR, prompt_id + ".txt")
+    if not os.path.exists(src):
+        log.warning("transcript skipped: no script at %s", src)
+        return None, None
+    with open(src, encoding="utf-8") as f:
+        text = f.read().strip()
+    os.makedirs(config.DOCS_TRANSCRIPTS_DIR, exist_ok=True)
+
+    txt_name = f"{guid}.txt"
+    with open(os.path.join(config.DOCS_TRANSCRIPTS_DIR, txt_name), "w", encoding="utf-8") as f:
+        f.write(text + "\n")
+
+    base = config.FEED_BASE_URL.rstrip("/")
+    paras = "\n".join(f"    <p>{escape(p.strip())}</p>"
+                      for p in text.split("\n\n") if p.strip())
+    html_name = f"{guid}.html"
+    html = f"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{escape(name)} — Transcript</title>
+<style>
+  :root {{ color-scheme: light dark; }}
+  body {{ margin:0; font:1.125rem/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }}
+  main {{ max-width:44rem; margin:0 auto; padding:2.5rem 1.25rem 4rem; }}
+  .show a {{ text-transform:uppercase; letter-spacing:.08em; font-size:.75rem; text-decoration:none; opacity:.7; }}
+  h1 {{ font-size:1.6rem; line-height:1.25; margin:.4rem 0 .25rem; }}
+  .date {{ opacity:.6; font-size:.95rem; margin:0 0 2rem; }}
+  p {{ margin:0 0 1.15rem; }}
+</style>
+</head>
+<body>
+  <main>
+    <p class="show"><a href="{base}/">{escape(config.PODCAST_TITLE)}</a></p>
+    <h1>{escape(name)}</h1>
+    <p class="date">Transcript · {_human_date(date)}</p>
+{paras}
+  </main>
+</body>
+</html>
+"""
+    with open(os.path.join(config.DOCS_TRANSCRIPTS_DIR, html_name), "w", encoding="utf-8") as f:
+        f.write(html)
+    return txt_name, html_name
+
+
 def add_episode(prompt_id: str, name: str, summary: str, mp3_path: str,
                 date: str) -> dict:
     """Copy the MP3 into docs/audio/ under a unique name and append a feed record.
@@ -117,6 +170,8 @@ def add_episode(prompt_id: str, name: str, summary: str, mp3_path: str,
         log.warning("could not read duration for %s: %s", dest, e)
         duration = 0
 
+    txt_name, html_name = _write_transcript(guid, name, date, prompt_id)
+
     state = _load_state()
     eps = [e for e in state["episodes"] if e["guid"] != guid]  # replace same-day rerun
     same_day = sum(1 for e in eps if e["date"] == date)
@@ -131,6 +186,8 @@ def add_episode(prompt_id: str, name: str, summary: str, mp3_path: str,
         "audio_file": audio_name,
         "length": length,
         "duration": duration,
+        "transcript_txt": txt_name,
+        "transcript_html": html_name,
     }
     eps.append(rec)
     state["episodes"] = eps
@@ -156,6 +213,17 @@ def build_feed() -> str:
         desc = e["summary"]
         if e.get("published_at"):  # only stamp a time we actually recorded
             desc = f"{desc}\n\nPublished {_human_datetime(dt)}."
+        # <podcast:transcript> is read by Apple Podcasts and Podcasting 2.0 apps.
+        # Spotify ignores it, so we also drop a plain link in the description, which
+        # Spotify does render — that's how a Spotify listener reaches the transcript.
+        transcript_tags = ""
+        if e.get("transcript_html"):
+            html_url = f"{base}/transcripts/{e['transcript_html']}"
+            transcript_tags += f'\n      <podcast:transcript url="{escape(html_url)}" type="text/html" language="en"/>'
+            desc = f"{desc}\n\nRead the full transcript: {html_url}"
+        if e.get("transcript_txt"):
+            txt_url = f"{base}/transcripts/{e['transcript_txt']}"
+            transcript_tags += f'\n      <podcast:transcript url="{escape(txt_url)}" type="text/plain" language="en"/>'
         audio_url = f"{base}/audio/{e['audio_file']}"
         item = f"""    <item>
       <title>{escape(e['title'])}</title>
@@ -166,7 +234,7 @@ def build_feed() -> str:
       <pubDate>{pub}</pubDate>
       <itunes:duration>{_fmt_duration(e.get('duration', 0))}</itunes:duration>
       <itunes:explicit>false</itunes:explicit>
-      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:episodeType>full</itunes:episodeType>{transcript_tags}
     </item>"""
         items.append(item)
 
@@ -174,6 +242,7 @@ def build_feed() -> str:
 <rss version="2.0"
      xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
      xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:podcast="https://podcastindex.org/namespace/1.0"
      xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>{escape(config.PODCAST_TITLE)}</title>

@@ -10,7 +10,9 @@
       "published_at": "2026-07-08T17:52:46-04:00",
       "audio_file": "frontier-ai-labs-2026-07-08.mp3",
       "length": 2466864,
-      "duration": 411
+      "duration": 411,
+      "transcript_txt": "frontier-ai-labs-2026-07-08.txt",
+      "transcript_html": "frontier-ai-labs-2026-07-08.html"
     },
     {
       "guid": "new-prompt-2026-07-08",
@@ -22,7 +24,9 @@
       "published_at": "2026-07-08T17:53:12-04:00",
       "audio_file": "new-prompt-2026-07-08.mp3",
       "length": 2245680,
-      "duration": 374
+      "duration": 374,
+      "transcript_txt": "new-prompt-2026-07-08.txt",
+      "transcript_html": "new-prompt-2026-07-08.html"
     },
     {
       "guid": "new-prompt-2-2026-07-08",
@@ -34,7 +38,9 @@
       "published_at": "2026-07-08T17:53:52-04:00",
       "audio_file": "new-prompt-2-2026-07-08.mp3",
       "length": 2256480,
-      "duration": 376
+      "duration": 376,
+      "transcript_txt": "new-prompt-2-2026-07-08.txt",
+      "transcript_html": "new-prompt-2-2026-07-08.html"
     },
     {
       "guid": "new-prompt-3-2026-07-08",
@@ -46,7 +52,9 @@
       "published_at": "2026-07-08T17:54:05-04:00",
       "audio_file": "new-prompt-3-2026-07-08.mp3",
       "length": 2527200,
-      "duration": 421
+      "duration": 421,
+      "transcript_txt": "new-prompt-3-2026-07-08.txt",
+      "transcript_html": "new-prompt-3-2026-07-08.html"
     }
   ]
 }
