@@ -6,10 +6,10 @@ spoken briefing and publishes it as a new episode in the show.
 
 **How it's built (current — public podcast via self-hosted RSS):** a key-free Tkinter window (`main.py`)
 manages the prompt library (`prompts.json`); Claude Code does the research + writing; `edge-tts` makes
-the audio; **`feed.py` builds a podcast RSS feed and the audio + cover + `feed.xml` are served publicly
-by GitHub Pages out of `./docs`; Spotify for Creators ingests that feed URL.** This makes episodes
-public and shareable (links work for anyone; the show is searchable on Spotify). Publishing is a
-`git push` — Pages serves it and Spotify re-ingests on its refresh schedule.
+the audio; **`feed.py` builds a podcast RSS feed and the audio + cover + `feed.xml` + per-episode
+transcripts are served publicly by GitHub Pages out of `./docs`; Spotify for Creators ingests that feed
+URL.** This makes episodes public and shareable (links work for anyone; the show is searchable on
+Spotify). Publishing is a `git push` — Pages serves it and Spotify re-ingests on its refresh schedule.
 
 **Archive model:** each publish is a **new, permanent episode** with a unique per-day GUID
 (`<prompt_id>-<YYYY-MM-DD>`), so followers get normal new-episode notifications and a browsable
@@ -120,21 +120,28 @@ feed.build_feed()
 
 - `config.py` — single source of shared constants + `configure_logging()`. Public-podcast constants:
   `PODCAST_TITLE`/`AUTHOR`/`OWNER_NAME`/`EMAIL`/`LANGUAGE`/`DESCRIPTION`/`CATEGORY`/`SUBCATEGORY`,
-  `FEED_BASE_URL` (`https://marange63.github.io/Spotify`), `DOCS_DIR`/`DOCS_AUDIO_DIR`/`FEED_FILE`/
-  `COVER_FILE`, `FEED_STATE_FILE`. Legacy: `SHOW_ID`, `VOICE`, `TTS_MAX_RETRIES`, `S2S`.
+  `FEED_BASE_URL` (`https://marange63.github.io/Spotify`), `DOCS_DIR`/`DOCS_AUDIO_DIR`/
+  `DOCS_TRANSCRIPTS_DIR`/`FEED_FILE`/`COVER_FILE`, `FEED_STATE_FILE`. Legacy: `SHOW_ID`, `VOICE`,
+  `TTS_MAX_RETRIES`, `S2S`.
 - `main.py` — the prompt-library manager window (project entry point / green Run button).
 - `prompts.json` — the prompt library. Edited by the window, read by the batch. (The
   `last_episode_uri`/`last_published` fields are legacy Save-to-Spotify tracking; the public feed tracks
   episodes in `feed_state.json` instead.)
 - `library.py` — read/write + add/update/delete helpers for `prompts.json`.
 - **`feed.py`** — podcast RSS. `add_episode(prompt_id, name, summary, mp3_path, date)` copies the mp3 to
-  `docs/audio/<id>-<date>.mp3` and records it (bytes + duration via `mutagen`) in `feed_state.json`;
-  `build_feed()` renders `docs/feed.xml` (iTunes tags, newest-first). Archive model, stable per-day GUIDs.
+  `docs/audio/<id>-<date>.mp3`, records it (bytes + duration via `mutagen`, plus a tz-aware
+  `published_at` and transcript filenames) in `feed_state.json`, and writes the verbatim transcript to
+  `docs/transcripts/<id>-<date>.txt` + `.html` (from `briefings/<id>.txt`). `build_feed()` renders
+  `docs/feed.xml` (iTunes tags, newest-first, `<pubDate>` from the real `published_at`, `<podcast:transcript>`
+  tags + a "Read the full transcript" link in each description). Archive model, stable per-day GUIDs.
 - **`publish_feed.py`** — the daily batch: synth → `add_episode` per enabled prompt → `build_feed` →
   git commit + push. Flags: `--date`, `--summaries <json>`, `--no-push`.
 - **`feed_state.json`** — the accumulating episode archive the feed is built from (source of truth).
 - **`docs/`** — the GitHub Pages site: `cover.jpg` (1500×1500), `index.html`, `.nojekyll`, `feed.xml`,
-  `audio/<id>-<date>.mp3`. Served at `https://marange63.github.io/Spotify/` from `main` `/docs`.
+  `audio/<id>-<date>.mp3`, `transcripts/<id>-<date>.txt` + `.html`. Served at
+  `https://marange63.github.io/Spotify/` from `main` `/docs`. (Transcripts: Apple Podcasts and
+  Podcasting 2.0 apps read the `<podcast:transcript>` tag; Spotify ignores RSS transcripts, so the
+  description link is how Spotify listeners reach the hosted page.)
 - **`tools/`** — `make_cover.py` (regenerates the cover via Pillow), `seed_feed.py` (one-off backfill).
 - `episode.py` — **used only for TTS now**: `synthesize` + resilient paragraph-wise `_synthesize`. The
   `publish_replacing`/`upload_episode`/`wait_ready`/`delete_episode` helpers are the retired private path.
