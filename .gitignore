@@ -12,5 +12,7 @@ venv/
 Thumbs.db
 .DS_Store
 
-# Generated audio
+# Generated audio (working copies) — but DO publish the podcast audio under docs/
 *.mp3
+!docs/audio/
+!docs/audio/*.mp3

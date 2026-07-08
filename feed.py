@@ -1,0 +1,173 @@
+"""Podcast RSS feed for 'Cautious Optimism Briefings'.
+
+Self-hosted publishing path (replaces the private "Save to Spotify" flow for the
+public show): each briefing MP3 is copied into ``docs/audio/`` and recorded in
+``feed_state.json``; ``build_feed`` renders ``docs/feed.xml``. GitHub Pages serves
+``docs/`` publicly, and Spotify for Creators ingests the feed URL.
+
+Archive model (podcast-native): every publish is a new, permanent episode with a
+unique GUID, so followers get a normal new-episode notification and a browsable
+back-catalogue — unlike the old private flow, which replaced the prior version.
+
+    from feed import add_episode, build_feed
+    rec = add_episode("frontier-ai-labs", "Frontier AI Lab Competition",
+                      "summary…", "briefings/frontier-ai-labs.mp3", "2026-07-08")
+    build_feed()
+"""
+import datetime as _dt
+import json
+import logging
+import os
+import shutil
+from email.utils import format_datetime
+from xml.sax.saxutils import escape
+
+from mutagen.mp3 import MP3
+
+import config
+
+log = logging.getLogger(__name__)
+
+
+def _load_state() -> dict:
+    if not os.path.exists(config.FEED_STATE_FILE):
+        return {"episodes": []}
+    with open(config.FEED_STATE_FILE, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def _save_state(state: dict) -> None:
+    with open(config.FEED_STATE_FILE, "w", encoding="utf-8") as f:
+        json.dump(state, f, indent=2, ensure_ascii=False)
+        f.write("\n")
+
+
+def _human_date(date_str: str) -> str:
+    """'2026-07-08' -> 'July 8, 2026'."""
+    d = _dt.date.fromisoformat(date_str)
+    return f"{d:%B} {d.day}, {d.year}"
+
+
+def _pub_datetime(date_str: str, seq: int) -> _dt.datetime:
+    """A stable, ordered timestamp for an episode. ``seq`` nudges same-day episodes
+    apart (by minutes) so their order within a day is deterministic."""
+    d = _dt.date.fromisoformat(date_str)
+    return _dt.datetime(d.year, d.month, d.day, 12, 0, tzinfo=_dt.timezone.utc) + _dt.timedelta(minutes=seq)
+
+
+def _fmt_duration(seconds: int) -> str:
+    h, rem = divmod(int(seconds), 3600)
+    m, s = divmod(rem, 60)
+    return f"{h}:{m:02d}:{s:02d}" if h else f"{m}:{s:02d}"
+
+
+def add_episode(prompt_id: str, name: str, summary: str, mp3_path: str,
+                date: str) -> dict:
+    """Copy the MP3 into docs/audio/ under a unique name and append a feed record.
+
+    GUID is ``<prompt_id>-<date>`` — unique per topic per day. Re-publishing the
+    same prompt on the same date overwrites that day's episode in place (idempotent).
+    Returns the episode record.
+    """
+    os.makedirs(config.DOCS_AUDIO_DIR, exist_ok=True)
+    guid = f"{prompt_id}-{date}"
+    audio_name = f"{guid}.mp3"
+    dest = os.path.join(config.DOCS_AUDIO_DIR, audio_name)
+    shutil.copyfile(mp3_path, dest)
+
+    length = os.path.getsize(dest)
+    try:
+        duration = int(round(MP3(dest).info.length))
+    except Exception as e:  # pragma: no cover - duration is best-effort metadata
+        log.warning("could not read duration for %s: %s", dest, e)
+        duration = 0
+
+    state = _load_state()
+    eps = [e for e in state["episodes"] if e["guid"] != guid]  # replace same-day rerun
+    same_day = sum(1 for e in eps if e["date"] == date)
+    rec = {
+        "guid": guid,
+        "prompt_id": prompt_id,
+        "title": f"{name} — {_human_date(date)}",
+        "summary": summary,
+        "date": date,
+        "seq": same_day,
+        "audio_file": audio_name,
+        "length": length,
+        "duration": duration,
+    }
+    eps.append(rec)
+    state["episodes"] = eps
+    _save_state(state)
+    log.info("feed: recorded episode %s (%d bytes, %s)", guid, length, _fmt_duration(duration))
+    return rec
+
+
+def build_feed() -> str:
+    """Render docs/feed.xml from feed_state.json (newest episode first). Returns the path."""
+    state = _load_state()
+    base = config.FEED_BASE_URL.rstrip("/")
+    cover_url = f"{base}/cover.jpg"
+    feed_url = f"{base}/feed.xml"
+
+    # newest first: by pubDate (date + intra-day seq)
+    episodes = sorted(
+        state["episodes"],
+        key=lambda e: (e["date"], e.get("seq", 0)),
+        reverse=True,
+    )
+
+    items = []
+    for e in episodes:
+        pub = format_datetime(_pub_datetime(e["date"], e.get("seq", 0)))
+        audio_url = f"{base}/audio/{e['audio_file']}"
+        item = f"""    <item>
+      <title>{escape(e['title'])}</title>
+      <description>{escape(e['summary'])}</description>
+      <itunes:summary>{escape(e['summary'])}</itunes:summary>
+      <enclosure url="{escape(audio_url)}" length="{e['length']}" type="audio/mpeg"/>
+      <guid isPermaLink="false">{escape(e['guid'])}</guid>
+      <pubDate>{pub}</pubDate>
+      <itunes:duration>{_fmt_duration(e.get('duration', 0))}</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:episodeType>full</itunes:episodeType>
+    </item>"""
+        items.append(item)
+
+    xml = f"""<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+     xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{escape(config.PODCAST_TITLE)}</title>
+    <link>{escape(base)}/</link>
+    <atom:link href="{escape(feed_url)}" rel="self" type="application/rss+xml"/>
+    <language>{escape(config.PODCAST_LANGUAGE)}</language>
+    <description>{escape(config.PODCAST_DESCRIPTION)}</description>
+    <itunes:summary>{escape(config.PODCAST_DESCRIPTION)}</itunes:summary>
+    <itunes:author>{escape(config.PODCAST_AUTHOR)}</itunes:author>
+    <itunes:type>episodic</itunes:type>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:image href="{escape(cover_url)}"/>
+    <image>
+      <url>{escape(cover_url)}</url>
+      <title>{escape(config.PODCAST_TITLE)}</title>
+      <link>{escape(base)}/</link>
+    </image>
+    <itunes:category text="{escape(config.PODCAST_CATEGORY)}">
+      <itunes:category text="{escape(config.PODCAST_SUBCATEGORY)}"/>
+    </itunes:category>
+    <itunes:owner>
+      <itunes:name>{escape(config.PODCAST_OWNER_NAME)}</itunes:name>
+      <itunes:email>{escape(config.PODCAST_EMAIL)}</itunes:email>
+    </itunes:owner>
+{chr(10).join(items)}
+  </channel>
+</rss>
+"""
+    os.makedirs(config.DOCS_DIR, exist_ok=True)
+    with open(config.FEED_FILE, "w", encoding="utf-8") as f:
+        f.write(xml)
+    log.info("feed: wrote %s (%d episodes)", config.FEED_FILE, len(episodes))
+    return config.FEED_FILE
