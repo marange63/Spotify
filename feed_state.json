@@ -4,45 +4,45 @@
       "guid": "frontier-ai-labs-2026-07-08",
       "prompt_id": "frontier-ai-labs",
       "title": "Frontier AI Lab Competition — July 8, 2026",
-      "summary": "GPT-5.6 (Sol/Terra/Luna) previews with a cost attack on Anthropic; Google delays Gemini 3.5 for a rebuild; Anthropic's $965B round; China's open-weight surge and the end of the H20.",
+      "summary": "OpenAI's GPT-5.6 (Sol/Terra/Luna) retakes the coding frontier and resets mid-tier pricing; Anthropic moves Fable 5 to metered pricing after its June outage; Google's Gemini 3.5 Pro slips to July 17 in a full rebuild. The bigger shift: US government pre-clearance of frontier launches.",
       "date": "2026-07-08",
-      "seq": 0,
+      "seq": 3,
       "audio_file": "frontier-ai-labs-2026-07-08.mp3",
-      "length": 2830176,
-      "duration": 472
+      "length": 2466864,
+      "duration": 411
     },
     {
       "guid": "new-prompt-2026-07-08",
       "prompt_id": "new-prompt",
       "title": "Capital Markets Cross-Asset Radar — July 8, 2026",
-      "summary": "Cross-asset radar into the June FOMC minutes: Warsh's no-dot hawkish hold vs. a soft 57k payrolls print, a 40-year-low yen, tight credit, and a higher-vol rates regime.",
+      "summary": "Cross-asset read into the June FOMC minutes: the curve isn't priced for the nine-official hike scenario, while an 8,000 S&P and a hawkish Fed tell two different stories. Q2 earnings and the AI capex trade are the referee.",
       "date": "2026-07-08",
-      "seq": 1,
+      "seq": 3,
       "audio_file": "new-prompt-2026-07-08.mp3",
-      "length": 2210400,
-      "duration": 368
+      "length": 2245680,
+      "duration": 374
     },
     {
       "guid": "new-prompt-2-2026-07-08",
       "prompt_id": "new-prompt-2",
       "title": "Digital Money, Crypto, and Market Structure — July 8, 2026",
-      "summary": "Digital money: Bitcoin's macro-driven bounce to ~$64k on thin flows, while GENIUS Act implementation, USDC's share gains, reserve money-market funds, and Open USD rewire the plumbing.",
+      "summary": "Bitcoin (~$61.9K) is trading as a leveraged rates bet, not a crypto story. ETF flows bounced July 2 after $4.1B of June outflows, but the real signal is stablecoin supply falling to $312B — its worst month since TerraUSD.",
       "date": "2026-07-08",
-      "seq": 2,
+      "seq": 3,
       "audio_file": "new-prompt-2-2026-07-08.mp3",
-      "length": 2446704,
-      "duration": 408
+      "length": 2256480,
+      "duration": 376
     },
     {
       "guid": "new-prompt-3-2026-07-08",
       "prompt_id": "new-prompt-3",
       "title": "Strategic Power, Energy, and Institutional Change — July 8, 2026",
-      "summary": "Strategic power: transformers as the binding constraint (DPA finding), AI power demand, China's $295B sovereign compute grid, and the November rare-earth expiry.",
+      "summary": "The AI race is now an electricity race: US data-center demand heads from 31 to 66 GW by 2027, hyperscalers build on-site gas to skip the grid, and the nuclear wave (9.8 GW signed) is a late-decade hedge. The binding constraint is the permit, not the chip.",
       "date": "2026-07-08",
       "seq": 3,
       "audio_file": "new-prompt-3-2026-07-08.mp3",
-      "length": 2611296,
-      "duration": 435
+      "length": 2527200,
+      "duration": 421
     }
   ]
 }
