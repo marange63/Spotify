@@ -16,3 +16,6 @@ Thumbs.db
 *.mp3
 !docs/audio/
 !docs/audio/*.mp3
+
+# Unattended run logs
+logs/
