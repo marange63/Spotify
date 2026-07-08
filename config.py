@@ -49,7 +49,7 @@ COVER_FILE = os.path.join(DOCS_DIR, "cover.jpg")
 FEED_STATE_FILE = os.path.join(HERE, "feed_state.json")
 
 # Text-to-speech
-VOICE = "en-US-GuyNeural"
+VOICE = "en-US-AndrewNeural"
 TTS_MAX_RETRIES = 6
 
 # save-to-spotify CLI: prefer whatever is on PATH, else the standard install location.

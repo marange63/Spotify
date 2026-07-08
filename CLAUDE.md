@@ -45,7 +45,7 @@ information and analysis — keeping them abreast of what's genuinely new and im
 Conversational single narrator; no headers/bullets/stage directions in the script itself. **Length is
 set per prompt** (state it in the prompt text, e.g. "1500 words"); default ~700 if unspecified (~150
 words per spoken minute). Open with a one-line greeting + the date, then the content, and close with a
-one-line sign-off. Voice: `en-US-GuyNeural`.
+one-line sign-off. Voice: `en-US-AndrewNeural`.
 
 ## Preferred sources
 
