@@ -1,0 +1,23 @@
+# Cautious Optimism Briefings — conda environment for the publishing pipeline.
+#
+# Create it once:
+#   conda env create -f environment.yml
+# Then activate it:
+#   conda activate Spotify
+#
+# The pipeline is normally invoked as:
+#   conda run -n Spotify --no-capture-output python publish_feed.py
+#
+# (git must also be installed and on your PATH — publish_feed.py shells out to it.)
+
+name: Spotify
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+      - edge-tts>=6.1     # free Microsoft text-to-speech (episode.py)
+      - aiohttp>=3.9      # async HTTP used by edge-tts' streaming synthesis
+      - Pillow>=10.0      # cover-art generation (tools/make_cover.py)
+      - mutagen>=1.47     # reads MP3 size/duration when building the feed (feed.py)

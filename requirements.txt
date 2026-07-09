@@ -1,0 +1,11 @@
+# Cautious Optimism Briefings — Python dependencies for the publishing pipeline.
+#
+#   pip install -r requirements.txt
+#
+# These are the only direct dependencies; pip resolves their transitive ones.
+# (git must also be installed and on your PATH — publish_feed.py shells out to it.)
+
+edge-tts>=6.1     # free Microsoft text-to-speech (episode.py)
+aiohttp>=3.9      # async HTTP used by edge-tts' streaming synthesis
+Pillow>=10.0      # cover-art generation (tools/make_cover.py)
+mutagen>=1.47     # reads MP3 size/duration when building the feed (feed.py)
