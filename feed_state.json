@@ -55,6 +55,62 @@
       "duration": 475,
       "transcript_txt": "new-prompt-3-2026-07-08.txt",
       "transcript_html": "new-prompt-3-2026-07-08.html"
+    },
+    {
+      "guid": "frontier-ai-labs-2026-07-09",
+      "prompt_id": "frontier-ai-labs",
+      "title": "Frontier AI Lab Competition — July 9, 2026",
+      "summary": "Today is the day OpenAI actually opens the door. GPT-5.6 — the Sol, Terra, and Luna family that was announced back on June 26th and has been sitting in a tightly gated preview — expands its rollout today, and with the expansion we finally have the thing that was missing at announcement: numbers.",
+      "date": "2026-07-09",
+      "seq": 0,
+      "published_at": "2026-07-09T05:08:26-04:00",
+      "audio_file": "frontier-ai-labs-2026-07-09.mp3",
+      "length": 3094848,
+      "duration": 516,
+      "transcript_txt": "frontier-ai-labs-2026-07-09.txt",
+      "transcript_html": "frontier-ai-labs-2026-07-09.html"
+    },
+    {
+      "guid": "new-prompt-2026-07-09",
+      "prompt_id": "new-prompt",
+      "title": "Capital Markets Cross-Asset Radar — July 9, 2026",
+      "summary": "Here's the concrete evidence. The implied probability of a Fed rate hike at the September meeting jumped to roughly 70 percent, up from 58 percent just the prior session. That's a twelve-point move in a day, and it's not about term premium anymore.",
+      "date": "2026-07-09",
+      "seq": 1,
+      "published_at": "2026-07-09T05:10:31-04:00",
+      "audio_file": "new-prompt-2026-07-09.mp3",
+      "length": 2748528,
+      "duration": 458,
+      "transcript_txt": "new-prompt-2026-07-09.txt",
+      "transcript_html": "new-prompt-2026-07-09.html"
+    },
+    {
+      "guid": "new-prompt-2-2026-07-09",
+      "prompt_id": "new-prompt-2",
+      "title": "Digital Money, Crypto, and Market Structure — July 9, 2026",
+      "summary": "The news is that the SEC is preparing to propose its first major crypto rule as soon as this month — an initiative the agency is calling \"Regulation Crypto.\" The substance is what matters: it would create temporary exemptions from securities registration for developers first issuing crypto investment contracts, allow…",
+      "date": "2026-07-09",
+      "seq": 2,
+      "published_at": "2026-07-09T05:12:36-04:00",
+      "audio_file": "new-prompt-2-2026-07-09.mp3",
+      "length": 3197808,
+      "duration": 533,
+      "transcript_txt": "new-prompt-2-2026-07-09.txt",
+      "transcript_html": "new-prompt-2-2026-07-09.html"
+    },
+    {
+      "guid": "new-prompt-3-2026-07-09",
+      "prompt_id": "new-prompt-3",
+      "title": "Strategic Power, Energy, and Institutional Change — July 9, 2026",
+      "summary": "Start with the number that should reframe how you think about data-center economics. In PJM — the grid operator covering thirteen states and the largest power market in the country — the capacity auction for the 2026-2027 delivery year cleared at 329.17 dollars per megawatt-day, across all zones, a record.",
+      "date": "2026-07-09",
+      "seq": 3,
+      "published_at": "2026-07-09T05:14:52-04:00",
+      "audio_file": "new-prompt-3-2026-07-09.mp3",
+      "length": 3285504,
+      "duration": 548,
+      "transcript_txt": "new-prompt-3-2026-07-09.txt",
+      "transcript_html": "new-prompt-3-2026-07-09.html"
     }
   ]
 }
