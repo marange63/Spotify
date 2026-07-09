@@ -225,17 +225,23 @@ ones:
 
 ### Step 4 — Create your Python environment and install the dependencies
 
-Using conda (matching how the project is set up):
+Using conda (matching how the project is set up) — this creates an environment named
+`Spotify` and installs everything in one step:
 
 ```bash
-conda create -n Spotify python=3.11
+conda env create -f environment.yml
 conda activate Spotify
-pip install edge-tts aiohttp Pillow mutagen
 ```
 
-(There's no `requirements.txt` in the repo yet; those four packages plus their own
-dependencies are all you need. `git` must also be installed and on your PATH, since
-publishing calls it.)
+Or, in any existing Python environment, just use pip:
+
+```bash
+pip install -r requirements.txt
+```
+
+Both files pull in the same four packages (`edge-tts`, `aiohttp`, `Pillow`, `mutagen`)
+plus their own dependencies — that's all you need. `git` must also be installed and on
+your PATH, since publishing calls it.
 
 ### Step 5 — Make your cover art
 
