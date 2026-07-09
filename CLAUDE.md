@@ -3,7 +3,7 @@
 **Goal:** a public daily podcast of expert-level audio briefings, **Cautious Optimism Briefings**. You
 keep a library of standing prompts (topics); on command, Claude Code turns each into a fresh, researched
 spoken briefing and publishes it as a new episode in the show.
-
+co
 **How it's built (current — public podcast via self-hosted RSS):** a key-free Tkinter window (`main.py`)
 manages the prompt library (`prompts.json`); Claude Code does the research + writing; `edge-tts` makes
 the audio; **`feed.py` builds a podcast RSS feed and the audio + cover + `feed.xml` + per-episode
@@ -89,6 +89,33 @@ The project now runs on a **prompt library** (`prompts.json`), not a single dail
    name → episode, and stops only to surface an error (a failed prompt is skipped and the batch
    continues; the feed still rebuilds/pushes with the successful ones).
 
+   **Run to completion with zero further input.** "Make my daily briefing" is a single standing
+   command: from that point Claude researches every enabled prompt, writes the scripts, publishes,
+   and reports back — **without pausing to ask or confirm anything.** Do not ask which prompts,
+   whether to publish, whether to push, about novelty, or about summaries — all of those have
+   defaults below. Make every routine judgment call silently and keep going. The **only** reasons to
+   stop mid-run are a hard blocker Claude cannot resolve itself (e.g. every prompt's research failed,
+   or `git push` is rejected). Defaults, applied without asking:
+   - **Which prompts:** every `enabled` prompt in `prompts.json`.
+   - **Novelty:** relaxed (interactive runs are treated as testing — see the novelty policy below);
+     only apply the no-repeat rule if the user explicitly asks in the same message.
+   - **Summaries:** let `publish_feed.py` auto-derive them from each script (pass `--summaries` only
+     if the user supplied summaries); never stop to hand-write them.
+   - **Publish + push:** always, automatically. No "ready to publish?" checkpoint.
+   - **Research judgment:** pick sources and framing per the editorial standard; never ask the user
+     to choose an angle or resolve an ambiguity that Claude can decide reasonably on its own.
+4. **Confirmation email (both paths).** After a successful publish, a summary email (subject with the
+   date + episode count, body listing each briefing → transcript/audio links, with any failed/skipped
+   prompts flagged) goes to **wamfour@gmail.com**. It fires only when ≥1 episode actually published,
+   and is worded honestly: it confirms the episodes are live on the RSS feed / GitHub Pages — Spotify
+   re-ingests on its own schedule afterward.
+   - **Scheduled 5 AM run:** `daily_run.ps1` calls `publish_feed.py --email`, which uses `notify.py`
+     (Gmail SMTP; creds from env vars `BRIEFING_SMTP_USER` / `BRIEFING_SMTP_PASS`). If those env vars
+     are unset it logs a warning and skips — it never fails a publish that already went out.
+   - **Interactive ("make my daily briefing" in a session):** *Claude itself* sends the email via the
+     Gmail integration after publishing succeeds (do **not** pass `--email` to `publish_feed.py`
+     interactively — that would double-send). Build the same summary from the publish results.
+
 Identity is by **GUID** (`<prompt_id>-<date>`), unique per topic per day. Re-running the same prompt on
 the same date overwrites that day's episode in place (idempotent); a new date adds a new episode.
 
@@ -135,7 +162,13 @@ feed.build_feed()
   `docs/feed.xml` (iTunes tags, newest-first, `<pubDate>` from the real `published_at`, `<podcast:transcript>`
   tags + a "Read the full transcript" link in each description). Archive model, stable per-day GUIDs.
 - **`publish_feed.py`** — the daily batch: synth → `add_episode` per enabled prompt → `build_feed` →
-  git commit + push. Flags: `--date`, `--summaries <json>`, `--no-push`.
+  git commit + push. Flags: `--date`, `--summaries <json>`, `--no-push`, `--require-fresh`, `--email`
+  (send the confirmation email via `notify.py`).
+- **`notify.py`** — composes + sends the "briefings published" confirmation email to `config.NOTIFY_EMAIL`
+  (wamfour@gmail.com). `build_message(results, date)` is a pure, tested composer; `send_publish_summary`
+  sends via Gmail SMTP using a **Google App Password** from env vars (`BRIEFING_SMTP_USER`,
+  `BRIEFING_SMTP_PASS`; optional `BRIEFING_NOTIFY_TO`). Missing creds → warn + skip (never raises). See
+  the module docstring for the one-time `setx` setup.
 - **`feed_state.json`** — the accumulating episode archive the feed is built from (source of truth).
 - **`docs/`** — the GitHub Pages site: `cover.jpg` (1500×1500), `index.html`, `.nojekyll`, `feed.xml`,
   `audio/<id>-<date>.mp3`, `transcripts/<id>-<date>.txt` + `.html`. Served at
