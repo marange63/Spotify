@@ -143,10 +143,16 @@ Once it's set up (section 6), a normal day looks like this:
    app a little while later — you don't do anything else.
 
 Each publish creates a **new, permanent episode** with a unique id of the form
-`<prompt_id>-<YYYY-MM-DD>` (the "GUID"). So every day adds to a browsable back-catalogue,
-and followers get normal new-episode notifications. Running the same prompt twice on the
-*same* date just overwrites that day's episode (it's idempotent); a new date adds a new
-one.
+`<prompt_id>-<YYYY-MM-DD>` (the "GUID") — for example, the `capital-markets-radar` prompt
+published on July 9, 2026 becomes the episode `capital-markets-radar-2026-07-09`. So every
+day adds to a browsable back-catalogue, and followers get normal new-episode notifications.
+Running the same prompt twice on the *same* date just overwrites that day's episode (it's
+idempotent); a new date adds a new one.
+
+(The current library ships with four prompts, whose ids are `frontier-ai-labs`,
+`capital-markets-radar`, `digital-money`, and `strategic-power` — so, for instance, that
+first prompt's script lives at `briefings/frontier-ai-labs.txt`. Wherever this README says
+`<id>`, substitute one of those.)
 
 > There's also a **fully unattended** mode: `tools/daily_run.ps1` is a Windows PowerShell
 > script wired to Task Scheduler to run at 5 AM. It runs Claude headlessly to write the
@@ -350,11 +356,13 @@ If you ever need to redo just one episode:
 ```python
 import feed
 from episode import synthesize
-mp3 = synthesize("briefings/<id>.txt")
-feed.add_episode("<id>", "<Name>", "<summary>", mp3, "2026-01-31")
+# (example: the "capital-markets-radar" prompt for a given date)
+mp3 = synthesize("briefings/capital-markets-radar.txt")
+feed.add_episode("capital-markets-radar", "Capital Markets Cross-Asset Radar",
+                 "<summary>", mp3, "2026-01-31")
 feed.build_feed()
 # then, in the terminal:
-#   git add docs feed_state.json && git commit -m "Republish <id>" && git push origin main
+#   git add docs feed_state.json && git commit -m "Republish capital-markets-radar" && git push origin main
 ```
 
 ---
