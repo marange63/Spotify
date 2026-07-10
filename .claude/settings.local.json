@@ -16,7 +16,23 @@
       "Bash(git reset *)",
       "Bash(git commit -q -m ' *)",
       "Bash(git push *)",
-      "WebFetch(domain:validator.w3.org)"
+      "WebFetch(domain:validator.w3.org)",
+      "Bash(PYTHONPATH=\"C:/Users/wamfo/ClaudeDev/Spotify\" conda run -n Spotify --no-capture-output python \"C:/Users/wamfo/AppData/Local/Temp/claude/C--Users-wamfo-ClaudeDev-Spotify/8bffd74b-2834-4ce3-804e-2040836950c3/scratchpad/backfill_times.py\")",
+      "Bash(PYTHONPATH=\"C:/Users/wamfo/ClaudeDev/Spotify\" conda run -n Spotify --no-capture-output python -c \"import feed; feed.build_feed\\(\\)\")",
+      "Bash(git commit -m ' *)",
+      "Bash(PYTHONPATH=\"C:/Users/wamfo/ClaudeDev/Spotify\" conda run -n Spotify --no-capture-output python \"C:/Users/wamfo/AppData/Local/Temp/claude/C--Users-wamfo-ClaudeDev-Spotify/8bffd74b-2834-4ce3-804e-2040836950c3/scratchpad/backfill_transcripts.py\")",
+      "WebFetch(domain:marange63.github.io)",
+      "PowerShell(Invoke-Item *)",
+      "PowerShell(python -m unittest tests.test_notify -v)",
+      "PowerShell($env:BRIEFING_SMTP_USER=$null; $env:BRIEFING_SMTP_PASS=$null; python -c \"import notify; print\\('sent=', notify.send_publish_summary\\([\\('A','a-2026-07-08'\\)], '2026-07-08'\\)\\)\"; python -m unittest discover -s tests -t . 2>&1 | Select-Object -Last 4)",
+      "PowerShell(conda run *)",
+      "mcp__claude_ai_Gmail__create_draft",
+      "PowerShell(if \\($env:BRIEFING_SMTP_USER\\) { \"SMTP_USER set: $env:BRIEFING_SMTP_USER\" } else { \"BRIEFING_SMTP_USER not set\" }; if \\($env:BRIEFING_SMTP_PASS\\) { \"SMTP_PASS set \\(hidden\\)\" } else { \"BRIEFING_SMTP_PASS not set\" })",
+      "Bash(PYTHONPATH=\"C:/Users/wamfo/ClaudeDev/Spotify\" conda run -n Spotify --no-capture-output python \"C:/Users/wamfo/AppData/Local/Temp/claude/C--Users-wamfo-ClaudeDev-Spotify/65e03935-dfbf-401a-9ff7-6b42a5626194/scratchpad/migrate_ids.py\")",
+      "Bash(git -c core.quotepath=false status -s -- docs briefings feed_state.json prompts.json)",
+      "Bash(grep -v -- '-2026-07-0[89]\\\\.\\\\\\(mp3\\\\|txt\\\\|html\\\\\\)$')",
+      "Bash(git diff *)",
+      "Bash(PYTHONPATH=\"C:/Users/wamfo/ClaudeDev/Spotify\" conda run -n Spotify --no-capture-output python \"C:/Users/wamfo/AppData/Local/Temp/claude/C--Users-wamfo-ClaudeDev-Spotify/65e03935-dfbf-401a-9ff7-6b42a5626194/scratchpad/fix_new_ids.py\")"
     ]
   }
 }
