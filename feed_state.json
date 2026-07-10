@@ -57,34 +57,6 @@
       "transcript_html": "strategic-power-2026-07-08.html"
     },
     {
-      "guid": "frontier-ai-labs-2026-07-09",
-      "prompt_id": "frontier-ai-labs",
-      "title": "Frontier AI Lab Competition — July 9, 2026",
-      "summary": "Today is the day OpenAI actually opens the door. GPT-5.6 — the Sol, Terra, and Luna family that was announced back on June 26th and has been sitting in a tightly gated preview — expands its rollout today, and with the expansion we finally have the thing that was missing at announcement: numbers.",
-      "date": "2026-07-09",
-      "seq": 3,
-      "published_at": "2026-07-09T18:00:28-04:00",
-      "audio_file": "frontier-ai-labs-2026-07-09.mp3",
-      "length": 3094848,
-      "duration": 516,
-      "transcript_txt": "frontier-ai-labs-2026-07-09.txt",
-      "transcript_html": "frontier-ai-labs-2026-07-09.html"
-    },
-    {
-      "guid": "capital-markets-radar-2026-07-09",
-      "prompt_id": "capital-markets-radar",
-      "title": "Capital Markets Cross-Asset Radar — July 9, 2026",
-      "summary": "Here's the concrete evidence. The implied probability of a Fed rate hike at the September meeting jumped to roughly 70 percent, up from 58 percent just the prior session. That's a twelve-point move in a day, and it's not about term premium anymore.",
-      "date": "2026-07-09",
-      "seq": 3,
-      "published_at": "2026-07-09T18:00:49-04:00",
-      "audio_file": "capital-markets-radar-2026-07-09.mp3",
-      "length": 2748528,
-      "duration": 458,
-      "transcript_txt": "capital-markets-radar-2026-07-09.txt",
-      "transcript_html": "capital-markets-radar-2026-07-09.html"
-    },
-    {
       "guid": "digital-money-2026-07-09",
       "prompt_id": "digital-money",
       "title": "Digital Money, Crypto, and Market Structure — July 9, 2026",
@@ -113,18 +85,74 @@
       "transcript_html": "strategic-power-2026-07-09.html"
     },
     {
+      "guid": "frontier-ai-labs-2026-07-09",
+      "prompt_id": "frontier-ai-labs",
+      "title": "Frontier AI Lab Competition — July 9, 2026",
+      "summary": "Today is the day OpenAI actually opens the door. GPT-5.6 — the Sol, Terra, and Luna family that was announced back on June 26th and has been sitting in a tightly gated preview — expands its rollout today, and with the expansion we finally have the thing that was missing at announcement: numbers.",
+      "date": "2026-07-09",
+      "seq": 4,
+      "published_at": "2026-07-09T21:52:17-04:00",
+      "audio_file": "frontier-ai-labs-2026-07-09.mp3",
+      "length": 3094848,
+      "duration": 516,
+      "transcript_txt": "frontier-ai-labs-2026-07-09.txt",
+      "transcript_html": "frontier-ai-labs-2026-07-09.html"
+    },
+    {
+      "guid": "capital-markets-radar-2026-07-09",
+      "prompt_id": "capital-markets-radar",
+      "title": "Capital Markets Cross-Asset Radar — July 9, 2026",
+      "summary": "Here's the concrete evidence. The implied probability of a Fed rate hike at the September meeting jumped to roughly 70 percent, up from 58 percent just the prior session. That's a twelve-point move in a day, and it's not about term premium anymore.",
+      "date": "2026-07-09",
+      "seq": 4,
+      "published_at": "2026-07-09T21:52:40-04:00",
+      "audio_file": "capital-markets-radar-2026-07-09.mp3",
+      "length": 2748528,
+      "duration": 458,
+      "transcript_txt": "capital-markets-radar-2026-07-09.txt",
+      "transcript_html": "capital-markets-radar-2026-07-09.html"
+    },
+    {
       "guid": "semiconductors-compute-2026-07-09",
       "prompt_id": "semiconductors-compute",
       "title": "Semiconductors & Compute Infrastructure — July 9, 2026",
       "summary": "Begin with NVIDIA, because it frames everything. Its most recent quarter was 81.6 billion dollars in revenue, with data-center revenue up 92 percent year over year to 75.2 billion. And through June, it began ramping its next-generation Vera Rubin platform into production.",
       "date": "2026-07-09",
       "seq": 4,
-      "published_at": "2026-07-09T18:04:25-04:00",
+      "published_at": "2026-07-09T21:54:53-04:00",
       "audio_file": "semiconductors-compute-2026-07-09.mp3",
       "length": 3051360,
       "duration": 509,
       "transcript_txt": "semiconductors-compute-2026-07-09.txt",
       "transcript_html": "semiconductors-compute-2026-07-09.html"
+    },
+    {
+      "guid": "ai-products-2026-07-09",
+      "prompt_id": "ai-products",
+      "title": "AI Products & Applications — July 9, 2026",
+      "summary": "The most telling product development this week isn't a new coding agent — it's a product whose entire job is to manage the coding agents you already have. Journi launched DevOS, a platform to measure, govern, and optimize AI-assisted software development across tools like Claude Code and Cursor.",
+      "date": "2026-07-09",
+      "seq": 5,
+      "published_at": "2026-07-09T21:56:53-04:00",
+      "audio_file": "ai-products-2026-07-09.mp3",
+      "length": 2709360,
+      "duration": 452,
+      "transcript_txt": "ai-products-2026-07-09.txt",
+      "transcript_html": "ai-products-2026-07-09.html"
+    },
+    {
+      "guid": "enterprise-tech-2026-07-09",
+      "prompt_id": "enterprise-tech",
+      "title": "Enterprise Technology & Software — July 9, 2026",
+      "summary": "The defining question in enterprise software right now is brutally simple: does AI eat SaaS, or does it feed it? For the past several months the market has been trading on the fear that autonomous agents make seat-based software obsolete — why pay for a thousand licenses when an agent does the work?",
+      "date": "2026-07-09",
+      "seq": 6,
+      "published_at": "2026-07-09T21:59:37-04:00",
+      "audio_file": "enterprise-tech-2026-07-09.mp3",
+      "length": 2822544,
+      "duration": 470,
+      "transcript_txt": "enterprise-tech-2026-07-09.txt",
+      "transcript_html": "enterprise-tech-2026-07-09.html"
     }
   ]
 }
