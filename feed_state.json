@@ -153,6 +153,20 @@
       "duration": 548,
       "transcript_txt": "strategic-power-2026-07-09.txt",
       "transcript_html": "strategic-power-2026-07-09.html"
+    },
+    {
+      "guid": "throughline-2026-07-09",
+      "prompt_id": "throughline",
+      "title": "The Throughline (daily synthesis) — July 9, 2026",
+      "summary": "Start with the master variable, because it's hiding in three different briefings wearing three different costumes: the Strait of Hormuz.",
+      "date": "2026-07-09",
+      "seq": 7,
+      "published_at": "2026-07-09T23:05:41-04:00",
+      "audio_file": "throughline-2026-07-09.mp3",
+      "length": 2264400,
+      "duration": 377,
+      "transcript_txt": "throughline-2026-07-09.txt",
+      "transcript_html": "throughline-2026-07-09.html"
     }
   ]
 }
