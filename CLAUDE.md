@@ -115,17 +115,18 @@ The project now runs on a **prompt library** (`prompts.json`), not a single dail
    - **Publish + push:** always, automatically. No "ready to publish?" checkpoint.
    - **Research judgment:** pick sources and framing per the editorial standard; never ask the user
      to choose an angle or resolve an ambiguity that Claude can decide reasonably on its own.
-4. **Confirmation email (both paths).** After a successful publish, a summary email (subject with the
-   date + episode count, body listing each briefing → transcript/audio links, with any failed/skipped
-   prompts flagged) goes to **wamfour@gmail.com**. It fires only when ≥1 episode actually published,
-   and is worded honestly: it confirms the episodes are live on the RSS feed / GitHub Pages — Spotify
-   re-ingests on its own schedule afterward.
-   - **Scheduled 5 AM run:** `daily_run.ps1` calls `publish_feed.py --email`, which uses `notify.py`
-     (Gmail SMTP; creds from env vars `BRIEFING_SMTP_USER` / `BRIEFING_SMTP_PASS`). If those env vars
-     are unset it logs a warning and skips — it never fails a publish that already went out.
-   - **Interactive ("make my daily briefing" in a session):** *Claude itself* sends the email via the
-     Gmail integration after publishing succeeds (do **not** pass `--email` to `publish_feed.py`
-     interactively — that would double-send). Build the same summary from the publish results.
+4. **Confirmation email — ⚠️ CURRENTLY DISABLED (since 2026-07-08); do not send it.** There is no
+   working delivery path (the SMTP env vars `BRIEFING_SMTP_USER` / `BRIEFING_SMTP_PASS` aren't set, and
+   the Gmail integration's token is expired and can only draft anyway). So the send is commented out in
+   `publish_feed.py`, the `--email` flag is removed from `daily_run.ps1`, and interactive runs should
+   **not** try to send via Gmail either. Publishing is unaffected — just skip the email and say so.
+   Re-enable per the `publish-confirmation-email-blocked` memory once creds/re-auth are fixed.
+   - **Intended design (for when it's revived):** after a successful publish, a summary email (subject
+     with the date + episode count; body listing each briefing → transcript/audio links, failed/skipped
+     prompts flagged) to **wamfour@gmail.com**, fired only when ≥1 episode published. Scheduled run:
+     `publish_feed.py --email` via `notify.py` (Gmail SMTP; missing creds → warn + skip, never fails a
+     publish). Interactive: Claude sends it after publishing (do **not** also pass `--email`, to avoid
+     a double-send).
 
 Identity is by **GUID** (`<prompt_id>-<date>`), unique per topic per day. Re-running the same prompt on
 the same date overwrites that day's episode in place (idempotent); a new date adds a new episode.
@@ -162,10 +163,15 @@ feed.build_feed()
   `DOCS_TRANSCRIPTS_DIR`/`FEED_FILE`/`COVER_FILE`, `FEED_STATE_FILE`. Legacy: `SHOW_ID`, `VOICE`,
   `TTS_MAX_RETRIES`, `S2S`.
 - `main.py` — the prompt-library manager window (project entry point / green Run button).
-- `prompts.json` — the prompt library. Edited by the window, read by the batch. (The
+- `prompts.json` — the prompt library. Edited by the window, read by the batch. A prompt may carry
+  `"kind": "synthesis"` (currently `throughline`, "The Throughline") — a NOT-researched prompt authored
+  last by synthesizing the day's other briefings (see step 2 + the Novelty section). (The
   `last_episode_uri`/`last_published` fields are legacy Save-to-Spotify tracking; the public feed tracks
   episodes in `feed_state.json` instead.)
-- `library.py` — read/write + add/update/delete helpers for `prompts.json`.
+- `library.py` — read/write + add/update/delete helpers for `prompts.json`. Mutations from the window go
+  through the clobber-proof `apply_new`/`apply_update`/`apply_delete` (reload file → apply one change →
+  write), so an external edit (e.g. Claude fixing an id) made while the window is open is never
+  overwritten; `save_merged` (window-safe merge) and `save` (authoritative write) preserve the `kind` field.
 - **`feed.py`** — podcast RSS. `add_episode(prompt_id, name, summary, mp3_path, date)` copies the mp3 to
   `docs/audio/<id>-<date>.mp3`, records it (bytes + duration via `mutagen`, plus a tz-aware
   `published_at` and transcript filenames) in `feed_state.json`, and writes the verbatim transcript to
@@ -173,8 +179,9 @@ feed.build_feed()
   `docs/feed.xml` (iTunes tags, newest-first, `<pubDate>` from the real `published_at`, `<podcast:transcript>`
   tags + a "Read the full transcript" link in each description). Archive model, stable per-day GUIDs.
 - **`publish_feed.py`** — the daily batch: synth → `add_episode` per enabled prompt → `build_feed` →
-  git commit + push. Flags: `--date`, `--summaries <json>`, `--no-push`, `--require-fresh`, `--email`
-  (send the confirmation email via `notify.py`).
+  git commit + push. `_ordered_enabled` publishes `kind:"synthesis"` prompts LAST, so The Throughline
+  gets the newest timestamp and sorts to the top of the feed. Flags: `--date`, `--summaries <json>`,
+  `--no-push`, `--require-fresh`, `--email` (the email send is currently disabled — see step 4).
 - **`notify.py`** — composes + sends the "briefings published" confirmation email to `config.NOTIFY_EMAIL`
   (wamfour@gmail.com). `build_message(results, date)` is a pure, tested composer; `send_publish_summary`
   sends via Gmail SMTP using a **Google App Password** from env vars (`BRIEFING_SMTP_USER`,
