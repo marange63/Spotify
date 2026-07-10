@@ -40,6 +40,9 @@ class PromptManager:
         list_btns.pack(fill="x")
         tk.Button(list_btns, text="New", width=8, command=self._new).pack(side="left")
         tk.Button(list_btns, text="Delete", width=8, command=self._delete).pack(side="right")
+        # Pull in edits made to prompts.json by another process (e.g. Claude Code)
+        # since this window loaded — see _reload.
+        tk.Button(left, text="Reload from disk", command=self._reload).pack(fill="x", pady=(4, 0))
 
         # ---- right: editor ----
         right = tk.Frame(root)
@@ -114,10 +117,13 @@ class PromptManager:
         self.prompt_text.delete("1.0", tk.END)
 
     # ---- actions ----
+    # Every mutation goes through library.apply_* which reload prompts.json, apply
+    # just this one change, and persist — so edits another process made to the file
+    # while this window was open (id fixes, batch tracking) are never clobbered.
     def _new(self):
-        entry = library.add(self.data, "New prompt", "", enabled=True)
-        library.save_merged(self.data)
-        self._refresh_list(select_id=entry["id"])
+        self.data, new_id = library.apply_new("New prompt", "", enabled=True)
+        self.current_id = new_id
+        self._refresh_list(select_id=new_id)
         self.status_var.set("Added a new prompt — set its name and instruction, then Save.")
 
     def _save(self):
@@ -127,11 +133,10 @@ class PromptManager:
         if self.current_id is None:
             if not name and not prompt:
                 return
-            entry = library.add(self.data, name or "Untitled", prompt, enabled)
-            self.current_id = entry["id"]
+            self.data, self.current_id = library.apply_new(name or "Untitled", prompt, enabled)
         else:
-            library.update(self.data, self.current_id, name=name, prompt=prompt, enabled=enabled)
-        library.save_merged(self.data)
+            self.data, self.current_id = library.apply_update(
+                self.current_id, name=name, prompt=prompt, enabled=enabled)
         self._refresh_list(select_id=self.current_id)
         self.status_var.set(f"Saved “{name or 'Untitled'}”.  Tell Claude Code: “make my daily briefing”.")
 
@@ -145,12 +150,20 @@ class PromptManager:
                                    f"Delete “{p['name']}”?\n\nIts Spotify episode will be removed on "
                                    f"the next “make my daily briefing”."):
             return
-        library.delete(self.data, self.current_id)
-        library.save_merged(self.data)
+        self.data = library.apply_delete(self.current_id)
         self.current_id = None
         self._clear_editor()
         self._refresh_list(select_first=True)
         self.status_var.set(f"Deleted “{p['name']}”. Its episode is queued for removal on the next run.")
+
+    def _reload(self):
+        """Discard the in-memory copy and re-read prompts.json from disk, so external
+        edits (e.g. Claude Code renaming ids) show up. Overwrites the editor with the
+        on-disk version of the selected prompt, so unsaved edits here are dropped."""
+        self.data = library.load()
+        keep = self.current_id if library.find(self.data, self.current_id) else None
+        self._refresh_list(select_id=keep, select_first=(keep is None))
+        self.status_var.set(f"Reloaded from disk — {len(self.data['prompts'])} prompt(s).")
 
 
 def main() -> None:

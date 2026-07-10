@@ -117,6 +117,63 @@ class LibraryTest(unittest.TestCase):
         self.assertIsNotNone(p)
         self.assertIsNone(p["last_episode_uri"])
 
+    # ---- disk-atomic apply_* helpers (the window's clobber-proof path) ----
+    def test_apply_update_preserves_external_edits(self):
+        # This is the exact bug we hit: the window loads the file, an external
+        # process then renames an id and adds a prompt, and the window saves an
+        # edit to a *different* prompt. The external changes must survive.
+        disk = self._empty()
+        library.add(disk, "A", "pa")  # id "a"
+        library.add(disk, "B", "pb")  # id "b"
+        library.save(disk)
+
+        ext = library.load()                       # external process opens the file
+        ext["prompts"][0]["id"] = "alpha"          # ...renames A's id
+        library.add(ext, "C", "pc")                # ...and adds C
+        library.save(ext)
+
+        # window (which still calls the second prompt "b") saves an edit to it
+        _data, pid = library.apply_update("b", name="B2", prompt="pb2", enabled=False)
+        self.assertEqual(pid, "b")
+
+        d = library.load()
+        self.assertIsNotNone(library.find(d, "alpha"))  # external rename survived
+        self.assertIsNotNone(library.find(d, "c"))      # external addition survived
+        p = library.find(d, "b")
+        self.assertEqual((p["name"], p["prompt"], p["enabled"]), ("B2", "pb2", False))
+
+    def test_apply_new_dedups_against_disk(self):
+        disk = self._empty()
+        library.add(disk, "Markets", "p")  # id "markets"
+        library.save(disk)
+        _data, nid = library.apply_new("Markets", "q")
+        self.assertEqual(nid, "markets-2")  # deduped vs disk, not a stale in-memory set
+        self.assertEqual(len(library.load()["prompts"]), 2)
+
+    def test_apply_update_readds_if_externally_deleted(self):
+        disk = self._empty()
+        library.add(disk, "A", "p")  # id "a"
+        library.save(disk)
+        gone = library.load()
+        library.delete(gone, "a")    # external delete while window still edits "a"
+        library.save(gone)
+
+        _data, pid = library.apply_update("a", name="A back", prompt="p2", enabled=True)
+        d = library.load()
+        self.assertIsNotNone(library.find(d, pid))
+        self.assertEqual(library.find(d, pid)["name"], "A back")
+
+    def test_apply_delete_removes_and_tombstones(self):
+        disk = self._empty()
+        library.add(disk, "A", "p")
+        disk["prompts"][0]["last_episode_uri"] = "spotify:episode:Z"
+        library.save(disk)
+
+        library.apply_delete("a")
+        d = library.load()
+        self.assertIsNone(library.find(d, "a"))
+        self.assertIn("spotify:episode:Z", d["orphans"])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -186,3 +186,44 @@ def delete(data: dict, prompt_id: str) -> None:
     if p.get("last_episode_uri"):
         data.setdefault("orphans", []).append(p["last_episode_uri"])
     data["prompts"] = [x for x in data["prompts"] if x["id"] != prompt_id]
+
+
+# --- disk-atomic mutations (read-modify-write against the current file) --------
+# The manager window is long-lived: it loads prompts.json once and stays open for
+# minutes while, potentially, another process (Claude Code fixing ids, the batch
+# writing tracking fields) edits the same file. Writing the window's whole stale
+# in-memory copy back would silently clobber those external edits. These helpers
+# instead RELOAD the file, apply just the one mutation the user made, and persist —
+# so an external change to any *other* prompt (or to an id) is always preserved.
+# They return the freshly-loaded data so the caller can rebind its in-memory copy.
+
+def apply_new(name: str = "New prompt", prompt: str = "", enabled: bool = True):
+    """Reload from disk, append a new prompt, persist. Returns ``(data, new_id)``.
+    The id is deduplicated against whatever is on disk now, not a stale set."""
+    data = load()
+    entry = add(data, name, prompt, enabled)
+    save(data)
+    return data, entry["id"]
+
+
+def apply_update(prompt_id: str, *, name=None, prompt=None, enabled=None):
+    """Reload from disk, update one prompt in place, persist. Returns ``(data, id)``.
+    If the prompt was deleted externally while the window was open, re-add it so the
+    user's in-progress edit isn't silently lost (returns the possibly-new id)."""
+    data = load()
+    if find(data, prompt_id) is None:
+        entry = add(data, name or "Untitled", prompt or "",
+                    True if enabled is None else bool(enabled))
+        save(data)
+        return data, entry["id"]
+    update(data, prompt_id, name=name, prompt=prompt, enabled=enabled)
+    save(data)
+    return data, prompt_id
+
+
+def apply_delete(prompt_id: str):
+    """Reload from disk, delete one prompt (tombstoning its episode), persist. Returns data."""
+    data = load()
+    delete(data, prompt_id)
+    save(data)
+    return data
