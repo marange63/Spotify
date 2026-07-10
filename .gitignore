@@ -16,6 +16,9 @@ Thumbs.db
 *.mp3
 !docs/audio/
 !docs/audio/*.mp3
+# ...including the staging channel's audio (docs/test/)
+!docs/test/audio/
+!docs/test/audio/*.mp3
 
 # Unattended run logs
 logs/

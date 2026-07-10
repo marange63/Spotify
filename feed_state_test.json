@@ -1,0 +1,18 @@
+{
+  "episodes": [
+    {
+      "guid": "throughline-2026-07-09",
+      "prompt_id": "throughline",
+      "title": "Staging seed — The Throughline — July 9, 2026",
+      "summary": "Seed episode so the staging feed is valid for Spotify submission; safe to delete once real test episodes are published.",
+      "date": "2026-07-09",
+      "seq": 0,
+      "published_at": "2026-07-09T23:55:20-04:00",
+      "audio_file": "throughline-2026-07-09.mp3",
+      "length": 2264400,
+      "duration": 377,
+      "transcript_txt": "throughline-2026-07-09.txt",
+      "transcript_html": "throughline-2026-07-09.html"
+    }
+  ]
+}

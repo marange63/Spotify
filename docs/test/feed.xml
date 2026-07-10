@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+     xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:podcast="https://podcastindex.org/namespace/1.0"
+     xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cautious Optimism Briefings (Staging)</title>
+    <link>https://marange63.github.io/Spotify/test/</link>
+    <atom:link href="https://marange63.github.io/Spotify/test/feed.xml" rel="self" type="application/rss+xml"/>
+    <language>en-us</language>
+    <description>Staging feed for testing briefings before they go to the main show. Not the public production show.</description>
+    <itunes:summary>Staging feed for testing briefings before they go to the main show. Not the public production show.</itunes:summary>
+    <itunes:author>Cautious Optimism</itunes:author>
+    <itunes:type>episodic</itunes:type>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:image href="https://marange63.github.io/Spotify/test/cover.jpg"/>
+    <image>
+      <url>https://marange63.github.io/Spotify/test/cover.jpg</url>
+      <title>Cautious Optimism Briefings (Staging)</title>
+      <link>https://marange63.github.io/Spotify/test/</link>
+    </image>
+    <itunes:category text="Business">
+      <itunes:category text="Investing"/>
+    </itunes:category>
+    <itunes:owner>
+      <itunes:name>Cautious Optimism</itunes:name>
+      <itunes:email>wamfour@gmail.com</itunes:email>
+    </itunes:owner>
+    <item>
+      <title>Staging seed — The Throughline — July 9, 2026</title>
+      <description>Seed episode so the staging feed is valid for Spotify submission; safe to delete once real test episodes are published.
+
+Published July 9, 2026 at 11:55 PM (ET).
+
+Read the full transcript: https://marange63.github.io/Spotify/test/transcripts/throughline-2026-07-09.html</description>
+      <itunes:summary>Seed episode so the staging feed is valid for Spotify submission; safe to delete once real test episodes are published.
+
+Published July 9, 2026 at 11:55 PM (ET).
+
+Read the full transcript: https://marange63.github.io/Spotify/test/transcripts/throughline-2026-07-09.html</itunes:summary>
+      <enclosure url="https://marange63.github.io/Spotify/test/audio/throughline-2026-07-09.mp3" length="2264400" type="audio/mpeg"/>
+      <guid isPermaLink="false">throughline-2026-07-09</guid>
+      <pubDate>Thu, 09 Jul 2026 23:55:20 -0400</pubDate>
+      <itunes:duration>6:17</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:episodeType>full</itunes:episodeType>
+      <podcast:transcript url="https://marange63.github.io/Spotify/test/transcripts/throughline-2026-07-09.html" type="text/html" language="en"/>
+      <podcast:transcript url="https://marange63.github.io/Spotify/test/transcripts/throughline-2026-07-09.txt" type="text/plain" language="en"/>
+    </item>
+  </channel>
+</rss>
