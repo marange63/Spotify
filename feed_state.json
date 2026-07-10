@@ -57,34 +57,6 @@
       "transcript_html": "strategic-power-2026-07-08.html"
     },
     {
-      "guid": "digital-money-2026-07-09",
-      "prompt_id": "digital-money",
-      "title": "Digital Money, Crypto, and Market Structure — July 9, 2026",
-      "summary": "The news is that the SEC is preparing to propose its first major crypto rule as soon as this month — an initiative the agency is calling \"Regulation Crypto.\" The substance is what matters: it would create temporary exemptions from securities registration for developers first issuing crypto investment contracts, allow…",
-      "date": "2026-07-09",
-      "seq": 3,
-      "published_at": "2026-07-09T18:01:13-04:00",
-      "audio_file": "digital-money-2026-07-09.mp3",
-      "length": 3197808,
-      "duration": 533,
-      "transcript_txt": "digital-money-2026-07-09.txt",
-      "transcript_html": "digital-money-2026-07-09.html"
-    },
-    {
-      "guid": "strategic-power-2026-07-09",
-      "prompt_id": "strategic-power",
-      "title": "Strategic Power, Energy, and Institutional Change — July 9, 2026",
-      "summary": "Start with the number that should reframe how you think about data-center economics. In PJM — the grid operator covering thirteen states and the largest power market in the country — the capacity auction for the 2026-2027 delivery year cleared at 329.17 dollars per megawatt-day, across all zones, a record.",
-      "date": "2026-07-09",
-      "seq": 3,
-      "published_at": "2026-07-09T18:01:30-04:00",
-      "audio_file": "strategic-power-2026-07-09.mp3",
-      "length": 3285504,
-      "duration": 548,
-      "transcript_txt": "strategic-power-2026-07-09.txt",
-      "transcript_html": "strategic-power-2026-07-09.html"
-    },
-    {
       "guid": "frontier-ai-labs-2026-07-09",
       "prompt_id": "frontier-ai-labs",
       "title": "Frontier AI Lab Competition — July 9, 2026",
@@ -153,6 +125,34 @@
       "duration": 470,
       "transcript_txt": "enterprise-tech-2026-07-09.txt",
       "transcript_html": "enterprise-tech-2026-07-09.html"
+    },
+    {
+      "guid": "digital-money-2026-07-09",
+      "prompt_id": "digital-money",
+      "title": "Digital Money, Crypto, and Market Structure — July 9, 2026",
+      "summary": "The news is that the SEC is preparing to propose its first major crypto rule as soon as this month — an initiative the agency is calling \"Regulation Crypto.\" The substance is what matters: it would create temporary exemptions from securities registration for developers first issuing crypto investment contracts, allow…",
+      "date": "2026-07-09",
+      "seq": 6,
+      "published_at": "2026-07-09T22:33:21-04:00",
+      "audio_file": "digital-money-2026-07-09.mp3",
+      "length": 3197808,
+      "duration": 533,
+      "transcript_txt": "digital-money-2026-07-09.txt",
+      "transcript_html": "digital-money-2026-07-09.html"
+    },
+    {
+      "guid": "strategic-power-2026-07-09",
+      "prompt_id": "strategic-power",
+      "title": "Strategic Power, Energy, and Institutional Change — July 9, 2026",
+      "summary": "Start with the number that should reframe how you think about data-center economics. In PJM — the grid operator covering thirteen states and the largest power market in the country — the capacity auction for the 2026-2027 delivery year cleared at 329.17 dollars per megawatt-day, across all zones, a record.",
+      "date": "2026-07-09",
+      "seq": 6,
+      "published_at": "2026-07-09T22:34:25-04:00",
+      "audio_file": "strategic-power-2026-07-09.mp3",
+      "length": 3285504,
+      "duration": 548,
+      "transcript_txt": "strategic-power-2026-07-09.txt",
+      "transcript_html": "strategic-power-2026-07-09.html"
     }
   ]
 }
