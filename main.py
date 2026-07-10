@@ -78,7 +78,8 @@ class PromptManager:
         self.listbox.delete(0, tk.END)
         for p in self.data["prompts"]:
             mark = "●" if p.get("enabled", True) else "○"
-            self.listbox.insert(tk.END, f" {mark}  {p['name']}")
+            suffix = "  ∑" if p.get("kind") == "synthesis" else ""  # cross-briefing synthesis
+            self.listbox.insert(tk.END, f" {mark}  {p['name']}{suffix}")
         ids = [p["id"] for p in self.data["prompts"]]
         target = select_id if select_id in ids else (ids[0] if (select_first and ids) else None)
         if target:
@@ -161,7 +162,7 @@ class PromptManager:
         edits (e.g. Claude Code renaming ids) show up. Overwrites the editor with the
         on-disk version of the selected prompt, so unsaved edits here are dropped."""
         self.data = library.load()
-        keep = self.current_id if library.find(self.data, self.current_id) else None
+        keep = self.current_id if (self.current_id and library.find(self.data, self.current_id)) else None
         self._refresh_list(select_id=keep, select_first=(keep is None))
         self.status_var.set(f"Reloaded from disk — {len(self.data['prompts'])} prompt(s).")
 

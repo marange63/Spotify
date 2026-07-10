@@ -63,13 +63,20 @@ def _git(*args: str) -> None:
     subprocess.run(["git", "-C", config.HERE, *args], check=True)
 
 
+def _ordered_enabled(data: dict) -> list:
+    """Enabled prompts in publish order: normal prompts first, then ``kind=="synthesis"``
+    prompts (e.g. The Throughline), which summarize the others and so must be authored/
+    published last — publishing last also gives them the newest ``published_at`` so they
+    sort to the top of the feed. Stable within each group."""
+    enabled = [p for p in data["prompts"] if p.get("enabled")]
+    return sorted(enabled, key=lambda p: p.get("kind") == "synthesis")
+
+
 def publish(date: str, summaries: dict, push: bool = True,
-            require_fresh: bool = False) -> list[tuple[str, str]]:
+            require_fresh: bool = False, email: bool = False) -> list[tuple[str, str]]:
     data = library.load()
     results = []
-    for p in data["prompts"]:
-        if not p.get("enabled"):
-            continue
+    for p in _ordered_enabled(data):
         pid, name = p["id"], p["name"]
         text_path = os.path.join(config.BRIEFINGS_DIR, pid + ".txt")
         if not os.path.exists(text_path):
@@ -102,6 +109,15 @@ def publish(date: str, summaries: dict, push: bool = True,
             log.info("pushed to origin/main")
         else:
             log.info("nothing to commit")
+
+    # NOTE: confirmation email temporarily disabled — no working delivery path yet
+    # (Gmail integration token expired; SMTP app-password env vars not set). See the
+    # 'publish-confirmation-email-blocked' memory. Re-enable this block once creds are set.
+    # if email:
+    #     # Best-effort confirmation to the owner; never fails the run (publishing is done).
+    #     import notify
+    #     notify.send_publish_summary(results, date)
+
     return results
 
 
@@ -113,6 +129,9 @@ def main() -> int:
     ap.add_argument("--no-push", action="store_true")
     ap.add_argument("--require-fresh", action="store_true",
                     help="only publish briefings whose script was written on --date")
+    ap.add_argument("--email", action="store_true",
+                    help="email a publish-summary confirmation to the owner (see notify.py; "
+                         "used by the unattended scheduled run)")
     args = ap.parse_args()
 
     summaries = {}
@@ -121,7 +140,7 @@ def main() -> int:
             summaries = json.load(f)
 
     results = publish(args.date, summaries, push=not args.no_push,
-                      require_fresh=args.require_fresh)
+                      require_fresh=args.require_fresh, email=args.email)
     print("\n===== RESULTS =====")
     for name, status in results:
         print(f"{name}: {status}")

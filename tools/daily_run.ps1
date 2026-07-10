@@ -47,7 +47,12 @@ Research and write today's daily briefings. For EVERY enabled prompt in prompts.
 research it using fresh web search following the editorial standard and preferred sources
 in CLAUDE.md, then write the script to briefings/<id>.txt (overwrite the old one). Honor any
 word length stated in the prompt text. Do NOT publish, do NOT run publish_feed.py, and do NOT
-git commit or push — ONLY write the briefings/<id>.txt files.$novelty
+git commit or push — ONLY write the briefings/<id>.txt files.
+
+Handle any prompt whose "kind" is "synthesis" (e.g. the "throughline" prompt) LAST and
+differently: do NOT research it. After all the normal briefings/<id>.txt for today are written,
+write the synthesis script by reading those other briefings and synthesizing across them per that
+prompt's instruction — no fresh web search for synthesis prompts.$novelty
 When finished, list the files you wrote.
 "@
 
@@ -56,6 +61,9 @@ Log "phase 1: headless Claude research + write"
 Log "phase 1 exit code: $LASTEXITCODE"
 
 # Phase 2 — deterministic publish (TTS -> feed -> git push) -------------------
+# NOTE: confirmation email temporarily disabled (no working delivery path yet — see the
+# 'publish-confirmation-email-blocked' memory). Re-add --email once BRIEFING_SMTP_USER /
+# BRIEFING_SMTP_PASS are set; the send in publish_feed.py must also be un-commented.
 Log "phase 2: publish_feed.py --require-fresh"
 & $conda run -n Spotify --no-capture-output python publish_feed.py --date $today --require-fresh *>> $log
 $pubExit = $LASTEXITCODE

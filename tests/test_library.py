@@ -174,6 +174,28 @@ class LibraryTest(unittest.TestCase):
         self.assertIsNone(library.find(d, "a"))
         self.assertIn("spotify:episode:Z", d["orphans"])
 
+    # ---- synthesis prompts carry a "kind" field that must survive saves ----
+    def test_apply_update_preserves_kind(self):
+        disk = self._empty()
+        e = library.add(disk, "The Throughline", "synthesize")
+        disk["prompts"][0]["kind"] = "synthesis"
+        library.save(disk)
+        library.apply_update(e["id"], name="The Throughline v2")
+        p = library.find(library.load(), e["id"])
+        self.assertEqual(p.get("kind"), "synthesis")   # kind preserved
+        self.assertEqual(p["name"], "The Throughline v2")
+
+    def test_save_merged_preserves_kind(self):
+        disk = self._empty()
+        library.add(disk, "The Throughline", "synthesize")
+        disk["prompts"][0]["kind"] = "synthesis"
+        library.save(disk)
+        stale = copy.deepcopy(disk)
+        stale["prompts"][0]["name"] = "renamed"       # a window edit
+        library.save_merged(stale)
+        p = library.find(library.load(), disk["prompts"][0]["id"])
+        self.assertEqual(p.get("kind"), "synthesis")
+
 
 if __name__ == "__main__":
     unittest.main()

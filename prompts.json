@@ -57,6 +57,15 @@
       "enabled": true,
       "last_episode_uri": null,
       "last_published": null
+    },
+    {
+      "id": "throughline",
+      "name": "The Throughline (daily synthesis)",
+      "prompt": "You are writing THE THROUGHLINE — the daily cross-briefing synthesis and the \"front page\" of the show. This is NOT a researched briefing; it is a synthesis of the OTHER briefings written today. Before writing, read every other enabled briefing script for today (the briefings/<id>.txt files, excluding this one) and write a single roughly 1000-word (about 6-7 minute) spoken-word synthesis that ties them together for a sophisticated listener.\n\nLead with the single biggest cross-domain story of the day — the one variable or theme that shows up across multiple briefings — and name it explicitly. Then develop three to four \"throughlines\": connections, shared drivers, or second-order links that cut across the individual briefings (for example, a geopolitical shock that simultaneously moves rates, energy, and crypto; a constraint that binds several domains at once; or value migrating across a stack). For each throughline, reference by name the specific briefings it draws from, so the listener knows which episodes to go deeper on.\n\nCrucially, include a \"where the briefings disagree\" beat: surface a genuine tension or contradiction between the individual briefings (e.g. one briefing's optimism against another's caution). Exposing that tension is something no single-topic briefing can do and is the unique value of this segment. Close by pointing at the days and catalysts ahead that will resolve the open questions, clustering them where they cluster.\n\nDo NOT do fresh web research or introduce facts not present in the day's other briefings — your job is to connect and elevate what was already reported, not to add new reporting. Write for the same expert audience and follow the editorial standard and format in CLAUDE.md: single narrator, conversational, no headers, bullets, or stage directions; open with a one-line greeting that names \"The Throughline\" and states the date; close with a one-line sign-off.",
+      "enabled": true,
+      "kind": "synthesis",
+      "last_episode_uri": null,
+      "last_published": null
     }
   ],
   "orphans": []

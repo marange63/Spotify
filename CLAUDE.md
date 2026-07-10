@@ -75,8 +75,16 @@ The project now runs on a **prompt library** (`prompts.json`), not a single dail
    (do not trust an earlier read from this session — the user may have added prompts in the window since)
    and write a script for **every** currently-enabled prompt; the count can change mid-session. For
    **each enabled prompt**, Claude researches it (editorial standard + preferred sources above; honor
-   any length the prompt states, else ~700 words) and writes the script to `briefings/<id>.txt`. Then
-   it publishes the whole batch to the public feed:
+   any length the prompt states, else ~700 words) and writes the script to `briefings/<id>.txt`.
+
+   **Synthesis prompts (`"kind": "synthesis"` in `prompts.json`, e.g. `throughline` — "The
+   Throughline"):** these are NOT researched. Write them **last**, after every normal briefing for
+   today is on disk, by reading those other `briefings/<id>.txt` scripts and synthesizing across them
+   (the day's cross-domain through-lines + a "where the briefings disagree" beat). Do **no** fresh web
+   research for a synthesis prompt — it only connects and elevates what the other briefings already
+   said. `publish_feed.py` publishes synthesis prompts last so they sort to the top of the feed.
+
+   Then publish the whole batch to the public feed:
 
    ```bash
    # after all briefings/<id>.txt are written for today; runs in the Spotify conda env

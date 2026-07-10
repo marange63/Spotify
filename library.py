@@ -110,14 +110,17 @@ def save_merged(data: dict) -> None:
     out_prompts = []
     for p in data["prompts"]:
         dk = disk_by_id.get(p["id"], {})  # existing on disk -> keep its tracking
-        out_prompts.append({
+        entry = {
             "id": p["id"],
             "name": p.get("name"),
             "prompt": p.get("prompt", ""),
             "enabled": bool(p.get("enabled", True)),
             "last_episode_uri": dk.get("last_episode_uri", p.get("last_episode_uri")),
             "last_published": dk.get("last_published", p.get("last_published")),
-        })
+        }
+        if p.get("kind"):  # e.g. "synthesis" — preserve special prompt kinds
+            entry["kind"] = p["kind"]
+        out_prompts.append(entry)
 
     # Tombstone the live episode of any prompt that existed on disk but was deleted in the window.
     orphans = list(disk.get("orphans", [])) + list(data.get("orphans", []))
