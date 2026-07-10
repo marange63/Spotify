@@ -48,6 +48,10 @@ COVER_FILE = os.path.join(DOCS_DIR, "cover.jpg")
 # Accumulating archive of published episodes that the feed is generated from.
 FEED_STATE_FILE = os.path.join(HERE, "feed_state.json")
 
+# Where the "briefings published" confirmation email goes (see notify.py). The
+# SMTP credentials themselves come from env vars, never the repo.
+NOTIFY_EMAIL = "wamfour@gmail.com"
+
 # Text-to-speech
 VOICE = "en-US-AndrewNeural"
 TTS_MAX_RETRIES = 6
