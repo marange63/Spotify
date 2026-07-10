@@ -71,9 +71,12 @@ The project now runs on a **prompt library** (`prompts.json`), not a single dail
 1. Run `main.py` (PyCharm Run button, or `python main.py`) — the prompt-library window opens. Add,
    edit, enable/disable, and delete named prompts. Each prompt is a full instruction for one briefing.
    The window has no model and needs no API key; it only edits `prompts.json`.
-2. In Claude Code, say **"make my daily briefing."** For **each enabled prompt**, Claude researches it
-   (editorial standard + preferred sources above; honor any length the prompt states, else ~700 words)
-   and writes the script to `briefings/<id>.txt`. Then it publishes the whole batch to the public feed:
+2. In Claude Code, say **"make my daily briefing."** **First re-read `prompts.json` fresh from disk**
+   (do not trust an earlier read from this session — the user may have added prompts in the window since)
+   and write a script for **every** currently-enabled prompt; the count can change mid-session. For
+   **each enabled prompt**, Claude researches it (editorial standard + preferred sources above; honor
+   any length the prompt states, else ~700 words) and writes the script to `briefings/<id>.txt`. Then
+   it publishes the whole batch to the public feed:
 
    ```bash
    # after all briefings/<id>.txt are written for today; runs in the Spotify conda env
