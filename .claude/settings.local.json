@@ -32,7 +32,17 @@
       "Bash(git -c core.quotepath=false status -s -- docs briefings feed_state.json prompts.json)",
       "Bash(grep -v -- '-2026-07-0[89]\\\\.\\\\\\(mp3\\\\|txt\\\\|html\\\\\\)$')",
       "Bash(git diff *)",
-      "Bash(PYTHONPATH=\"C:/Users/wamfo/ClaudeDev/Spotify\" conda run -n Spotify --no-capture-output python \"C:/Users/wamfo/AppData/Local/Temp/claude/C--Users-wamfo-ClaudeDev-Spotify/65e03935-dfbf-401a-9ff7-6b42a5626194/scratchpad/fix_new_ids.py\")"
+      "Bash(PYTHONPATH=\"C:/Users/wamfo/ClaudeDev/Spotify\" conda run -n Spotify --no-capture-output python \"C:/Users/wamfo/AppData/Local/Temp/claude/C--Users-wamfo-ClaudeDev-Spotify/65e03935-dfbf-401a-9ff7-6b42a5626194/scratchpad/fix_new_ids.py\")",
+      "Bash(python -c \"import json; s=json.load\\(open\\('feed_state.json'\\)\\); eps=s['episodes'] if isinstance\\(s,dict\\) and 'episodes' in s else s; print\\(type\\(s\\)\\); print\\(len\\(eps\\)\\);\")",
+      "Bash(git log *)",
+      "Bash(python -)",
+      "Bash(git commit -m 'Republish capital-markets-radar for 2026-07-12 \\(TTS retry\\) *)",
+      "Bash(git commit -m 'CLAUDE.md: document staging feed, daily_run.ps1, TTS failure recovery, working-tree state *)",
+      "Bash(git commit -m 'Add '\\\\''AI in Biopharma R&D'\\\\'' briefing prompt *)",
+      "Bash(git commit -m 'Publish AI in Biopharma R&D for 2026-07-12 *)",
+      "Bash(curl -sI \"https://marange63.github.io/Spotify/audio/ai-in-biopharma-r-d-2026-07-12.mp3\")",
+      "Bash(git commit -m 'Track briefing scripts for 2026-07-12 \\(incl. AI in Biopharma R&D\\) *)",
+      "Bash(git commit -m 'chore: update local permission allowlist *)"
     ]
   }
 }
