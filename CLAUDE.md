@@ -3,7 +3,7 @@
 **Goal:** a public daily podcast of expert-level audio briefings, **Cautious Optimism Briefings**. You
 keep a library of standing prompts (topics); on command, Claude Code turns each into a fresh, researched
 spoken briefing and publishes it as a new episode in the show.
-co
+
 **How it's built (current — public podcast via self-hosted RSS):** a key-free Tkinter window (`main.py`)
 manages the prompt library (`prompts.json`); Claude Code does the research + writing; `edge-tts` makes
 the audio; **`feed.py` builds a podcast RSS feed and the audio + cover + `feed.xml` + per-episode
@@ -23,6 +23,15 @@ back-catalogue. This replaced the older "replace the prior version" model, which
 - **Show:** Cautious Optimism Briefings · Feed: https://marange63.github.io/Spotify/feed.xml
 - **Pages site:** https://marange63.github.io/Spotify/ (served from `main` branch, `/docs` folder)
 - **Owner/verification email:** wamfour@gmail.com (in the feed's `itunes:owner`)
+
+**Staging feed (in progress):** a second public show, "Cautious Optimism Briefings (Staging)", for
+trialing briefings without touching production. A minimal hand-seeded feed is live at
+`docs/test/feed.xml` (state: `feed_state_test.json`; seeded 2026-07-09, commit `73b812b`) so there's a
+real URL to submit at creators.spotify.com. **Status: seed published; the user still has to submit +
+verify the show on Spotify, and the code wiring (`Channel` in `config.py`, channel-aware `feed.py`,
+`publish_feed.py --test`/`--only`) is NOT built yet** — no Python currently reads `docs/test/` or
+`feed_state_test.json`, so nothing publishes there; the daily batch touches production only. Design +
+sequencing live in the `feature-idea-staging-feed` memory.
 
 ## Editorial standard for every briefing
 
@@ -188,17 +197,25 @@ feed.build_feed()
   `BRIEFING_SMTP_PASS`; optional `BRIEFING_NOTIFY_TO`). Missing creds → warn + skip (never raises). See
   the module docstring for the one-time `setx` setup.
 - **`feed_state.json`** — the accumulating episode archive the feed is built from (source of truth).
+- **`feed_state_test.json`** / **`docs/test/`** — the staging feed's state + hosted files (see the
+  Staging feed note above). Hand-seeded; not yet wired into any code.
 - **`docs/`** — the GitHub Pages site: `cover.jpg` (1500×1500), `index.html`, `.nojekyll`, `feed.xml`,
   `audio/<id>-<date>.mp3`, `transcripts/<id>-<date>.txt` + `.html`. Served at
   `https://marange63.github.io/Spotify/` from `main` `/docs`. (Transcripts: Apple Podcasts and
   Podcasting 2.0 apps read the `<podcast:transcript>` tag; Spotify ignores RSS transcripts, so the
   description link is how Spotify listeners reach the hosted page.)
-- **`tools/`** — `make_cover.py` (regenerates the cover via Pillow), `seed_feed.py` (one-off backfill).
+- **`tools/`** — `daily_run.ps1` (the unattended 5 AM Task Scheduler entry point: phase 1 headless
+  Claude writes the scripts, phase 2 `publish_feed.py --require-fresh` publishes; logs to
+  `logs\daily-<date>.log`), `make_cover.py` (regenerates the cover via Pillow), `seed_feed.py`
+  (one-off backfill).
+- **`logs/`** — git-ignored per-day logs from the scheduled run (`daily-<YYYY-MM-DD>.log`); check the
+  latest one first when asked how the morning run went.
 - `episode.py` — **used only for TTS now**: `synthesize` + resilient paragraph-wise `_synthesize`. The
   `publish_replacing`/`upload_episode`/`wait_ready`/`delete_episode` helpers are the retired private path.
 - `briefings/<id>.txt` / `.mp3` — per-prompt scripts and working audio (the `.mp3` is git-ignored; the
   published copy lives under `docs/audio/`).
-- Dependencies (in the **`Spotify`** conda env): `edge-tts`, `aiohttp`, `Pillow`, `mutagen`.
+- Dependencies (in the **`Spotify`** conda env): `edge-tts`, `aiohttp`, `Pillow`, `mutagen` —
+  declared in `environment.yml` (conda) / `requirements.txt` (pip); both files are the same list.
 - Legacy private path: binary `%USERPROFILE%\bin\save-to-spotify.exe`; private show **Daily Briefings**
   = `spotify:show:033LxzC8UHlbiJmWLw3n2K` (episodes there are not publicly shareable).
 - `tests/` — stdlib `unittest` suite. Run: `python -m unittest discover -s tests -t .`
@@ -210,3 +227,14 @@ Microsoft's edge-tts endpoint intermittently drops mid-stream on long inputs (Wi
 ClientConnectorError), truncating the mp3. `episode._synthesize` handles this by synthesizing **one
 short WebSocket per paragraph with retries**, then concatenating — a drop only re-does one paragraph.
 Expect retry noise in the batch log; a complete run is what matters.
+
+A paragraph can still exhaust all `TTS_MAX_RETRIES` (6) attempts, which fails **that episode only**
+(the batch continues and still publishes the rest — e.g. 2026-07-12, when capital-markets-radar
+failed and 7 of 8 episodes shipped). The script is still on disk, so the fix is the "Re-publishing
+one prompt manually" snippet above once the endpoint recovers.
+
+## Known working-tree state
+
+The scheduled run rewrites `briefings/<id>.txt` daily, but `publish_feed.py` commits only `docs/` +
+`feed_state.json` — so **modified `briefings/*.txt` in `git status` after a morning run is normal**,
+not a sign of an interrupted publish. Root `briefing.txt`/`briefing.mp3` are inert legacy files.
