@@ -503,6 +503,20 @@
       "duration": 456,
       "transcript_txt": "capital-markets-radar-2026-07-12.txt",
       "transcript_html": "capital-markets-radar-2026-07-12.html"
+    },
+    {
+      "guid": "ai-in-biopharma-r-d-2026-07-12",
+      "prompt_id": "ai-in-biopharma-r-d",
+      "title": "AI in Biopharma R&D — July 12, 2026",
+      "summary": "Start with the single most important structural shift of 2026, because it reframes everything else. The industry has stopped buying AI-discovered molecules one at a time and started licensing the models themselves.",
+      "date": "2026-07-12",
+      "seq": 8,
+      "published_at": "2026-07-12T22:16:07-04:00",
+      "audio_file": "ai-in-biopharma-r-d-2026-07-12.mp3",
+      "length": 3494592,
+      "duration": 582,
+      "transcript_txt": "ai-in-biopharma-r-d-2026-07-12.txt",
+      "transcript_html": "ai-in-biopharma-r-d-2026-07-12.html"
     }
   ]
 }
