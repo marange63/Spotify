@@ -489,6 +489,20 @@
       "duration": 472,
       "transcript_txt": "throughline-2026-07-12.txt",
       "transcript_html": "throughline-2026-07-12.html"
+    },
+    {
+      "guid": "capital-markets-radar-2026-07-12",
+      "prompt_id": "capital-markets-radar",
+      "title": "Capital Markets Cross-Asset Radar — July 12, 2026",
+      "summary": "Start with the oil reversal, because it inverts last week's story. A week ago I told you crude had rolled over on Gulf de-escalation, and I framed the fading inflation impulse as the fresh fact. That framing is now wrong, and the correction matters.",
+      "date": "2026-07-12",
+      "seq": 7,
+      "published_at": "2026-07-12T21:49:19-04:00",
+      "audio_file": "capital-markets-radar-2026-07-12.mp3",
+      "length": 2738592,
+      "duration": 456,
+      "transcript_txt": "capital-markets-radar-2026-07-12.txt",
+      "transcript_html": "capital-markets-radar-2026-07-12.html"
     }
   ]
 }
