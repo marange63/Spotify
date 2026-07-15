@@ -839,6 +839,62 @@
       "duration": 655,
       "transcript_txt": "semiconductors-compute-2026-07-15.txt",
       "transcript_html": "semiconductors-compute-2026-07-15.html"
+    },
+    {
+      "guid": "ai-products-2026-07-15",
+      "prompt_id": "ai-products",
+      "title": "AI Products & Applications — July 15, 2026",
+      "summary": "Yesterday I told you the AI coworker had become a three-way product war in a single week, and that the usage data pointed its real market at the back office rather than the IDE.",
+      "date": "2026-07-15",
+      "seq": 5,
+      "published_at": "2026-07-15T08:14:26-04:00",
+      "audio_file": "ai-products-2026-07-15.mp3",
+      "length": 2840112,
+      "duration": 473,
+      "transcript_txt": "ai-products-2026-07-15.txt",
+      "transcript_html": "ai-products-2026-07-15.html"
+    },
+    {
+      "guid": "enterprise-tech-2026-07-15",
+      "prompt_id": "enterprise-tech",
+      "title": "Enterprise Technology & Software — July 15, 2026",
+      "summary": "Yesterday I argued the platform vendors had decided the scarce resource in enterprise AI is implementation, and were buying and building consultancies, Microsoft's Frontier Company, OpenAI's Northslope acquisition, to seize the services layer from the integrators.",
+      "date": "2026-07-15",
+      "seq": 6,
+      "published_at": "2026-07-15T08:16:54-04:00",
+      "audio_file": "enterprise-tech-2026-07-15.mp3",
+      "length": 3015792,
+      "duration": 503,
+      "transcript_txt": "enterprise-tech-2026-07-15.txt",
+      "transcript_html": "enterprise-tech-2026-07-15.html"
+    },
+    {
+      "guid": "ai-in-biopharma-r-d-2026-07-15",
+      "prompt_id": "ai-in-biopharma-r-d",
+      "title": "AI in Biopharma R&D — July 15, 2026",
+      "summary": "Start with the deals, because the pattern is the news, not any single headline number.",
+      "date": "2026-07-15",
+      "seq": 7,
+      "published_at": "2026-07-15T08:19:00-04:00",
+      "audio_file": "ai-in-biopharma-r-d-2026-07-15.mp3",
+      "length": 3089664,
+      "duration": 515,
+      "transcript_txt": "ai-in-biopharma-r-d-2026-07-15.txt",
+      "transcript_html": "ai-in-biopharma-r-d-2026-07-15.html"
+    },
+    {
+      "guid": "throughline-2026-07-15",
+      "prompt_id": "throughline",
+      "title": "The Throughline (daily synthesis) — July 15, 2026",
+      "summary": "The single biggest cross-domain story today has a name, and the name is the state. Not the state as legislator, passing laws from a distance, but the state as counterparty, sitting inside the stack, holding equity, curating customer lists, granting charters, permitting load, and reviewing molecules in real time.",
+      "date": "2026-07-15",
+      "seq": 8,
+      "published_at": "2026-07-15T08:20:40-04:00",
+      "audio_file": "throughline-2026-07-15.mp3",
+      "length": 2714256,
+      "duration": 452,
+      "transcript_txt": "throughline-2026-07-15.txt",
+      "transcript_html": "throughline-2026-07-15.html"
     }
   ]
 }
