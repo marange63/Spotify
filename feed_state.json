@@ -769,6 +769,76 @@
       "duration": 478,
       "transcript_txt": "throughline-2026-07-14.txt",
       "transcript_html": "throughline-2026-07-14.html"
+    },
+    {
+      "guid": "frontier-ai-labs-2026-07-15",
+      "prompt_id": "frontier-ai-labs",
+      "title": "Frontier AI Lab Competition — July 15, 2026",
+      "summary": "Yesterday I told you the hierarchy at the frontier is set by who can say no to whom on compute.",
+      "date": "2026-07-15",
+      "seq": 0,
+      "published_at": "2026-07-15T05:14:20-04:00",
+      "audio_file": "frontier-ai-labs-2026-07-15.mp3",
+      "length": 3457440,
+      "duration": 576,
+      "transcript_txt": "frontier-ai-labs-2026-07-15.txt",
+      "transcript_html": "frontier-ai-labs-2026-07-15.html"
+    },
+    {
+      "guid": "capital-markets-radar-2026-07-15",
+      "prompt_id": "capital-markets-radar",
+      "title": "Capital Markets Cross-Asset Radar — July 15, 2026",
+      "summary": "Start with the print.",
+      "date": "2026-07-15",
+      "seq": 1,
+      "published_at": "2026-07-15T05:16:18-04:00",
+      "audio_file": "capital-markets-radar-2026-07-15.mp3",
+      "length": 3362400,
+      "duration": 560,
+      "transcript_txt": "capital-markets-radar-2026-07-15.txt",
+      "transcript_html": "capital-markets-radar-2026-07-15.html"
+    },
+    {
+      "guid": "digital-money-2026-07-15",
+      "prompt_id": "digital-money",
+      "title": "Digital Money, Crypto, and Market Structure — July 15, 2026",
+      "summary": "The OCC granted Circle its national trust charter on July 10th, making USDC the first stablecoin operating under direct federal supervision, per the industry reporting that surfaced this week.",
+      "date": "2026-07-15",
+      "seq": 2,
+      "published_at": "2026-07-15T05:18:09-04:00",
+      "audio_file": "digital-money-2026-07-15.mp3",
+      "length": 3075984,
+      "duration": 513,
+      "transcript_txt": "digital-money-2026-07-15.txt",
+      "transcript_html": "digital-money-2026-07-15.html"
+    },
+    {
+      "guid": "strategic-power-2026-07-15",
+      "prompt_id": "strategic-power",
+      "title": "Strategic Power, Energy, and Institutional Change — July 15, 2026",
+      "summary": "First the war's overnight ledger. CENTCOM ran a seven-hour strike operation into early Wednesday, hitting dozens of military targets along Iran's coastline, the fourth consecutive night, while the reinstated naval blockade holds ships off Iranian ports, per CNBC and NPR. Iran's Revolutionary Guard says it struck U.S.",
+      "date": "2026-07-15",
+      "seq": 3,
+      "published_at": "2026-07-15T05:20:41-04:00",
+      "audio_file": "strategic-power-2026-07-15.mp3",
+      "length": 3372480,
+      "duration": 562,
+      "transcript_txt": "strategic-power-2026-07-15.txt",
+      "transcript_html": "strategic-power-2026-07-15.html"
+    },
+    {
+      "guid": "semiconductors-compute-2026-07-15",
+      "prompt_id": "semiconductors-compute",
+      "title": "Semiconductors & Compute Infrastructure — July 15, 2026",
+      "summary": "ASML first, with the numbers in order.",
+      "date": "2026-07-15",
+      "seq": 4,
+      "published_at": "2026-07-15T05:22:59-04:00",
+      "audio_file": "semiconductors-compute-2026-07-15.mp3",
+      "length": 3928320,
+      "duration": 655,
+      "transcript_txt": "semiconductors-compute-2026-07-15.txt",
+      "transcript_html": "semiconductors-compute-2026-07-15.html"
     }
   ]
 }
