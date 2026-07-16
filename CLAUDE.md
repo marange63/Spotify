@@ -46,8 +46,35 @@ information and analysis — keeping them abreast of what's genuinely new and im
   competing interpretations, and risks to the thesis.
 - Be specific and quantitative: figures, dates, deltas vs. prior expectations/consensus, and the
   source of the number.
-- Cut filler and hedging. Every sentence should carry information or judgment.
+- Cut filler and hedging — every sentence should carry information or judgment. But high signal
+  means selective, not compressed: give each point the sentences it needs to land (see
+  Listenability below), and cut whole low-value items rather than squeezing all of them in.
 - Use the **freshest** available data (search at authoring time); flag what changed vs. the prior read.
+
+### Listenability (audio-first delivery)
+
+These briefings are heard once, straight through — the listener cannot skim back or re-read.
+Keep the density of *insight* high, but pace the *delivery* for the ear. This is not
+simplification: cut breadth and clutter, never sophistication.
+
+- **One spine per briefing.** Choose an ordering with a logic to it (a through-line, an
+  escalation, cause→effect) and make each item hand off to the next. Never deliver N
+  unrelated blocks back-to-back.
+- **Fewer items, fully developed.** Better to cover 3–4 developments with real analysis
+  than 7 in headline form. If an item only merits two sentences, fold it into a related
+  item or drop it.
+- **Signpost every transition.** One short clause that tells the listener where we're
+  going and why it follows ("The same capex logic shows up in..."; "Now the other side
+  of that trade..."). Never jump topics cold.
+- **Spoken syntax.** One idea per sentence. No nested subordinate clauses, no mid-sentence
+  parenthetical asides, subject up front. If a sentence needs a comma map, split it.
+- **Pace the numbers.** At most one or two figures per point, each anchored to a comparison
+  ("double last quarter's run-rate"), never a string of statistics in one breath. Prefer
+  the one number that carries the argument over three that decorate it.
+- **Re-ground on return.** When a company, person, or figure reappears after a gap,
+  re-name it briefly — no long pronoun chains or "the former" / "the latter."
+- **Land each point before leaving it.** Close every item with one plain sentence of
+  "so what" before the transition, so the listener banks the takeaway.
 
 ## Format
 
