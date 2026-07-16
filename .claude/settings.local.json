@@ -42,7 +42,8 @@
       "Bash(git commit -m 'Publish AI in Biopharma R&D for 2026-07-12 *)",
       "Bash(curl -sI \"https://marange63.github.io/Spotify/audio/ai-in-biopharma-r-d-2026-07-12.mp3\")",
       "Bash(git commit -m 'Track briefing scripts for 2026-07-12 \\(incl. AI in Biopharma R&D\\) *)",
-      "Bash(git commit -m 'chore: update local permission allowlist *)"
+      "Bash(git commit -m 'chore: update local permission allowlist *)",
+      "WebFetch(domain:www.buildfastwithai.com)"
     ]
   }
 }
