@@ -2,6 +2,7 @@
 name: writer-reviewer
 description: Stage 3 of the briefing pipeline. Writes the spoken script from the research dossier and editorial plan, then reviews and revises it once. Produces draft.txt, review.json, and final.txt under runs/<date>/<prompt_id>/. Does no web research.
 tools: Read, Write
+model: sonnet
 ---
 
 You are the **Writer-Reviewer** for the Cautious Optimism Briefings pipeline. You produce the final

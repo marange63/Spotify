@@ -3,11 +3,15 @@
 # Two phases, deliberately separated so publishing can't be skipped by an AI hiccup:
 #   1. Headless Claude Code runs the three-agent pipeline (Researcher -> Analyst-Editor ->
 #      Writer-Reviewer, see CLAUDE.md) for every enabled prompt; only reviewed-and-approved
-#      scripts land in briefings/<id>.txt (enforced by orchestrator.py). Runs primary on
-#      Fable 5 with automatic fallback to Opus 4.8: --fallback-model handles mid-run overload,
-#      and if the run still ends with prompts unfinished (the classic Fable usage-limit death),
-#      the leftover prompts are retried on Opus 4.8. The orchestrator's run state is idempotent,
-#      so the Opus retry RESUMES - it re-does only the pending/failed prompts, never the approved.
+#      scripts land in briefings/<id>.txt (enforced by orchestrator.py).
+#      MODEL PINNING: the three subagents pin their own models in .claude/agents/*.md frontmatter
+#      (researcher=sonnet, analyst-editor=opus, writer-reviewer=sonnet), which OVERRIDES the
+#      --model/--fallback-model below for the actual research/editing/writing work. So --model
+#      claude-fable-5 + --fallback-model claude-opus-4-8 now govern only the lightweight PARENT
+#      orchestrator session (reading files, running orchestrator.py, dispatching subagents).
+#      The parent does little token work, so the classic Fable usage-limit death is now unlikely;
+#      the Opus retry below is kept as a harmless safety net. The orchestrator's run state is
+#      idempotent, so any retry RESUMES - it re-does only pending/failed prompts, never approved.
 #   2. publish_feed.py (deterministic) synthesizes audio, updates the RSS feed, and git-pushes.
 #      --require-fresh means only briefings actually approved today get published (never stale).
 #
@@ -67,14 +71,16 @@ function Get-IncompleteCount {
     }
 }
 
-# Primary attempt - pinned to Fable 5 (so a changed interactive default can't flip it), with
-# automatic fallback to Opus 4.8 if Fable is overloaded/unavailable mid-run.
-Log "phase 1: headless Claude - three-agent pipeline (novelty=$novelty), primary Fable 5"
+# Primary attempt - PARENT session pinned to Fable 5 (so a changed interactive default can't flip
+# it), with automatic fallback to Opus 4.8 if Fable is overloaded/unavailable mid-run. Note the
+# subagents ignore this and use their frontmatter models (sonnet/opus); this governs orchestration.
+Log "phase 1: headless Claude - three-agent pipeline (novelty=$novelty), parent Fable 5"
 & $claude -p $prompt --model claude-fable-5 --fallback-model claude-opus-4-8 --dangerously-skip-permissions *>> $log
 Log "phase 1 (Fable 5) exit code: $LASTEXITCODE"
 
-# If prompts remain unfinished (the classic Fable usage-limit death partway through), retry the
-# leftovers on Opus 4.8. Idempotent init means this resumes - approved prompts are skipped.
+# If prompts remain unfinished, retry the leftovers with the parent session on Opus 4.8. Now that
+# the subagents are model-pinned this mainly guards against the parent Fable session dying (rare);
+# idempotent init means this resumes - approved prompts are skipped.
 $incomplete = Get-IncompleteCount
 if ($incomplete -ne 0) {
     if ($incomplete -lt 0) {
