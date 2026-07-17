@@ -1021,6 +1021,20 @@
       "duration": 433,
       "transcript_txt": "throughline-2026-07-16.txt",
       "transcript_html": "throughline-2026-07-16.html"
+    },
+    {
+      "guid": "frontier-ai-labs-2026-07-17",
+      "prompt_id": "frontier-ai-labs",
+      "title": "Frontier AI Lab Competition — July 17, 2026",
+      "summary": "Two standing assumptions broke this week. The first is that Chinese open-weight labs compete on price. The second is that Google's compute and data advantage guarantees a frontier-tier flagship.",
+      "date": "2026-07-17",
+      "seq": 0,
+      "published_at": "2026-07-17T05:20:43-04:00",
+      "audio_file": "frontier-ai-labs-2026-07-17.mp3",
+      "length": 3666240,
+      "duration": 611,
+      "transcript_txt": "frontier-ai-labs-2026-07-17.txt",
+      "transcript_html": "frontier-ai-labs-2026-07-17.html"
     }
   ]
 }
