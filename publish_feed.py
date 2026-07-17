@@ -26,6 +26,7 @@ import config
 import library
 from episode import synthesize
 from feed import add_episode, build_feed
+from orchestrator import ordered_enabled as _ordered_enabled
 
 log = logging.getLogger("publish_feed")
 
@@ -61,15 +62,6 @@ def _fresh_today(text_path: str, date: str) -> bool:
 
 def _git(*args: str) -> None:
     subprocess.run(["git", "-C", config.HERE, *args], check=True)
-
-
-def _ordered_enabled(data: dict) -> list:
-    """Enabled prompts in publish order: normal prompts first, then ``kind=="synthesis"``
-    prompts (e.g. The Throughline), which summarize the others and so must be authored/
-    published last — publishing last also gives them the newest ``published_at`` so they
-    sort to the top of the feed. Stable within each group."""
-    enabled = [p for p in data["prompts"] if p.get("enabled")]
-    return sorted(enabled, key=lambda p: p.get("kind") == "synthesis")
 
 
 def publish(date: str, summaries: dict, push: bool = True,

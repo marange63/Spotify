@@ -1,16 +1,25 @@
-# Cautious Optimism Briefings — unattended daily run (Windows Task Scheduler).
+# Cautious Optimism Briefings - unattended daily run (Windows Task Scheduler).
 #
 # Two phases, deliberately separated so publishing can't be skipped by an AI hiccup:
-#   1. Headless Claude Code researches + writes briefings/<id>.txt for every enabled prompt.
+#   1. Headless Claude Code runs the three-agent pipeline (Researcher -> Analyst-Editor ->
+#      Writer-Reviewer, see CLAUDE.md) for every enabled prompt; only reviewed-and-approved
+#      scripts land in briefings/<id>.txt (enforced by orchestrator.py). Runs primary on
+#      Fable 5 with automatic fallback to Opus 4.8: --fallback-model handles mid-run overload,
+#      and if the run still ends with prompts unfinished (the classic Fable usage-limit death),
+#      the leftover prompts are retried on Opus 4.8. The orchestrator's run state is idempotent,
+#      so the Opus retry RESUMES - it re-does only the pending/failed prompts, never the approved.
 #   2. publish_feed.py (deterministic) synthesizes audio, updates the RSS feed, and git-pushes.
-#      --require-fresh means only briefings actually rewritten today get published (never stale).
+#      --require-fresh means only briefings actually approved today get published (never stale).
 #
-# Novelty policy: by default (scheduled runs) each briefing must avoid repeating the prior
-# day's topics/themes unless there's genuinely new news. Pass -RepeatOK for manual testing to
-# relax that constraint and just write fresh.
+# Novelty policy: by default (scheduled runs) the Analyst-Editor runs in STRICT mode - no
+# repeating the prior day's topics/themes unless there's genuinely new news; weak days may be
+# skipped. Pass -RepeatOK for manual testing to run RELAXED (repetition allowed when helpful).
+#
+# Dry run: pass -NoPublish to run phase 1 only (all agents, all runs/<date>/ artifacts, approved
+# briefings/<id>.txt copies) with NO TTS, NO feed update, NO git commit, NO push.
 #
 # Everything is logged to logs\daily-<date>.log. Exit code is non-zero if publishing failed.
-param([switch]$RepeatOK)
+param([switch]$RepeatOK, [switch]$NoPublish)
 
 $ErrorActionPreference = 'Continue'
 $proj   = 'C:\Users\wamfo\ClaudeDev\Spotify'
@@ -24,46 +33,74 @@ $log = Join-Path $proj "logs\daily-$today.log"
 
 function Log($msg) { "$(Get-Date -Format 'HH:mm:ss')  $msg" | Tee-Object -FilePath $log -Append }
 
-$mode = if ($RepeatOK) { 'relaxed (-RepeatOK)' } else { 'strict novelty' }
-Log "=== daily run start ($today) — $mode ==="
+$novelty = if ($RepeatOK) { 'relaxed' } else { 'strict' }
+$mode = "$novelty novelty" + $(if ($NoPublish) { ' + dry run (-NoPublish)' } else { '' })
+Log "=== daily run start ($today) - $mode ==="
 
-# Phase 1 — research + write only (no publishing, no git) --------------------
-# The novelty clause is included by default and dropped when -RepeatOK is set.
-$novelty = @'
-
-Before writing each briefing, FIRST read the existing briefings/<id>.txt — that is your most
-recent prior briefing on that topic (from the previous run). Still write a full new briefing for
-EVERY enabled prompt, but it MUST NOT repeat the same specific subjects, themes, angles, or framing
-as that prior one UNLESS there is a genuinely new development, data point, or piece of news since
-then. Lead with what has changed at the margin; where a subject was already covered and nothing new
-has happened, cover different developments or angles within the topic rather than restating it. The
-goal is fresh content each day, not skipping — always produce a complete briefing per prompt. (On
-the first run a topic may have no prior file — that is fine.)
-'@
-if ($RepeatOK) { $novelty = '' }
-
+# Phase 1 - three-agent pipeline: research -> edit -> write/review (no publishing, no git) ----
+# The prompt is resume-aware (skip already-approved prompts), so the SAME prompt drives both the
+# Fable primary run and the Opus retry - the retry just picks up whatever Fable didn't finish.
 $prompt = @"
-Research and write today's daily briefings. For EVERY enabled prompt in prompts.json,
-research it using fresh web search following the editorial standard and preferred sources
-in CLAUDE.md, then write the script to briefings/<id>.txt (overwrite the old one). Honor any
-word length stated in the prompt text. Do NOT publish, do NOT run publish_feed.py, and do NOT
-git commit or push — ONLY write the briefings/<id>.txt files.
-
-Handle any prompt whose "kind" is "synthesis" (e.g. the "throughline" prompt) LAST and
-differently: do NOT research it. After all the normal briefings/<id>.txt for today are written,
-write the synthesis script by reading those other briefings and synthesizing across them per that
-prompt's instruction — no fresh web search for synthesis prompts.$novelty
-When finished, list the files you wrote.
+Run today's three-agent briefing pipeline for EVERY enabled prompt in prompts.json, following the
+'Three-agent pipeline' procedure in CLAUDE.md exactly, with NOVELTY MODE: $novelty. Use --date
+$today. Start with: python orchestrator.py init --date $today --novelty $novelty ; then follow its
+plan and the CLAUDE.md failure rules (validate every JSON artifact, one repair attempt, mark
+failures/skips, continue the batch). RESUME SEMANTICS: the init plan lists each prompt's current
+status; if a prompt is already 'approved' (finished by an earlier attempt in today's run), SKIP it
+entirely - do NOT re-run its agents. Only process prompts whose status is 'pending' or 'failed'.
+Handle synthesis prompts (kind "synthesis", e.g. throughline) LAST, Writer-Reviewer only, from the
+day's APPROVED briefings. Do NOT publish, do NOT run publish_feed.py, and do NOT git commit or push
+- only orchestrator.py may copy approved scripts to briefings/<id>.txt. When finished, run
+python orchestrator.py status --date $today and report it.
 "@
 
-Log "phase 1: headless Claude research + write"
-& $claude -p $prompt --dangerously-skip-permissions *>> $log
-Log "phase 1 exit code: $LASTEXITCODE"
+# How many prompts are still unfinished (pending/failed) per the orchestrator's run state.
+# -1 means the state couldn't be read (e.g. init never ran because phase 1 died immediately).
+function Get-IncompleteCount {
+    $raw = & $conda run -n Spotify --no-capture-output python orchestrator.py status --date $today --json 2>> $log
+    try {
+        $st = ($raw -join "`n") | ConvertFrom-Json
+        return @($st.prompts | Where-Object { $_.status -eq 'pending' -or $_.status -eq 'failed' }).Count
+    } catch {
+        Log "phase 1: could not read orchestrator status JSON ($_)"
+        return -1
+    }
+}
 
-# Phase 2 — deterministic publish (TTS -> feed -> git push) -------------------
-# NOTE: confirmation email temporarily disabled (no working delivery path yet — see the
+# Primary attempt - pinned to Fable 5 (so a changed interactive default can't flip it), with
+# automatic fallback to Opus 4.8 if Fable is overloaded/unavailable mid-run.
+Log "phase 1: headless Claude - three-agent pipeline (novelty=$novelty), primary Fable 5"
+& $claude -p $prompt --model claude-fable-5 --fallback-model claude-opus-4-8 --dangerously-skip-permissions *>> $log
+Log "phase 1 (Fable 5) exit code: $LASTEXITCODE"
+
+# If prompts remain unfinished (the classic Fable usage-limit death partway through), retry the
+# leftovers on Opus 4.8. Idempotent init means this resumes - approved prompts are skipped.
+$incomplete = Get-IncompleteCount
+if ($incomplete -ne 0) {
+    if ($incomplete -lt 0) {
+        $why = "run state unreadable - Fable may have hit its limit before init"
+    } else {
+        $why = "$incomplete prompt(s) unfinished after Fable (likely Fable usage limit)"
+    }
+    Log "phase 1: $why - retrying on Opus 4.8"
+    & $claude -p $prompt --model claude-opus-4-8 --dangerously-skip-permissions *>> $log
+    Log "phase 1 (Opus 4.8 retry) exit code: $LASTEXITCODE"
+    $incomplete = Get-IncompleteCount
+    Log "phase 1: $incomplete prompt(s) still unfinished after Opus 4.8 retry"
+} else {
+    Log "phase 1: all prompts finished on Fable 5 (no Opus fallback needed)"
+}
+
+# Phase 2 - deterministic publish (TTS -> feed -> git push) -------------------
+# NOTE: confirmation email temporarily disabled (no working delivery path yet - see the
 # 'publish-confirmation-email-blocked' memory). Re-add --email once BRIEFING_SMTP_USER /
 # BRIEFING_SMTP_PASS are set; the send in publish_feed.py must also be un-commented.
+if ($NoPublish) {
+    Log "phase 2: SKIPPED (-NoPublish dry run - no TTS, no feed update, no commit, no push)"
+    Log "=== daily run done (dry run) ==="
+    exit 0
+}
+
 Log "phase 2: publish_feed.py --require-fresh"
 & $conda run -n Spotify --no-capture-output python publish_feed.py --date $today --require-fresh *>> $log
 $pubExit = $LASTEXITCODE

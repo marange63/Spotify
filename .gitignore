@@ -22,3 +22,6 @@ Thumbs.db
 
 # Unattended run logs
 logs/
+
+# Three-agent pipeline working artifacts (runs/<date>/<prompt_id>/)
+runs/

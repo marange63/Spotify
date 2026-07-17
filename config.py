@@ -15,6 +15,9 @@ import shutil
 HERE = os.path.dirname(os.path.abspath(str(__file__)))
 PROMPTS_FILE = os.path.join(HERE, "prompts.json")
 BRIEFINGS_DIR = os.path.join(HERE, "briefings")
+# Per-day working artifacts of the three-agent pipeline (research.json,
+# editorial_plan.json, draft/review/final) — git-ignored, see orchestrator.py.
+RUNS_DIR = os.path.join(HERE, "runs")
 
 # Spotify (legacy private "Save to Spotify" pipeline — kept for reference)
 SHOW_ID = "spotify:show:033LxzC8UHlbiJmWLw3n2K"

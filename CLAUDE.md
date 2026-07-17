@@ -108,30 +108,66 @@ The project now runs on a **prompt library** (`prompts.json`), not a single dail
    edit, enable/disable, and delete named prompts. Each prompt is a full instruction for one briefing.
    The window has no model and needs no API key; it only edits `prompts.json`.
 2. In Claude Code, say **"make my daily briefing."** **First re-read `prompts.json` fresh from disk**
-   (do not trust an earlier read from this session — the user may have added prompts in the window since)
-   and write a script for **every** currently-enabled prompt; the count can change mid-session. For
-   **each enabled prompt**, Claude researches it (editorial standard + preferred sources above; honor
-   any length the prompt states, else ~700 words) and writes the script to `briefings/<id>.txt`.
-
-   **Synthesis prompts (`"kind": "synthesis"` in `prompts.json`, e.g. `throughline` — "The
-   Throughline"):** these are NOT researched. Write them **last**, after every normal briefing for
-   today is on disk, by reading those other `briefings/<id>.txt` scripts and synthesizing across them
-   (the day's cross-domain through-lines + a "where the briefings disagree" beat). Do **no** fresh web
-   research for a synthesis prompt — it only connects and elevates what the other briefings already
-   said. `publish_feed.py` publishes synthesis prompts last so they sort to the top of the feed.
-
-   Then publish the whole batch to the public feed:
+   (do not trust an earlier read from this session — the user may have added prompts in the window
+   since); the count can change mid-session. Then run the **three-agent pipeline** (next section) for
+   **every** currently-enabled prompt — interactive runs default to **relaxed** novelty — and publish
+   the batch:
 
    ```bash
-   # after all briefings/<id>.txt are written for today; runs in the Spotify conda env
-   conda run -n Spotify --no-capture-output python publish_feed.py --summaries <summaries.json>
+   # after the pipeline has approved today's scripts; runs in the Spotify conda env
+   conda run -n Spotify --no-capture-output python publish_feed.py --require-fresh
    ```
 
    `publish_feed.py` — for each enabled prompt: TTS (`episode.synthesize`) → `feed.add_episode(...)`
    (copies the mp3 to `docs/audio/<id>-<date>.mp3`, records it in `feed_state.json`) → then
    `feed.build_feed()` rewrites `docs/feed.xml` → `git add docs feed_state.json && commit && push`.
    GitHub Pages serves the update; Spotify re-ingests on its next refresh (minutes to a few hours).
-   `--summaries` is a JSON map `{prompt_id: summary}` for episode descriptions (else the prompt name).
+   `--require-fresh` publishes only scripts written (approved) today — skipped/failed prompts keep a
+   stale `briefings/<id>.txt` and are excluded automatically. `--summaries` is a JSON map
+   `{prompt_id: summary}` for episode descriptions (else auto-derived from the script).
+
+### Three-agent pipeline (how each script is produced)
+
+Each briefing script is produced by three separated Claude Code subagents (defined in
+`.claude/agents/`) with persistent file handoffs under `runs/<date>/<prompt_id>/`, gated by
+`orchestrator.py` (stdlib CLI; the ONLY path allowed to copy a script into `briefings/`):
+
+1. **Init:** `python orchestrator.py init --date <today> --novelty strict|relaxed` — creates
+   `runs/<date>/<id>/` for every enabled prompt (normal prompts first, synthesis last), records the
+   batch in `runs/<date>/run.json`, and prints the plan. Idempotent: re-init preserves statuses, so
+   an interrupted batch can resume.
+2. **For each normal prompt, in the plan's order:**
+   - **Researcher** (subagent `researcher`; web search allowed): gathers the strongest recent
+     material → `runs/<date>/<id>/research.json`. Pass it the prompt id/name/text, the date, and
+     the output path. Then `python orchestrator.py validate research <path>`.
+   - **Analyst-Editor** (subagent `analyst-editor`; no web): judges the dossier against the prior
+     briefing (`briefings/<id>.txt`, still on disk) and the editorial standard, decides
+     write-or-skip, thesis, lead, ordering → `runs/<date>/<id>/editorial_plan.json`. Pass it the
+     novelty mode. Then `validate plan <path>`. If `decision` is `skip`:
+     `python orchestrator.py mark <id> --date <today> --status skipped --stage plan --reason "…"`
+     and move to the next prompt (no Writer).
+   - **Writer-Reviewer** (subagent `writer-reviewer`; no web): writes the script from the dossier +
+     plan, then reviews and revises once → `draft.txt`, `review.json`, `final.txt`. Then
+     `validate review <path>` and `python orchestrator.py approve <id> --date <today>` — which
+     copies `final.txt` to `briefings/<id>.txt` **only if** the review says `approve`.
+3. **Synthesis prompts last** (`"kind": "synthesis"`, e.g. `throughline` — "The Throughline"): NOT
+   researched and no editorial plan. Run **Writer-Reviewer only**, giving it the day's APPROVED
+   `briefings/<id>.txt` files as source material (no fresh web research, no new facts); same
+   `review.json`/`final.txt`/`approve` flow. If zero prompts were approved today, mark the
+   synthesis prompt skipped. `publish_feed.py` publishes synthesis prompts last so they sort to the
+   top of the feed.
+4. **Report:** `python orchestrator.py status --date <today>` — per-prompt outcomes + approved ids.
+
+**Failure rules (always continue the batch; one bad prompt never stops the rest):**
+- `validate` fails → tell the same agent (or fix directly) to repair the artifact **once**; if it
+  still fails, `mark <id> --status failed --stage <stage> --reason "…"` and move on.
+- Research `status: "insufficient"` → the Analyst-Editor may still decide, but skipping is the
+  expected outcome; `failed` research → mark failed, move on.
+- Writer-Reviewer failure → retry the subagent **once**, then mark failed.
+- Review decision `skip`/`failed` → mark accordingly; `approve` will refuse the copy, so the prompt
+  cannot publish.
+- TTS/feed/git failures keep their existing behavior in `publish_feed.py` (per-prompt try/except;
+  the batch still publishes the successful episodes).
 3. This **auto-publishes** — no approval step (standing authorization). Claude reports a table of
    name → episode, and stops only to surface an error (a failed prompt is skipped and the batch
    continues; the feed still rebuilds/pushes with the successful ones).
@@ -144,8 +180,11 @@ The project now runs on a **prompt library** (`prompts.json`), not a single dail
    stop mid-run are a hard blocker Claude cannot resolve itself (e.g. every prompt's research failed,
    or `git push` is rejected). Defaults, applied without asking:
    - **Which prompts:** every `enabled` prompt in `prompts.json`.
-   - **Novelty:** relaxed (interactive runs are treated as testing — see the novelty policy below);
-     only apply the no-repeat rule if the user explicitly asks in the same message.
+   - **Novelty:** relaxed (interactive runs are treated as testing — pass `--novelty relaxed` to
+     `orchestrator.py init`; see the novelty policy below); use strict only if the user explicitly
+     asks in the same message.
+   - **Skips:** an Analyst-Editor or reviewer skip is a normal outcome, not an error — report it in
+     the results table and keep going; never force a weak briefing through.
    - **Summaries:** let `publish_feed.py` auto-derive them from each script (pass `--summaries` only
      if the user supplied summaries); never stop to hand-write them.
    - **Publish + push:** always, automatically. No "ready to publish?" checkpoint.
@@ -169,16 +208,18 @@ the same date overwrites that day's episode in place (idempotent); a new date ad
 
 ### Novelty policy (avoid repeating the prior day)
 
-The **scheduled 5 AM run is strict by default**: for each prompt it first reads the existing
-`briefings/<id>.txt` (the previous run's briefing on that topic — it's still on disk before the
-overwrite) and must **not** repeat the same topics/themes/framing **unless there's genuinely new
-news or data** since then. This is 1-day memory (just the immediately-prior briefing), and it's an
-extension of the editorial standard's "lead with what's new."
+Novelty is enforced by the **Analyst-Editor** stage, which reads the existing `briefings/<id>.txt`
+(the previous run's briefing on that topic — still on disk before the overwrite) and recent
+transcripts. The mode is set at `orchestrator.py init --novelty strict|relaxed` and passed to each
+Analyst-Editor invocation. It's an extension of the editorial standard's "lead with what's new."
 
-- **Scheduled (`tools/daily_run.ps1`, no args):** strict — the novelty clause is in the phase-1 prompt.
-- **Manual testing (`tools/daily_run.ps1 -RepeatOK`):** relaxed — writes fresh regardless of yesterday.
-- **Interactive ("make my daily briefing" via Claude in a session):** treat as **relaxed by default**
-  (this is testing); only apply the no-repeat rule if the user asks for it.
+- **strict** (scheduled `tools/daily_run.ps1`, no args): reject material repeating the prior
+  briefing's topics/themes/framing **unless there's genuinely new news or data** since then. If
+  nothing worthwhile clears the bar, the prompt is **skipped** for the day (no episode) — a skipped
+  day beats a padded one.
+- **relaxed** (`tools/daily_run.ps1 -RepeatOK`, and interactive "make my daily briefing" runs):
+  repeated material may be used when helpful; fresh evidence and framing still preferred. Skips can
+  still happen if the Analyst-Editor finds nothing worth saying.
 
 ### Re-publishing one prompt manually
 
@@ -215,9 +256,24 @@ feed.build_feed()
   `docs/feed.xml` (iTunes tags, newest-first, `<pubDate>` from the real `published_at`, `<podcast:transcript>`
   tags + a "Read the full transcript" link in each description). Archive model, stable per-day GUIDs.
 - **`publish_feed.py`** — the daily batch: synth → `add_episode` per enabled prompt → `build_feed` →
-  git commit + push. `_ordered_enabled` publishes `kind:"synthesis"` prompts LAST, so The Throughline
-  gets the newest timestamp and sorts to the top of the feed. Flags: `--date`, `--summaries <json>`,
-  `--no-push`, `--require-fresh`, `--email` (the email send is currently disabled — see step 4).
+  git commit + push. Publishes `kind:"synthesis"` prompts LAST (ordering shared with
+  `orchestrator.ordered_enabled`), so The Throughline gets the newest timestamp and sorts to the top
+  of the feed. Flags: `--date`, `--summaries <json>`, `--no-push`, `--require-fresh`, `--email` (the
+  email send is currently disabled — see step 4).
+- **`orchestrator.py`** — deterministic gates of the three-agent pipeline (stdlib only, no agent
+  runner): `init` (run dirs + `runs/<date>/run.json`, idempotent), `validate research|plan|review`
+  (schema checks with readable errors), `approve` (the ONLY path that copies a `final.txt` to
+  `briefings/<id>.txt` — refuses unless `review.json` says `approve`), `mark` (record skip/failure),
+  `status` (outcome table + approved ids). See the pipeline section above.
+- **`.claude/agents/`** — the three subagent definitions: `researcher.md` (web search → structured
+  `research.json` dossier; never writes the briefing), `analyst-editor.md` (no web; novelty + skepsis
+  + story selection → `editorial_plan.json`, may decide `skip`), `writer-reviewer.md` (no web; writes
+  `draft.txt`, one review/revision pass → `review.json` + `final.txt`; also handles synthesis prompts
+  from the day's approved briefings).
+- **`runs/<date>/<prompt_id>/`** — git-ignored per-day pipeline artifacts: `research.json`,
+  `editorial_plan.json`, `draft.txt`, `review.json`, `final.txt`, plus `runs/<date>/run.json` (batch
+  state). Same-day re-runs overwrite in place; the audit trail for "why did this episode say that /
+  why was it skipped" lives here.
 - **`notify.py`** — composes + sends the "briefings published" confirmation email to `config.NOTIFY_EMAIL`
   (wamfour@gmail.com). `build_message(results, date)` is a pure, tested composer; `send_publish_summary`
   sends via Gmail SMTP using a **Google App Password** from env vars (`BRIEFING_SMTP_USER`,
@@ -232,9 +288,15 @@ feed.build_feed()
   Podcasting 2.0 apps read the `<podcast:transcript>` tag; Spotify ignores RSS transcripts, so the
   description link is how Spotify listeners reach the hosted page.)
 - **`tools/`** — `daily_run.ps1` (the unattended 5 AM Task Scheduler entry point: phase 1 headless
-  Claude writes the scripts, phase 2 `publish_feed.py --require-fresh` publishes; logs to
-  `logs\daily-<date>.log`), `make_cover.py` (regenerates the cover via Pillow), `seed_feed.py`
-  (one-off backfill).
+  Claude runs the three-agent pipeline, phase 2 `publish_feed.py --require-fresh` publishes; flags:
+  `-RepeatOK` = relaxed novelty, `-NoPublish` = dry run that skips phase 2 entirely — agents and
+  `runs/` artifacts only, no TTS/feed/commit/push; logs to `logs\daily-<date>.log`). **Model
+  fallback:** phase 1 runs pinned to Fable 5 (`--model claude-fable-5`) with
+  `--fallback-model claude-opus-4-8` for mid-run overload; then, if `orchestrator.py status` shows
+  any prompt still pending/failed (the classic Fable *usage-limit* death), it re-invokes phase 1
+  once on Opus 4.8. That retry resumes via the idempotent orchestrator — only pending/failed
+  prompts are re-done, approved ones are skipped (the phase-1 prompt is resume-aware). `make_cover.py`
+  (regenerates the cover via Pillow), `seed_feed.py` (one-off backfill).
 - **`logs/`** — git-ignored per-day logs from the scheduled run (`daily-<YYYY-MM-DD>.log`); check the
   latest one first when asked how the morning run went.
 - `episode.py` — **used only for TTS now**: `synthesize` + resilient paragraph-wise `_synthesize`. The
