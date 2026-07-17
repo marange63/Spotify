@@ -237,8 +237,9 @@ feed.build_feed()
 - `config.py` — single source of shared constants + `configure_logging()`. Public-podcast constants:
   `PODCAST_TITLE`/`AUTHOR`/`OWNER_NAME`/`EMAIL`/`LANGUAGE`/`DESCRIPTION`/`CATEGORY`/`SUBCATEGORY`,
   `FEED_BASE_URL` (`https://marange63.github.io/Spotify`), `DOCS_DIR`/`DOCS_AUDIO_DIR`/
-  `DOCS_TRANSCRIPTS_DIR`/`FEED_FILE`/`COVER_FILE`, `FEED_STATE_FILE`. Legacy: `SHOW_ID`, `VOICE`,
-  `TTS_MAX_RETRIES`, `S2S`.
+  `DOCS_TRANSCRIPTS_DIR`/`FEED_FILE`/`COVER_FILE`, `FEED_STATE_FILE`. Notifications: `NOTIFY_EMAIL`,
+  plus `NTFY_SERVER`/`NTFY_TOPIC` (the ntfy.sh phone push; topic overridable via env
+  `BRIEFING_NTFY_TOPIC`, set to `""` to disable). Legacy: `SHOW_ID`, `VOICE`, `TTS_MAX_RETRIES`, `S2S`.
 - `main.py` — the prompt-library manager window (project entry point / green Run button).
 - `prompts.json` — the prompt library. Edited by the window, read by the batch. A prompt may carry
   `"kind": "synthesis"` (currently `throughline`, "The Throughline") — a NOT-researched prompt authored
@@ -259,7 +260,13 @@ feed.build_feed()
   git commit + push. Publishes `kind:"synthesis"` prompts LAST (ordering shared with
   `orchestrator.ordered_enabled`), so The Throughline gets the newest timestamp and sorts to the top
   of the feed. Flags: `--date`, `--summaries <json>`, `--no-push`, `--require-fresh`, `--email` (the
-  email send is currently disabled — see step 4).
+  email send is currently disabled — see step 4), `--no-notify`. **ntfy push:** after a successful
+  git push with ≥1 episode published, `_notify_ntfy` POSTs a one-line "briefings published" summary
+  to the owner's phone via `config.NTFY_TOPIC` on ntfy.sh (stdlib `urllib`, best-effort — a
+  notification failure is logged and never fails the publish). On by default (interactive AND the
+  5 AM scheduled run, which calls `publish_feed.py --require-fresh`); suppress with `--no-notify` or
+  by setting `NTFY_TOPIC`/env `BRIEFING_NTFY_TOPIC` to `""`. This is the working replacement for the
+  disabled confirmation email.
 - **`orchestrator.py`** — deterministic gates of the three-agent pipeline (stdlib only, no agent
   runner): `init` (run dirs + `runs/<date>/run.json`, idempotent), `validate research|plan|review`
   (schema checks with readable errors), `approve` (the ONLY path that copies a `final.txt` to
@@ -269,7 +276,10 @@ feed.build_feed()
   `research.json` dossier; never writes the briefing), `analyst-editor.md` (no web; novelty + skepsis
   + story selection → `editorial_plan.json`, may decide `skip`), `writer-reviewer.md` (no web; writes
   `draft.txt`, one review/revision pass → `review.json` + `final.txt`; also handles synthesis prompts
-  from the day's approved briefings).
+  from the day's approved briefings). Each pins a `model:` in its frontmatter — `sonnet` for
+  researcher and writer-reviewer, `opus` for the judgment-heavy analyst-editor — and these pins
+  take precedence over whatever model the invoking session uses (interactive **or** the 5 AM CLI
+  `--model`). Change a role's cost/quality by editing its frontmatter `model:`, not the caller.
 - **`runs/<date>/<prompt_id>/`** — git-ignored per-day pipeline artifacts: `research.json`,
   `editorial_plan.json`, `draft.txt`, `review.json`, `final.txt`, plus `runs/<date>/run.json` (batch
   state). Same-day re-runs overwrite in place; the audit trail for "why did this episode say that /
@@ -291,12 +301,17 @@ feed.build_feed()
   Claude runs the three-agent pipeline, phase 2 `publish_feed.py --require-fresh` publishes; flags:
   `-RepeatOK` = relaxed novelty, `-NoPublish` = dry run that skips phase 2 entirely — agents and
   `runs/` artifacts only, no TTS/feed/commit/push; logs to `logs\daily-<date>.log`). **Model
-  fallback:** phase 1 runs pinned to Fable 5 (`--model claude-fable-5`) with
-  `--fallback-model claude-opus-4-8` for mid-run overload; then, if `orchestrator.py status` shows
-  any prompt still pending/failed (the classic Fable *usage-limit* death), it re-invokes phase 1
-  once on Opus 4.8. That retry resumes via the idempotent orchestrator — only pending/failed
-  prompts are re-done, approved ones are skipped (the phase-1 prompt is resume-aware). `make_cover.py`
-  (regenerates the cover via Pillow), `seed_feed.py` (one-off backfill).
+  pinning + fallback:** the three subagents pin their own models in `.claude/agents/*.md`
+  frontmatter (researcher=`sonnet`, analyst-editor=`opus`, writer-reviewer=`sonnet`), and those
+  pins **override** the CLI `--model`/`--fallback-model` for the actual research/editing/writing.
+  So phase 1's `--model claude-fable-5` + `--fallback-model claude-opus-4-8` now govern only the
+  lightweight **parent orchestrator session** (reading files, running `orchestrator.py`,
+  dispatching subagents). The parent does little token work, so the old Fable *usage-limit* death
+  is now unlikely; the Opus-4.8 re-invoke on any still-pending/failed prompt is kept as a harmless
+  safety net, resuming via the idempotent orchestrator (only pending/failed prompts re-done). Note
+  this makes the 5 AM run cost more than the all-Fable design it replaced (Opus on every
+  analyst-editor call), traded for higher editorial quality and no Fable usage-cap fragility.
+  `make_cover.py` (regenerates the cover via Pillow), `seed_feed.py` (one-off backfill).
 - **`logs/`** — git-ignored per-day logs from the scheduled run (`daily-<YYYY-MM-DD>.log`); check the
   latest one first when asked how the morning run went.
 - `episode.py` — **used only for TTS now**: `synthesize` + resilient paragraph-wise `_synthesize`. The

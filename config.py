@@ -55,6 +55,14 @@ FEED_STATE_FILE = os.path.join(HERE, "feed_state.json")
 # SMTP credentials themselves come from env vars, never the repo.
 NOTIFY_EMAIL = "wamfour@gmail.com"
 
+# ntfy.sh push notification (the live "briefings published" alert to the owner's
+# phone). publish_feed.py POSTs a one-line summary here after a successful push.
+# The topic is effectively a shared secret (anyone who knows it can publish/read),
+# so it can be overridden out-of-repo via the BRIEFING_NTFY_TOPIC env var. Set the
+# topic to "" (or env BRIEFING_NTFY_TOPIC="") to disable the ping entirely.
+NTFY_SERVER = os.environ.get("BRIEFING_NTFY_SERVER", "https://ntfy.sh")
+NTFY_TOPIC = os.environ.get("BRIEFING_NTFY_TOPIC", "will-briefings-9f3k2x7q")
+
 # Text-to-speech
 VOICE = "en-US-AndrewNeural"
 TTS_MAX_RETRIES = 6

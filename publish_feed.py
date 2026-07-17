@@ -21,6 +21,7 @@ import os
 import re
 import subprocess
 import sys
+import urllib.request
 
 import config
 import library
@@ -29,6 +30,39 @@ from feed import add_episode, build_feed
 from orchestrator import ordered_enabled as _ordered_enabled
 
 log = logging.getLogger("publish_feed")
+
+
+def _notify_ntfy(results: list[tuple[str, str]], date: str) -> None:
+    """Best-effort 'briefings published' push to the owner's phone via ntfy.sh.
+
+    Fires only when at least one episode actually published. Never raises — a
+    notification problem must never fail a completed publish (mirrors notify.py).
+    Configure/disable via config.NTFY_TOPIC (env BRIEFING_NTFY_TOPIC; "" = off).
+    """
+    topic = (config.NTFY_TOPIC or "").strip()
+    if not topic:
+        log.info("ntfy: no topic configured — skipping push")
+        return
+    published = [(n, g) for n, g in results
+                 if not (g.startswith("FAILED") or g in ("NO SCRIPT", "STALE — skipped"))]
+    if not published:
+        log.info("ntfy: nothing published — skipping push")
+        return
+    names = ", ".join(n for n, _ in published)
+    body = (f"{len(published)} episode(s) live in the feed: {names}. "
+            "Spotify will show them on its next re-ingest (minutes to a few hours).")
+    url = f"{config.NTFY_SERVER.rstrip('/')}/{topic}"
+    req = urllib.request.Request(
+        url, data=body.encode("utf-8"), method="POST",
+        headers={"Title": f"Briefings published ({date})",
+                 "Tags": "microphone,rocket"},
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=15) as r:
+            r.read()
+        log.info("ntfy: pushed publish summary to %s", topic)
+    except Exception as e:  # best-effort; publishing already succeeded
+        log.warning("ntfy: notification failed (%s) — publish unaffected", e)
 
 _GREETING = re.compile(r"^(good\s+(morning|afternoon|evening)|welcome|hello|hi\b)", re.I)
 
@@ -65,7 +99,8 @@ def _git(*args: str) -> None:
 
 
 def publish(date: str, summaries: dict, push: bool = True,
-            require_fresh: bool = False, email: bool = False) -> list[tuple[str, str]]:
+            require_fresh: bool = False, email: bool = False,
+            notify: bool = True) -> list[tuple[str, str]]:
     data = library.load()
     results = []
     for p in _ordered_enabled(data):
@@ -99,6 +134,8 @@ def publish(date: str, summaries: dict, push: bool = True,
         if r.returncode == 0:
             _git("push", "origin", "main")
             log.info("pushed to origin/main")
+            if notify:
+                _notify_ntfy(results, date)
         else:
             log.info("nothing to commit")
 
@@ -124,6 +161,9 @@ def main() -> int:
     ap.add_argument("--email", action="store_true",
                     help="email a publish-summary confirmation to the owner (see notify.py; "
                          "used by the unattended scheduled run)")
+    ap.add_argument("--no-notify", action="store_true",
+                    help="suppress the ntfy 'briefings published' phone push "
+                         "(on by default after a successful push; see config.NTFY_TOPIC)")
     args = ap.parse_args()
 
     summaries = {}
@@ -132,7 +172,8 @@ def main() -> int:
             summaries = json.load(f)
 
     results = publish(args.date, summaries, push=not args.no_push,
-                      require_fresh=args.require_fresh, email=args.email)
+                      require_fresh=args.require_fresh, email=args.email,
+                      notify=not args.no_notify)
     print("\n===== RESULTS =====")
     for name, status in results:
         print(f"{name}: {status}")
