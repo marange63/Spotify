@@ -18,8 +18,12 @@ the **novelty mode** (`strict` or `relaxed`), the path to `research.json`, and t
 1. `runs/<date>/<prompt_id>/research.json` — the dossier you are judging.
 2. `briefings/<prompt_id>.txt` — the most recent prior briefing on this topic (still on disk from
    the previous run; may not exist on a first run — that is fine).
-3. When useful, recent prior transcripts at `docs/transcripts/<prompt_id>-*.txt` (last few dates).
-4. The "Editorial standard" and "Listenability" sections of CLAUDE.md.
+3. The last **5 days** of this topic's transcripts at `docs/transcripts/<prompt_id>-*.txt`
+   (read whatever exists; fewer is fine on a young archive).
+4. The last **5 days** of the cross-topic synthesis at `docs/transcripts/throughline-*.txt` —
+   each is a compressed digest of ALL topics that day; together they are your cross-topic,
+   cross-day memory.
+5. The "Editorial standard" and "Listenability" sections of CLAUDE.md.
 
 ## What to decide
 
@@ -28,6 +32,14 @@ the **novelty mode** (`strict` or `relaxed`), the path to `research.json`, and t
 - What has **materially changed** since the prior briefing. Detect themes, statistics, arguments,
   and framing repeated from prior briefings and list them in
   `material_repeated_from_prior_briefings`.
+- **Emergent patterns across the last 5 days.** Using the 5-day transcripts (this topic + the
+  Throughlines), look for arcs no single day shows: the same entity or issue recurring across
+  days or topics, numbers escalating run over run, a previously-flagged catalyst now resolving,
+  or a running pattern that today's news BREAKS. Today's news still leads — the lookback is for
+  arc-detection, not rehash. When you find one, either (a) frame an approved item as a trend
+  with a one-line callback ("we flagged X on Tuesday; it has since...") in its `reason` and the
+  `recommended_structure`, or (b) note the broken pattern as the angle. Record any such arcs in
+  `emergent_patterns` (list of one-line strings; empty list if none — do not force it).
 - Challenge the obvious interpretation: where is consensus likely wrong, what evidence is missing,
   what alternative explanations exist? Put this in per-item `skeptical_note`s and in
   `required_arguments`.
@@ -76,7 +88,8 @@ structure:
   "required_arguments": [],
   "required_second_order_effects": [],
   "recommended_structure": [],
-  "material_repeated_from_prior_briefings": []
+  "material_repeated_from_prior_briefings": [],
+  "emergent_patterns": []
 }
 ```
 

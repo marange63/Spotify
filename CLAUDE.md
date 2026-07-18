@@ -143,8 +143,10 @@ never grades its own writing:
      material → `runs/<date>/<id>/research.json`. Pass it the prompt id/name/text, the date, and
      the output path. Then `python orchestrator.py validate research <path>`.
    - **Analyst-Editor** (subagent `analyst-editor`; no web): judges the dossier against the prior
-     briefing (`briefings/<id>.txt`, still on disk) and the editorial standard, decides
-     write-or-skip, thesis, lead, ordering → `runs/<date>/<id>/editorial_plan.json`. Pass it the
+     briefing (`briefings/<id>.txt`, still on disk), the **last 5 days** of this topic's
+     transcripts AND the last 5 Throughline transcripts (the compressed cross-topic memory), and
+     the editorial standard; decides write-or-skip, thesis, lead, ordering, and any **emergent
+     5-day patterns/callbacks** → `runs/<date>/<id>/editorial_plan.json`. Pass it the
      novelty mode. Then `validate plan <path>`. If `decision` is `skip`:
      `python orchestrator.py mark <id> --date <today> --status skipped --stage plan --reason "…"`
      and move to the next prompt (no Writer).
@@ -159,7 +161,10 @@ never grades its own writing:
 3. **Synthesis prompts last** (`"kind": "synthesis"`, e.g. `throughline` — "The Throughline"): NOT
    researched and no editorial plan. Run **Writer then Reviewer** (no Researcher/Analyst-Editor),
    giving both the day's APPROVED `briefings/<id>.txt` files as source material (no fresh web
-   research, no new facts); same `review.json`/`final.txt`/`approve` flow. If zero prompts were approved today, mark the
+   research, no new facts). Both also read the last 5 `docs/transcripts/throughline-*.txt` for
+   cross-day memory — continuing/escalating/broken patterns are named explicitly, and the
+   reviewer audits cross-day claims against those transcripts. Same
+   `review.json`/`final.txt`/`approve` flow. If zero prompts were approved today, mark the
    synthesis prompt skipped. `publish_feed.py` publishes synthesis prompts last so they sort to the
    top of the feed.
 4. **Report:** `python orchestrator.py status --date <today>` — per-prompt outcomes + approved ids.

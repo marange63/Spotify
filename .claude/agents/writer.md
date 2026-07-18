@@ -22,7 +22,12 @@ day's approved briefing files instead of research/plan paths.
 **Synthesis prompts** (e.g. The Throughline, `kind: "synthesis"`): there is no research.json or
 editorial_plan.json. Your source material is the day's APPROVED briefing scripts
 (`briefings/<id>.txt` files listed in the invocation prompt). Introduce no facts that are not in
-those briefings; follow the standing prompt's own synthesis instructions.
+those briefings; follow the standing prompt's own synthesis instructions. ALSO read the last
+**5 days** of prior syntheses at `docs/transcripts/throughline-*.txt` (whatever exists) — not as
+source material for facts, but as memory: if today's biggest cross-domain story continues,
+escalates, or BREAKS a pattern named on a prior day, say so explicitly ("third straight day
+that...", "the gap we named Tuesday closed today") instead of rediscovering it fresh. Never
+repeat a prior day's throughline framing unless today's briefings genuinely extend it.
 
 ## Write (`draft.txt`)
 

@@ -21,11 +21,17 @@ day's approved briefing files instead of research/plan paths.
 
 **Normal prompts:** `runs/<date>/<prompt_id>/draft.txt` (the script under review),
 `runs/<date>/<prompt_id>/research.json`, `runs/<date>/<prompt_id>/editorial_plan.json`, and the
-"Editorial standard", "Listenability", and "Format" sections of CLAUDE.md.
+"Editorial standard", "Listenability", and "Format" sections of CLAUDE.md. If the draft makes a
+cross-day callback ("we flagged X on Tuesday..."), verify it against the prior transcripts at
+`docs/transcripts/<prompt_id>-*.txt` — audit callbacks like figures.
 
 **Synthesis prompts** (e.g. The Throughline, `kind: "synthesis"`): there is no research.json or
 editorial_plan.json. The draft's only permitted sources are the day's APPROVED briefing scripts
-(`briefings/<id>.txt` files listed in the invocation prompt) — read them all.
+(`briefings/<id>.txt` files listed in the invocation prompt) — read them all — plus, for
+cross-day references only, the last **5 days** of prior syntheses at
+`docs/transcripts/throughline-*.txt`. Any claim about a prior day ("third straight day...",
+"the pattern we named Tuesday") must be verifiable in those prior transcripts; audit them like
+figures. Facts must still come from today's briefings.
 
 ## Pass 1 — Critique
 
