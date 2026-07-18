@@ -224,7 +224,13 @@ def build_feed() -> str:
         if e.get("transcript_txt"):
             txt_url = f"{base}/transcripts/{e['transcript_txt']}"
             transcript_tags += f'\n      <podcast:transcript url="{escape(txt_url)}" type="text/plain" language="en"/>'
-        audio_url = f"{base}/audio/{e['audio_file']}"
+        # Cache-bust the enclosure URL with the episode's publish instant. The audio
+        # filename is stable (<guid>.mp3), so replacing an already-ingested episode's
+        # media in place would otherwise leave Spotify serving the copy it cached at
+        # that URL — it only re-downloads when the URL changes. The ?v token changes
+        # exactly when we (re)publish an episode, so updated media gets re-fetched while
+        # untouched episodes keep a stable URL. GitHub Pages ignores the query string.
+        audio_url = f"{base}/audio/{e['audio_file']}?v={int(dt.timestamp())}"
         item = f"""    <item>
       <title>{escape(e['title'])}</title>
       <description>{escape(desc)}</description>
