@@ -320,13 +320,13 @@ feed.build_feed()
   frontmatter (researcher=`sonnet`, analyst-editor=`opus`, writer=`sonnet`, reviewer=`opus`), and
   those pins **override** the CLI `--model`/`--fallback-model` for the actual research/editing/
   writing/reviewing.
-  So phase 1's `--model claude-fable-5` + `--fallback-model claude-opus-4-8` now govern only the
+  Phase 1's `--model claude-sonnet-5` + `--fallback-model claude-opus-4-8` govern only the
   lightweight **parent orchestrator session** (reading files, running `orchestrator.py`,
-  dispatching subagents). The parent does little token work, so the old Fable *usage-limit* death
-  is now unlikely; the Opus-4.8 re-invoke on any still-pending/failed prompt is kept as a harmless
-  safety net, resuming via the idempotent orchestrator (only pending/failed prompts re-done). Note
-  this makes the 5 AM run cost more than the all-Fable design it replaced (Opus on every
-  analyst-editor call), traded for higher editorial quality and no Fable usage-cap fragility.
+  dispatching subagents). **Fable 5 is deliberately not used anywhere in the scheduled job** (its
+  usage-limit deaths killed past runs), and because the job passes explicit `--model` flags, an
+  interactive terminal left on Fable (or anything else) can never leak into the 5 AM run. The
+  Opus-4.8 re-invoke on any still-pending/failed prompt is kept as a safety net, resuming via the
+  idempotent orchestrator (only pending/failed prompts re-done).
   `make_cover.py` (regenerates the cover via Pillow), `seed_feed.py` (one-off backfill).
 - **`logs/`** — git-ignored per-day logs from the scheduled run (`daily-<YYYY-MM-DD>.log`); check the
   latest one first when asked how the morning run went.

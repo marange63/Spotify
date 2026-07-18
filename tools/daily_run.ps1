@@ -7,10 +7,11 @@
 #      MODEL PINNING: the four subagents pin their own models in .claude/agents/*.md frontmatter
 #      (researcher=sonnet, analyst-editor=opus, writer=sonnet, reviewer=opus), which OVERRIDES the
 #      --model/--fallback-model below for the actual research/editing/writing work. So --model
-#      claude-fable-5 + --fallback-model claude-opus-4-8 now govern only the lightweight PARENT
+#      claude-sonnet-5 + --fallback-model claude-opus-4-8 govern only the lightweight PARENT
 #      orchestrator session (reading files, running orchestrator.py, dispatching subagents).
-#      The parent does little token work, so the classic Fable usage-limit death is now unlikely;
-#      the Opus retry below is kept as a harmless safety net. The orchestrator's run state is
+#      Fable 5 is deliberately NOT used anywhere in this job (its usage-limit deaths killed past
+#      runs); the explicit --model flags also mean an interactive terminal left on Fable can never
+#      leak in. The Opus retry below is kept as a safety net. The orchestrator's run state is
 #      idempotent, so any retry RESUMES - it re-does only pending/failed prompts, never approved.
 #   2. publish_feed.py (deterministic) synthesizes audio, updates the RSS feed, and git-pushes.
 #      --require-fresh means only briefings actually approved today get published (never stale).
@@ -43,7 +44,7 @@ Log "=== daily run start ($today) - $mode ==="
 
 # Phase 1 - four-stage pipeline: research -> edit -> write -> review (no publishing, no git) ----
 # The prompt is resume-aware (skip already-approved prompts), so the SAME prompt drives both the
-# Fable primary run and the Opus retry - the retry just picks up whatever Fable didn't finish.
+# Sonnet primary run and the Opus retry - the retry just picks up whatever wasn't finished.
 $prompt = @"
 Run today's four-stage briefing pipeline for EVERY enabled prompt in prompts.json, following the
 'Four-stage pipeline' procedure in CLAUDE.md exactly, with NOVELTY MODE: $novelty. Use --date
@@ -71,22 +72,24 @@ function Get-IncompleteCount {
     }
 }
 
-# Primary attempt - PARENT session pinned to Fable 5 (so a changed interactive default can't flip
-# it), with automatic fallback to Opus 4.8 if Fable is overloaded/unavailable mid-run. Note the
-# subagents ignore this and use their frontmatter models (sonnet/opus); this governs orchestration.
-Log "phase 1: headless Claude - four-stage pipeline (novelty=$novelty), parent Fable 5"
-& $claude -p $prompt --model claude-fable-5 --fallback-model claude-opus-4-8 --dangerously-skip-permissions *>> $log
-Log "phase 1 (Fable 5) exit code: $LASTEXITCODE"
+# Primary attempt - PARENT session pinned to Sonnet 5 (an explicit --model always overrides any
+# interactive /model default, so a terminal left on Fable/Opus can never leak in; Fable is
+# deliberately NOT used anywhere in this job). Automatic fallback to Opus 4.8 if Sonnet is
+# overloaded/unavailable mid-run. Note the subagents ignore this and use their frontmatter models
+# (sonnet/opus); this governs only the lightweight orchestration session.
+Log "phase 1: headless Claude - four-stage pipeline (novelty=$novelty), parent Sonnet 5"
+& $claude -p $prompt --model claude-sonnet-5 --fallback-model claude-opus-4-8 --dangerously-skip-permissions *>> $log
+Log "phase 1 (Sonnet 5) exit code: $LASTEXITCODE"
 
 # If prompts remain unfinished, retry the leftovers with the parent session on Opus 4.8. Now that
-# the subagents are model-pinned this mainly guards against the parent Fable session dying (rare);
+# the subagents are model-pinned this mainly guards against the parent session dying (rare);
 # idempotent init means this resumes - approved prompts are skipped.
 $incomplete = Get-IncompleteCount
 if ($incomplete -ne 0) {
     if ($incomplete -lt 0) {
-        $why = "run state unreadable - Fable may have hit its limit before init"
+        $why = "run state unreadable - primary run may have died before init"
     } else {
-        $why = "$incomplete prompt(s) unfinished after Fable (likely Fable usage limit)"
+        $why = "$incomplete prompt(s) unfinished after the Sonnet primary run"
     }
     Log "phase 1: $why - retrying on Opus 4.8"
     & $claude -p $prompt --model claude-opus-4-8 --dangerously-skip-permissions *>> $log
@@ -94,7 +97,7 @@ if ($incomplete -ne 0) {
     $incomplete = Get-IncompleteCount
     Log "phase 1: $incomplete prompt(s) still unfinished after Opus 4.8 retry"
 } else {
-    Log "phase 1: all prompts finished on Fable 5 (no Opus fallback needed)"
+    Log "phase 1: all prompts finished on the Sonnet 5 primary run (no Opus retry needed)"
 }
 
 # Phase 2 - deterministic publish (TTS -> feed -> git push) -------------------
