@@ -28,6 +28,27 @@
       <itunes:email>wamfour@gmail.com</itunes:email>
     </itunes:owner>
     <item>
+      <title>Semiconductors &amp; Compute Infrastructure — July 18, 2026</title>
+      <description>Semiconductors &amp; Compute Infrastructure for July 18, 2026 - re-rendered with the improved TTS pipeline (clearer pronunciation of DRAM, HBM, capex and smoother cadence).
+
+Published July 18, 2026 at 11:20 AM (ET).
+
+Read the full transcript: https://marange63.github.io/Spotify/transcripts/semiconductors-compute-2026-07-18.html</description>
+      <itunes:summary>Semiconductors &amp; Compute Infrastructure for July 18, 2026 - re-rendered with the improved TTS pipeline (clearer pronunciation of DRAM, HBM, capex and smoother cadence).
+
+Published July 18, 2026 at 11:20 AM (ET).
+
+Read the full transcript: https://marange63.github.io/Spotify/transcripts/semiconductors-compute-2026-07-18.html</itunes:summary>
+      <enclosure url="https://marange63.github.io/Spotify/audio/semiconductors-compute-2026-07-18.mp3" length="2913840" type="audio/mpeg"/>
+      <guid isPermaLink="false">semiconductors-compute-2026-07-18</guid>
+      <pubDate>Sat, 18 Jul 2026 11:20:37 -0400</pubDate>
+      <itunes:duration>8:06</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:episodeType>full</itunes:episodeType>
+      <podcast:transcript url="https://marange63.github.io/Spotify/transcripts/semiconductors-compute-2026-07-18.html" type="text/html" language="en"/>
+      <podcast:transcript url="https://marange63.github.io/Spotify/transcripts/semiconductors-compute-2026-07-18.txt" type="text/plain" language="en"/>
+    </item>
+    <item>
       <title>The Throughline — July 18, 2026</title>
       <description>A shorter Throughline: a signed document is not a delivered fact. Three stories this week - the collapsed US-Iran ceasefire, the missed GENIUS Act stablecoin deadline, and Google delaying Gemini 3.5 Pro - all failed the same way, and the shortfall, not the announcement, is what moved markets.
 
@@ -110,27 +131,6 @@ Read the full transcript: https://marange63.github.io/Spotify/transcripts/ai-pro
       <itunes:episodeType>full</itunes:episodeType>
       <podcast:transcript url="https://marange63.github.io/Spotify/transcripts/ai-products-2026-07-18.html" type="text/html" language="en"/>
       <podcast:transcript url="https://marange63.github.io/Spotify/transcripts/ai-products-2026-07-18.txt" type="text/plain" language="en"/>
-    </item>
-    <item>
-      <title>Semiconductors &amp; Compute Infrastructure — July 18, 2026</title>
-      <description>Over the last two days we've pinned advanced packaging as the binding constraint on the AI buildout — TSMC's CoWoS capacity so tight it's throttling how fast Nvidia and AMD can actually ship finished accelerators. That constraint hasn't gone away.
-
-Published July 18, 2026 at 12:37 AM (ET).
-
-Read the full transcript: https://marange63.github.io/Spotify/transcripts/semiconductors-compute-2026-07-18.html</description>
-      <itunes:summary>Over the last two days we've pinned advanced packaging as the binding constraint on the AI buildout — TSMC's CoWoS capacity so tight it's throttling how fast Nvidia and AMD can actually ship finished accelerators. That constraint hasn't gone away.
-
-Published July 18, 2026 at 12:37 AM (ET).
-
-Read the full transcript: https://marange63.github.io/Spotify/transcripts/semiconductors-compute-2026-07-18.html</itunes:summary>
-      <enclosure url="https://marange63.github.io/Spotify/audio/semiconductors-compute-2026-07-18.mp3" length="2791296" type="audio/mpeg"/>
-      <guid isPermaLink="false">semiconductors-compute-2026-07-18</guid>
-      <pubDate>Sat, 18 Jul 2026 00:37:49 -0400</pubDate>
-      <itunes:duration>7:45</itunes:duration>
-      <itunes:explicit>false</itunes:explicit>
-      <itunes:episodeType>full</itunes:episodeType>
-      <podcast:transcript url="https://marange63.github.io/Spotify/transcripts/semiconductors-compute-2026-07-18.html" type="text/html" language="en"/>
-      <podcast:transcript url="https://marange63.github.io/Spotify/transcripts/semiconductors-compute-2026-07-18.txt" type="text/plain" language="en"/>
     </item>
     <item>
       <title>Strategic Power, Energy, and Institutional Change — July 18, 2026</title>

@@ -309,20 +309,6 @@
       "transcript_html": "strategic-power-2026-07-18.html"
     },
     {
-      "guid": "semiconductors-compute-2026-07-18",
-      "prompt_id": "semiconductors-compute",
-      "title": "Semiconductors & Compute Infrastructure — July 18, 2026",
-      "summary": "Over the last two days we've pinned advanced packaging as the binding constraint on the AI buildout — TSMC's CoWoS capacity so tight it's throttling how fast Nvidia and AMD can actually ship finished accelerators. That constraint hasn't gone away.",
-      "date": "2026-07-18",
-      "seq": 4,
-      "published_at": "2026-07-18T00:37:49-04:00",
-      "audio_file": "semiconductors-compute-2026-07-18.mp3",
-      "length": 2791296,
-      "duration": 465,
-      "transcript_txt": "semiconductors-compute-2026-07-18.txt",
-      "transcript_html": "semiconductors-compute-2026-07-18.html"
-    },
-    {
       "guid": "ai-products-2026-07-18",
       "prompt_id": "ai-products",
       "title": "AI Products & Applications — July 18, 2026",
@@ -377,6 +363,20 @@
       "duration": 359,
       "transcript_txt": "throughline-2026-07-18.txt",
       "transcript_html": "throughline-2026-07-18.html"
+    },
+    {
+      "guid": "semiconductors-compute-2026-07-18",
+      "prompt_id": "semiconductors-compute",
+      "title": "Semiconductors & Compute Infrastructure — July 18, 2026",
+      "summary": "Semiconductors & Compute Infrastructure for July 18, 2026 - re-rendered with the improved TTS pipeline (clearer pronunciation of DRAM, HBM, capex and smoother cadence).",
+      "date": "2026-07-18",
+      "seq": 8,
+      "published_at": "2026-07-18T11:20:37-04:00",
+      "audio_file": "semiconductors-compute-2026-07-18.mp3",
+      "length": 2913840,
+      "duration": 486,
+      "transcript_txt": "semiconductors-compute-2026-07-18.txt",
+      "transcript_html": "semiconductors-compute-2026-07-18.html"
     }
   ]
 }
