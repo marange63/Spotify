@@ -109,7 +109,7 @@ The project now runs on a **prompt library** (`prompts.json`), not a single dail
    The window has no model and needs no API key; it only edits `prompts.json`.
 2. In Claude Code, say **"make my daily briefing."** **First re-read `prompts.json` fresh from disk**
    (do not trust an earlier read from this session — the user may have added prompts in the window
-   since); the count can change mid-session. Then run the **three-agent pipeline** (next section) for
+   since); the count can change mid-session. Then run the **four-stage pipeline** (next section) for
    **every** currently-enabled prompt — interactive runs default to **relaxed** novelty — and publish
    the batch:
 
@@ -126,11 +126,13 @@ The project now runs on a **prompt library** (`prompts.json`), not a single dail
    stale `briefings/<id>.txt` and are excluded automatically. `--summaries` is a JSON map
    `{prompt_id: summary}` for episode descriptions (else auto-derived from the script).
 
-### Three-agent pipeline (how each script is produced)
+### Four-stage pipeline (how each script is produced)
 
-Each briefing script is produced by three separated Claude Code subagents (defined in
+Each briefing script is produced by four separated Claude Code subagents (defined in
 `.claude/agents/`) with persistent file handoffs under `runs/<date>/<prompt_id>/`, gated by
-`orchestrator.py` (stdlib CLI; the ONLY path allowed to copy a script into `briefings/`):
+`orchestrator.py` (stdlib CLI; the ONLY path allowed to copy a script into `briefings/`). The
+Writer and Reviewer are deliberately **separate agents with separate contexts** so the reviewer
+never grades its own writing:
 
 1. **Init:** `python orchestrator.py init --date <today> --novelty strict|relaxed` — creates
    `runs/<date>/<id>/` for every enabled prompt (normal prompts first, synthesis last), records the
@@ -146,14 +148,18 @@ Each briefing script is produced by three separated Claude Code subagents (defin
      novelty mode. Then `validate plan <path>`. If `decision` is `skip`:
      `python orchestrator.py mark <id> --date <today> --status skipped --stage plan --reason "…"`
      and move to the next prompt (no Writer).
-   - **Writer-Reviewer** (subagent `writer-reviewer`; no web): writes the script from the dossier +
-     plan, then reviews and revises once → `draft.txt`, `review.json`, `final.txt`. Then
-     `validate review <path>` and `python orchestrator.py approve <id> --date <today>` — which
-     copies `final.txt` to `briefings/<id>.txt` **only if** the review says `approve`.
+   - **Writer** (subagent `writer`; no web): writes the script from the dossier + plan →
+     `draft.txt` only. It may use only figures that carry a verbatim `quote` in `research.json`.
+   - **Reviewer** (subagent `reviewer`; no web; fresh context — did NOT write the draft): critiques
+     the draft against the dossier, plan, and editorial standard, **audits every figure against the
+     research quotes**, revises once → `review.json` + `final.txt`. Approve is not its default
+     outcome. Then `validate review <path>` and
+     `python orchestrator.py approve <id> --date <today>` — which copies `final.txt` to
+     `briefings/<id>.txt` **only if** the review says `approve`.
 3. **Synthesis prompts last** (`"kind": "synthesis"`, e.g. `throughline` — "The Throughline"): NOT
-   researched and no editorial plan. Run **Writer-Reviewer only**, giving it the day's APPROVED
-   `briefings/<id>.txt` files as source material (no fresh web research, no new facts); same
-   `review.json`/`final.txt`/`approve` flow. If zero prompts were approved today, mark the
+   researched and no editorial plan. Run **Writer then Reviewer** (no Researcher/Analyst-Editor),
+   giving both the day's APPROVED `briefings/<id>.txt` files as source material (no fresh web
+   research, no new facts); same `review.json`/`final.txt`/`approve` flow. If zero prompts were approved today, mark the
    synthesis prompt skipped. `publish_feed.py` publishes synthesis prompts last so they sort to the
    top of the feed.
 4. **Report:** `python orchestrator.py status --date <today>` — per-prompt outcomes + approved ids.
@@ -163,9 +169,9 @@ Each briefing script is produced by three separated Claude Code subagents (defin
   still fails, `mark <id> --status failed --stage <stage> --reason "…"` and move on.
 - Research `status: "insufficient"` → the Analyst-Editor may still decide, but skipping is the
   expected outcome; `failed` research → mark failed, move on.
-- Writer-Reviewer failure → retry the subagent **once**, then mark failed.
-- Review decision `skip`/`failed` → mark accordingly; `approve` will refuse the copy, so the prompt
-  cannot publish.
+- Writer or Reviewer failure → retry that subagent **once**, then mark failed.
+- Review decision `skip`/`failed` → mark accordingly (a reviewer skip is a normal editorial
+  outcome, not an error); `approve` will refuse the copy, so the prompt cannot publish.
 - TTS/feed/git failures keep their existing behavior in `publish_feed.py` (per-prompt try/except;
   the batch still publishes the successful episodes).
 3. This **auto-publishes** — no approval step (standing authorization). Claude reports a table of
@@ -267,19 +273,23 @@ feed.build_feed()
   5 AM scheduled run, which calls `publish_feed.py --require-fresh`); suppress with `--no-notify` or
   by setting `NTFY_TOPIC`/env `BRIEFING_NTFY_TOPIC` to `""`. This is the working replacement for the
   disabled confirmation email.
-- **`orchestrator.py`** — deterministic gates of the three-agent pipeline (stdlib only, no agent
+- **`orchestrator.py`** — deterministic gates of the four-stage pipeline (stdlib only, no agent
   runner): `init` (run dirs + `runs/<date>/run.json`, idempotent), `validate research|plan|review`
-  (schema checks with readable errors), `approve` (the ONLY path that copies a `final.txt` to
-  `briefings/<id>.txt` — refuses unless `review.json` says `approve`), `mark` (record skip/failure),
-  `status` (outcome table + approved ids). See the pipeline section above.
-- **`.claude/agents/`** — the three subagent definitions: `researcher.md` (web search → structured
-  `research.json` dossier; never writes the briefing), `analyst-editor.md` (no web; novelty + skepsis
-  + story selection → `editorial_plan.json`, may decide `skip`), `writer-reviewer.md` (no web; writes
-  `draft.txt`, one review/revision pass → `review.json` + `final.txt`; also handles synthesis prompts
-  from the day's approved briefings). Each pins a `model:` in its frontmatter — `sonnet` for
-  researcher and writer-reviewer, `opus` for the judgment-heavy analyst-editor — and these pins
-  take precedence over whatever model the invoking session uses (interactive **or** the 5 AM CLI
-  `--model`). Change a role's cost/quality by editing its frontmatter `model:`, not the caller.
+  (schema checks with readable errors — `validate research` also enforces the verbatim-quote
+  contract on each lead candidate's `important_facts`), `approve` (the ONLY path that copies a
+  `final.txt` to `briefings/<id>.txt` — refuses unless `review.json` says `approve`), `mark`
+  (record skip/failure), `status` (outcome table + approved ids). See the pipeline section above.
+- **`.claude/agents/`** — the four subagent definitions: `researcher.md` (web search → structured
+  `research.json` dossier with a verbatim `quote` per important fact; never writes the briefing),
+  `analyst-editor.md` (no web; novelty + skepsis + story selection → `editorial_plan.json`, may
+  decide `skip`), `writer.md` (no web; drafts the script → `draft.txt` only, using only quoted
+  figures; also drafts synthesis prompts from the day's approved briefings), `reviewer.md` (no web;
+  independent fresh-context editor — critiques the draft, audits every figure against the research
+  quotes, revises once → `review.json` + `final.txt`; approve is not its default outcome). Each
+  pins a `model:` in its frontmatter — `sonnet` for the throughput stages (researcher, writer),
+  `opus` for the judgment stages (analyst-editor, reviewer) — and these pins take precedence over
+  whatever model the invoking session uses (interactive **or** the 5 AM CLI `--model`). Change a
+  role's cost/quality by editing its frontmatter `model:`, not the caller.
 - **`runs/<date>/<prompt_id>/`** — git-ignored per-day pipeline artifacts: `research.json`,
   `editorial_plan.json`, `draft.txt`, `review.json`, `final.txt`, plus `runs/<date>/run.json` (batch
   state). Same-day re-runs overwrite in place; the audit trail for "why did this episode say that /
@@ -298,12 +308,13 @@ feed.build_feed()
   Podcasting 2.0 apps read the `<podcast:transcript>` tag; Spotify ignores RSS transcripts, so the
   description link is how Spotify listeners reach the hosted page.)
 - **`tools/`** — `daily_run.ps1` (the unattended 5 AM Task Scheduler entry point: phase 1 headless
-  Claude runs the three-agent pipeline, phase 2 `publish_feed.py --require-fresh` publishes; flags:
+  Claude runs the four-stage pipeline, phase 2 `publish_feed.py --require-fresh` publishes; flags:
   `-RepeatOK` = relaxed novelty, `-NoPublish` = dry run that skips phase 2 entirely — agents and
   `runs/` artifacts only, no TTS/feed/commit/push; logs to `logs\daily-<date>.log`). **Model
-  pinning + fallback:** the three subagents pin their own models in `.claude/agents/*.md`
-  frontmatter (researcher=`sonnet`, analyst-editor=`opus`, writer-reviewer=`sonnet`), and those
-  pins **override** the CLI `--model`/`--fallback-model` for the actual research/editing/writing.
+  pinning + fallback:** the four subagents pin their own models in `.claude/agents/*.md`
+  frontmatter (researcher=`sonnet`, analyst-editor=`opus`, writer=`sonnet`, reviewer=`opus`), and
+  those pins **override** the CLI `--model`/`--fallback-model` for the actual research/editing/
+  writing/reviewing.
   So phase 1's `--model claude-fable-5` + `--fallback-model claude-opus-4-8` now govern only the
   lightweight **parent orchestrator session** (reading files, running `orchestrator.py`,
   dispatching subagents). The parent does little token work, so the old Fable *usage-limit* death

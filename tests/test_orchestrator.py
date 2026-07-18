@@ -1,4 +1,4 @@
-"""Unit tests for orchestrator.py — the deterministic gates of the three-agent pipeline.
+"""Unit tests for orchestrator.py — the deterministic gates of the four-stage pipeline.
 
 Agent execution is mocked by writing the artifact files directly (the agents are
 Claude Code subagents; the gates are what must be airtight)."""
@@ -24,7 +24,10 @@ def _valid_research(pid="a"):
             "title": "Something happened", "event_date": DATE,
             "summary": "It happened.", "why_it_matters": "It matters.",
             "sources": [{"title": "Filing", "url": "https://x", "source_type": "primary"}],
-            "important_facts": ["fact"], "uncertainties": [],
+            "important_facts": [{"fact": "X rose 10%",
+                                 "quote": "X rose 10 percent in the quarter.",
+                                 "source_url": "https://x"}],
+            "uncertainties": [],
             "possible_second_order_effects": [], "importance_score": 8,
         }],
         "secondary_items": [], "items_to_ignore": [], "research_gaps": [],
@@ -132,6 +135,28 @@ class OrchestratorTest(unittest.TestCase):
         self.assertTrue(any("status" in p for p in problems))
         empty_complete = {**_valid_research(), "lead_candidates": []}
         self.assertTrue(orchestrator.validate_research(empty_complete))
+
+    def test_validate_research_quote_contract(self):
+        # object-form facts with fact+quote pass (the fixture)
+        self.assertEqual(orchestrator.validate_research(_valid_research()), [])
+        # legacy string-form facts are rejected
+        legacy = _valid_research()
+        legacy["lead_candidates"][0]["important_facts"] = ["a bare string fact"]
+        problems = orchestrator.validate_research(legacy)
+        self.assertTrue(any("verbatim-quote contract" in p for p in problems))
+        # a fact object missing/blank quote is rejected
+        unquoted = _valid_research()
+        unquoted["lead_candidates"][0]["important_facts"] = [
+            {"fact": "X rose 10%", "quote": "  ", "source_url": "https://x"}]
+        problems = orchestrator.validate_research(unquoted)
+        self.assertTrue(any("quote" in p for p in problems))
+        # empty important_facts on a lead is tolerated (facts may be thin, not fabricated)
+        thin = _valid_research()
+        thin["lead_candidates"][0]["important_facts"] = []
+        self.assertEqual(orchestrator.validate_research(thin), [])
+        # insufficient dossiers are exempt (no leads to check)
+        insufficient = {**_valid_research(), "status": "insufficient", "lead_candidates": []}
+        self.assertEqual(orchestrator.validate_research(insufficient), [])
 
     def test_validate_plan_write_and_skip(self):
         self.assertEqual(orchestrator.validate_plan(_valid_plan(decision="write")), [])

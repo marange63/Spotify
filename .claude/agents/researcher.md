@@ -22,6 +22,10 @@ run date, and the exact output path (`runs/<date>/<prompt_id>/research.json`).
    prior expectations or consensus, and the key claims.
 4. Distinguish **confirmed facts** (primary-source, verifiable) from reporting, rumor, inference,
    and commentary — record that distinction explicitly in `important_facts` vs `uncertainties`.
+   **Every figure-bearing fact must carry a verbatim quote**: copy the exact sentence(s) from the
+   source that support the stated value — no paraphrase. Downstream agents have no web access and
+   audit every number in the script against these quotes; a fact whose supporting sentence you
+   cannot copy verbatim goes to `uncertainties` instead, and its figure will not be publishable.
 5. Note plausible second-order effects per item (candidates for the analyst, not conclusions).
 6. Flag conflicting figures, single-source claims, and weak evidence in `uncertainties`.
 7. Put stories that look important but are probably noise (PR without substance, recycled news,
@@ -50,7 +54,9 @@ expert listener today.
       "sources": [
         {"title": "", "url": "", "source_type": "primary|secondary"}
       ],
-      "important_facts": [],
+      "important_facts": [
+        {"fact": "", "quote": "<verbatim sentence(s) copied from the source>", "source_url": ""}
+      ],
       "uncertainties": [],
       "possible_second_order_effects": [],
       "importance_score": 0
@@ -63,7 +69,9 @@ expert listener today.
 }
 ```
 
-- `lead_candidates`: the 3–6 strongest items, fully populated as above.
+- `lead_candidates`: the 3–6 strongest items, fully populated as above. Each `important_facts`
+  entry is an object: `fact` (your statement), `quote` (the verbatim supporting sentence(s)),
+  `source_url` (where the quote is from). All three fields required.
 - `secondary_items`: smaller items in the same object shape (fewer facts is fine).
 - `items_to_ignore`: `{"title": "", "reason": ""}` objects.
 - `status`: `complete` when there is real material (requires ≥1 lead candidate), `insufficient`

@@ -1,11 +1,11 @@
 # Cautious Optimism Briefings - unattended daily run (Windows Task Scheduler).
 #
 # Two phases, deliberately separated so publishing can't be skipped by an AI hiccup:
-#   1. Headless Claude Code runs the three-agent pipeline (Researcher -> Analyst-Editor ->
-#      Writer-Reviewer, see CLAUDE.md) for every enabled prompt; only reviewed-and-approved
+#   1. Headless Claude Code runs the four-stage pipeline (Researcher -> Analyst-Editor ->
+#      Writer -> Reviewer, see CLAUDE.md) for every enabled prompt; only reviewed-and-approved
 #      scripts land in briefings/<id>.txt (enforced by orchestrator.py).
-#      MODEL PINNING: the three subagents pin their own models in .claude/agents/*.md frontmatter
-#      (researcher=sonnet, analyst-editor=opus, writer-reviewer=sonnet), which OVERRIDES the
+#      MODEL PINNING: the four subagents pin their own models in .claude/agents/*.md frontmatter
+#      (researcher=sonnet, analyst-editor=opus, writer=sonnet, reviewer=opus), which OVERRIDES the
 #      --model/--fallback-model below for the actual research/editing/writing work. So --model
 #      claude-fable-5 + --fallback-model claude-opus-4-8 now govern only the lightweight PARENT
 #      orchestrator session (reading files, running orchestrator.py, dispatching subagents).
@@ -41,18 +41,18 @@ $novelty = if ($RepeatOK) { 'relaxed' } else { 'strict' }
 $mode = "$novelty novelty" + $(if ($NoPublish) { ' + dry run (-NoPublish)' } else { '' })
 Log "=== daily run start ($today) - $mode ==="
 
-# Phase 1 - three-agent pipeline: research -> edit -> write/review (no publishing, no git) ----
+# Phase 1 - four-stage pipeline: research -> edit -> write -> review (no publishing, no git) ----
 # The prompt is resume-aware (skip already-approved prompts), so the SAME prompt drives both the
 # Fable primary run and the Opus retry - the retry just picks up whatever Fable didn't finish.
 $prompt = @"
-Run today's three-agent briefing pipeline for EVERY enabled prompt in prompts.json, following the
-'Three-agent pipeline' procedure in CLAUDE.md exactly, with NOVELTY MODE: $novelty. Use --date
+Run today's four-stage briefing pipeline for EVERY enabled prompt in prompts.json, following the
+'Four-stage pipeline' procedure in CLAUDE.md exactly, with NOVELTY MODE: $novelty. Use --date
 $today. Start with: python orchestrator.py init --date $today --novelty $novelty ; then follow its
 plan and the CLAUDE.md failure rules (validate every JSON artifact, one repair attempt, mark
 failures/skips, continue the batch). RESUME SEMANTICS: the init plan lists each prompt's current
 status; if a prompt is already 'approved' (finished by an earlier attempt in today's run), SKIP it
 entirely - do NOT re-run its agents. Only process prompts whose status is 'pending' or 'failed'.
-Handle synthesis prompts (kind "synthesis", e.g. throughline) LAST, Writer-Reviewer only, from the
+Handle synthesis prompts (kind "synthesis", e.g. throughline) LAST, Writer then Reviewer, from the
 day's APPROVED briefings. Do NOT publish, do NOT run publish_feed.py, and do NOT git commit or push
 - only orchestrator.py may copy approved scripts to briefings/<id>.txt. When finished, run
 python orchestrator.py status --date $today and report it.
@@ -74,7 +74,7 @@ function Get-IncompleteCount {
 # Primary attempt - PARENT session pinned to Fable 5 (so a changed interactive default can't flip
 # it), with automatic fallback to Opus 4.8 if Fable is overloaded/unavailable mid-run. Note the
 # subagents ignore this and use their frontmatter models (sonnet/opus); this governs orchestration.
-Log "phase 1: headless Claude - three-agent pipeline (novelty=$novelty), parent Fable 5"
+Log "phase 1: headless Claude - four-stage pipeline (novelty=$novelty), parent Fable 5"
 & $claude -p $prompt --model claude-fable-5 --fallback-model claude-opus-4-8 --dangerously-skip-permissions *>> $log
 Log "phase 1 (Fable 5) exit code: $LASTEXITCODE"
 

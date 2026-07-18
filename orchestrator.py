@@ -1,8 +1,9 @@
-"""Deterministic gates for the three-agent briefing pipeline.
+"""Deterministic gates for the four-stage briefing pipeline.
 
-The briefing scripts themselves are produced by three Claude Code subagents
-(``.claude/agents/researcher.md`` -> ``analyst-editor.md`` -> ``writer-reviewer.md``)
-run by the main Claude session, with persistent file handoffs under
+The briefing scripts themselves are produced by four Claude Code subagents
+(``.claude/agents/researcher.md`` -> ``analyst-editor.md`` -> ``writer.md`` ->
+``reviewer.md`` — the reviewer is an independent fresh-context editor, separate
+from the writer) run by the main Claude session, with persistent file handoffs under
 ``runs/<date>/<prompt_id>/``. This module is NOT an agent runner — it is the
 stdlib-only gatekeeper the session calls between stages:
 
@@ -183,6 +184,17 @@ def validate_research(doc: dict) -> list:
                     errors.append(f"lead_candidates[{i}].{key} missing or not {typ.__name__}")
             if isinstance(c.get("title"), str) and not c["title"].strip():
                 errors.append(f"lead_candidates[{i}].title is empty")
+            # Figure-verification contract: every important fact must carry a verbatim
+            # supporting quote (the reviewer audits the script's numbers against these).
+            for j, fact in enumerate(c.get("important_facts") or []):
+                where = f"lead_candidates[{i}].important_facts[{j}]"
+                if not isinstance(fact, dict):
+                    errors.append(f"{where} must be an object with fact/quote/source_url "
+                                  "(verbatim-quote contract)")
+                    continue
+                for key in ("fact", "quote"):
+                    if not isinstance(fact.get(key), str) or not fact[key].strip():
+                        errors.append(f"{where}.{key} missing or empty")
     return errors
 
 
