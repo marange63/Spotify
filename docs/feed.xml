@@ -28,6 +28,27 @@
       <itunes:email>wamfour@gmail.com</itunes:email>
     </itunes:owner>
     <item>
+      <title>The Throughline — July 18, 2026</title>
+      <description>The Throughline for July 18, 2026 - the show's front-page digest, rebuilt in a new format: a one-line headline of the day, then a quick tour of every briefing (macro backdrop, the AI and compute stack, and the applied frontier), closing on the one thread worth opening two scripts for.
+
+Published July 18, 2026 at 12:06 PM (ET).
+
+Read the full transcript: https://marange63.github.io/Spotify/transcripts/throughline-2026-07-18.html</description>
+      <itunes:summary>The Throughline for July 18, 2026 - the show's front-page digest, rebuilt in a new format: a one-line headline of the day, then a quick tour of every briefing (macro backdrop, the AI and compute stack, and the applied frontier), closing on the one thread worth opening two scripts for.
+
+Published July 18, 2026 at 12:06 PM (ET).
+
+Read the full transcript: https://marange63.github.io/Spotify/transcripts/throughline-2026-07-18.html</itunes:summary>
+      <enclosure url="https://marange63.github.io/Spotify/audio/throughline-2026-07-18.mp3" length="2064096" type="audio/mpeg"/>
+      <guid isPermaLink="false">throughline-2026-07-18</guid>
+      <pubDate>Sat, 18 Jul 2026 12:06:13 -0400</pubDate>
+      <itunes:duration>5:44</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:episodeType>full</itunes:episodeType>
+      <podcast:transcript url="https://marange63.github.io/Spotify/transcripts/throughline-2026-07-18.html" type="text/html" language="en"/>
+      <podcast:transcript url="https://marange63.github.io/Spotify/transcripts/throughline-2026-07-18.txt" type="text/plain" language="en"/>
+    </item>
+    <item>
       <title>Strategic Power, Energy, and Institutional Change — July 18, 2026</title>
       <description>Start in the Gulf. On June 17th, the United States and Iran signed a memorandum establishing a ceasefire, itself a truce after the Strait of Hormuz crisis that had already pushed Brent above 126 dollars a barrel earlier this year. That memorandum lasted under three weeks.
 
@@ -194,27 +215,6 @@ Read the full transcript: https://marange63.github.io/Spotify/transcripts/semico
       <itunes:episodeType>full</itunes:episodeType>
       <podcast:transcript url="https://marange63.github.io/Spotify/transcripts/semiconductors-compute-2026-07-18.html" type="text/html" language="en"/>
       <podcast:transcript url="https://marange63.github.io/Spotify/transcripts/semiconductors-compute-2026-07-18.txt" type="text/plain" language="en"/>
-    </item>
-    <item>
-      <title>The Throughline — July 18, 2026</title>
-      <description>A shorter Throughline: a signed document is not a delivered fact. Three stories this week - the collapsed US-Iran ceasefire, the missed GENIUS Act stablecoin deadline, and Google delaying Gemini 3.5 Pro - all failed the same way, and the shortfall, not the announcement, is what moved markets.
-
-Published July 18, 2026 at 10:30 AM (ET).
-
-Read the full transcript: https://marange63.github.io/Spotify/transcripts/throughline-2026-07-18.html</description>
-      <itunes:summary>A shorter Throughline: a signed document is not a delivered fact. Three stories this week - the collapsed US-Iran ceasefire, the missed GENIUS Act stablecoin deadline, and Google delaying Gemini 3.5 Pro - all failed the same way, and the shortfall, not the announcement, is what moved markets.
-
-Published July 18, 2026 at 10:30 AM (ET).
-
-Read the full transcript: https://marange63.github.io/Spotify/transcripts/throughline-2026-07-18.html</itunes:summary>
-      <enclosure url="https://marange63.github.io/Spotify/audio/throughline-2026-07-18.mp3" length="2151360" type="audio/mpeg"/>
-      <guid isPermaLink="false">throughline-2026-07-18</guid>
-      <pubDate>Sat, 18 Jul 2026 10:30:52 -0400</pubDate>
-      <itunes:duration>5:59</itunes:duration>
-      <itunes:explicit>false</itunes:explicit>
-      <itunes:episodeType>full</itunes:episodeType>
-      <podcast:transcript url="https://marange63.github.io/Spotify/transcripts/throughline-2026-07-18.html" type="text/html" language="en"/>
-      <podcast:transcript url="https://marange63.github.io/Spotify/transcripts/throughline-2026-07-18.txt" type="text/plain" language="en"/>
     </item>
     <item>
       <title>The Throughline (daily synthesis) — July 17, 2026</title>

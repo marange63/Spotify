@@ -161,9 +161,12 @@ never grades its own writing:
 3. **Synthesis prompts last** (`"kind": "synthesis"`, e.g. `throughline` — "The Throughline"): NOT
    researched and no editorial plan. Run **Writer then Reviewer** (no Researcher/Analyst-Editor),
    giving both the day's APPROVED `briefings/<id>.txt` files as source material (no fresh web
-   research, no new facts). Both also read the last 5 `docs/transcripts/throughline-*.txt` for
-   cross-day memory — continuing/escalating/broken patterns are named explicitly, and the
-   reviewer audits cross-day claims against those transcripts. Same
+   research, no new facts). The Throughline is a **front-page digest** (headline + a fixed-order
+   tour of every brief that shipped, ≤3 sentences each + an optional cross-cutting close — see its
+   prompt in `prompts.json`). Both also read the last 5 `docs/transcripts/throughline-*.txt` for
+   cross-day memory — a continuing/escalating/broken pattern is named only in the optional close
+   and only when compelling (never forced), and the reviewer audits any cross-day claim against
+   those transcripts. Same
    `review.json`/`final.txt`/`approve` flow. If zero prompts were approved today, mark the
    synthesis prompt skipped. `publish_feed.py` publishes synthesis prompts last so they sort to the
    top of the feed.

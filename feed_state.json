@@ -253,20 +253,6 @@
       "transcript_html": "throughline-2026-07-17.html"
     },
     {
-      "guid": "throughline-2026-07-18",
-      "prompt_id": "throughline",
-      "title": "The Throughline — July 18, 2026",
-      "summary": "A shorter Throughline: a signed document is not a delivered fact. Three stories this week - the collapsed US-Iran ceasefire, the missed GENIUS Act stablecoin deadline, and Google delaying Gemini 3.5 Pro - all failed the same way, and the shortfall, not the announcement, is what moved markets.",
-      "date": "2026-07-18",
-      "seq": 8,
-      "published_at": "2026-07-18T10:30:52-04:00",
-      "audio_file": "throughline-2026-07-18.mp3",
-      "length": 2151360,
-      "duration": 359,
-      "transcript_txt": "throughline-2026-07-18.txt",
-      "transcript_html": "throughline-2026-07-18.html"
-    },
-    {
       "guid": "semiconductors-compute-2026-07-18",
       "prompt_id": "semiconductors-compute",
       "title": "Semiconductors & Compute Infrastructure — July 18, 2026",
@@ -377,6 +363,20 @@
       "duration": 500,
       "transcript_txt": "strategic-power-2026-07-18.txt",
       "transcript_html": "strategic-power-2026-07-18.html"
+    },
+    {
+      "guid": "throughline-2026-07-18",
+      "prompt_id": "throughline",
+      "title": "The Throughline — July 18, 2026",
+      "summary": "The Throughline for July 18, 2026 - the show's front-page digest, rebuilt in a new format: a one-line headline of the day, then a quick tour of every briefing (macro backdrop, the AI and compute stack, and the applied frontier), closing on the one thread worth opening two scripts for.",
+      "date": "2026-07-18",
+      "seq": 8,
+      "published_at": "2026-07-18T12:06:13-04:00",
+      "audio_file": "throughline-2026-07-18.mp3",
+      "length": 2064096,
+      "duration": 344,
+      "transcript_txt": "throughline-2026-07-18.txt",
+      "transcript_html": "throughline-2026-07-18.html"
     }
   ]
 }
