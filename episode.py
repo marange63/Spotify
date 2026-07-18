@@ -30,36 +30,102 @@ SHOW_ID = config.SHOW_ID
 # retryable transport errors. A real bug (anything else) propagates instead of being retried.
 _RETRYABLE = (aiohttp.ClientError, ConnectionResetError, OSError, asyncio.TimeoutError, RuntimeError)
 
+# Pronunciation fixes for terms edge-tts consistently mis-says. Applied ONLY to the text
+# sent to TTS — the published transcript is built from briefings/<id>.txt separately, so
+# these respellings never leak into the written transcript. Order matters (first match wins
+# per pattern); case-sensitive except where noted so the ordinary lowercase word is left
+# alone. Grow this list as new offenders turn up.
+_PRONUNCIATION = [
+    (re.compile(r"\bDRAM\b"), "dee-ram"),          # else read as "dram" (rhymes with ham)
+    (re.compile(r"\bHBM\b"), "H B M"),             # spell the letters, don't say "hbm"
+    (re.compile(r"\bPJM\b"), "P J M"),             # the grid operator, letter-by-letter
+    (re.compile(r"\bGENIUS\b"), "Genius"),         # the GENIUS Act — the word, not letters
+    (re.compile(r"\bcapex\b", re.IGNORECASE), "cap-ex"),  # else mis-stressed
+]
+
+
+def _apply_pronunciation(text: str) -> str:
+    """Rewrite known-mispronounced terms into TTS-friendly respellings (audio only)."""
+    for pat, repl in _PRONUNCIATION:
+        text = pat.sub(repl, text)
+    return text
+
+
+def _chunk_paragraphs(paras: list[str], budget: int) -> list[list[str]]:
+    """Group consecutive paragraphs into chunks whose joined length stays under ``budget``.
+    Returns groups (lists of paragraphs) so a failed chunk can fall back to per-paragraph
+    synthesis. Fewer, larger chunks mean fewer concatenation joins and smoother cadence.
+    """
+    groups: list[list[str]] = []
+    cur: list[str] = []
+    cur_len = 0
+    for p in paras:
+        add = len(p) + (1 if cur else 0)
+        if cur and cur_len + add > budget:
+            groups.append(cur)
+            cur, cur_len = [p], len(p)
+        else:
+            cur.append(p)
+            cur_len += add
+    if cur:
+        groups.append(cur)
+    return groups
+
 
 async def _synth_one(text: str) -> bytes:
     """Synthesize a single chunk to raw MP3 bytes over one WebSocket."""
+    kwargs = {}
+    rate = getattr(config, "TTS_RATE", "+0%")
+    if rate and rate != "+0%":
+        kwargs["rate"] = rate
     audio = b""
-    async for chunk in edge_tts.Communicate(text, config.VOICE).stream():
+    async for chunk in edge_tts.Communicate(text, config.VOICE, **kwargs).stream():
         if chunk["type"] == "audio":
             audio += chunk["data"]
     return audio
 
 
+async def _synth_with_retry(text: str, label: str) -> bytes | None:
+    """Synthesize ``text`` with retries. Returns the audio bytes, or None if every
+    attempt dropped (so the caller can degrade to a smaller unit)."""
+    for attempt in range(1, config.TTS_MAX_RETRIES + 1):
+        try:
+            data = await _synth_one(text)
+            if not data:
+                raise RuntimeError("empty audio")
+            return data
+        except _RETRYABLE as e:
+            log.debug("tts %s: attempt %d failed (%s); retrying", label, attempt, type(e).__name__)
+            time.sleep(1.5 * attempt)
+    return None
+
+
 async def _synthesize(text: str, mp3_path: str) -> None:
-    """Resilient TTS: one short WebSocket per paragraph, with retries, then
-    concatenate. Microsoft's TTS endpoint intermittently drops mid-stream on long
-    inputs; per-paragraph retries mean a drop re-does one paragraph, not the whole file.
+    """Resilient TTS with natural cadence: apply pronunciation fixes, group paragraphs
+    into ~``TTS_CHUNK_CHARS`` chunks (fewer joins = fewer unnatural mid-thought pauses),
+    synthesize each over one WebSocket with retries, then concatenate. A chunk that keeps
+    dropping falls back to per-paragraph synthesis, preserving the old resilience (a drop
+    re-does one paragraph, not the whole file).
     """
+    text = _apply_pronunciation(text)
     paras = [p.strip() for p in text.split("\n\n") if p.strip()] or [text]
+    groups = _chunk_paragraphs(paras, getattr(config, "TTS_CHUNK_CHARS", 1500))
     out = b""
-    for i, para in enumerate(paras, 1):
-        for attempt in range(1, config.TTS_MAX_RETRIES + 1):
-            try:
-                data = await _synth_one(para)
-                if not data:
-                    raise RuntimeError("empty audio")
-                out += data
-                break
-            except _RETRYABLE as e:
-                log.debug("tts para %d: attempt %d failed (%s); retrying", i, attempt, type(e).__name__)
-                time.sleep(1.5 * attempt)
+    for gi, group in enumerate(groups, 1):
+        data = await _synth_with_retry(" ".join(group), f"chunk {gi}")
+        if data is not None:
+            out += data
+            continue
+        # Chunk kept dropping — fall back to one paragraph at a time.
+        if len(group) > 1:
+            for pi, para in enumerate(group, 1):
+                pdata = await _synth_with_retry(para, f"chunk {gi} para {pi}")
+                if pdata is None:
+                    raise RuntimeError(
+                        f"TTS failed for chunk {gi} para {pi} after {config.TTS_MAX_RETRIES} attempts")
+                out += pdata
         else:
-            raise RuntimeError(f"TTS failed for paragraph {i} after {config.TTS_MAX_RETRIES} attempts")
+            raise RuntimeError(f"TTS failed for chunk {gi} after {config.TTS_MAX_RETRIES} attempts")
     with open(mp3_path, "wb") as f:
         f.write(out)
 

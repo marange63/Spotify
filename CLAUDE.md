@@ -341,17 +341,30 @@ feed.build_feed()
 - `tests/` — stdlib `unittest` suite. Run: `python -m unittest discover -s tests -t .`
 - Legacy: root `briefing.txt` / `briefing.mp3` are leftovers from the earlier single-file flow.
 
-## TTS reliability
+## TTS reliability & quality
 
 Microsoft's edge-tts endpoint intermittently drops mid-stream on long inputs (WinError 64 /
-ClientConnectorError), truncating the mp3. `episode._synthesize` handles this by synthesizing **one
-short WebSocket per paragraph with retries**, then concatenating — a drop only re-does one paragraph.
-Expect retry noise in the batch log; a complete run is what matters.
+ClientConnectorError), truncating the mp3. `episode._synthesize` handles this by **grouping
+paragraphs into ~`TTS_CHUNK_CHARS` (1500) chunks**, synthesizing each over one WebSocket **with
+retries**, then concatenating. A mid-stream drop re-does only that chunk; a chunk that exhausts its
+retries **falls back to per-paragraph** synthesis (the old resilient behavior), so a drop still costs
+one paragraph at most. Expect retry noise in the batch log; a complete run is what matters.
 
-A paragraph can still exhaust all `TTS_MAX_RETRIES` (6) attempts, which fails **that episode only**
-(the batch continues and still publishes the rest — e.g. 2026-07-12, when capital-markets-radar
-failed and 7 of 8 episodes shipped). The script is still on disk, so the fix is the "Re-publishing
-one prompt manually" snippet above once the endpoint recovers.
+**Cadence:** edge-tts pads each call's audio with a little silence, so the previous
+one-call-per-paragraph approach left an audible gap after *every* paragraph (unnatural mid-thought
+pauses). Grouping into fewer, larger chunks removes most joins; `config.TTS_RATE` (`-4%`) slows
+delivery slightly for a more natural read. Set `TTS_RATE="+0%"` to disable.
+
+**Pronunciation:** `episode._PRONUNCIATION` is a respelling table applied **only to the TTS input**
+(DRAM→"dee-ram", HBM/PJM→spelled letters, GENIUS→"Genius", capex→"cap-ex"). The published transcript
+is built from `briefings/<id>.txt` separately, so respellings never leak into the written text. Add
+new offenders to that list in `episode.py`. Deeper control (true phonemes/lexicons) would require
+moving off free edge-tts to Azure Speech (same Andrew voice, paid, full SSML) — not done yet.
+
+A chunk can still exhaust all `TTS_MAX_RETRIES` (6) attempts even after the per-paragraph fallback,
+which fails **that episode only** (the batch continues and still publishes the rest — e.g.
+2026-07-12, when capital-markets-radar failed and 7 of 8 episodes shipped). The script is still on
+disk, so the fix is the "Re-publishing one prompt manually" snippet above once the endpoint recovers.
 
 ## Known working-tree state
 

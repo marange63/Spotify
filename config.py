@@ -66,6 +66,15 @@ NTFY_TOPIC = os.environ.get("BRIEFING_NTFY_TOPIC", "will-briefings-9f3k2x7q")
 # Text-to-speech
 VOICE = "en-US-AndrewNeural"
 TTS_MAX_RETRIES = 6
+# A slight slowdown reads as more deliberate/natural for a spoken briefing (edge-tts
+# accepts rate/volume/pitch even though it ignores full SSML). "+0%" disables it.
+TTS_RATE = "-4%"
+# Group consecutive paragraphs into single-synthesis chunks of ~this many characters.
+# Each edge-tts call pads its output with a little silence, so one-call-per-paragraph
+# left an audible gap after every paragraph (unnatural mid-thought pauses). Bigger
+# chunks = far fewer joins = smoother cadence; still small enough that a mid-stream
+# drop only re-does one chunk, with a per-paragraph fallback if a chunk keeps failing.
+TTS_CHUNK_CHARS = 1500
 
 # save-to-spotify CLI: prefer whatever is on PATH, else the standard install location.
 S2S = shutil.which("save-to-spotify") or os.path.join(
