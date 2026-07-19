@@ -449,20 +449,6 @@
       "transcript_html": "robotics-physical-ai-2026-07-19.html"
     },
     {
-      "guid": "throughline-2026-07-19",
-      "prompt_id": "throughline",
-      "title": "The Throughline — July 19, 2026",
-      "summary": "The Throughline for July 19, 2026 - the show's front-page digest. Today's spine: capital and policy sprinting ahead of delivered reality, from nuclear-for-AI valuations and tokenized settlement to memory margins, frontier-AI oversight, and robot valuations - now including the new Robotics & Physical AI briefing.",
-      "date": "2026-07-19",
-      "seq": 5,
-      "published_at": "2026-07-19T12:46:19-04:00",
-      "audio_file": "throughline-2026-07-19.mp3",
-      "length": 2109888,
-      "duration": 352,
-      "transcript_txt": "throughline-2026-07-19.txt",
-      "transcript_html": "throughline-2026-07-19.html"
-    },
-    {
       "guid": "private-credit-2026-07-19",
       "prompt_id": "private-credit",
       "title": "Private Credit & the Corporate Credit Cycle — July 19, 2026",
@@ -475,6 +461,20 @@
       "duration": 603,
       "transcript_txt": "private-credit-2026-07-19.txt",
       "transcript_html": "private-credit-2026-07-19.html"
+    },
+    {
+      "guid": "throughline-2026-07-19",
+      "prompt_id": "throughline",
+      "title": "The Throughline — July 19, 2026",
+      "summary": "The Throughline for July 19, 2026 - the show's front-page digest. Today's spine: capital and policy sprinting ahead of delivered reality - across nuclear-for-AI valuations, tokenized settlement, cracks in private credit's benign-default story, memory and foundry pricing, frontier-AI oversight lobbying, and robot valuations. Tours all six briefings that shipped today, including the new Private Credit and Robotics & Physical AI briefings.",
+      "date": "2026-07-19",
+      "seq": 6,
+      "published_at": "2026-07-19T14:29:40-04:00",
+      "audio_file": "throughline-2026-07-19.mp3",
+      "length": 2100528,
+      "duration": 350,
+      "transcript_txt": "throughline-2026-07-19.txt",
+      "transcript_html": "throughline-2026-07-19.html"
     }
   ]
 }
