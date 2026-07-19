@@ -447,6 +447,20 @@
       "duration": 293,
       "transcript_txt": "throughline-2026-07-19.txt",
       "transcript_html": "throughline-2026-07-19.html"
+    },
+    {
+      "guid": "robotics-physical-ai-2026-07-19",
+      "prompt_id": "robotics-physical-ai",
+      "title": "Robotics & Physical AI — July 19, 2026",
+      "summary": "Robotics & Physical AI for July 19, 2026 - the debut of a new briefing on embodied AI. Nvidia's bid to commoditize the robot 'brain' via GR00T in Hugging Face's LeRobot; the billion-dollar valuations on independent model-layer startups; Unitree's IPO exposing compressing hardware margins; Figure's 11-month BMW deployment; and Texas fleet filings showing Waymo's 577 driverless cars to Tesla's 42.",
+      "date": "2026-07-19",
+      "seq": 5,
+      "published_at": "2026-07-19T12:36:52-04:00",
+      "audio_file": "robotics-physical-ai-2026-07-19.mp3",
+      "length": 3381120,
+      "duration": 564,
+      "transcript_txt": "robotics-physical-ai-2026-07-19.txt",
+      "transcript_html": "robotics-physical-ai-2026-07-19.html"
     }
   ]
 }
