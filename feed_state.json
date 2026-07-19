@@ -461,6 +461,20 @@
       "duration": 352,
       "transcript_txt": "throughline-2026-07-19.txt",
       "transcript_html": "throughline-2026-07-19.html"
+    },
+    {
+      "guid": "private-credit-2026-07-19",
+      "prompt_id": "private-credit",
+      "title": "Private Credit & the Corporate Credit Cycle — July 19, 2026",
+      "summary": "Private Credit & the Corporate Credit Cycle for July 19, 2026 - the debut of a new briefing on the credit machine beneath the markets. The benign-default narrative cracks at the hardest-to-fake data: rising BDC non-accruals and PIK marks into Q2 earnings, LMEs that defer rather than cure distress, still-roaring CLO refinancing, a $35B AI-chip financing that shifts private credit into residual-value risk, and ESRB/RBA regulators converging on the same worry.",
+      "date": "2026-07-19",
+      "seq": 6,
+      "published_at": "2026-07-19T14:17:20-04:00",
+      "audio_file": "private-credit-2026-07-19.mp3",
+      "length": 3618000,
+      "duration": 603,
+      "transcript_txt": "private-credit-2026-07-19.txt",
+      "transcript_html": "private-credit-2026-07-19.html"
     }
   ]
 }
