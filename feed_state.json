@@ -435,20 +435,6 @@
       "transcript_html": "semiconductors-compute-2026-07-19.html"
     },
     {
-      "guid": "throughline-2026-07-19",
-      "prompt_id": "throughline",
-      "title": "The Throughline (daily synthesis) — July 19, 2026",
-      "summary": "Start with the macro backdrop.",
-      "date": "2026-07-19",
-      "seq": 4,
-      "published_at": "2026-07-19T05:23:57-04:00",
-      "audio_file": "throughline-2026-07-19.mp3",
-      "length": 1755072,
-      "duration": 293,
-      "transcript_txt": "throughline-2026-07-19.txt",
-      "transcript_html": "throughline-2026-07-19.html"
-    },
-    {
       "guid": "robotics-physical-ai-2026-07-19",
       "prompt_id": "robotics-physical-ai",
       "title": "Robotics & Physical AI — July 19, 2026",
@@ -461,6 +447,20 @@
       "duration": 564,
       "transcript_txt": "robotics-physical-ai-2026-07-19.txt",
       "transcript_html": "robotics-physical-ai-2026-07-19.html"
+    },
+    {
+      "guid": "throughline-2026-07-19",
+      "prompt_id": "throughline",
+      "title": "The Throughline — July 19, 2026",
+      "summary": "The Throughline for July 19, 2026 - the show's front-page digest. Today's spine: capital and policy sprinting ahead of delivered reality, from nuclear-for-AI valuations and tokenized settlement to memory margins, frontier-AI oversight, and robot valuations - now including the new Robotics & Physical AI briefing.",
+      "date": "2026-07-19",
+      "seq": 5,
+      "published_at": "2026-07-19T12:46:19-04:00",
+      "audio_file": "throughline-2026-07-19.mp3",
+      "length": 2109888,
+      "duration": 352,
+      "transcript_txt": "throughline-2026-07-19.txt",
+      "transcript_html": "throughline-2026-07-19.html"
     }
   ]
 }
