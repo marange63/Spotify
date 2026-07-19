@@ -377,6 +377,76 @@
       "duration": 344,
       "transcript_txt": "throughline-2026-07-18.txt",
       "transcript_html": "throughline-2026-07-18.html"
+    },
+    {
+      "guid": "frontier-ai-labs-2026-07-19",
+      "prompt_id": "frontier-ai-labs",
+      "title": "Frontier AI Lab Competition — July 19, 2026",
+      "summary": "Start with the premise the last few briefings on this topic have built toward. Capability stopped being a durable moat this month. A Chinese open-weight model reached frontier-adjacent scores within weeks of release, and pricing pressure has been building across the board as a result.",
+      "date": "2026-07-19",
+      "seq": 0,
+      "published_at": "2026-07-19T05:18:21-04:00",
+      "audio_file": "frontier-ai-labs-2026-07-19.mp3",
+      "length": 3006864,
+      "duration": 501,
+      "transcript_txt": "frontier-ai-labs-2026-07-19.txt",
+      "transcript_html": "frontier-ai-labs-2026-07-19.html"
+    },
+    {
+      "guid": "digital-money-2026-07-19",
+      "prompt_id": "digital-money",
+      "title": "Digital Money, Crypto, and Market Structure — July 19, 2026",
+      "summary": "The lead today is plumbing, not price. On July 15th, the Depository Trust and Clearing Corporation began live production trades on its new tokenization service, built on a platform it calls ComposerX. Two days ago, this show could still only describe the DTCC as reportedly moving toward production testing.",
+      "date": "2026-07-19",
+      "seq": 1,
+      "published_at": "2026-07-19T05:19:55-04:00",
+      "audio_file": "digital-money-2026-07-19.mp3",
+      "length": 2965968,
+      "duration": 494,
+      "transcript_txt": "digital-money-2026-07-19.txt",
+      "transcript_html": "digital-money-2026-07-19.html"
+    },
+    {
+      "guid": "strategic-power-2026-07-19",
+      "prompt_id": "strategic-power",
+      "title": "Strategic Power, Energy, and Institutional Change — July 19, 2026",
+      "summary": "On this feed two days ago, we told you PJM's capacity auction had made data centers the dominant cost driver in the largest power market in the country. Yesterday, we told you China had turned its rare-earth export controls from a threat into an enforced licensing regime.",
+      "date": "2026-07-19",
+      "seq": 2,
+      "published_at": "2026-07-19T05:21:39-04:00",
+      "audio_file": "strategic-power-2026-07-19.mp3",
+      "length": 3038112,
+      "duration": 506,
+      "transcript_txt": "strategic-power-2026-07-19.txt",
+      "transcript_html": "strategic-power-2026-07-19.html"
+    },
+    {
+      "guid": "semiconductors-compute-2026-07-19",
+      "prompt_id": "semiconductors-compute",
+      "title": "Semiconductors & Compute Infrastructure — July 19, 2026",
+      "summary": "Start with something the CEO of the world's most important foundry said out loud, because it's the tell for everything else in this cycle. On TSMC's Q2 call last week, C.C. Wei was asked point-blank about pricing power, given that memory makers are now running 86% gross margins while TSMC sits in the high 60s.",
+      "date": "2026-07-19",
+      "seq": 3,
+      "published_at": "2026-07-19T05:23:05-04:00",
+      "audio_file": "semiconductors-compute-2026-07-19.mp3",
+      "length": 2957760,
+      "duration": 493,
+      "transcript_txt": "semiconductors-compute-2026-07-19.txt",
+      "transcript_html": "semiconductors-compute-2026-07-19.html"
+    },
+    {
+      "guid": "throughline-2026-07-19",
+      "prompt_id": "throughline",
+      "title": "The Throughline (daily synthesis) — July 19, 2026",
+      "summary": "Start with the macro backdrop.",
+      "date": "2026-07-19",
+      "seq": 4,
+      "published_at": "2026-07-19T05:23:57-04:00",
+      "audio_file": "throughline-2026-07-19.mp3",
+      "length": 1755072,
+      "duration": 293,
+      "transcript_txt": "throughline-2026-07-19.txt",
+      "transcript_html": "throughline-2026-07-19.html"
     }
   ]
 }
