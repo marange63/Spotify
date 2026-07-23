@@ -23,6 +23,15 @@ class PronunciationTest(unittest.TestCase):
         self.assertEqual(out.lower().count("cap-ex"), 2)   # both cases rewritten
         self.assertNotIn("DRAM", out)
 
+    def test_respells_hormuz_and_robotaxi(self):
+        out = episode._apply_pronunciation(
+            "the Strait of Hormuz, one robotaxi, many Robotaxis")
+        self.assertIn("Hor-mooz", out)
+        self.assertNotIn("Hormuz", out)
+        self.assertIn("Roh-bo-taxi", out)      # singular
+        self.assertIn("Roh-bo-taxis", out)     # plural -s preserved
+        self.assertNotIn("obotaxi", out)       # no unrewritten remnant
+
     def test_leaves_ordinary_words_alone(self):
         # lowercase 'genius' is an ordinary word and must not be touched
         text = "a genius idea about a program"

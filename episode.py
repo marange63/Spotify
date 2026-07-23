@@ -41,6 +41,8 @@ _PRONUNCIATION = [
     (re.compile(r"\bPJM\b"), "P J M"),             # the grid operator, letter-by-letter
     (re.compile(r"\bGENIUS\b"), "Genius"),         # the GENIUS Act — the word, not letters
     (re.compile(r"\bcapex\b", re.IGNORECASE), "cap-ex"),  # else mis-stressed
+    (re.compile(r"\bHormuz\b"), "Hor-mooz"),       # Strait of Hormuz: "hor-MOOZ", not "HOR-muzz"
+    (re.compile(r"\bRobotaxi", re.IGNORECASE), "Roh-bo-taxi"),  # prefix match keeps the plural -s; else mis-stressed
 ]
 
 
