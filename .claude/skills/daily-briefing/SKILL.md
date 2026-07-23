@@ -71,10 +71,19 @@ with separate contexts** so the reviewer never grades its own writing.
      ordering, emergent 5-day patterns → `editorial_plan.json`. Pass the novelty mode. Then
      `validate plan <path>`. If `decision` is `skip`:
      `orchestrator.py mark <id> --date <today> --status skipped --stage plan --reason "…"`, next prompt.
-   - **Writer** (`writer`; no web): script from dossier + plan → `draft.txt` only. May use only
-     figures carrying a verbatim `quote` in `research.json`.
+   - **Deep Researcher** (`deep-researcher`; web allowed) — **optional; runs in every mode,
+     including the 5 AM job.** Run it whenever the plan's `deep_dive_requests` is non-empty (and
+     skip it silently when empty, which is the common case). Pass the prompt id/name, the date,
+     the research + plan paths, and the output path
+     `deep_research.json`. Then `orchestrator.py validate deep <path>`. It answers the analyst's
+     named evidence gaps on ONE approved item (≤3 questions, ≤6 web calls) so the Writer can make
+     the arguments the plan requires instead of hedging them. On failure or invalid output after one
+     repair attempt, **delete `deep_research.json` and continue to the Writer** — the stage is an
+     enhancement, never a reason to fail a prompt. See "Deep-dive stage" below.
+   - **Writer** (`writer`; no web): script from dossier + plan (+ `deep_research.json` if it exists)
+     → `draft.txt` only. May use only figures carrying a verbatim `quote` in those files.
    - **Reviewer** (`reviewer`; no web; fresh context — did NOT write the draft): critiques vs. dossier,
-     plan, standard, **audits every figure against the research quotes**, revises once → `review.json`
+     plan (+ deep dive), standard, **audits every figure against the research quotes**, revises once → `review.json`
      + `final.txt`. Approve is not its default. Then `validate review <path>` and
      `orchestrator.py approve <id> --date <today>` — copies `final.txt` to `briefings/<id>.txt` **only
      if** the review says `approve`.
@@ -101,6 +110,46 @@ with separate contexts** so the reviewer never grades its own writing.
   not an error); `approve` refuses the copy, so the prompt cannot publish.
 - TTS/feed/git failures keep their `publish_feed.py` behavior (per-prompt try/except; the batch still
   publishes the successful episodes).
+
+## Deep-dive stage (optional stage 2.5) — added 2026-07-23, on trial
+
+**Why it exists.** The Analyst-Editor writes `required_arguments` and
+`required_second_order_effects` knowing the Writer has no web access and may only use quoted
+figures. When the dossier can't support what the plan demanded, the draft either hedges the figure
+("reported near $17.9 billion") or omits the argument — which is why drafts land short of their
+word target and reviewers spend their one revision pass expanding rather than polishing. The deep
+dive closes that loop at the one point where the need is known and specific.
+
+**It is deliberately bounded.** `orchestrator.py` enforces ≤1 request and ≤3 questions per plan
+(`MAX_DEEP_DIVE_REQUESTS` / `MAX_DEEP_DIVE_QUESTIONS`); the agent caps itself at 6 web calls. Those
+caps are a token-budget control, not style: a web-research agent's cost is superlinear in its tool
+calls, so bounding the *request* is what keeps the batch predictable. Estimated cost when it runs is
+~+12% on that prompt; an empty `deep_dive_requests` costs nothing.
+
+**It runs in the 5 AM job.** That is the point: the scheduled run is the one that publishes to
+Spotify, so a quality stage gated out of it improves nothing. It is on in both novelty modes.
+
+**Watch the usage cap.** The 5 AM phase 1 has a known failure mode where later prompts get skipped
+silently (see the `scheduled-run-usage-limit-risk` memory). This stage adds ~+12% tokens on a
+prompt that uses it, ~+5–7% on the batch. Mitigations already in place: the request is bounded in
+`orchestrator.py`, the stage can never fail a prompt, and it is demand-driven so a thin day costs
+nothing. If a morning does get truncated, the first diagnostic is `orchestrator.py status --date
+<today>` — and the standing fix is to trim stage 1 (below), not to re-gate this stage.
+
+**The follow-up that pays for it:** trim the Researcher from 5 leads + 3 secondary to ~4 + 2. The
+dossier already over-supplies (only 2–5 items reach the plan), and a web agent's cost is
+superlinear in tool calls, so removing ~5 searches saves several times what the deep dive spends.
+Do this if token headroom gets tight — it should make the pair net-neutral or better.
+
+**Judge it from the run artifacts, next morning** (compare against the 2026-07-23 baseline; ignore
+reviewer `overall`, which is self-graded and pinned at 8, so a one-point move is noise):
+
+1. `issues_found` entries of the "soft support / figure has no verbatim quote" kind should go to
+   zero for the deep-dived item.
+2. Draft word count should stop landing ~200 words under the standing prompt's floor **without**
+   the reviewer being told to expand.
+
+If neither moves after a handful of runs, delete the stage rather than keeping it on principle.
 
 ## Novelty policy
 

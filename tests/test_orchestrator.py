@@ -42,7 +42,7 @@ def _valid_plan(pid="a", decision="write"):
                                "reason": "strongest", "skeptical_note": "", "required_caveats": []}],
            "rejected_items": [], "required_arguments": [], "required_second_order_effects": [],
            "recommended_structure": ["lead", "close"],
-           "material_repeated_from_prior_briefings": []}
+           "material_repeated_from_prior_briefings": [], "deep_dive_requests": []}
     if decision == "skip":
         doc.update(central_thesis="", lead_story="", approved_items=[], recommended_structure=[])
     return doc
@@ -167,6 +167,56 @@ class OrchestratorTest(unittest.TestCase):
         problems = orchestrator.validate_plan(bad)
         self.assertTrue(any("approved item" in p for p in problems))
         self.assertTrue(any("central_thesis" in p for p in problems))
+
+    def test_validate_plan_deep_dive_requests(self):
+        # a well-formed request naming an approved item passes
+        ok = _valid_plan()
+        ok["deep_dive_requests"] = [{"research_item": "Something happened",
+                                     "questions": ["How much supply cleared?", "Primary source?"]}]
+        self.assertEqual(orchestrator.validate_plan(ok), [])
+        # the key is required — the analyst must consciously decide, even if the answer is "none"
+        missing = _valid_plan()
+        del missing["deep_dive_requests"]
+        self.assertTrue(any("deep_dive_requests" in p
+                            for p in orchestrator.validate_plan(missing)))
+        # bounds: at most one request, at most three questions
+        too_many = _valid_plan()
+        too_many["deep_dive_requests"] = [
+            {"research_item": "Something happened", "questions": ["q"]},
+            {"research_item": "Something happened", "questions": ["q"]}]
+        self.assertTrue(any("max is 1" in p for p in orchestrator.validate_plan(too_many)))
+        wordy = _valid_plan()
+        wordy["deep_dive_requests"] = [{"research_item": "Something happened",
+                                        "questions": ["a", "b", "c", "d"]}]
+        self.assertTrue(any("max is 3" in p for p in orchestrator.validate_plan(wordy)))
+        # cannot deep-dive an item that was never approved
+        unapproved = _valid_plan()
+        unapproved["deep_dive_requests"] = [{"research_item": "Rejected story",
+                                             "questions": ["why?"]}]
+        self.assertTrue(any("does not match any approved item" in p
+                            for p in orchestrator.validate_plan(unapproved)))
+        # an empty questions list is a malformed request, not a no-op
+        blank = _valid_plan()
+        blank["deep_dive_requests"] = [{"research_item": "Something happened", "questions": []}]
+        self.assertTrue(any("omit the request instead" in p
+                            for p in orchestrator.validate_plan(blank)))
+        # a skipped plan has no script to support, so it must not commission research
+        skipped = _valid_plan(decision="skip")
+        skipped["deep_dive_requests"] = [{"research_item": "Something happened",
+                                          "questions": ["why?"]}]
+        self.assertTrue(any("must not request a deep dive" in p
+                            for p in orchestrator.validate_plan(skipped)))
+
+    def test_validate_deep_reuses_the_research_quote_contract(self):
+        # deep_research.json shares research.json's schema, so "deep" validates identically
+        orchestrator.init_run(DATE, "strict")
+        path = self._write_artifact("a", "deep_research.json", _valid_research())
+        self.assertEqual(orchestrator.validate_file("deep", path), [])
+        unquoted = _valid_research()
+        unquoted["lead_candidates"][0]["important_facts"] = [
+            {"fact": "X rose 10%", "quote": "", "source_url": "https://x"}]
+        path = self._write_artifact("b", "deep_research.json", unquoted)
+        self.assertTrue(any("quote" in p for p in orchestrator.validate_file("deep", path)))
 
     def test_validate_review_good_and_bad(self):
         self.assertEqual(orchestrator.validate_review(_valid_review()), [])

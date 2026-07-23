@@ -43,24 +43,36 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   5 AM scheduled run); suppress with `--no-notify` or by setting `NTFY_TOPIC`/env
   `BRIEFING_NTFY_TOPIC` to `""`. This is the working replacement for the disabled confirmation email.
 - **`orchestrator.py`** — deterministic gates of the four-stage pipeline (stdlib only, no agent
-  runner): `init` (run dirs + `runs/<date>/run.json`, idempotent), `validate research|plan|review`
+  runner): `init` (run dirs + `runs/<date>/run.json`, idempotent), `validate research|plan|deep|review`
   (schema checks with readable errors — `validate research` also enforces the verbatim-quote
-  contract on each lead candidate's `important_facts`), `approve` (the ONLY path that copies a
+  contract on each lead candidate's `important_facts`; `validate deep` is an alias for the same
+  checker, since `deep_research.json` shares the dossier schema; `validate plan` bounds
+  `deep_dive_requests` at `MAX_DEEP_DIVE_REQUESTS`/`MAX_DEEP_DIVE_QUESTIONS`), `approve` (the ONLY path that copies a
   `final.txt` to `briefings/<id>.txt` — refuses unless `review.json` says `approve`), `mark`
   (record skip/failure), `status` (outcome table + approved ids).
-- **`.claude/agents/`** — the four subagent definitions: `researcher.md` (web search → structured
+- **`docs/pipeline-agent-flow.png`** — one-page visual of the agent flow: each stage's model, web access,
+  inputs, outputs, responsibilities, the deterministic gate, and when the optional stage 2.5 runs.
+  Regenerate with `python tools/make_pipeline_diagram.py` (base conda env — it needs matplotlib)
+  after changing any stage.
+- **`.claude/agents/`** — the four core subagent definitions plus one optional stage: `researcher.md`
+  (web search → structured
   `research.json` dossier with a verbatim `quote` per important fact; never writes the briefing),
   `analyst-editor.md` (no web; novelty + skepsis + story selection → `editorial_plan.json`, may
-  decide `skip`), `writer.md` (no web; drafts the script → `draft.txt` only, using only quoted
+  decide `skip`), `deep-researcher.md` (**optional stage 2.5**, web allowed — runs whenever the
+  plan's `deep_dive_requests` is non-empty, in every novelty mode including the 5 AM job; answers ≤3 named evidence gaps
+  on ONE approved item within ≤6 web calls → `deep_research.json`, same schema as the dossier plus a
+  `contradictions` array; never proposes new stories, cannot reopen the plan), `writer.md` (no web;
+  drafts the script → `draft.txt` only, using only quoted
   figures; also drafts synthesis prompts from the day's approved briefings), `reviewer.md` (no web;
   independent fresh-context editor — critiques the draft, audits every figure against the research
   quotes, revises once → `review.json` + `final.txt`; approve is not its default outcome). Each
-  pins a `model:` in its frontmatter — `sonnet` for the throughput stages (researcher, writer),
-  `opus` for the judgment stages (analyst-editor, reviewer) — and these pins take precedence over
+  pins a `model:` in its frontmatter — `sonnet` for the throughput stages (researcher,
+  deep-researcher, writer), `opus` for the judgment stages (analyst-editor, reviewer) — and these pins take precedence over
   whatever model the invoking session uses (interactive **or** the 5 AM CLI `--model`). Change a
   role's cost/quality by editing its frontmatter `model:`, not the caller.
 - **`runs/<date>/<prompt_id>/`** — git-ignored per-day pipeline artifacts: `research.json`,
-  `editorial_plan.json`, `draft.txt`, `review.json`, `final.txt`, plus `runs/<date>/run.json` (batch
+  `editorial_plan.json`, `deep_research.json` (optional — present only when a deep dive ran),
+  `draft.txt`, `review.json`, `final.txt`, plus `runs/<date>/run.json` (batch
   state). Same-day re-runs overwrite in place; the audit trail for "why did this episode say that /
   why was it skipped" lives here.
 - **`notify.py`** — composes + sends the "briefings published" confirmation email to `config.NOTIFY_EMAIL`

@@ -19,6 +19,16 @@ day's approved briefing files instead of research/plan paths.
 `runs/<date>/<prompt_id>/editorial_plan.json`, and the "Editorial standard", "Listenability", and
 "Format" sections of CLAUDE.md.
 
+**Also read `runs/<date>/<prompt_id>/deep_research.json` if it exists** (it usually will not). It is
+targeted follow-up research the Analyst-Editor commissioned to close a specific evidence gap, and it
+uses the same schema as research.json. Treat its `important_facts` as having **identical standing**
+to the dossier's — the same verbatim-quote rule applies, so its figures are fully usable. It exists
+because the plan demanded an argument the dossier could not support: use it to *make that argument*,
+not as decoration. If its `contradictions` array is non-empty, you must honor those — state the
+qualification or drop the affected claim. Never assert something the deep dive has undercut. If its
+`status` is `insufficient`, the sources did not support what was asked: drop the claim rather than
+hedging your way around it.
+
 **Synthesis prompts** (e.g. The Throughline, `kind: "synthesis"`): there is no research.json or
 editorial_plan.json. Your source material is the day's APPROVED briefing scripts
 (`briefings/<id>.txt` files listed in the invocation prompt). Introduce no facts that are not in
@@ -37,7 +47,8 @@ none is stated) and today's date. The script must:
 - Lead with the most important new or non-consensus development (the plan's lead story).
 - Follow the editorial hierarchy and ordering in `editorial_plan.json` — lead, then major, then
   brief items, in the recommended structure, with signposted transitions. Do not list headlines.
-- **Use only figures that carry a verbatim `quote` in research.json's `important_facts`** and state
+- **Use only figures that carry a verbatim `quote` in the `important_facts` of research.json — or
+  of deep_research.json where present** — and state
   each figure consistently with its quote. If a figure you want lacks a quote, omit it or state its
   uncertainty and attribution explicitly ("reporting puts it around..."). The Reviewer audits every
   number against the quotes; unsupported figures will be cut.

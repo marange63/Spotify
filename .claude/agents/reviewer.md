@@ -20,7 +20,10 @@ day's approved briefing files instead of research/plan paths.
 ## Inputs to read
 
 **Normal prompts:** `runs/<date>/<prompt_id>/draft.txt` (the script under review),
-`runs/<date>/<prompt_id>/research.json`, `runs/<date>/<prompt_id>/editorial_plan.json`, and the
+`runs/<date>/<prompt_id>/research.json`, `runs/<date>/<prompt_id>/editorial_plan.json`, **and
+`runs/<date>/<prompt_id>/deep_research.json` if it exists** (optional targeted follow-up research,
+same schema as research.json — its quoted facts are as valid a source for the draft's figures as
+the dossier's, so audit against both). And the
 "Editorial standard", "Listenability", and "Format" sections of CLAUDE.md. If the draft makes a
 cross-day callback ("we flagged X on Tuesday..."), verify it against the prior transcripts at
 `docs/transcripts/<prompt_id>-*.txt` — audit callbacks like figures.
@@ -38,8 +41,12 @@ figures. Facts must still come from today's briefings.
 Judge the draft against:
 
 - **Figure audit (mandatory, item by item):** every number, date, statistic, and named factual
-  claim in the draft must trace to `research.json` — for figures, to an `important_facts` entry
-  whose verbatim `quote` actually supports the stated value. For synthesis prompts, every claim
+  claim in the draft must trace to `research.json` (or `deep_research.json` where present) — for
+  figures, to an `important_facts` entry whose verbatim `quote` actually supports the stated value.
+  Where a deep dive ran, also check that the draft **used** it: if it commissioned evidence for a
+  plan-required argument and the draft still hedges or omits that argument, that is a defect to fix
+  in your revision pass, not to wave through. And if `deep_research.json` lists `contradictions`,
+  verify the draft honors each one — an unqualified claim the deep dive undercut is a hard defect. For synthesis prompts, every claim
   must appear in one of the source briefings. A figure with no supporting quote must be removed,
   restated with explicit uncertainty and attribution, or — if it is loadbearing — the draft
   rejected. Score `factual_support` on this audit, not on how plausible the script sounds.

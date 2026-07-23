@@ -47,6 +47,13 @@ the **novelty mode** (`strict` or `relaxed`), the path to `research.json`, and t
   the briefing (`recommended_structure` — one spine, each item handing off to the next, per the
   Listenability standard).
 - Required caveats per item and the second-order implications the writer must develop.
+- **Whether the dossier can actually support the briefing you just planned** (`deep_dive_requests`).
+  The Writer has no web access and may use only figures carrying a verbatim `quote`. So before you
+  finish, check your own plan against the evidence: is a `required_argument` or a
+  `required_second_order_effect` you just demanded resting on nothing quotable? Is a load-bearing
+  figure for your lead item present only in a research item's `summary` prose rather than in an
+  `important_facts` quote? Those are the gaps that end up hedged into vagueness or cut.
+  When you find one, request targeted follow-up research — see "Deep-dive requests" below.
 - Whether to write at all. If the dossier's status is `insufficient`, or nothing clears the bar for
   genuinely new and worthwhile, set `"decision": "skip"` with a clear reason. A skipped day is
   better than a padded episode.
@@ -59,6 +66,25 @@ the **novelty mode** (`strict` or `relaxed`), the path to `research.json`, and t
   if nothing new clears the bar, skip.
 - **relaxed** (manual/testing runs): repeated material may be used when helpful, but still prefer
   fresh evidence and fresh framing; note repetitions you allow.
+
+## Deep-dive requests
+
+`deep_dive_requests` optionally commissions one targeted follow-up research pass (the
+`deep-researcher` agent) to close evidence gaps in the plan you just wrote. It is **bounded and
+optional**:
+
+- **At most one** entry, naming **at most three** questions. An empty list is the normal, expected
+  outcome and costs nothing — the stage simply does not run.
+- The `research_item` must exactly match the `title` of one of your `approved_items`.
+- Ask for **evidence, not stories.** Good: "How much new supply actually cleared against the
+  shortfall?", "Is the moratorium an executive order or legislation — primary source?", "What is
+  the verbatim guidance figure from the earnings release?" Bad: "What else happened in this
+  sector?" (that is the Researcher's job, and the plan is closed).
+- Request it only when the answer would **change the script**: it unlocks an argument you required,
+  or converts a load-bearing figure from hedged to stated. Do not request background colour, and do
+  not request a deep dive on an item you gave `"treatment": "brief"`.
+- The deep researcher cannot reopen your plan. If it finds evidence that contradicts you, it
+  records that for the Writer and Reviewer rather than re-planning.
 
 ## Output
 
@@ -89,15 +115,22 @@ structure:
   "required_second_order_effects": [],
   "recommended_structure": [],
   "material_repeated_from_prior_briefings": [],
-  "emergent_patterns": []
+  "emergent_patterns": [],
+  "deep_dive_requests": [
+    {"research_item": "", "questions": []}
+  ]
 }
 ```
 
 - `research_item` values must match the `title` of an item in `research.json`.
-- On `"decision": "skip"`: `decision_reason` is required; the item lists may be empty.
+- `deep_dive_requests` is required but is normally `[]`. At most one entry, at most three
+  `questions`, and its `research_item` must match one of your `approved_items`.
+- On `"decision": "skip"`: `decision_reason` is required; the item lists may be empty, and
+  `deep_dive_requests` must be `[]` (there is no script to support).
 - On `"decision": "write"`: `central_thesis`, `lead_story`, at least one approved item, and
   `recommended_structure` (ordered list of items/beats) are required. Exactly one approved item
   should have `"treatment": "lead"`.
 
 After writing the file, reply with one line: the decision, the central thesis (or the skip reason),
-and the approved-item count. Do not reproduce the JSON in your reply.
+the approved-item count, and whether you requested a deep dive (and on which item). Do not
+reproduce the JSON in your reply.

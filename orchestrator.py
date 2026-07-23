@@ -10,6 +10,7 @@ stdlib-only gatekeeper the session calls between stages:
     python orchestrator.py init --date D --novelty strict|relaxed
     python orchestrator.py validate research runs/D/<id>/research.json
     python orchestrator.py validate plan     runs/D/<id>/editorial_plan.json
+    python orchestrator.py validate deep     runs/D/<id>/deep_research.json   # optional stage 2.5
     python orchestrator.py validate review   runs/D/<id>/review.json
     python orchestrator.py approve <id> --date D      # the ONLY path that writes briefings/
     python orchestrator.py mark <id> --date D --status skipped|failed --stage X --reason "…"
@@ -41,6 +42,9 @@ STAGES = ("research", "plan", "write", "review")
 # Artifact filenames inside runs/<date>/<prompt_id>/
 RESEARCH_FILE = "research.json"
 PLAN_FILE = "editorial_plan.json"
+# Optional stage 2.5 — written only when the editorial plan requests a deep dive. Same schema as
+# research.json (so the same validator enforces the verbatim-quote contract on its facts).
+DEEP_FILE = "deep_research.json"
 DRAFT_FILE = "draft.txt"
 REVIEW_FILE = "review.json"
 FINAL_FILE = "final.txt"
@@ -136,6 +140,7 @@ def init_run(date: str, novelty: str) -> dict:
             "artifacts": {
                 "research": os.path.join(prompt_dir(date, e["id"]), RESEARCH_FILE),
                 "plan": os.path.join(prompt_dir(date, e["id"]), PLAN_FILE),
+                "deep": os.path.join(prompt_dir(date, e["id"]), DEEP_FILE),
                 "draft": os.path.join(prompt_dir(date, e["id"]), DRAFT_FILE),
                 "review": os.path.join(prompt_dir(date, e["id"]), REVIEW_FILE),
                 "final": os.path.join(prompt_dir(date, e["id"]), FINAL_FILE),
@@ -198,6 +203,49 @@ def validate_research(doc: dict) -> list:
     return errors
 
 
+# Bounds on the optional stage-2.5 deep dive. Enforced here, not just in the agent prompt: the
+# deep researcher's cost is superlinear in its tool calls, so the request itself is what must be
+# capped to keep the batch's token budget predictable.
+MAX_DEEP_DIVE_REQUESTS = 1
+MAX_DEEP_DIVE_QUESTIONS = 3
+
+
+def _validate_deep_dive_requests(doc: dict, errors: list) -> None:
+    """Check editorial_plan.json's optional ``deep_dive_requests``. ``[]`` is the normal case."""
+    if not _need(doc, "deep_dive_requests", list, errors):
+        return
+    reqs = doc["deep_dive_requests"]
+    if len(reqs) > MAX_DEEP_DIVE_REQUESTS:
+        errors.append(f"deep_dive_requests holds {len(reqs)} entries, "
+                      f"max is {MAX_DEEP_DIVE_REQUESTS}")
+    if reqs and doc.get("decision") == "skip":
+        errors.append('decision "skip" must not request a deep dive (there is no script to support)')
+    approved = {item.get("research_item") for item in (doc.get("approved_items") or [])
+                if isinstance(item, dict)}
+    for i, req in enumerate(reqs):
+        where = f"deep_dive_requests[{i}]"
+        if not isinstance(req, dict):
+            errors.append(f"{where} must be an object with research_item/questions")
+            continue
+        item = req.get("research_item")
+        if not isinstance(item, str) or not item.strip():
+            errors.append(f"{where}.research_item missing or empty")
+        elif doc.get("decision") == "write" and item not in approved:
+            errors.append(f"{where}.research_item {item!r} does not match any approved item")
+        questions = req.get("questions")
+        if not isinstance(questions, list):
+            errors.append(f"{where}.questions missing or not a list")
+            continue
+        if not questions:
+            errors.append(f"{where}.questions is empty — omit the request instead")
+        if len(questions) > MAX_DEEP_DIVE_QUESTIONS:
+            errors.append(f"{where}.questions holds {len(questions)} entries, "
+                          f"max is {MAX_DEEP_DIVE_QUESTIONS}")
+        for j, q in enumerate(questions):
+            if not isinstance(q, str) or not q.strip():
+                errors.append(f"{where}.questions[{j}] must be a non-empty string")
+
+
 def validate_plan(doc: dict) -> list:
     """Structural check of editorial_plan.json. ``decision: "skip"`` is a valid outcome."""
     errors = []
@@ -221,6 +269,7 @@ def validate_plan(doc: dict) -> list:
                 if item.get("treatment") not in ("lead", "major", "brief"):
                     errors.append(f"approved_items[{i}].treatment must be lead|major|brief")
         _need(doc, "recommended_structure", list, errors)
+    _validate_deep_dive_requests(doc, errors)
     return errors
 
 
@@ -242,7 +291,10 @@ def validate_review(doc: dict) -> list:
     return errors
 
 
-_VALIDATORS = {"research": validate_research, "plan": validate_plan, "review": validate_review}
+# "deep" deliberately reuses the research validator: deep_research.json shares research.json's
+# schema, so the verbatim-quote contract is enforced on deep-dive facts by the same code path.
+_VALIDATORS = {"research": validate_research, "plan": validate_plan, "review": validate_review,
+               "deep": validate_research}
 
 
 def validate_file(kind: str, path: str) -> list:
