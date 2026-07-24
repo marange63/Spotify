@@ -61,7 +61,9 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   decide `skip`), `deep-researcher.md` (**optional stage 2.5**, web allowed — runs whenever the
   plan's `deep_dive_requests` is non-empty, in every novelty mode including the 5 AM job; answers ≤3 named evidence gaps
   on ONE approved item within ≤6 web calls → `deep_research.json`, same schema as the dossier plus a
-  `contradictions` array; never proposes new stories, cannot reopen the plan), `writer.md` (no web;
+  `contradictions` array; never proposes new stories, cannot reopen the plan — see the "Deep-dive
+  stage (2.5)" section below for rationale, the do-not-re-gate decision, and run-reading notes),
+  `writer.md` (no web;
   drafts the script → `draft.txt` only, using only quoted
   figures; also drafts synthesis prompts from the day's approved briefings), `reviewer.md` (no web;
   independent fresh-context editor — critiques the draft, audits every figure against the research
@@ -140,6 +142,49 @@ A chunk can still exhaust all `TTS_MAX_RETRIES` (6) attempts even after the per-
 which fails **that episode only** (the batch continues and still publishes the rest — e.g.
 2026-07-12, when capital-markets-radar failed and 7 of 8 episodes shipped). The script is still on
 disk, so the fix is the re-publish snippet in the `daily-briefing` skill once the endpoint recovers.
+
+## Deep-dive stage (2.5) — rationale & operational notes
+
+**Why it exists.** The Analyst-Editor writes `required_arguments` and
+`required_second_order_effects` knowing the Writer has no web access and may only use figures
+carrying a verbatim `quote`. When the dossier can't support what the plan demanded, the draft
+hedges the figure or drops the argument, and the episode lands short. Measured on the 2026-07-23
+run: 6 of 10 drafts finished under the 1,200-word floor, and 5 of 10 carried figures supported only
+by dossier-summary prose that the reviewer then hedged (`"reported near $17.9 billion"`) or cut. The
+5AM log the day before shows the workaround already in force — every reviewer told to spend its one
+revision pass expanding rather than polishing. Stage 2.5 closes that loop at the one point where the
+gap is known and specific. Fanning out **stage 1** research instead would have made this worse (more
+breadth against a fixed word budget); the dossier already over-supplies (5 leads + 3 secondary, only
+2–5 used).
+
+**It runs in every novelty mode, including the 5AM publish job — deliberately.** It was first
+shipped gated to relaxed/interactive runs to protect the scheduled job's token budget; that was the
+wrong call. The 5AM run is the one that publishes to Spotify, so a quality stage excluded from it
+improves nothing. **Do not re-gate it to interactive-only.** The standing lesson: weigh a stage's
+cost against the *published episode*, not against the batch's budget. If token headroom gets tight,
+the response is to trim stage 1 (5 leads + 2–3 secondary → ~4 + 2 — a web agent's cost is
+superlinear in tool calls, so dropping ~5 searches saves several times what the deep dive spends),
+**not** to gate this stage back off.
+
+**Cost.** ≈ +12% tokens on a prompt that uses it; an empty `deep_dive_requests` costs nothing. The
+request is bounded in `orchestrator.py` (`MAX_DEEP_DIVE_REQUESTS`=1, `MAX_DEEP_DIVE_QUESTIONS`=3),
+and the stage can **never fail a prompt** — on error or invalid output after one repair,
+`deep_research.json` is deleted and the Writer runs anyway.
+
+**First live 5AM run (2026-07-24).** Worked end-to-end. Dives fired on 7 of 8 normal briefings (the
+1 non-firing prompt reported a clean gap check — the correct outcome, not a miss); all 7 returned
+`complete` with 3–5 new quoted facts, and 4 recorded `contradictions` the reviewers then honored.
+Drafts under the 1,200 floor dropped from 6/10 to 3/8. Phase 1 ran 25.5 min vs. the 22 min baseline
+(~+16% wall), with no usage-cap truncation and no Opus retry, so the stage-1 trim stayed in reserve.
+All 9 episodes published and pushed cleanly; **zero hard defects shipped.**
+
+**How to judge a run** (ignore the reviewer's `overall` score — self-graded, effectively pinned at
+8): (1) "soft support / no verbatim quote" issues should go to zero *for the deep-dived item*;
+(2) drafts should stop landing ~200 words short without the reviewer being told to expand. Read the
+actual `issues_found` text, not a keyword count — a review's `issues_found` logs what the reviewer
+found **and repaired** (paired with `changes_made`), so an entry there is not a shipped defect;
+residual figure-audit flags typically sit on *other* items in the briefing (one dive closes one
+gap); and a naive keyword scan also trips on the reviewer's contradiction-handling language.
 
 ## Staging feed (in progress)
 
