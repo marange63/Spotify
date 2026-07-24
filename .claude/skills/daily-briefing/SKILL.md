@@ -61,7 +61,10 @@ with separate contexts** so the reviewer never grades its own writing.
 1. **Init:** `python orchestrator.py init --date <today> --novelty strict|relaxed` — creates
    `runs/<date>/<id>/` for every enabled prompt (normal first, synthesis last), records the batch in
    `runs/<date>/run.json`, prints the plan. Idempotent: re-init preserves statuses, so an interrupted
-   batch (or a newly-added prompt) resumes/joins cleanly.
+   batch (or a newly-added prompt) resumes/joins cleanly. Then stamp the token-window start:
+   `python run_report.py --date <today> --start` (idempotent; lets the analysis total the run's
+   grand-total token usage. The 5 AM job also does this in `daily_run.ps1`, so this only matters for
+   interactive runs).
 2. **For each normal prompt, in plan order:**
    - **Researcher** (`researcher`; web allowed): strongest recent material → `research.json`. Pass the
      prompt id/name/text, the date, output path. Then `orchestrator.py validate research <path>`.
@@ -164,27 +167,37 @@ reviewable record of how the agents performed and interacted, plus concrete impr
 
 **Numbers come from the tool, judgment from you.** First run
 `python run_report.py --date <today>` — it emits the deterministic metrics block (per-prompt
-deep-dive firing, new facts, contradictions, word count vs. the prompt's floor, reviewer score, and
-the "figure has no verbatim quote" soft-support flag count) so you never eyeball or miscount them.
-Then wrap the narrative and suggestions around that block.
+deep-dive firing, new facts, contradictions, word count vs. the prompt's floor, reviewer score, the
+"figure has no verbatim quote" soft-support flag count), the run's **grand-total token usage**
+(tip to tail, including subagents and cache — with a tokens/word figure), and a **5-day trend**.
+Read the last **5 days** of `analyses/<date>.md` too, so you can open with a trend and hold prior
+suggestions accountable. Then wrap the narrative and suggestions around that block — never eyeball
+or miscount the numbers.
 
 Follow this fixed template so runs are comparable day to day (see `analyses/2026-07-24.md` as the
 reference example):
 
 1. **Header** — date, novelty mode, and a one-line verdict.
-2. **Outcomes** — approved/skipped/failed from `orchestrator status`; note whether skips were
+2. **Trend** — one short paragraph vs. the last 5 days (the `run_report` trend table + the prior
+   `analyses/*.md`): what improved, regressed, or recurred, and — explicitly — whether a suggestion
+   you made on a previous day was acted on, resolved, or still open. Skip only on a genuine first
+   run with no history.
+3. **Outcomes** — approved/skipped/failed from `orchestrator status`; note whether skips were
    legitimate (strict-novelty) or failures.
-3. **Metrics** — paste the `run_report.py` table verbatim in a code block.
-4. **Agent performance & interaction** — one short paragraph per stage: Researcher (dossier depth,
+4. **Metrics** — paste the `run_report.py` table (including the token block) verbatim in a code
+   block. Call out the grand-total tokens and tokens/word, and flag a large move vs. the trend.
+5. **Agent performance & interaction** — one short paragraph per stage: Researcher (dossier depth,
    any `insufficient`, JSON repairs), Analyst-Editor (skips, gap-check firing rate, emergent
    patterns), Deep-Researcher (fire rate, contradictions found and honored, any `insufficient`),
    Writer (word counts, contradictions honored), Reviewer (defects **caught vs. shipped**,
    expansions). Call out where a handoff created friction or where one stage saved another.
-5. **Notable events** — JSON repairs, agent retries, the Opus fallback, usage-cap pressure, and
+6. **Notable events** — JSON repairs, agent retries, the Opus fallback, usage-cap pressure, and
    phase-1 wall time vs. the ~22 min baseline (from `logs/daily-<today>.log`).
-6. **Suggestions for continual improvement** — prioritized and concrete, tied to what this run
+7. **Suggestions for continual improvement** — prioritized and concrete, tied to what this run
    actually showed. Reference `soft_support_flags` as a pointer to read the real `issues_found`
-   text, not as a score (it is a keyword proxy).
+   text, not as a score (it is a keyword proxy). Token cost is a first-class signal now: if
+   tokens/word jumps, say why (more dives, retries, longer context) and whether it warrants the
+   stage-1 trim.
 
 ## Novelty policy
 

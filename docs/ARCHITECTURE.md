@@ -20,10 +20,16 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   finished while the window was open appears without a restart.
 - `analyses.py` — the viewer's data layer: `list_dates()` (newest first) and `read(date)` over
   `config.ANALYSES_DIR`, mirroring `library`'s role so `main.py` holds no filesystem logic.
-- **`run_report.py`** — stdlib CLI (`--date D [--json]`), read-only over `runs/<date>/`. Emits the
-  deterministic per-run metrics — deep-dive firing, new facts, `contradictions`, `final.txt` word
-  count vs. the prompt's stated floor, reviewer `overall`, and the "figure has no verbatim quote"
-  soft-support flag count — that the after-run analysis cites. Reuses `orchestrator.run_status`.
+- **`run_report.py`** — stdlib CLI, read-only, the deterministic metrics backbone of the after-run
+  analysis. `--date D` prints the per-prompt table (deep-dive firing, new facts, `contradictions`,
+  `final.txt` word count vs. the prompt's stated floor, reviewer `overall`, soft-support flag
+  count), the run's **grand-total token usage** (tip to tail, incl. subagents + cache, with a
+  tokens/word figure), and a **5-day trend** (`--history N`, default 5; `--json` for one run's
+  data). Token totals are summed from `config.CLAUDE_TRANSCRIPTS_DIR` (the Claude Code session
+  transcripts, incl. `subagents/` subdirs) over the run's time window recorded in
+  `runs/<date>/token_window.json`. `--start`/`--end` stamp that window (UTC); `daily_run.ps1` calls
+  them around phase 1 (phase 2 spends no model tokens) and the skill's init stamps `--start` for
+  interactive runs. No window (or transcripts absent on this machine) → token metric reads n/a.
 - **`analyses/<date>.md`** — git-ignored (local-only) per-run agent-performance analysis, authored by
   Claude at the end of each run (see the `daily-briefing` skill's "Run analysis" step) and read in
   the `main.py` viewer tab. Fixed 6-section template; `run_report.py` supplies its numbers.

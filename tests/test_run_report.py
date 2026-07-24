@@ -119,5 +119,122 @@ class RunReportTest(unittest.TestCase):
         self.assertEqual(rc, 0)
 
 
+class TokenAccountingTest(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp()
+        self._saved = (config.PROMPTS_FILE, config.BRIEFINGS_DIR, config.RUNS_DIR,
+                       config.CLAUDE_TRANSCRIPTS_DIR)
+        config.PROMPTS_FILE = os.path.join(self.tmp, "prompts.json")
+        config.BRIEFINGS_DIR = os.path.join(self.tmp, "briefings")
+        config.RUNS_DIR = os.path.join(self.tmp, "runs")
+        config.CLAUDE_TRANSCRIPTS_DIR = os.path.join(self.tmp, "transcripts")
+        with open(config.PROMPTS_FILE, "w", encoding="utf-8") as f:
+            json.dump({"version": 1, "show_id": "x", "orphans": "", "prompts": [
+                {"id": "a", "name": "A", "prompt": "Make a 1200 to 1500 word briefing.",
+                 "enabled": True, "last_episode_uri": None, "last_published": None}]}, f)
+        orchestrator.init_run(DATE, "strict")
+
+    def tearDown(self):
+        (config.PROMPTS_FILE, config.BRIEFINGS_DIR, config.RUNS_DIR,
+         config.CLAUDE_TRANSCRIPTS_DIR) = self._saved
+        shutil.rmtree(self.tmp, ignore_errors=True)
+
+    def _transcript(self, name, records):
+        os.makedirs(os.path.dirname(os.path.join(config.CLAUDE_TRANSCRIPTS_DIR, name)),
+                    exist_ok=True)
+        with open(os.path.join(config.CLAUDE_TRANSCRIPTS_DIR, name), "w", encoding="utf-8") as f:
+            for r in records:
+                f.write(json.dumps(r) + "\n")
+
+    @staticmethod
+    def _usage(ts, i, o, cc, cr):
+        return {"timestamp": ts, "message": {"usage": {
+            "input_tokens": i, "output_tokens": o,
+            "cache_creation_input_tokens": cc, "cache_read_input_tokens": cr}}}
+
+    def test_no_window_reads_na(self):
+        self.assertIsNone(run_report.token_usage(DATE))
+
+    def test_window_sums_only_in_range_across_files_including_subagents(self):
+        run_report.mark_window(DATE, "start")  # not used for bounds here; set explicit window below
+        with open(run_report.window_path(DATE), "w", encoding="utf-8") as f:
+            json.dump({"start": "2026-07-16T09:00:00.000Z",
+                       "end": "2026-07-16T09:30:00.000Z"}, f)
+        # main session: one in-window, one out-of-window (must be excluded)
+        self._transcript("main.jsonl", [
+            self._usage("2026-07-16T09:05:00.000Z", 10, 20, 30, 40),
+            self._usage("2026-07-16T08:00:00.000Z", 999, 999, 999, 999)])
+        # a subagent session in a subdir, in-window (must be included)
+        self._transcript(os.path.join("main", "subagents", "agent-x.jsonl"),
+                         [self._usage("2026-07-16T09:10:00.000Z", 1, 2, 3, 4)])
+        u = run_report.token_usage(DATE)
+        self.assertEqual((u["input"], u["output"], u["cache_creation"], u["cache_read"]),
+                         (11, 22, 33, 44))
+        self.assertEqual(u["total"], 11 + 22 + 33 + 44)
+
+    def test_report_tokens_per_word(self):
+        with open(run_report.window_path(DATE), "w", encoding="utf-8") as f:
+            json.dump({"start": "2026-07-16T00:00:00.000Z",
+                       "end": "2026-07-16T23:59:59.000Z"}, f)
+        self._transcript("m.jsonl", [self._usage("2026-07-16T12:00:00.000Z", 0, 0, 0, 1000)])
+        # a 100-word approved final -> 1000 tokens / 100 words = 10 tokens/word
+        review = {"prompt_id": "a", "run_date": DATE, "decision": "approve",
+                  "decision_reason": "ok", "issues_found": [], "changes_made": [],
+                  "scores": {k: 8 for k in ("novelty", "factual_support", "analytical_depth",
+                                            "editorial_quality", "audio_flow", "prompt_compliance",
+                                            "overall")}}
+        pdir = orchestrator.prompt_dir(DATE, "a")
+        with open(os.path.join(pdir, "review.json"), "w", encoding="utf-8") as f:
+            json.dump(review, f)
+        with open(os.path.join(pdir, "final.txt"), "w", encoding="utf-8") as f:
+            f.write(" ".join(["w"] * 100))
+        orchestrator.approve("a", DATE)
+        report = run_report.build_report(DATE)
+        self.assertEqual(report["tokens"]["total"], 1000)
+        self.assertEqual(report["tokens_per_word"], 10.0)
+        self.assertIn("tokens/word", run_report.format_report(report))
+
+    def test_mark_window_start_is_idempotent(self):
+        first = run_report.mark_window(DATE, "start")["start"]
+        second = run_report.mark_window(DATE, "start")["start"]
+        self.assertEqual(first, second)  # start never moves on retry
+        ended = run_report.mark_window(DATE, "end")
+        self.assertIn("end", ended)
+
+
+class HistoryTest(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp()
+        self._saved = (config.PROMPTS_FILE, config.BRIEFINGS_DIR, config.RUNS_DIR,
+                       config.CLAUDE_TRANSCRIPTS_DIR)
+        config.PROMPTS_FILE = os.path.join(self.tmp, "prompts.json")
+        config.BRIEFINGS_DIR = os.path.join(self.tmp, "briefings")
+        config.RUNS_DIR = os.path.join(self.tmp, "runs")
+        config.CLAUDE_TRANSCRIPTS_DIR = os.path.join(self.tmp, "transcripts")
+        with open(config.PROMPTS_FILE, "w", encoding="utf-8") as f:
+            json.dump({"version": 1, "show_id": "x", "orphans": "", "prompts": [
+                {"id": "a", "name": "A", "prompt": "Make a 1200 to 1500 word briefing.",
+                 "enabled": True, "last_episode_uri": None, "last_published": None}]}, f)
+
+    def tearDown(self):
+        (config.PROMPTS_FILE, config.BRIEFINGS_DIR, config.RUNS_DIR,
+         config.CLAUDE_TRANSCRIPTS_DIR) = self._saved
+        shutil.rmtree(self.tmp, ignore_errors=True)
+
+    def test_history_newest_first_and_capped(self):
+        for d in ("2026-07-20", "2026-07-21", "2026-07-22"):
+            orchestrator.init_run(d, "strict")
+        rows = run_report.build_history("2026-07-22", 2)
+        self.assertEqual([r["date"] for r in rows], ["2026-07-22", "2026-07-21"])
+        # no token windows written -> tokens n/a, but the row still builds
+        self.assertTrue(all(r["tokens_total"] is None for r in rows))
+
+    def test_history_excludes_future_and_dirs_without_run_json(self):
+        orchestrator.init_run("2026-07-20", "strict")
+        os.makedirs(os.path.join(config.RUNS_DIR, "2026-07-25"), exist_ok=True)  # no run.json
+        rows = run_report.build_history("2026-07-21", 5)
+        self.assertEqual([r["date"] for r in rows], ["2026-07-20"])
+
+
 if __name__ == "__main__":
     unittest.main()

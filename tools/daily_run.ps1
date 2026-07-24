@@ -42,6 +42,11 @@ $novelty = if ($RepeatOK) { 'relaxed' } else { 'strict' }
 $mode = "$novelty novelty" + $(if ($NoPublish) { ' + dry run (-NoPublish)' } else { '' })
 Log "=== daily run start ($today) - $mode ==="
 
+# Stamp the token-window START before any model work, so run_report.py can total this run's
+# grand-total token usage (tip to tail) from the Claude transcripts. Idempotent (a retry won't
+# move the start). Phase 2 spends no model tokens, so start->phase-1-end covers the whole run.
+& $conda run -n Spotify --no-capture-output python run_report.py --date $today --start *>> $log
+
 # Phase 1 - four-stage pipeline: research -> edit -> write -> review (no publishing, no git) ----
 # The prompt is resume-aware (skip already-approved prompts), so the SAME prompt drives both the
 # Sonnet primary run and the Opus retry - the retry just picks up whatever wasn't finished.
@@ -102,6 +107,10 @@ if ($incomplete -ne 0) {
 } else {
     Log "phase 1: all prompts finished on the Sonnet 5 primary run (no Opus retry needed)"
 }
+
+# Stamp the token-window END now that all model work (phase 1) is done. The in-run analysis
+# already read an open-ended window; this records the precise end for any later run_report re-run.
+& $conda run -n Spotify --no-capture-output python run_report.py --date $today --end *>> $log
 
 # Phase 2 - deterministic publish (TTS -> feed -> git push) -------------------
 # NOTE: confirmation email temporarily disabled (no working delivery path yet - see the

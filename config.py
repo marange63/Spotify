@@ -21,6 +21,13 @@ RUNS_DIR = os.path.join(HERE, "runs")
 # Per-run agent-performance analyses (analyses/<date>.md) — authored after each
 # run, read by the main.py viewer. Git-ignored (local-only), see run_report.py.
 ANALYSES_DIR = os.path.join(HERE, "analyses")
+# Claude Code session transcripts for THIS project (JSONL, including subagents/ subdirs).
+# run_report.py totals a run's token usage by summing these over the run's time window. The
+# folder name matches Claude Code's mangling of the project path (every : \ / becomes -).
+# Local to the machine that ran the jobs; may be absent elsewhere (token metric then reads n/a).
+_MANGLED_PROJECT = "".join("-" if ch in ":\\/" else ch for ch in HERE)
+CLAUDE_TRANSCRIPTS_DIR = os.path.join(
+    os.path.expanduser("~/.claude/projects"), _MANGLED_PROJECT)
 
 # Spotify (legacy private "Save to Spotify" pipeline — kept for reference)
 SHOW_ID = "spotify:show:033LxzC8UHlbiJmWLw3n2K"
