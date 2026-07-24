@@ -47,13 +47,9 @@ the **novelty mode** (`strict` or `relaxed`), the path to `research.json`, and t
   the briefing (`recommended_structure` — one spine, each item handing off to the next, per the
   Listenability standard).
 - Required caveats per item and the second-order implications the writer must develop.
-- **Whether the dossier can actually support the briefing you just planned** (`deep_dive_requests`).
-  The Writer has no web access and may use only figures carrying a verbatim `quote`. So before you
-  finish, check your own plan against the evidence: is a `required_argument` or a
-  `required_second_order_effect` you just demanded resting on nothing quotable? Is a load-bearing
-  figure for your lead item present only in a research item's `summary` prose rather than in an
-  `important_facts` quote? Those are the gaps that end up hedged into vagueness or cut.
-  When you find one, request targeted follow-up research — see "Deep-dive requests" below.
+- **Whether the dossier can actually support the briefing you just planned.** This is a mandatory
+  last step, not an optional extra — run the evidence-gap check in "Deep-dive requests" below
+  against your finished plan before you write the file.
 - Whether to write at all. If the dossier's status is `insufficient`, or nothing clears the bar for
   genuinely new and worthwhile, set `"decision": "skip"` with a clear reason. A skipped day is
   better than a padded episode.
@@ -67,24 +63,50 @@ the **novelty mode** (`strict` or `relaxed`), the path to `research.json`, and t
 - **relaxed** (manual/testing runs): repeated material may be used when helpful, but still prefer
   fresh evidence and fresh framing; note repetitions you allow.
 
-## Deep-dive requests
+## Deep-dive requests — the evidence-gap check
 
-`deep_dive_requests` optionally commissions one targeted follow-up research pass (the
-`deep-researcher` agent) to close evidence gaps in the plan you just wrote. It is **bounded and
-optional**:
+You are the last stage that can still get evidence. The Writer has no web access and may use
+**only** figures carrying a verbatim `quote`; anything you require but cannot support gets hedged
+into vagueness or silently dropped, and the episode lands short. `deep_dive_requests` commissions
+one targeted follow-up research pass (the `deep-researcher` agent) to close that gap.
 
-- **At most one** entry, naming **at most three** questions. An empty list is the normal, expected
-  outcome and costs nothing — the stage simply does not run.
+**Run these three tests against your finished plan, item by item. Any one of them firing means you
+request the dive.**
+
+1. **Unquoted load-bearing figure.** Take the figures your `lead` and `major` items depend on.
+   For each, find the `important_facts` entry whose verbatim `quote` states that value. If the
+   number appears only in a research item's `summary` or `why_it_matters` prose — or only in
+   `uncertainties` — it fails. This is the single most common gap.
+2. **Unsupported required argument.** For each entry in `required_arguments` and
+   `required_second_order_effects`, ask what quoted fact the Writer would build it from. If the
+   mechanism or the number at its centre has no quote behind it, it fails.
+3. **Unsupported caveat or skeptical note.** If a `skeptical_note` or `required_caveat` you are
+   telling the Writer to state rests on an `uncertainties` entry rather than a quote, it fails.
+
+**The consistency rule that makes this bite:** you may not require an argument the dossier cannot
+support. If test 2 or 3 fires you have exactly two honest options — commission the evidence, or
+delete the requirement from your plan. Leaving it in place and hoping is what produces a hedged,
+under-length script.
+
+Do not assume your plan is clean because you would like it to be. On a normal day, a plan that
+demands real second-order analysis will have at least one of these gaps; a plan with none is
+possible but is the *less* common outcome, so verify rather than default to an empty list.
+
+Mechanics and limits:
+
+- **At most one** entry, naming **at most three** questions. Spend them on the gap that most
+  changes the script — usually the lead item's.
 - The `research_item` must exactly match the `title` of one of your `approved_items`.
 - Ask for **evidence, not stories.** Good: "How much new supply actually cleared against the
   shortfall?", "Is the moratorium an executive order or legislation — primary source?", "What is
-  the verbatim guidance figure from the earnings release?" Bad: "What else happened in this
-  sector?" (that is the Researcher's job, and the plan is closed).
-- Request it only when the answer would **change the script**: it unlocks an argument you required,
-  or converts a load-bearing figure from hedged to stated. Do not request background colour, and do
-  not request a deep dive on an item you gave `"treatment": "brief"`.
+  the verbatim guidance figure in the earnings release?" Bad: "What else happened in this sector?"
+  (that is the Researcher's job, and your plan is closed).
+- Never request one for an item you gave `"treatment": "brief"`, and never for background colour —
+  the test is whether a quoted answer would change what the script can say.
 - The deep researcher cannot reopen your plan. If it finds evidence that contradicts you, it
   records that for the Writer and Reviewer rather than re-planning.
+- It may come back `insufficient`. That is a useful result too: it tells the Writer to drop the
+  claim outright instead of hedging around it.
 
 ## Output
 
@@ -123,7 +145,8 @@ structure:
 ```
 
 - `research_item` values must match the `title` of an item in `research.json`.
-- `deep_dive_requests` is required but is normally `[]`. At most one entry, at most three
+- `deep_dive_requests` is required. `[]` is valid, but only after you have actually run the three
+  evidence-gap tests and none fired — never as a default. At most one entry, at most three
   `questions`, and its `research_item` must match one of your `approved_items`.
 - On `"decision": "skip"`: `decision_reason` is required; the item lists may be empty, and
   `deep_dive_requests` must be `[]` (there is no script to support).
@@ -132,5 +155,6 @@ structure:
   should have `"treatment": "lead"`.
 
 After writing the file, reply with one line: the decision, the central thesis (or the skip reason),
-the approved-item count, and whether you requested a deep dive (and on which item). Do not
+the approved-item count, and the **outcome of the evidence-gap check** — either which of the three
+tests fired and on which item, or "gap check clean" if you ran all three and none did. Do not
 reproduce the JSON in your reply.

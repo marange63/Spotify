@@ -131,7 +131,9 @@ Spotify, so a quality stage gated out of it improves nothing. It is on in both n
 
 **Watch the usage cap.** The 5 AM phase 1 has a known failure mode where later prompts get skipped
 silently (see the `scheduled-run-usage-limit-risk` memory). This stage adds ~+12% tokens on a
-prompt that uses it, ~+5–7% on the batch. Mitigations already in place: the request is bounded in
+prompt that uses it. A dry run of the analyst's first gap test over the 2026-07-23 artifacts fired
+on **7 of 10** prompts, so budget ~+8% on the batch rather than the ~+5% a thinner hit rate would
+imply — and watch the first few mornings for truncation. Mitigations already in place: the request is bounded in
 `orchestrator.py`, the stage can never fail a prompt, and it is demand-driven so a thin day costs
 nothing. If a morning does get truncated, the first diagnostic is `orchestrator.py status --date
 <today>` — and the standing fix is to trim stage 1 (below), not to re-gate this stage.
