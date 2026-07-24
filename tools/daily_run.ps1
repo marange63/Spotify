@@ -56,7 +56,10 @@ entirely - do NOT re-run its agents. Only process prompts whose status is 'pendi
 Handle synthesis prompts (kind "synthesis", e.g. throughline) LAST, Writer then Reviewer, from the
 day's APPROVED briefings. Do NOT publish, do NOT run publish_feed.py, and do NOT git commit or push
 - only orchestrator.py may copy approved scripts to briefings/<id>.txt. When finished, run
-python orchestrator.py status --date $today and report it.
+python orchestrator.py status --date $today and report it. FINALLY, run
+python run_report.py --date $today and write the run's agent-performance analysis to
+analyses/$today.md, following the 'Run analysis' section of the daily-briefing skill (fixed
+template, numbers from run_report). This is local-only; do NOT commit it.
 "@
 
 # How many prompts are still unfinished (pending/failed) per the orchestrator's run state.

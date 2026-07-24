@@ -18,6 +18,9 @@ BRIEFINGS_DIR = os.path.join(HERE, "briefings")
 # Per-day working artifacts of the three-agent pipeline (research.json,
 # editorial_plan.json, draft/review/final) — git-ignored, see orchestrator.py.
 RUNS_DIR = os.path.join(HERE, "runs")
+# Per-run agent-performance analyses (analyses/<date>.md) — authored after each
+# run, read by the main.py viewer. Git-ignored (local-only), see run_report.py.
+ANALYSES_DIR = os.path.join(HERE, "analyses")
 
 # Spotify (legacy private "Save to Spotify" pipeline — kept for reference)
 SHOW_ID = "spotify:show:033LxzC8UHlbiJmWLw3n2K"

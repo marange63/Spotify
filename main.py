@@ -1,35 +1,37 @@
-"""Daily Briefings — prompt library manager.
+"""Daily Briefings — prompt library manager + run-analysis viewer.
 
-Run this file (green Run button in PyCharm, or `python main.py`) to open a window
-where you keep a permanent library of briefing prompts: add, edit, enable/disable,
-and delete them. Everything is stored in prompts.json in this folder.
+Run this file (green Run button in PyCharm, or `python main.py`) to open a window with two tabs:
 
-Then, in Claude Code, say "make my daily briefing": Claude turns each ENABLED
-prompt into its own standalone briefing, publishes each as a dated episode in your
-"Daily Briefings" show, and deletes the previous version of each (tracked by
-Spotify episode URI) so the feed never piles up duplicates.
+  • Prompts — keep a permanent library of briefing prompts: add, edit, enable/disable, delete.
+    Everything is stored in prompts.json in this folder.
+  • Run analyses — read the after-each-run write-up of how the pipeline's agents performed and
+    interacted, with suggestions for improvement. One file per run under analyses/<date>.md,
+    written by Claude Code at the end of each run (see run_report.py and the daily-briefing skill).
 
-This window has no language model and needs no API key — it only edits the library.
-The research, writing, audio, and publishing all happen when you tell Claude Code.
+Then, in Claude Code, say "make my daily briefing": Claude turns each ENABLED prompt into its own
+standalone briefing, publishes each as a dated episode in your "Daily Briefings" show, and writes
+that run's analysis into the second tab.
+
+This window has no language model and needs no API key — it only edits the library and displays
+files. The research, writing, audio, publishing, and analysis all happen when you tell Claude Code.
 """
 import tkinter as tk
-from tkinter import messagebox, scrolledtext
+from tkinter import messagebox, scrolledtext, ttk
 
+import analyses
 import library
 
 
 class PromptManager:
-    def __init__(self, root: tk.Tk):
-        self.root = root
+    """Tab 1 — the prompt library editor. Built on a parent frame (a notebook tab)."""
+
+    def __init__(self, parent: tk.Widget):
+        self.parent = parent
         self.data = library.load()
         self.current_id: str | None = None
 
-        root.title("Daily Briefings - prompt library")
-        root.geometry("860x520")
-        root.minsize(700, 420)
-
         # ---- left: list of prompts + New/Delete ----
-        left = tk.Frame(root)
+        left = tk.Frame(parent)
         left.pack(side="left", fill="y", padx=(12, 6), pady=12)
         tk.Label(left, text="Prompts", font=("Segoe UI", 11, "bold")).pack(anchor="w")
         self.listbox = tk.Listbox(left, width=30, height=20, font=("Segoe UI", 10),
@@ -45,7 +47,7 @@ class PromptManager:
         tk.Button(left, text="Reload from disk", command=self._reload).pack(fill="x", pady=(4, 0))
 
         # ---- right: editor ----
-        right = tk.Frame(root)
+        right = tk.Frame(parent)
         right.pack(side="left", fill="both", expand=True, padx=(6, 12), pady=12)
 
         name_row = tk.Frame(right)
@@ -70,8 +72,14 @@ class PromptManager:
                  font=("Segoe UI", 9)).pack(side="left", fill="x", expand=True)
         tk.Button(save_row, text="Save", width=12, command=self._save).pack(side="right")
 
-        root.bind("<Control-Return>", lambda _e: self._save())
+        # Save with Ctrl+Enter while editing (bound to the editor, not the whole window,
+        # so it can't fire from the other tab).
+        self.prompt_text.bind("<Control-Return>", self._save_shortcut)
         self._refresh_list(select_first=True)
+
+    def _save_shortcut(self, _event):
+        self._save()
+        return "break"  # don't also insert a newline
 
     # ---- list handling ----
     def _refresh_list(self, select_id: str | None = None, select_first: bool = False):
@@ -167,9 +175,102 @@ class PromptManager:
         self.status_var.set(f"Reloaded from disk — {len(self.data['prompts'])} prompt(s).")
 
 
+class AnalysisViewer:
+    """Tab 2 — read-only viewer for the per-run analyses under analyses/<date>.md."""
+
+    EMPTY = ("No run analyses yet.\n\n"
+             "One is written after each run to analyses/<date>.md — say “make my daily "
+             "briefing” in Claude Code, or wait for the 5 AM job. Then press Reload.")
+
+    def __init__(self, parent: tk.Widget):
+        self.parent = parent
+
+        left = tk.Frame(parent)
+        left.pack(side="left", fill="y", padx=(12, 6), pady=12)
+        tk.Label(left, text="Runs", font=("Segoe UI", 11, "bold")).pack(anchor="w")
+        self.listbox = tk.Listbox(left, width=16, height=20, font=("Consolas", 10),
+                                  exportselection=False, activestyle="none")
+        self.listbox.pack(fill="y", expand=True, pady=(4, 6))
+        self.listbox.bind("<<ListboxSelect>>", self._on_select)
+        tk.Button(left, text="Reload", command=self.refresh).pack(fill="x")
+
+        right = tk.Frame(parent)
+        right.pack(side="left", fill="both", expand=True, padx=(6, 12), pady=12)
+        self.header_var = tk.StringVar(value="Run analyses")
+        tk.Label(right, textvariable=self.header_var, anchor="w",
+                 font=("Segoe UI", 10, "bold")).pack(anchor="w", pady=(0, 2))
+        # Read-only: kept "disabled" except during programmatic inserts. Monospace so the
+        # metrics table in the markdown lines up.
+        self.text = scrolledtext.ScrolledText(right, wrap="word", font=("Consolas", 10),
+                                               state="disabled", background="#faf9f7")
+        self.text.pack(fill="both", expand=True)
+
+        self._dates: list[str] = []
+        self.refresh()
+
+    def refresh(self, select: str | None = None):
+        """Re-scan analyses/ and repopulate the date list, keeping the current selection if it
+        survives. Called on load, on the Reload button, and when this tab is shown."""
+        keep = select or self._selected_date()
+        self._dates = analyses.list_dates()
+        self.listbox.delete(0, tk.END)
+        for d in self._dates:
+            self.listbox.insert(tk.END, f" {d}")
+        if not self._dates:
+            self.header_var.set("Run analyses")
+            self._set_text(self.EMPTY)
+            return
+        target = keep if (keep and keep in self._dates) else self._dates[0]
+        idx = self._dates.index(target)
+        self.listbox.selection_clear(0, tk.END)
+        self.listbox.selection_set(idx)
+        self.listbox.see(idx)
+        self._show(target)
+
+    def _selected_date(self) -> str | None:
+        sel = self.listbox.curselection()
+        return self._dates[int(sel[0])] if sel and int(sel[0]) < len(self._dates) else None
+
+    def _on_select(self, _event):
+        d = self._selected_date()
+        if d:
+            self._show(d)
+
+    def _show(self, date: str):
+        self.header_var.set(f"analyses/{date}.md")
+        self._set_text(analyses.read(date) or self.EMPTY)
+
+    def _set_text(self, content: str):
+        self.text.configure(state="normal")
+        self.text.delete("1.0", tk.END)
+        self.text.insert("1.0", content)
+        self.text.configure(state="disabled")
+        self.text.yview_moveto(0.0)
+
+
 def main() -> None:
     root = tk.Tk()
-    PromptManager(root)
+    root.title("Daily Briefings")
+    root.geometry("880x560")
+    root.minsize(720, 440)
+
+    notebook = ttk.Notebook(root)
+    notebook.pack(fill="both", expand=True)
+    tab_prompts = tk.Frame(notebook)
+    tab_analyses = tk.Frame(notebook)
+    notebook.add(tab_prompts, text="Prompts")
+    notebook.add(tab_analyses, text="Run analyses")
+
+    PromptManager(tab_prompts)
+    viewer = AnalysisViewer(tab_analyses)
+
+    # Re-scan analyses/ whenever the viewer tab is brought to the front, so a run that
+    # finished while the window was open shows up without a manual reload.
+    def _on_tab(_e):
+        if notebook.index(notebook.select()) == 1:
+            viewer.refresh()
+    notebook.bind("<<NotebookTabChanged>>", _on_tab)
+
     root.mainloop()
 
 

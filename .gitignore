@@ -25,3 +25,6 @@ logs/
 
 # Three-agent pipeline working artifacts (runs/<date>/<prompt_id>/)
 runs/
+
+# Per-run agent-performance analyses (analyses/<date>.md) — local-only, viewed in main.py
+analyses/

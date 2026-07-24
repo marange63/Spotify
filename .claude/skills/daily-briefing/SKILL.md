@@ -98,6 +98,8 @@ with separate contexts** so the reviewer never grades its own writing.
    approved today, mark the synthesis prompt skipped. `publish_feed.py` publishes synthesis prompts
    last so they sort to the top of the feed.
 4. **Report:** `python orchestrator.py status --date <today>` — per-prompt outcomes + approved ids.
+5. **Run analysis:** once outcomes are final, write the run's agent-performance analysis to
+   `analyses/<today>.md` — see "Run analysis" below. Runs on every run (interactive and 5 AM).
 
 ## Failure rules (always continue the batch; one bad prompt never stops the rest)
 
@@ -152,6 +154,37 @@ reviewer `overall`, which is self-graded and pinned at 8, so a one-point move is
    the reviewer being told to expand.
 
 If neither moves after a handful of runs, delete the stage rather than keeping it on principle.
+
+## Run analysis (after every run)
+
+Once the batch outcomes are final (every prompt approved/skipped/failed), write a standing
+agent-performance analysis to `analyses/<today>.md`. The user reads these in the `main.py`
+window's "Run analyses" tab; they are **local-only** (git-ignored), one file per run. Purpose: a
+reviewable record of how the agents performed and interacted, plus concrete improvement ideas.
+
+**Numbers come from the tool, judgment from you.** First run
+`python run_report.py --date <today>` — it emits the deterministic metrics block (per-prompt
+deep-dive firing, new facts, contradictions, word count vs. the prompt's floor, reviewer score, and
+the "figure has no verbatim quote" soft-support flag count) so you never eyeball or miscount them.
+Then wrap the narrative and suggestions around that block.
+
+Follow this fixed template so runs are comparable day to day (see `analyses/2026-07-24.md` as the
+reference example):
+
+1. **Header** — date, novelty mode, and a one-line verdict.
+2. **Outcomes** — approved/skipped/failed from `orchestrator status`; note whether skips were
+   legitimate (strict-novelty) or failures.
+3. **Metrics** — paste the `run_report.py` table verbatim in a code block.
+4. **Agent performance & interaction** — one short paragraph per stage: Researcher (dossier depth,
+   any `insufficient`, JSON repairs), Analyst-Editor (skips, gap-check firing rate, emergent
+   patterns), Deep-Researcher (fire rate, contradictions found and honored, any `insufficient`),
+   Writer (word counts, contradictions honored), Reviewer (defects **caught vs. shipped**,
+   expansions). Call out where a handoff created friction or where one stage saved another.
+5. **Notable events** — JSON repairs, agent retries, the Opus fallback, usage-cap pressure, and
+   phase-1 wall time vs. the ~22 min baseline (from `logs/daily-<today>.log`).
+6. **Suggestions for continual improvement** — prioritized and concrete, tied to what this run
+   actually showed. Reference `soft_support_flags` as a pointer to read the real `issues_found`
+   text, not as a score (it is a keyword proxy).
 
 ## Novelty policy
 

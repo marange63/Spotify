@@ -14,7 +14,19 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   `TTS_MAX_RETRIES`, `TTS_RATE`, `TTS_CHUNK_CHARS`. Notifications: `NOTIFY_EMAIL`,
   plus `NTFY_SERVER`/`NTFY_TOPIC` (the ntfy.sh phone push; topic overridable via env
   `BRIEFING_NTFY_TOPIC`, set to `""` to disable). Legacy: `SHOW_ID`, `S2S`.
-- `main.py` — the prompt-library manager window (project entry point / green Run button).
+- `main.py` — the key-free window (project entry point / green Run button). Two tabs: **Prompts**
+  (the library editor, `PromptManager`) and **Run analyses** (`AnalysisViewer`, a read-only viewer
+  of `analyses/<date>.md`). The viewer re-scans the folder when its tab is shown, so a run that
+  finished while the window was open appears without a restart.
+- `analyses.py` — the viewer's data layer: `list_dates()` (newest first) and `read(date)` over
+  `config.ANALYSES_DIR`, mirroring `library`'s role so `main.py` holds no filesystem logic.
+- **`run_report.py`** — stdlib CLI (`--date D [--json]`), read-only over `runs/<date>/`. Emits the
+  deterministic per-run metrics — deep-dive firing, new facts, `contradictions`, `final.txt` word
+  count vs. the prompt's stated floor, reviewer `overall`, and the "figure has no verbatim quote"
+  soft-support flag count — that the after-run analysis cites. Reuses `orchestrator.run_status`.
+- **`analyses/<date>.md`** — git-ignored (local-only) per-run agent-performance analysis, authored by
+  Claude at the end of each run (see the `daily-briefing` skill's "Run analysis" step) and read in
+  the `main.py` viewer tab. Fixed 6-section template; `run_report.py` supplies its numbers.
 - `prompts.json` — the prompt library. Edited by the window, read by the batch. A prompt may carry
   `"kind": "synthesis"` (currently `throughline`, "The Throughline") — a NOT-researched prompt authored
   last by synthesizing the day's other briefings. (The `last_episode_uri`/`last_published` fields are
