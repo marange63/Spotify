@@ -60,6 +60,10 @@ FEED_FILE = os.path.join(DOCS_DIR, "feed.xml")
 COVER_FILE = os.path.join(DOCS_DIR, "cover.jpg")
 # Accumulating archive of published episodes that the feed is generated from.
 FEED_STATE_FILE = os.path.join(HERE, "feed_state.json")
+# Rolling retention window (days) for briefing history. After each publish, episodes and their
+# audio/transcripts older than this are pruned from the feed + docs/, and runs/<date>/ + logs older
+# than this are swept locally. The 5 AM analyses (analyses/<date>.md) are exempt and kept.
+RETENTION_DAYS = 10
 
 # Where the "briefings published" confirmation email goes (see notify.py). The
 # SMTP credentials themselves come from env vars, never the repo.

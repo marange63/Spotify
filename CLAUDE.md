@@ -10,9 +10,13 @@ audio; `feed.py` builds a podcast RSS feed and the audio + cover + `feed.xml` + 
 are served publicly by GitHub Pages out of `./docs`; Spotify for Creators ingests that feed URL.
 Publishing is a `git push` — Pages serves it and Spotify re-ingests on its refresh schedule.
 
-**Archive model:** each publish is a **new, permanent episode** with a unique per-day GUID
-(`<prompt_id>-<YYYY-MM-DD>`), so followers get normal new-episode notifications and a browsable
-back-catalogue.
+**Retention model (rolling 10-day window):** each publish is a **new episode** with a unique per-day
+GUID (`<prompt_id>-<YYYY-MM-DD>`), so followers get normal new-episode notifications. The show keeps
+only the last **`config.RETENTION_DAYS` (10) days**: after each publish, `feed.prune_old` drops older
+episodes (and their audio + transcripts) from the feed and `docs/`, and the local `runs/`/`logs`
+older than the window are swept — so neither Spotify, the repo, nor local disk accumulates stale
+briefing files. The **5 AM performance analyses (`analyses/<date>.md`) are exempt** and kept. (Git
+history still retains old audio blobs; only the working tree, feed, and public catalogue roll.)
 
 - **Show:** Cautious Optimism Briefings · Feed: https://marange63.github.io/Spotify/feed.xml
 - **Pages site:** https://marange63.github.io/Spotify/ (served from `main` branch, `/docs` folder)

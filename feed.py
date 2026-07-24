@@ -5,9 +5,12 @@ public show): each briefing MP3 is copied into ``docs/audio/`` and recorded in
 ``feed_state.json``; ``build_feed`` renders ``docs/feed.xml``. GitHub Pages serves
 ``docs/`` publicly, and Spotify for Creators ingests the feed URL.
 
-Archive model (podcast-native): every publish is a new, permanent episode with a
-unique GUID, so followers get a normal new-episode notification and a browsable
-back-catalogue — unlike the old private flow, which replaced the prior version.
+Retention model (podcast-native, rolling window): every publish is a new episode with a
+unique GUID, so followers get a normal new-episode notification. The show keeps a rolling
+``config.RETENTION_DAYS``-day window — after each publish, ``prune_old`` drops episodes (and their
+audio + transcripts) older than that from the feed and ``docs/``, so Spotify and the repo carry only
+recent history (see ``prune_old``). Git history still retains old audio blobs; the working tree,
+feed, and public catalogue do not.
 
     from feed import add_episode, build_feed
     rec = add_episode("frontier-ai-labs", "Frontier AI Lab Competition",
@@ -194,6 +197,41 @@ def add_episode(prompt_id: str, name: str, summary: str, mp3_path: str,
     _save_state(state)
     log.info("feed: recorded episode %s (%d bytes, %s)", guid, length, _fmt_duration(duration))
     return rec
+
+
+def prune_old(keep_days: int = config.RETENTION_DAYS, today: str | None = None) -> list:
+    """Drop episodes older than ``keep_days`` calendar days from feed_state and delete their
+    audio + transcript files under docs/. Keeps ``keep_days`` days inclusive of ``today`` (default
+    today): an episode is kept when ``date >= today - (keep_days - 1)``. Caller rebuilds the feed
+    afterwards so it no longer lists (or links audio for) the pruned episodes. File deletes are
+    best-effort — a missing file is fine. Returns the list of pruned guids.
+
+    Git history still retains the deleted audio blobs (Pages serves from the repo, so every mp3 was
+    committed); this prunes the working tree, the feed, and thus what Spotify and repo browsers see,
+    not the .git object store. Analyses (analyses/<date>.md) are unaffected — they live elsewhere.
+    """
+    cutoff = (_dt.date.fromisoformat(today or _dt.date.today().isoformat())
+              - _dt.timedelta(days=keep_days - 1)).isoformat()
+    state = _load_state()
+    keep, prune = [], []
+    for e in state["episodes"]:
+        (keep if e["date"] >= cutoff else prune).append(e)
+    if not prune:
+        return []
+    for e in prune:
+        for fname, folder in ((e.get("audio_file"), config.DOCS_AUDIO_DIR),
+                              (e.get("transcript_txt"), config.DOCS_TRANSCRIPTS_DIR),
+                              (e.get("transcript_html"), config.DOCS_TRANSCRIPTS_DIR)):
+            if fname:
+                try:
+                    os.remove(os.path.join(folder, fname))
+                except FileNotFoundError:
+                    pass
+    state["episodes"] = keep
+    _save_state(state)
+    log.info("feed: pruned %d episode(s) older than %s: %s",
+             len(prune), cutoff, ", ".join(e["guid"] for e in prune))
+    return [e["guid"] for e in prune]
 
 
 def build_feed() -> str:

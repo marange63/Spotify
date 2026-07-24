@@ -46,12 +46,20 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   `published_at` and transcript filenames) in `feed_state.json`, and writes the verbatim transcript to
   `docs/transcripts/<id>-<date>.txt` + `.html` (from `briefings/<id>.txt`). `build_feed()` renders
   `docs/feed.xml` (iTunes tags, newest-first, `<pubDate>` from the real `published_at`, `<podcast:transcript>`
-  tags + a "Read the full transcript" link in each description). Archive model, stable per-day GUIDs.
+  tags + a "Read the full transcript" link in each description). Stable per-day GUIDs.
+  `prune_old(keep_days=config.RETENTION_DAYS, today)` enforces the **rolling 10-day retention window**:
+  it drops episodes older than the window from `feed_state.json` and deletes their `docs/audio` +
+  `docs/transcripts` files (best-effort), so the caller's `build_feed()` re-renders a feed that lists
+  only recent history. Git history still holds the deleted audio blobs — only the working tree, feed,
+  and public catalogue roll.
   **Enclosure URLs carry a `?v=<publish-epoch>` cache-bust token** so replacing an already-ingested
   episode's audio in place forces Spotify to re-download it (see the `spotify-audio-url-cache-busting`
   memory); untouched episodes keep a stable URL.
-- **`publish_feed.py`** — the daily batch: synth → `add_episode` per enabled prompt → `build_feed` →
-  git commit + push. Publishes `kind:"synthesis"` prompts LAST (ordering shared with
+- **`publish_feed.py`** — the daily batch: synth → `add_episode` per enabled prompt →
+  `feed.prune_old` + `_prune_local` (rolling 10-day retention: prune old episodes/audio/transcripts
+  from the feed + `docs/`, and sweep `runs/`/`logs` older than the window; analyses exempt) →
+  `build_feed` → git commit + push (the commit note records a prune count when any). Publishes
+  `kind:"synthesis"` prompts LAST (ordering shared with
   `orchestrator.ordered_enabled`), so The Throughline gets the newest timestamp and sorts to the top
   of the feed. Flags: `--date`, `--summaries <json>`, `--no-push`, `--require-fresh`, `--email` (the
   email send is currently disabled), `--no-notify`. **ntfy push:** after a successful
@@ -100,7 +108,8 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   sends via Gmail SMTP using a **Google App Password** from env vars (`BRIEFING_SMTP_USER`,
   `BRIEFING_SMTP_PASS`; optional `BRIEFING_NOTIFY_TO`). Missing creds → warn + skip (never raises).
   **Currently disabled** — see the `publish-confirmation-email-blocked` memory.
-- **`feed_state.json`** — the accumulating episode archive the feed is built from (source of truth).
+- **`feed_state.json`** — the episode archive the feed is built from (source of truth), held to a
+  rolling `config.RETENTION_DAYS` (10)-day window by `feed.prune_old` after each publish.
 - **`feed_state_test.json`** / **`docs/test/`** — the staging feed's state + hosted files (see
   Staging feed below). Hand-seeded; not yet wired into any code.
 - **`docs/`** — the GitHub Pages site: `cover.jpg` (1500×1500), `index.html`, `.nojekyll`, `feed.xml`,

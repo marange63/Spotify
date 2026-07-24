@@ -26,8 +26,10 @@ import urllib.request
 import config
 import library
 from episode import synthesize
-from feed import add_episode, build_feed
+from feed import add_episode, build_feed, prune_old
 from orchestrator import ordered_enabled as _ordered_enabled
+
+_DATE_RE = re.compile(r"(\d{4}-\d{2}-\d{2})")
 
 log = logging.getLogger("publish_feed")
 
@@ -98,6 +100,31 @@ def _git(*args: str) -> None:
     subprocess.run(["git", "-C", config.HERE, *args], check=True)
 
 
+def _prune_local(date: str, keep_days: int) -> None:
+    """Sweep the gitignored local working artifacts older than the retention window:
+    ``runs/<date>/`` dirs and ``logs/daily-<date>.log`` files. The 5 AM analyses
+    (``analyses/<date>.md``) are deliberately NOT swept — they are the kept history."""
+    import datetime
+    import glob
+    import shutil
+    cutoff = (datetime.date.fromisoformat(date)
+              - datetime.timedelta(days=keep_days - 1)).isoformat()
+    if os.path.isdir(config.RUNS_DIR):
+        for name in os.listdir(config.RUNS_DIR):
+            path = os.path.join(config.RUNS_DIR, name)
+            if _DATE_RE.fullmatch(name) and name < cutoff and os.path.isdir(path):
+                shutil.rmtree(path, ignore_errors=True)
+                log.info("pruned local run dir %s", name)
+    for path in glob.glob(os.path.join(config.HERE, "logs", "daily-*.log")):
+        m = _DATE_RE.search(os.path.basename(path))
+        if m and m.group(1) < cutoff:
+            try:
+                os.remove(path)
+                log.info("pruned local log %s", os.path.basename(path))
+            except OSError:
+                pass
+
+
 def publish(date: str, summaries: dict, push: bool = True,
             require_fresh: bool = False, email: bool = False,
             notify: bool = True) -> list[tuple[str, str]]:
@@ -124,11 +151,19 @@ def publish(date: str, summaries: dict, push: bool = True,
             log.exception("%s failed", name)
             results.append((name, f"FAILED: {e}"))
 
+    # Rolling retention: after publishing today's episodes, prune anything older than the window
+    # from the feed + docs/ (public/Spotify surfaces) and from the local runs/ + logs (analyses are
+    # exempt), then rebuild the feed so it no longer lists or links the pruned episodes.
+    pruned = prune_old(keep_days=config.RETENTION_DAYS, today=date)
+    _prune_local(date, config.RETENTION_DAYS)
     build_feed()
 
     if push:
+        # `git add docs` also stages the pruned (deleted) audio/transcript files.
         _git("add", "docs", "feed_state.json")
         msg = f"Publish briefings for {date}"
+        if pruned:
+            msg += f" (prune {len(pruned)} episode(s) older than {config.RETENTION_DAYS} days)"
         # commit may be a no-op if nothing changed; tolerate that
         r = subprocess.run(["git", "-C", config.HERE, "commit", "-m", msg])
         if r.returncode == 0:
