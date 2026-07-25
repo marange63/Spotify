@@ -136,7 +136,9 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   deep-researcher, writer), `opus` for the judgment stages (analyst-editor, reviewer) — and these pins take precedence over
   whatever model the invoking session uses (interactive **or** the 5 AM CLI `--model`). Change a
   role's cost/quality by editing its frontmatter `model:`, not the caller.
-- **`runs/<date>/<prompt_id>/`** — git-ignored per-day pipeline artifacts: `research.json`,
+- **`runs/<date>/<prompt_id>/`** — git-ignored per-day pipeline artifacts: `prompt.txt` (the standing
+  prompt text, written at `init` so agents read it from disk instead of the parent embedding it in
+  every dispatch — a token-cost win on the "orchestration" stage), `research.json`,
   `editorial_plan.json`, `deep_research.json` (optional — present only when a deep dive ran),
   `draft.txt`, `review.json`, `final.txt`, plus `runs/<date>/run.json` (batch
   state). Same-day re-runs overwrite in place; the audit trail for "why did this episode say that /

@@ -106,6 +106,18 @@ class OrchestratorTest(unittest.TestCase):
         self.assertTrue(all(e["status"] == "pending" for e in state["prompts"]))
         self.assertEqual(state["prompts"][2]["kind"], "synthesis")
 
+    def test_init_writes_prompt_txt_for_each_prompt(self):
+        # The standing prompt is persisted so agents read it from disk instead of the parent
+        # embedding it in every dispatch (the "orchestration" token cost lever).
+        self._write_prompts([{"id": "a", "name": "A", "prompt": "Full standing prompt text.",
+                              "enabled": True, "last_episode_uri": None, "last_published": None}])
+        plan = orchestrator.init_run(DATE, "strict")
+        path = os.path.join(orchestrator.prompt_dir(DATE, "a"), orchestrator.PROMPT_FILE)
+        self.assertTrue(os.path.exists(path))
+        with open(path, encoding="utf-8") as f:
+            self.assertEqual(f.read().strip(), "Full standing prompt text.")
+        self.assertEqual(plan["prompts"][0]["artifacts"]["prompt"], path)
+
     def test_init_records_novelty_mode(self):
         orchestrator.init_run(DATE, "relaxed")  # the -RepeatOK path
         self.assertEqual(orchestrator.load_state(DATE)["novelty"], "relaxed")

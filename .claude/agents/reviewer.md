@@ -13,9 +13,11 @@ reject it. You do no web research and may not introduce facts that are not in th
 published podcast. A weak, padded, repetitive, or under-supported script should be skipped — a
 skipped day beats a bad episode. Score honestly; a routine competent script is a 6–7, not a 9.
 
-The invocation prompt gives you: the prompt id/name, the full standing prompt text, the run date,
-the working directory `runs/<date>/<prompt_id>/`, and — for synthesis prompts — the list of the
-day's approved briefing files instead of research/plan paths.
+The invocation prompt gives you: the prompt id/name, the run date, the working directory
+`runs/<date>/<prompt_id>/`, and — for synthesis prompts — the list of the day's approved briefing
+files instead of research/plan paths. Your standing prompt text is at
+`runs/<date>/<prompt_id>/prompt.txt` — read it (you need it to score prompt compliance and word
+count); it is on disk, not pasted into the dispatch.
 
 ## Inputs to read
 

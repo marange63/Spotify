@@ -49,6 +49,11 @@ RESUME_STAGES = ("research", "plan", "deep", "write", "review", "finalize", "don
 _MTIME_SLACK = 1.0
 
 # Artifact filenames inside runs/<date>/<prompt_id>/
+# The standing prompt text, written at init so the Researcher (and any stage) reads it from disk
+# instead of the parent session embedding ~1.3k tokens of prompt in every dispatch — that embed
+# then rides along in the parent's accumulating context for the rest of the run (see run_report's
+# per-stage "orchestration" cost). Cheap to write, big to not re-carry.
+PROMPT_FILE = "prompt.txt"
 RESEARCH_FILE = "research.json"
 PLAN_FILE = "editorial_plan.json"
 # Optional stage 2.5 — written only when the editorial plan requests a deep dive. Same schema as
@@ -126,6 +131,11 @@ def init_run(date: str, novelty: str) -> dict:
     for p in prompts:
         pdir = prompt_dir(date, p["id"])
         os.makedirs(pdir, exist_ok=True)
+        # Persist the standing prompt so agents read it from disk (into their own fresh context)
+        # rather than the parent embedding it in every dispatch. Rewritten each init so an edited
+        # prompt is always current.
+        with open(os.path.join(pdir, PROMPT_FILE), "w", encoding="utf-8") as f:
+            f.write((p.get("prompt") or "").strip() + "\n")
         old = prior.get(p["id"], {})
         entries.append({
             "id": p["id"],
@@ -151,6 +161,7 @@ def init_run(date: str, novelty: str) -> dict:
             "dir": prompt_dir(date, e["id"]),
             "resume": resume_for_prompt(date, e),
             "artifacts": {
+                "prompt": os.path.join(prompt_dir(date, e["id"]), PROMPT_FILE),
                 "research": os.path.join(prompt_dir(date, e["id"]), RESEARCH_FILE),
                 "plan": os.path.join(prompt_dir(date, e["id"]), PLAN_FILE),
                 "deep": os.path.join(prompt_dir(date, e["id"]), DEEP_FILE),

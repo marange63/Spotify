@@ -84,7 +84,12 @@ with separate contexts** so the reviewer never grades its own writing.
    interactive runs).
 2. **For each normal prompt, in plan order:**
    - **Researcher** (`researcher`; web allowed): strongest recent material → `research.json`. Pass the
-     prompt id/name/text, the date, output path. Then `orchestrator.py validate research <path>`.
+     prompt id/name, the date, output path — **do NOT paste the standing prompt text into the
+     dispatch; the agent reads it from `runs/<date>/<id>/prompt.txt`** (written at init). Embedding
+     the ~800–1200-word prompt makes it accumulate in the parent session's context for the whole
+     run — the biggest avoidable slice of the "orchestration" token cost. Same for every stage: keep
+     dispatches short (ids, paths, mode), never re-paste the prompt. Then
+     `orchestrator.py validate research <path>`.
    - **Analyst-Editor** (`analyst-editor`; no web): judges the dossier vs. the prior briefing
      (`briefings/<id>.txt`, still on disk), the **last 5 days** of this topic's transcripts AND the
      last 5 Throughline transcripts, and the editorial standard; decides write-or-skip, thesis, lead,
