@@ -47,6 +47,13 @@ rewrites `docs/feed.xml` → `git add docs feed_state.json && commit && push`. G
 update; Spotify re-ingests on its next refresh. `--require-fresh` publishes only scripts approved
 **today** (skipped/failed prompts keep a stale `briefings/<id>.txt` and are excluded automatically).
 
+**Publishing a second time on the same day** (finishing a run the usage cap truncated): add
+`--skip-published`, which skips any prompt already in `feed_state.json` for that date and reports it
+as `ALREADY PUBLISHED`. Without it you re-run TTS on live episodes and change their enclosure URLs,
+making Spotify re-download identical audio. The scheduled 10:05 completion pass
+(`tools/completion_run.ps1`) does exactly this automatically — so if the 5 AM run was truncated,
+check whether that pass already fixed it before doing anything by hand.
+
 **Confirmation email is DISABLED (since 2026-07-08) — do not send it** (no working delivery path;
 see the `publish-confirmation-email-blocked` memory). The ntfy phone push replaces it and fires
 automatically inside `publish_feed.py`. Report the results table and skip the email.
@@ -61,7 +68,17 @@ with separate contexts** so the reviewer never grades its own writing.
 1. **Init:** `python orchestrator.py init --date <today> --novelty strict|relaxed` — creates
    `runs/<date>/<id>/` for every enabled prompt (normal first, synthesis last), records the batch in
    `runs/<date>/run.json`, prints the plan. Idempotent: re-init preserves statuses, so an interrupted
-   batch (or a newly-added prompt) resumes/joins cleanly. Then stamp the token-window start:
+   batch (or a newly-added prompt) resumes/joins cleanly.
+   **Resuming an interrupted run:** run `python orchestrator.py resume --date <today> --prune`
+   and obey it. For each prompt it gives a `resume_stage` — `research|plan|deep|write|review|
+   finalize|done` — computed from which artifacts are present, valid, and newer than what they
+   derive from. Start at that stage and run only it and the ones after; read the earlier artifacts
+   instead of regenerating them. `done` = approved/skipped already, skip the prompt entirely;
+   `finalize` = everything is consistent, just run `approve` (or `mark`, per `review.json`).
+   `--prune` deletes superseded artifacts first — a `deep_research.json` or `draft.txt` written
+   against an editorial plan that was later rewritten answers a *different story* and will look
+   plausible if you feed it to the Writer (this shipped undetected on 2026-07-25). Never restart a
+   prompt from the Researcher just because it is unfinished. Then stamp the token-window start:
    `python run_report.py --date <today> --start` (idempotent; lets the analysis total the run's
    grand-total token usage. The 5 AM job also does this in `daily_run.ps1`, so this only matters for
    interactive runs).

@@ -27,9 +27,15 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   tokens/word figure), and a **5-day trend** (`--history N`, default 5; `--json` for one run's
   data). Token totals are summed from `config.CLAUDE_TRANSCRIPTS_DIR` (the Claude Code session
   transcripts, incl. `subagents/` subdirs) over the run's time window recorded in
-  `runs/<date>/token_window.json`. `--start`/`--end` stamp that window (UTC); `daily_run.ps1` calls
-  them around phase 1 (phase 2 spends no model tokens) and the skill's init stamps `--start` for
-  interactive runs. No window (or transcripts absent on this machine) → token metric reads n/a.
+  `runs/<date>/token_window.json`. That file holds **`segments`** — one `{start,end}` per *sitting*
+  that spent model tokens — and the total is their sum, **gaps excluded**. `--start` opens a
+  segment (idempotent while one is open, so a retry never splits a sitting) and `--end` closes it;
+  `daily_run.ps1` calls them around phase 1, `completion_run.ps1` opens a second segment, and the
+  skill's init stamps `--start` for interactive runs. Segments exist because a truncated 5 AM run
+  plus a 10:05 completion pass would otherwise be measured as one span straddling hours of
+  unrelated interactive work — which is exactly what made 2026-07-25's tokens/word uninterpretable.
+  The legacy flat `{start,end}` shape is still read as a single segment. No window (or transcripts
+  absent on this machine) → token metric reads n/a.
 - **`analyses/<date>.md`** — git-ignored (local-only) per-run agent-performance analysis, authored by
   Claude at the end of each run (see the `daily-briefing` skill's "Run analysis" step) and read in
   the `main.py` viewer tab. Fixed 6-section template; `run_report.py` supplies its numbers.
@@ -61,8 +67,14 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   `build_feed` → git commit + push (the commit note records a prune count when any). Publishes
   `kind:"synthesis"` prompts LAST (ordering shared with
   `orchestrator.ordered_enabled`), so The Throughline gets the newest timestamp and sorts to the top
-  of the feed. Flags: `--date`, `--summaries <json>`, `--no-push`, `--require-fresh`, `--email` (the
-  email send is currently disabled), `--no-notify`. **ntfy push:** after a successful
+  of the feed. Flags: `--date`, `--summaries <json>`, `--no-push`, `--require-fresh`,
+  `--skip-published`, `--email` (the email send is currently disabled), `--no-notify`.
+  **`--skip-published`** skips any prompt already recorded in `feed_state.json` for `--date`
+  (`feed.has_episode`), reporting it as `ALREADY PUBLISHED`. It is what makes a SECOND publish on
+  the same day safe — without it, a completion pass re-runs TTS on live episodes and changes their
+  enclosure URLs, forcing Spotify to re-download identical audio. `ALREADY PUBLISHED` counts as
+  success for the exit code (a completion pass that finds nothing to do has succeeded) but NOT as
+  newly published, so the ntfy push stays silent unless a new episode actually shipped. **ntfy push:** after a successful
   git push with ≥1 episode published, `_notify_ntfy` POSTs a one-line "briefings published" summary
   to the owner's phone via `config.NTFY_TOPIC` on ntfy.sh (stdlib `urllib`, best-effort — a
   notification failure is logged and never fails the publish). On by default (interactive AND the
@@ -75,7 +87,22 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   checker, since `deep_research.json` shares the dossier schema; `validate plan` bounds
   `deep_dive_requests` at `MAX_DEEP_DIVE_REQUESTS`/`MAX_DEEP_DIVE_QUESTIONS`), `approve` (the ONLY path that copies a
   `final.txt` to `briefings/<id>.txt` — refuses unless `review.json` says `approve`), `mark`
-  (record skip/failure), `status` (outcome table + approved ids).
+  (record skip/failure), `status` (outcome table + approved ids), `resume` (see below).
+  **`resume --date D [--prune]` — stage-level resume for an interrupted run.** `status`/`run.json`
+  only track state per *prompt*, which is enough to skip finished prompts but not to restart an
+  unfinished one at the right *stage*. `resume` walks each unfinished prompt's artifact chain
+  (`research.json` → `editorial_plan.json` → `deep_research.json` if the plan asks for one →
+  `draft.txt` → `review.json`+`final.txt`) and reports the first artifact that is missing, empty,
+  schema-invalid, or **older than the artifact it derives from**, as `resume_stage` ∈
+  `research|plan|deep|write|review|finalize|done`. `finalize` = everything is present and
+  consistent, just run `approve`/`mark`; `done` = already approved/skipped, don't touch it. A plan
+  whose `decision` is `skip` also reports `finalize`. Everything downstream of the resume point is
+  listed in `stale_artifacts`, and `--prune` deletes it. **Why staleness matters:** when a retry
+  rewrites an upstream artifact, the downstream ones built from the OLD version survive on disk and
+  nothing flags the mismatch — on 2026-07-25 a surviving `deep_research.json`/`draft.txt` answered a
+  superseded plan (dives about Bitcoin whale flows, plan about the CLARITY Act), which a naive
+  resume would have fed to the Writer as a matched pair. The resume plan is also embedded per
+  prompt in `init`'s output (`prompts[].resume`), so the phase-1 prompt gets it for free.
 - **`docs/pipeline-agent-flow.png`** — one-page visual of the agent flow: each stage's model, web access,
   inputs, outputs, responsibilities, the deterministic gate, and when the optional stage 2.5 runs.
   Regenerate with `python tools/make_pipeline_diagram.py` (base conda env — it needs matplotlib)
@@ -117,10 +144,31 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   `https://marange63.github.io/Spotify/` from `main` `/docs`. (Transcripts: Apple Podcasts and
   Podcasting 2.0 apps read the `<podcast:transcript>` tag; Spotify ignores RSS transcripts, so the
   description link is how Spotify listeners reach the hosted page.)
-- **`tools/`** — `daily_run.ps1` (the unattended 5 AM Task Scheduler entry point: phase 1 headless
+- **`tools/`** — `daily_run.ps1` (the unattended Task Scheduler entry point: phase 1 headless
   Claude runs the four-stage pipeline, phase 2 `publish_feed.py --require-fresh` publishes; flags:
   `-RepeatOK` = relaxed novelty, `-NoPublish` = dry run that skips phase 2 entirely — agents and
-  `runs/` artifacts only, no TTS/feed/commit/push; logs to `logs\daily-<date>.log`). **Model
+  `runs/` artifacts only, no TTS/feed/commit/push; `-Only "<ids>"` = pipeline just those prompts;
+  logs to `logs\daily-<date>.log`).
+  **THE BATCH IS SPLIT ACROSS TWO SESSION WINDOWS (2026-07-25).** One batch no longer fits in a
+  single ~5h Claude session window, so the same script runs twice a night:
+  **`-Midnight` task at 00:00** with `-Only <6 least time-sensitive ids> -NoPublish` (pipeline only,
+  nothing published), then **`-Daily` task at 05:15** with no `-Only`, which picks up everything
+  still outstanding and publishes the **whole day in one commit/push/ntfy**. The 05:15 run needs no
+  list — `orchestrator.py resume` reports the midnight half as `done` and skips it — so a newly
+  added prompt automatically falls to the 05:15 run, which is the safe side.
+  **Why 05:15 and not 05:00:** the midnight run's window opens at its first model call (~00:00) and
+  resets ~05:00; starting the second run at exactly 05:00 would land on the boundary and risk
+  inheriting the spent window. 15 minutes buys margin, at the cost of publishing ~05:55.
+  Current midnight half: `ai-in-biopharma-r-d, robotics-physical-ai, enterprise-tech,
+  private-equity, ai-products, semiconductors-compute` — chosen because overnight staleness costs
+  them least; the market-sensitive ones (`capital-markets-radar`, `digital-money`,
+  `strategic-power`, `private-credit`), `frontier-ai-labs` and `throughline` (which must synthesize
+  the others) stay at 05:15. `-Only` validates its ids against `prompts.json` and **aborts (exit 2)**
+  on an unknown/disabled id rather than silently doing nothing, and the Opus-retry's
+  incomplete-count is **scoped** to `-Only` — otherwise the other half being `pending` by design
+  would fire a pointless retry every night. A split run also suppresses the run analysis; the 05:15
+  run writes it once all outcomes are known, and notes which prompts ran in which sitting.
+  **Model
   pinning + fallback:** the four subagents pin their own models in `.claude/agents/*.md`
   frontmatter (researcher=`sonnet`, analyst-editor=`opus`, writer=`sonnet`, reviewer=`opus`), and
   those pins **override** the CLI `--model`/`--fallback-model` for the actual research/editing/
@@ -129,8 +177,28 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   dispatching subagents). **Fable 5 is deliberately not used anywhere in the scheduled job** (its
   usage-limit deaths killed past runs), and because the job passes explicit `--model` flags, an
   interactive terminal left on Fable (or anything else) can never leak into the 5 AM run. The
-  Opus-4.8 re-invoke on any still-pending/failed prompt is kept as a safety net, resuming via the
-  idempotent orchestrator (only pending/failed prompts re-done).
+  Opus-4.8 re-invoke on any still-pending/failed prompt is kept as a safety net. It resumes at
+  **two** levels: prompt level via the idempotent orchestrator (approved prompts are never re-done)
+  and **stage level** via `orchestrator.py resume --prune`, which the script runs before the retry
+  and the retry prompt runs again itself. Before 2026-07-25 only the prompt level existed, so a
+  retry restarted each unfinished prompt from the Researcher — on that date it rewrote
+  `research.json`/`editorial_plan.json` over complete artifacts and exhausted the session cap
+  without finishing anything.
+  **`completion_run.ps1` — the 10:05 second pass (Task Scheduler: `CautiousOptimismBriefings-
+  Completion`).** The 12-prompt batch now costs more than one Claude session window allows (2026-07-25:
+  ~58M tokens in 16 min, cap hit, 3 episodes finished by hand). The quota is per rolling ~5-hour
+  window, so idle time inside it restores nothing and starting the job EARLIER only risks colliding
+  with the previous evening's session — the only pause that helps is one crossing the reset
+  boundary. This job is that pause: it runs just after the window the 5 AM job opened has reset and
+  finishes the leftovers in fresh quota. It asks `orchestrator.py resume --prune` what is
+  outstanding and, when nothing is, **spends zero model tokens** — skipping phase 1 entirely and
+  running only `publish_feed.py --require-fresh --skip-published` (≈2 s, no TTS, no commit). It
+  opens its own token-window segment, appends to the SAME `logs\daily-<date>.log`, and reads the
+  morning's novelty mode from `runs/<date>/run.json` so a resumed prompt is judged on the same bar.
+  If `run.json` is absent entirely (the 5 AM job never ran), it runs the full batch.
+  **`phase1_prompt.ps1`** holds the phase-1 prompt (incl. the resume semantics) as
+  `Get-Phase1Prompt`, dot-sourced by both scripts so the two can never drift — the completion pass
+  depends entirely on those semantics being obeyed.
   `make_cover.py` (regenerates the cover via Pillow), `seed_feed.py` (one-off backfill).
 - **`logs/`** — git-ignored per-day logs from the scheduled run (`daily-<YYYY-MM-DD>.log`); check the
   latest one first when asked how the morning run went.

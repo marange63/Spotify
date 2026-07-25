@@ -10,12 +10,15 @@ trustworthy.
     python run_report.py --date 2026-07-24                 # table + token total + 5-day trend
     python run_report.py --date 2026-07-24 --history 0      # just this run
     python run_report.py --date 2026-07-24 --json           # this run's data as JSON
-    python run_report.py --date 2026-07-24 --start          # stamp the token-window start (idempotent)
-    python run_report.py --date 2026-07-24 --end            # stamp the token-window end
+    python run_report.py --date 2026-07-24 --start          # open a token-window segment
+    python run_report.py --date 2026-07-24 --end            # close it
 
-Token accounting needs a ``runs/<date>/token_window.json`` (``{start,end}`` in UTC ISO). The
-scheduled job stamps it via ``--start``/``--end`` around phase 1 (phase 2 spends no model tokens);
-without it the token metric reads n/a. Tokens are summed from ``config.CLAUDE_TRANSCRIPTS_DIR``.
+Token accounting needs a ``runs/<date>/token_window.json``. It holds ``segments`` — one
+``{start,end}`` (UTC ISO) per sitting that spent model tokens — because a run can span the 5 AM job
+AND the 10:05 completion pass, and the interactive work between them must NOT be counted. The total
+is the sum over segments, gaps excluded. The legacy ``{start,end}`` shape is still read as one
+segment. Without the file the token metric reads n/a. Tokens are summed from
+``config.CLAUDE_TRANSCRIPTS_DIR``.
 """
 import argparse
 import datetime
@@ -136,19 +139,54 @@ def window_path(date: str) -> str:
     return os.path.join(orchestrator.run_dir(date), TOKEN_WINDOW_FILE)
 
 
+def _segments(win: dict | None) -> list:
+    """Normalize a token_window.json to a list of ``{start[, end]}`` segments.
+
+    Accepts the legacy single-window shape ``{start, end}`` so old runs still total correctly."""
+    if not win:
+        return []
+    segs = win.get("segments")
+    if isinstance(segs, list):
+        return [s for s in segs if isinstance(s, dict) and s.get("start")]
+    if win.get("start"):
+        return [{"start": win["start"], "end": win.get("end")}]
+    return []
+
+
 def mark_window(date: str, which: str) -> dict:
-    """Stamp the run's token-window ``start`` or ``end`` (UTC now). ``start`` is idempotent —
-    an existing start is never overwritten, so the true run beginning survives retries."""
+    """Open (``start``) or close (``end``) a token-window SEGMENT for the run (UTC now).
+
+    A run can spend model tokens in more than one sitting — the 5 AM job, then the 10:05 completion
+    pass that finishes whatever the session cap truncated (see tools/completion_run.ps1). A single
+    start/end pair would span the gap between them and sweep up unrelated interactive work, which
+    is exactly what made 2026-07-25's tokens/word uninterpretable. Segments keep each sitting
+    separate and the total is their sum.
+
+    ``start`` is idempotent while a segment is open, so a retry inside one sitting never splits it.
+    """
     path = window_path(date)
     os.makedirs(os.path.dirname(path), exist_ok=True)
     data = _load_json(path) or {}
-    if which == "start" and data.get("start"):
-        return data
-    data[which] = _now_utc_iso()
+    segs = _segments(data)
+    if which == "start":
+        if segs and not segs[-1].get("end"):
+            return data  # a segment is already open — this sitting has begun
+        segs.append({"start": _now_utc_iso()})
+    else:
+        if not segs or segs[-1].get("end"):
+            return data  # nothing open to close
+        segs[-1]["end"] = _now_utc_iso()
+
+    out = {"segments": segs}
+    # Legacy keys = the overall span (gaps included). Kept so anything reading the old shape still
+    # works; token_usage sums the SEGMENTS, never this span.
+    out["start"] = segs[0]["start"]
+    if segs[-1].get("end"):
+        out["end"] = segs[-1]["end"]
     with open(path, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=2)
+        json.dump(out, f, indent=2)
         f.write("\n")
-    return data
+    return out
 
 
 def _scan_windows(windows: dict) -> dict:
@@ -191,15 +229,20 @@ def _scan_windows(windows: dict) -> dict:
 def token_usage(date: str) -> dict | None:
     """Grand-total token usage for the run (tip to tail, incl. subagents and cache), or None if
     no token window was recorded or the transcripts are absent on this machine."""
-    win = _load_json(window_path(date))
-    if not win or not win.get("start"):
+    segs = _segments(_load_json(window_path(date)))
+    if not segs:
         return None
-    start, end = win["start"], win.get("end") or _now_utc_iso()
-    scanned = _scan_windows({date: (start, end)})
+    now = _now_utc_iso()
+    bounds = {f"seg{i}": (s["start"], s.get("end") or now) for i, s in enumerate(segs)}
+    scanned = _scan_windows(bounds)
     if not scanned:
         return None
-    usage = scanned[date]
-    usage["window"] = {"start": start, "end": end}
+    usage = dict.fromkeys(("input", "output", "cache_creation", "cache_read", "total"), 0)
+    for acc in scanned.values():
+        for k in usage:
+            usage[k] += acc[k]
+    usage["window"] = {"start": segs[0]["start"], "end": segs[-1].get("end") or now,
+                       "segments": [dict(s) for s in segs]}
     return usage
 
 
@@ -259,13 +302,21 @@ def build_history(date: str, n: int) -> list:
 
 def _fmt_tokens(tokens: dict, words: int, per_word) -> list:
     m = tokens
-    return [
+    lines = [
         "grand total token usage — tip to tail (incl. subagents + cache):",
         f"  input {m['input']:,}   output {m['output']:,}   "
         f"cache_creation {m['cache_creation']:,}   cache_read {m['cache_read']:,}",
         f"  TOTAL {m['total']:,} tokens  /  {words:,} words  =  "
         f"{per_word:,.0f} tokens/word" if per_word else f"  TOTAL {m['total']:,} tokens",
     ]
+    segs = (m.get("window") or {}).get("segments") or []
+    if len(segs) > 1:
+        # Two sittings = the 5 AM job was truncated and the completion pass finished it. Say so,
+        # so the analysis doesn't read the total as one continuous run.
+        spans = "; ".join(f"{s['start'][11:19]}–{(s.get('end') or '')[11:19] or 'open'}Z"
+                          for s in segs)
+        lines.append(f"  ({len(segs)} sittings, gaps excluded: {spans})")
+    return lines
 
 
 def format_report(report: dict) -> str:

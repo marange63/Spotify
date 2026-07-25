@@ -9,6 +9,7 @@ Spotify for Creators re-ingests the feed on its next refresh.
     python publish_feed.py                      # publish all enabled prompts for today
     python publish_feed.py --date 2026-07-09    # override the episode date
     python publish_feed.py --no-push            # build locally without git push
+    python publish_feed.py --require-fresh --skip-published   # completion pass: only what's missing
 
 Summaries: pass a JSON map of {prompt_id: summary} via --summaries <file>, else the
 prompt name is used as the episode description.
@@ -26,12 +27,29 @@ import urllib.request
 import config
 import library
 from episode import synthesize
-from feed import add_episode, build_feed, prune_old
+from feed import add_episode, build_feed, has_episode, prune_old
 from orchestrator import ordered_enabled as _ordered_enabled
 
 _DATE_RE = re.compile(r"(\d{4}-\d{2}-\d{2})")
 
 log = logging.getLogger("publish_feed")
+
+# Result sentinels (anything else in the status column is a new episode's GUID).
+SKIPPED_STATUSES = ("NO SCRIPT", "STALE — skipped")
+ALREADY_PUBLISHED = "ALREADY PUBLISHED"
+
+
+def _is_new_episode(status: str) -> bool:
+    """True only for an episode published by THIS invocation (drives the ntfy push)."""
+    return not (status.startswith("FAILED") or status in SKIPPED_STATUSES
+                or status == ALREADY_PUBLISHED)
+
+
+def _is_success(status: str) -> bool:
+    """True if the prompt is live in the feed for this date — whether we published it now or a
+    previous pass already did. Drives the exit code: a completion pass that finds everything
+    already published has succeeded, not failed."""
+    return _is_new_episode(status) or status == ALREADY_PUBLISHED
 
 
 def _notify_ntfy(results: list[tuple[str, str]], date: str) -> None:
@@ -45,10 +63,9 @@ def _notify_ntfy(results: list[tuple[str, str]], date: str) -> None:
     if not topic:
         log.info("ntfy: no topic configured — skipping push")
         return
-    published = [(n, g) for n, g in results
-                 if not (g.startswith("FAILED") or g in ("NO SCRIPT", "STALE — skipped"))]
+    published = [(n, g) for n, g in results if _is_new_episode(g)]
     if not published:
-        log.info("ntfy: nothing published — skipping push")
+        log.info("ntfy: nothing newly published — skipping push")
         return
     names = ", ".join(n for n, _ in published)
     body = (f"{len(published)} episode(s) live in the feed: {names}. "
@@ -127,7 +144,7 @@ def _prune_local(date: str, keep_days: int) -> None:
 
 def publish(date: str, summaries: dict, push: bool = True,
             require_fresh: bool = False, email: bool = False,
-            notify: bool = True) -> list[tuple[str, str]]:
+            notify: bool = True, skip_published: bool = False) -> list[tuple[str, str]]:
     data = library.load()
     results = []
     for p in _ordered_enabled(data):
@@ -140,6 +157,12 @@ def publish(date: str, summaries: dict, push: bool = True,
         if require_fresh and not _fresh_today(text_path, date):
             log.warning("%s: script not written today (%s) — skipping stale briefing", name, date)
             results.append((name, "STALE — skipped"))
+            continue
+        if skip_published and has_episode(pid, date):
+            # Second pass on the same day: this episode is already live and unchanged. Re-running
+            # TTS would rewrite its audio and enclosure URL for nothing.
+            log.info("%s: already published for %s — skipping", name, date)
+            results.append((name, "ALREADY PUBLISHED"))
             continue
         try:
             mp3 = synthesize(text_path)
@@ -199,6 +222,9 @@ def main() -> int:
     ap.add_argument("--no-notify", action="store_true",
                     help="suppress the ntfy 'briefings published' phone push "
                          "(on by default after a successful push; see config.NTFY_TOPIC)")
+    ap.add_argument("--skip-published", action="store_true",
+                    help="skip prompts already recorded in the feed for --date (second/completion "
+                         "pass: publish only what's missing, never re-TTS a live episode)")
     args = ap.parse_args()
 
     summaries = {}
@@ -208,14 +234,12 @@ def main() -> int:
 
     results = publish(args.date, summaries, push=not args.no_push,
                       require_fresh=args.require_fresh, email=args.email,
-                      notify=not args.no_notify)
+                      notify=not args.no_notify, skip_published=args.skip_published)
     print("\n===== RESULTS =====")
     for name, status in results:
         print(f"{name}: {status}")
-    # non-zero exit if every prompt failed/was skipped, so the scheduler logs a failure
-    ok = any(not (s.startswith("FAILED") or s in ("NO SCRIPT", "STALE — skipped"))
-             for _, s in results)
-    return 0 if ok else 1
+    # non-zero exit if nothing is live for this date, so the scheduler logs a failure
+    return 0 if any(_is_success(s) for _, s in results) else 1
 
 
 if __name__ == "__main__":

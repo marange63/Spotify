@@ -15,6 +15,7 @@ stdlib-only gatekeeper the session calls between stages:
     python orchestrator.py approve <id> --date D      # the ONLY path that writes briefings/
     python orchestrator.py mark <id> --date D --status skipped|failed --stage X --reason "…"
     python orchestrator.py status --date D [--json]
+    python orchestrator.py resume --date D [--prune]   # where to restart an interrupted run
 
 ``approve`` copies ``final.txt`` to ``briefings/<id>.txt`` only when
 ``review.json`` says ``decision: "approve"`` — so an unreviewed or rejected
@@ -38,6 +39,14 @@ log = logging.getLogger("orchestrator")
 NOVELTY_MODES = ("strict", "relaxed")
 MARK_STATUSES = ("skipped", "failed")
 STAGES = ("research", "plan", "write", "review")
+
+# Stages a resumed prompt can restart at, in dependency order. "finalize" means every artifact is
+# present and consistent — only `approve` (or `mark`, per review.json's decision) is left to run;
+# "done" means the prompt is already approved/skipped and must not be touched.
+RESUME_STAGES = ("research", "plan", "deep", "write", "review", "finalize", "done")
+
+# Artifacts whose mtime may legitimately equal their upstream's (same-second writes).
+_MTIME_SLACK = 1.0
 
 # Artifact filenames inside runs/<date>/<prompt_id>/
 RESEARCH_FILE = "research.json"
@@ -130,6 +139,9 @@ def init_run(date: str, novelty: str) -> dict:
     state = {"date": date, "novelty": novelty, "prompts": entries}
     _save_state(date, state)
 
+    # The plan carries each prompt's resume point, so a retry restarts at the first missing or
+    # superseded artifact instead of re-running finished stages (see resume_for_prompt). On a
+    # first run every prompt is empty and this simply reports "research" for all of them.
     plan = {"date": date, "novelty": novelty, "prompts": [
         {
             "id": e["id"],
@@ -137,6 +149,7 @@ def init_run(date: str, novelty: str) -> dict:
             "kind": e["kind"],
             "status": e["status"],
             "dir": prompt_dir(date, e["id"]),
+            "resume": resume_for_prompt(date, e),
             "artifacts": {
                 "research": os.path.join(prompt_dir(date, e["id"]), RESEARCH_FILE),
                 "plan": os.path.join(prompt_dir(date, e["id"]), PLAN_FILE),
@@ -313,6 +326,173 @@ def validate_file(kind: str, path: str) -> list:
     return _VALIDATORS[kind](doc)
 
 
+# --- resume (artifact-aware) ----------------------------------------------------
+#
+# Why this exists: run.json tracks status per PROMPT, which is enough to skip finished prompts but
+# not to restart an unfinished one at the right STAGE. Before this, a retry re-ran the whole
+# pipeline from the Researcher even when research/plan/draft were already on disk — burning the
+# budget that made it a retry in the first place (observed 2026-07-25: the Opus retry rewrote
+# research.json and editorial_plan.json on top of complete artifacts, then died).
+#
+# The second, nastier half of that bug: when an upstream artifact IS rewritten, the downstream ones
+# built from the OLD version survive on disk and nothing flags the mismatch. On 2026-07-25 the
+# surviving deep_research.json/draft.txt answered a superseded plan (dives about Bitcoin whale flows
+# and the Ratepayer Pledge; plans about the CLARITY Act and oil chokepoints). A naive resume would
+# have handed the Writer a plan and a dive covering different stories, and the output would have
+# looked plausible. So staleness is detected by mtime against the upstream artifact, and everything
+# downstream of the resume point is reported as stale (and deleted with --prune).
+
+
+def _nonempty(path: str) -> bool:
+    try:
+        with open(path, encoding="utf-8") as f:
+            return bool(f.read().strip())
+    except OSError:
+        return False
+
+
+def _read_json(path: str) -> dict | None:
+    try:
+        with open(path, encoding="utf-8") as f:
+            doc = json.load(f)
+    except (OSError, json.JSONDecodeError):
+        return None
+    return doc if isinstance(doc, dict) else None
+
+
+def _stage_chain(date: str, prompt_id: str, kind: str) -> list:
+    """[(stage, [artifact paths], validator kind or None)] in dependency order.
+
+    Synthesis prompts (the Throughline) are not researched and have no editorial plan — they run
+    Writer then Reviewer over the day's approved briefings — so their chain starts at "write".
+    """
+    d = prompt_dir(date, prompt_id)
+    j = lambda n: os.path.join(d, n)  # noqa: E731
+    review = ("review", [j(REVIEW_FILE), j(FINAL_FILE)], "review")
+    if kind == "synthesis":
+        return [("write", [j(DRAFT_FILE)], None), review]
+    return [
+        ("research", [j(RESEARCH_FILE)], "research"),
+        ("plan", [j(PLAN_FILE)], "plan"),
+        ("deep", [j(DEEP_FILE)], "deep"),
+        ("write", [j(DRAFT_FILE)], None),
+        review,
+    ]
+
+
+def resume_for_prompt(date: str, entry: dict) -> dict:
+    """Decide which stage ``entry``'s prompt should restart at, and which artifacts are stale.
+
+    Walks the stage chain in dependency order and stops at the first artifact that is missing,
+    empty, schema-invalid, or OLDER than the upstream artifact it was derived from. Everything from
+    that stage onward is stale by construction and reported for deletion.
+    """
+    pid = entry["id"]
+    kind = entry.get("kind") or "normal"
+    out = {"id": pid, "name": entry.get("name", pid), "kind": kind,
+           "status": entry["status"], "resume_stage": None, "reason": "", "stale_artifacts": []}
+
+    if entry["status"] in ("approved", "skipped"):
+        out["resume_stage"] = "done"
+        out["reason"] = f"status is {entry['status']} — do not re-run"
+        return out
+
+    chain = _stage_chain(date, pid, kind)
+    d = prompt_dir(date, pid)
+    upstream = 0.0
+    resume = reason = None
+    cut = len(chain)
+
+    for idx, (stage, paths, vkind) in enumerate(chain):
+        if stage == "deep":
+            # Stage 2.5 is conditional: it runs only when the CURRENT plan asks for it.
+            plan_doc = _read_json(os.path.join(d, PLAN_FILE)) or {}
+            wants = bool(plan_doc.get("deep_dive_requests"))
+            exists = os.path.exists(paths[0])
+            if not wants:
+                if exists:
+                    # A dive answering a plan that no longer asks for one — the exact mismatch
+                    # that shipped undetected on 2026-07-25.
+                    resume, cut = "write", idx
+                    reason = ("deep_research.json exists but the current plan requests no deep "
+                              "dive — superseded by a re-planned prompt")
+                    break
+                continue  # correctly absent; nothing to validate, no mtime to inherit
+
+        missing = [p for p in paths if not _nonempty(p)]
+        if missing:
+            resume, cut = stage, idx
+            reason = f"missing or empty {os.path.basename(missing[0])}"
+            break
+
+        mtimes = [os.path.getmtime(p) for p in paths]
+        if min(mtimes) < upstream - _MTIME_SLACK:
+            resume, cut = stage, idx
+            reason = (f"{os.path.basename(paths[0])} is older than the artifact it derives from "
+                      "— superseded, must be rebuilt")
+            break
+
+        if vkind:
+            problems = validate_file(vkind, paths[0])
+            if problems:
+                resume, cut = stage, idx
+                reason = f"{os.path.basename(paths[0])} invalid: {problems[0]}"
+                break
+
+        # A plan that says "skip" ends the prompt — there is nothing downstream to build.
+        if stage == "plan":
+            plan_doc = _read_json(paths[0]) or {}
+            if plan_doc.get("decision") == "skip":
+                resume, cut = "finalize", len(chain)
+                reason = ('editorial plan decision is "skip" — mark the prompt skipped, '
+                          "do not write it")
+                break
+
+        upstream = max(upstream, max(mtimes))
+    else:
+        resume, cut = "finalize", len(chain)
+        reason = ("all artifacts present and consistent — run approve "
+                  "(or mark, per review.json's decision)")
+
+    out["resume_stage"] = resume
+    out["reason"] = reason
+    # Everything from the resume point on was built on something being rebuilt (or is invalid).
+    stale = []
+    for stage, paths, _ in chain[cut:]:
+        stale.extend(p for p in paths if os.path.exists(p))
+    out["stale_artifacts"] = stale
+    return out
+
+
+def resume_plan(date: str) -> dict:
+    """Per-prompt resume points for the whole batch (see ``resume_for_prompt``)."""
+    state = load_state(date)
+    prompts = [resume_for_prompt(date, e) for e in state["prompts"]]
+    return {"date": state["date"], "novelty": state["novelty"], "prompts": prompts,
+            "unfinished": [p["id"] for p in prompts if p["resume_stage"] != "done"]}
+
+
+def prune_stale(plan: dict) -> list:
+    """Delete every artifact the resume plan flagged as stale. Returns the paths removed.
+
+    These are regenerable local artifacts under the gitignored ``runs/<date>/``; deleting them is
+    what makes a resume safe, since a superseded artifact left in place will be silently consumed
+    by the next stage.
+    """
+    removed = []
+    for p in plan["prompts"]:
+        for path in p["stale_artifacts"]:
+            try:
+                os.remove(path)
+            except OSError as e:
+                log.warning("could not remove stale artifact %s (%s)", path, e)
+                continue
+            removed.append(path)
+            log.info("pruned stale artifact %s (%s: resume at %s)",
+                     os.path.relpath(path, config.RUNS_DIR), p["id"], p["resume_stage"])
+    return removed
+
+
 # --- approve / mark / status ----------------------------------------------------
 
 def approve(prompt_id: str, date: str) -> str:
@@ -402,6 +582,13 @@ def main(argv=None) -> int:
     p.add_argument("--date", default=today)
     p.add_argument("--json", action="store_true")
 
+    p = sub.add_parser("resume", help="per-prompt resume stage + superseded artifacts")
+    p.add_argument("--date", default=today)
+    p.add_argument("--json", action="store_true")
+    p.add_argument("--prune", action="store_true",
+                   help="delete the superseded artifacts (required before resuming, so a stale "
+                        "artifact can't be silently consumed by the next stage)")
+
     args = ap.parse_args(argv)
 
     if args.cmd == "init":
@@ -434,6 +621,33 @@ def main(argv=None) -> int:
         except (FileNotFoundError, KeyError) as e:
             print(str(e))
             return 1
+        return 0
+
+    if args.cmd == "resume":
+        try:
+            plan = resume_plan(args.date)
+        except FileNotFoundError as e:
+            print(str(e))
+            return 1
+        removed = prune_stale(plan) if args.prune else []
+        if args.prune:
+            # Re-derive after deleting so the reported stale list reflects the cleaned tree.
+            plan = resume_plan(args.date)
+            plan["pruned"] = removed
+        if args.json:
+            print(json.dumps(plan, indent=2, ensure_ascii=False))
+        else:
+            print(f"resume plan {plan['date']} — novelty: {plan['novelty']}")
+            for e in plan["prompts"]:
+                if e["resume_stage"] == "done":
+                    print(f"  {e['id']}: done ({e['status']})")
+                    continue
+                print(f"  {e['id']}: resume at {e['resume_stage']} — {e['reason']}")
+                for path in e["stale_artifacts"]:
+                    print(f"      stale: {os.path.basename(path)}")
+            if removed:
+                print(f"pruned {len(removed)} superseded artifact(s)")
+            print(f"unfinished: {', '.join(plan['unfinished']) or '(none)'}")
         return 0
 
     if args.cmd == "status":

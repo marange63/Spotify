@@ -152,6 +152,17 @@ def _write_transcript(guid: str, name: str, date: str, prompt_id: str):
     return txt_name, html_name
 
 
+def has_episode(prompt_id: str, date: str) -> bool:
+    """True if ``<prompt_id>-<date>`` is already recorded in feed_state.
+
+    Used by ``publish_feed.py --skip-published`` so a second publishing pass on the same day (the
+    10:05 completion run) adds only the missing episodes. Re-publishing an unchanged one would
+    re-run TTS and change its enclosure URL, forcing Spotify to re-download identical audio.
+    """
+    guid = f"{prompt_id}-{date}"
+    return any(e["guid"] == guid for e in _load_state()["episodes"])
+
+
 def add_episode(prompt_id: str, name: str, summary: str, mp3_path: str,
                 date: str) -> dict:
     """Copy the MP3 into docs/audio/ under a unique name and append a feed record.
