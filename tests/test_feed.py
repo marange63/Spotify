@@ -46,6 +46,82 @@ class FeedCacheBustTest(unittest.TestCase):
         self.assertIn(f"?v={v_late}", xml)
 
 
+class ReleaseHostingTest(unittest.TestCase):
+    """add_episode / build_feed / prune_old with audio on GitHub Releases (network mocked)."""
+
+    def setUp(self):
+        self.d = tempfile.mkdtemp()
+        self.audio = os.path.join(self.d, "audio")
+        self.tx = os.path.join(self.d, "transcripts")
+        self.brief = os.path.join(self.d, "briefings")
+        for p in (self.audio, self.tx, self.brief):
+            os.makedirs(p)
+        self.state_file = os.path.join(self.d, "state.json")
+        self.feed_file = os.path.join(self.d, "feed.xml")
+        with open(os.path.join(self.brief, "a.txt"), "w", encoding="utf-8") as f:
+            f.write("Good morning.\n\nBody paragraph.")
+        self.mp3 = os.path.join(self.d, "src.mp3")
+        with open(self.mp3, "wb") as f:
+            f.write(b"\xff\xfb\x90\x00" + b"x" * 500)
+        self._ctx = [
+            mock.patch.object(config, "FEED_STATE_FILE", self.state_file),
+            mock.patch.object(config, "FEED_FILE", self.feed_file),
+            mock.patch.object(config, "DOCS_DIR", self.d),
+            mock.patch.object(config, "DOCS_AUDIO_DIR", self.audio),
+            mock.patch.object(config, "DOCS_TRANSCRIPTS_DIR", self.tx),
+            mock.patch.object(config, "BRIEFINGS_DIR", self.brief),
+            mock.patch.object(config, "AUDIO_HOST", "release"),
+        ]
+        for c in self._ctx:
+            c.start()
+
+    def tearDown(self):
+        for c in self._ctx:
+            c.stop()
+        shutil.rmtree(self.d, ignore_errors=True)
+
+    def test_release_hosted_episode_sets_url_and_skips_docs_audio(self):
+        import github_release
+        url = "https://github.com/o/r/releases/download/audio/a-2026-07-25.mp3"
+        with mock.patch.object(github_release, "upload_asset", return_value=url) as up:
+            rec = feed.add_episode("a", "A", "summary", self.mp3, "2026-07-25")
+        up.assert_called_once()
+        self.assertEqual(rec["audio_url"], url)
+        # release hosting must NOT write a docs/audio copy
+        self.assertFalse(os.path.exists(os.path.join(self.audio, "a-2026-07-25.mp3")))
+        # feed enclosure uses the release URL (with cache-bust)
+        feed.build_feed()
+        xml = open(self.feed_file, encoding="utf-8").read()
+        self.assertIn(url + "?v=", xml)
+
+    def test_upload_failure_falls_back_to_pages(self):
+        import github_release
+        with mock.patch.object(github_release, "upload_asset", side_effect=RuntimeError("boom")):
+            rec = feed.add_episode("a", "A", "summary", self.mp3, "2026-07-25")
+        self.assertIsNone(rec["audio_url"])
+        # fallback copied into docs/audio, and the feed uses the Pages URL
+        self.assertTrue(os.path.exists(os.path.join(self.audio, "a-2026-07-25.mp3")))
+        feed.build_feed()
+        xml = open(self.feed_file, encoding="utf-8").read()
+        self.assertIn("/audio/a-2026-07-25.mp3?v=", xml)
+
+    def test_prune_deletes_release_asset_not_files(self):
+        import github_release
+        import json
+        old = {"guid": "a-2026-07-01", "prompt_id": "a", "title": "A", "summary": "s",
+               "date": "2026-07-01", "seq": 0, "audio_file": "a-2026-07-01.mp3",
+               "audio_url": "https://github.com/o/r/releases/download/audio/a-2026-07-01.mp3",
+               "transcript_txt": "a-2026-07-01.txt", "transcript_html": "a-2026-07-01.html"}
+        open(os.path.join(self.tx, old["transcript_txt"]), "w").close()
+        open(os.path.join(self.tx, old["transcript_html"]), "w").close()
+        with open(self.state_file, "w", encoding="utf-8") as f:
+            json.dump({"episodes": [old]}, f)
+        with mock.patch.object(github_release, "delete_asset", return_value=True) as dl:
+            feed.prune_old(keep_days=10, today="2026-07-25")
+        dl.assert_called_once_with("a-2026-07-01.mp3")  # release asset deleted, not a local file
+        self.assertFalse(os.path.exists(os.path.join(self.tx, "a-2026-07-01.txt")))  # transcript gone
+
+
 class PruneOldTest(unittest.TestCase):
     def setUp(self):
         self.d = tempfile.mkdtemp()

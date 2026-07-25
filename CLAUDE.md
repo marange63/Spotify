@@ -6,17 +6,20 @@ spoken briefing and publishes it as a new episode in the show.
 
 **How it's built (public podcast via self-hosted RSS):** a key-free Tkinter window (`main.py`) manages
 the prompt library (`prompts.json`); Claude Code does the research + writing; `edge-tts` makes the
-audio; `feed.py` builds a podcast RSS feed and the audio + cover + `feed.xml` + per-episode transcripts
-are served publicly by GitHub Pages out of `./docs`; Spotify for Creators ingests that feed URL.
-Publishing is a `git push` — Pages serves it and Spotify re-ingests on its refresh schedule.
+audio; `feed.py` builds a podcast RSS feed. The `feed.xml` + cover + per-episode transcripts are
+served publicly by GitHub Pages out of `./docs`; **episode audio is hosted as GitHub Release assets**
+(`config.AUDIO_HOST="release"`, via `github_release.py`) — stored outside the git repo so `.git`
+never grows from mp3s. Spotify for Creators ingests the feed URL. Publishing is a `git push` (for the
+feed/transcripts) plus a release-asset upload per episode — Pages serves the feed and Spotify
+re-ingests on its refresh schedule.
 
 **Retention model (rolling 10-day window):** each publish is a **new episode** with a unique per-day
 GUID (`<prompt_id>-<YYYY-MM-DD>`), so followers get normal new-episode notifications. The show keeps
 only the last **`config.RETENTION_DAYS` (10) days**: after each publish, `feed.prune_old` drops older
-episodes (and their audio + transcripts) from the feed and `docs/`, and the local `runs/`/`logs`
-older than the window are swept — so neither Spotify, the repo, nor local disk accumulates stale
-briefing files. The **5 AM performance analyses (`analyses/<date>.md`) are exempt** and kept. (Git
-history still retains old audio blobs; only the working tree, feed, and public catalogue roll.)
+episodes from the feed and deletes their audio (the GitHub Release asset — real reclamation, since
+release assets live outside git) and transcripts, and the local `runs/`/`logs` older than the window
+are swept — so neither Spotify, the repo (including `.git`), nor local disk accumulates stale briefing
+files. The **5 AM performance analyses (`analyses/<date>.md`) are exempt** and kept.
 
 - **Show:** Cautious Optimism Briefings · Feed: https://marange63.github.io/Spotify/feed.xml
 - **Pages site:** https://marange63.github.io/Spotify/ (served from `main` branch, `/docs` folder)

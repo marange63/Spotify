@@ -47,17 +47,25 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   through the clobber-proof `apply_new`/`apply_update`/`apply_delete` (reload file → apply one change →
   write), so an external edit (e.g. Claude fixing an id) made while the window is open is never
   overwritten; `save_merged` (window-safe merge) and `save` (authoritative write) preserve the `kind` field.
-- **`feed.py`** — podcast RSS. `add_episode(prompt_id, name, summary, mp3_path, date)` copies the mp3 to
-  `docs/audio/<id>-<date>.mp3`, records it (bytes + duration via `mutagen`, plus a tz-aware
-  `published_at` and transcript filenames) in `feed_state.json`, and writes the verbatim transcript to
-  `docs/transcripts/<id>-<date>.txt` + `.html` (from `briefings/<id>.txt`). `build_feed()` renders
-  `docs/feed.xml` (iTunes tags, newest-first, `<pubDate>` from the real `published_at`, `<podcast:transcript>`
-  tags + a "Read the full transcript" link in each description). Stable per-day GUIDs.
+- **`feed.py`** — podcast RSS. `add_episode(prompt_id, name, summary, mp3_path, date)` hosts the audio
+  (via `_host_audio`: uploads to the GitHub Release when `config.AUDIO_HOST=="release"`, else copies to
+  `docs/audio/`), records it (bytes + duration via `mutagen`, a tz-aware `published_at`, the release
+  `audio_url` when release-hosted, and transcript filenames) in `feed_state.json`, and writes the
+  verbatim transcript to `docs/transcripts/<id>-<date>.txt` + `.html` (from `briefings/<id>.txt`).
+  `build_feed()` renders `docs/feed.xml` (iTunes tags, newest-first, `<pubDate>` from the real
+  `published_at`, `<podcast:transcript>` tags + a "Read the full transcript" link) — each enclosure
+  uses the episode's `audio_url` (release) or the legacy `docs/audio` Pages URL. Stable per-day GUIDs.
   `prune_old(keep_days=config.RETENTION_DAYS, today)` enforces the **rolling 10-day retention window**:
-  it drops episodes older than the window from `feed_state.json` and deletes their `docs/audio` +
-  `docs/transcripts` files (best-effort), so the caller's `build_feed()` re-renders a feed that lists
-  only recent history. Git history still holds the deleted audio blobs — only the working tree, feed,
-  and public catalogue roll.
+  it drops episodes older than the window from `feed_state.json` and deletes their audio — the GitHub
+  Release asset (real reclamation, since assets live outside git) or the `docs/audio` file for
+  Pages-hosted ones — plus their `docs/transcripts` files (best-effort), so `build_feed()` re-renders a
+  feed that lists only recent history. With release hosting, `.git` no longer grows from audio at all.
+- **`github_release.py`** — hosts episode audio as GitHub **Release assets** (outside the git object
+  store, so `.git` stays flat and pruning truly frees space). `upload_asset` / `delete_asset` /
+  `ensure_release` (one permanent release, tag `config.GITHUB_RELEASE_TAG`); public download URLs serve
+  unauthenticated with range-request support. Reuses the token `git push` already uses (via
+  `git credential fill`, non-interactive, never stored). stdlib `urllib` only; HTTP isolated in
+  `_token`/`_api` for tests. Verify live + non-destructively with `python tools/verify_release.py`.
   **Enclosure URLs carry a `?v=<publish-epoch>` cache-bust token** so replacing an already-ingested
   episode's audio in place forces Spotify to re-download it (see the `spotify-audio-url-cache-busting`
   memory); untouched episodes keep a stable URL.
@@ -136,7 +144,9 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   `BRIEFING_SMTP_PASS`; optional `BRIEFING_NOTIFY_TO`). Missing creds → warn + skip (never raises).
   **Currently disabled** — see the `publish-confirmation-email-blocked` memory.
 - **`feed_state.json`** — the episode archive the feed is built from (source of truth), held to a
-  rolling `config.RETENTION_DAYS` (10)-day window by `feed.prune_old` after each publish.
+  rolling `config.RETENTION_DAYS` (10)-day window by `feed.prune_old` after each publish. Each record
+  carries `audio_url` (the GitHub Release download URL; `null` for legacy/fallback Pages-hosted
+  episodes, which age out of the window).
 - **`feed_state_test.json`** / **`docs/test/`** — the staging feed's state + hosted files (see
   Staging feed below). Hand-seeded; not yet wired into any code.
 - **`docs/`** — the GitHub Pages site: `cover.jpg` (1500×1500), `index.html`, `.nojekyll`, `feed.xml`,

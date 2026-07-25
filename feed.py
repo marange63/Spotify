@@ -1,16 +1,18 @@
 """Podcast RSS feed for 'Cautious Optimism Briefings'.
 
-Self-hosted publishing path (replaces the private "Save to Spotify" flow for the
-public show): each briefing MP3 is copied into ``docs/audio/`` and recorded in
-``feed_state.json``; ``build_feed`` renders ``docs/feed.xml``. GitHub Pages serves
-``docs/`` publicly, and Spotify for Creators ingests the feed URL.
+Self-hosted publishing path (replaces the private "Save to Spotify" flow for the public show):
+``build_feed`` renders ``docs/feed.xml`` (served publicly by GitHub Pages), which Spotify ingests.
+**Audio is hosted as GitHub Release assets** (``config.AUDIO_HOST == "release"``, via
+``github_release.py``) — stored outside the git repo, so ``.git`` never grows from mp3s and pruning
+truly frees space. Each episode is recorded in ``feed_state.json`` with its release download URL in
+``audio_url``. If a release upload fails, that one episode falls back to committing into
+``docs/audio/`` and serving from Pages (``audio_url`` stays None), so a publish can never break.
 
-Retention model (podcast-native, rolling window): every publish is a new episode with a
-unique GUID, so followers get a normal new-episode notification. The show keeps a rolling
-``config.RETENTION_DAYS``-day window — after each publish, ``prune_old`` drops episodes (and their
-audio + transcripts) older than that from the feed and ``docs/``, so Spotify and the repo carry only
-recent history (see ``prune_old``). Git history still retains old audio blobs; the working tree,
-feed, and public catalogue do not.
+Retention model (podcast-native, rolling window): every publish is a new episode with a unique GUID,
+so followers get a normal new-episode notification. The show keeps a rolling
+``config.RETENTION_DAYS``-day window — after each publish, ``prune_old`` drops older episodes from
+the feed and deletes their audio (release asset, or docs/audio file for Pages-hosted ones) and
+transcripts, so Spotify and the repo carry only recent history.
 
     from feed import add_episode, build_feed
     rec = add_episode("frontier-ai-labs", "Frontier AI Lab Competition",
@@ -163,27 +165,47 @@ def has_episode(prompt_id: str, date: str) -> bool:
     return any(e["guid"] == guid for e in _load_state()["episodes"])
 
 
+def _host_audio(mp3_path: str, guid: str, audio_name: str):
+    """Place the episode audio and return ``(audio_url_or_None, hosted_on)``.
+
+    ``config.AUDIO_HOST == "release"``: upload to the GitHub Release (audio lives outside git). On
+    ANY failure, fall back to committing into docs/audio so a publish can never break. ``"pages"``:
+    always copy into docs/audio (the legacy path). ``audio_url`` is set only for release hosting;
+    Pages episodes reconstruct their URL from ``audio_file`` at build time."""
+    if config.AUDIO_HOST == "release":
+        try:
+            import github_release
+            url = github_release.upload_asset(mp3_path, audio_name)
+            log.info("feed: uploaded %s to GitHub Release", audio_name)
+            return url, "release"
+        except Exception as e:
+            log.warning("feed: release upload failed for %s (%s) — falling back to Pages hosting",
+                        guid, e)
+    os.makedirs(config.DOCS_AUDIO_DIR, exist_ok=True)
+    shutil.copyfile(mp3_path, os.path.join(config.DOCS_AUDIO_DIR, audio_name))
+    return None, "pages"
+
+
 def add_episode(prompt_id: str, name: str, summary: str, mp3_path: str,
                 date: str) -> dict:
-    """Copy the MP3 into docs/audio/ under a unique name and append a feed record.
+    """Host the MP3 (GitHub Release asset, or docs/audio fallback) and append a feed record.
 
     GUID is ``<prompt_id>-<date>`` — unique per topic per day. Re-publishing the
     same prompt on the same date overwrites that day's episode in place (idempotent).
     Returns the episode record.
     """
-    os.makedirs(config.DOCS_AUDIO_DIR, exist_ok=True)
     guid = f"{prompt_id}-{date}"
     audio_name = f"{guid}.mp3"
-    dest = os.path.join(config.DOCS_AUDIO_DIR, audio_name)
-    shutil.copyfile(mp3_path, dest)
 
-    length = os.path.getsize(dest)
+    # Metadata comes from the synthesized source, so release hosting needs no docs/audio copy.
+    length = os.path.getsize(mp3_path)
     try:
-        duration = int(round(MP3(dest).info.length))
+        duration = int(round(MP3(mp3_path).info.length))
     except Exception as e:  # pragma: no cover - duration is best-effort metadata
-        log.warning("could not read duration for %s: %s", dest, e)
+        log.warning("could not read duration for %s: %s", mp3_path, e)
         duration = 0
 
+    audio_url, hosted_on = _host_audio(mp3_path, guid, audio_name)
     txt_name, html_name = _write_transcript(guid, name, date, prompt_id)
 
     state = _load_state()
@@ -198,6 +220,7 @@ def add_episode(prompt_id: str, name: str, summary: str, mp3_path: str,
         "seq": same_day,
         "published_at": _dt.datetime.now().astimezone().isoformat(timespec="seconds"),
         "audio_file": audio_name,
+        "audio_url": audio_url,   # set for release-hosted episodes; None for Pages-hosted
         "length": length,
         "duration": duration,
         "transcript_txt": txt_name,
@@ -206,7 +229,8 @@ def add_episode(prompt_id: str, name: str, summary: str, mp3_path: str,
     eps.append(rec)
     state["episodes"] = eps
     _save_state(state)
-    log.info("feed: recorded episode %s (%d bytes, %s)", guid, length, _fmt_duration(duration))
+    log.info("feed: recorded episode %s (%d bytes, %s, %s)",
+             guid, length, _fmt_duration(duration), hosted_on)
     return rec
 
 
@@ -217,9 +241,10 @@ def prune_old(keep_days: int = config.RETENTION_DAYS, today: str | None = None) 
     afterwards so it no longer lists (or links audio for) the pruned episodes. File deletes are
     best-effort — a missing file is fine. Returns the list of pruned guids.
 
-    Git history still retains the deleted audio blobs (Pages serves from the repo, so every mp3 was
-    committed); this prunes the working tree, the feed, and thus what Spotify and repo browsers see,
-    not the .git object store. Analyses (analyses/<date>.md) are unaffected — they live elsewhere.
+    Release-hosted episodes (``audio_url`` set) have their asset deleted from the GitHub Release —
+    real reclamation, since release assets live outside the git object store. Legacy Pages-hosted
+    episodes have their docs/audio file removed from the working tree (git history still retains that
+    blob). Transcripts are always on Pages. Analyses (analyses/<date>.md) are unaffected.
     """
     cutoff = (_dt.date.fromisoformat(today or _dt.date.today().isoformat())
               - _dt.timedelta(days=keep_days - 1)).isoformat()
@@ -230,12 +255,20 @@ def prune_old(keep_days: int = config.RETENTION_DAYS, today: str | None = None) 
     if not prune:
         return []
     for e in prune:
-        for fname, folder in ((e.get("audio_file"), config.DOCS_AUDIO_DIR),
-                              (e.get("transcript_txt"), config.DOCS_TRANSCRIPTS_DIR),
-                              (e.get("transcript_html"), config.DOCS_TRANSCRIPTS_DIR)):
+        # audio: delete the release asset, or the Pages docs/audio file
+        if e.get("audio_url"):
+            import github_release
+            github_release.delete_asset(e["audio_file"])  # best-effort
+        elif e.get("audio_file"):
+            try:
+                os.remove(os.path.join(config.DOCS_AUDIO_DIR, e["audio_file"]))
+            except FileNotFoundError:
+                pass
+        # transcripts always live on Pages
+        for fname in (e.get("transcript_txt"), e.get("transcript_html")):
             if fname:
                 try:
-                    os.remove(os.path.join(folder, fname))
+                    os.remove(os.path.join(config.DOCS_TRANSCRIPTS_DIR, fname))
                 except FileNotFoundError:
                     pass
     state["episodes"] = keep
@@ -273,13 +306,14 @@ def build_feed() -> str:
         if e.get("transcript_txt"):
             txt_url = f"{base}/transcripts/{e['transcript_txt']}"
             transcript_tags += f'\n      <podcast:transcript url="{escape(txt_url)}" type="text/plain" language="en"/>'
-        # Cache-bust the enclosure URL with the episode's publish instant. The audio
-        # filename is stable (<guid>.mp3), so replacing an already-ingested episode's
-        # media in place would otherwise leave Spotify serving the copy it cached at
-        # that URL — it only re-downloads when the URL changes. The ?v token changes
-        # exactly when we (re)publish an episode, so updated media gets re-fetched while
-        # untouched episodes keep a stable URL. GitHub Pages ignores the query string.
-        audio_url = f"{base}/audio/{e['audio_file']}?v={int(dt.timestamp())}"
+        # Enclosure URL: the GitHub Release download URL for release-hosted episodes, else the
+        # legacy GitHub Pages URL (docs/audio) for older/fallback episodes. Cache-bust with the
+        # publish instant: the filename is stable (<guid>.mp3), so replacing an already-ingested
+        # episode's media would otherwise leave Spotify serving the copy it cached at that URL — it
+        # only re-downloads when the URL changes. Both GitHub Pages and Release downloads ignore the
+        # ?v query string, so it is a safe cache-bust on either host.
+        base_audio = e.get("audio_url") or f"{base}/audio/{e['audio_file']}"
+        audio_url = f"{base_audio}?v={int(dt.timestamp())}"
         item = f"""    <item>
       <title>{escape(e['title'])}</title>
       <description>{escape(desc)}</description>

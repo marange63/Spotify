@@ -53,6 +53,13 @@ PODCAST_SUBCATEGORY = "Investing"
 
 # GitHub Pages hosting
 FEED_BASE_URL = "https://marange63.github.io/Spotify"
+# Where episode audio is hosted. "release" = GitHub Release assets (stored OUTSIDE the git repo, so
+# `.git` never grows from mp3s and pruning truly frees space); "pages" = commit into docs/audio and
+# serve from GitHub Pages (the legacy path — bloats git history). add_episode falls back to "pages"
+# for any single episode whose release upload fails, so a publish can never break. See github_release.py.
+AUDIO_HOST = "release"
+GITHUB_REPO = "marange63/Spotify"          # owner/repo that holds the releases
+GITHUB_RELEASE_TAG = "audio"               # single permanent release that holds the rolling audio window
 DOCS_DIR = os.path.join(HERE, "docs")
 DOCS_AUDIO_DIR = os.path.join(DOCS_DIR, "audio")
 DOCS_TRANSCRIPTS_DIR = os.path.join(DOCS_DIR, "transcripts")
