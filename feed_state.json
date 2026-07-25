@@ -1343,6 +1343,48 @@
       "duration": 525,
       "transcript_txt": "private-equity-2026-07-25.txt",
       "transcript_html": "private-equity-2026-07-25.html"
+    },
+    {
+      "guid": "digital-money-2026-07-25",
+      "prompt_id": "digital-money",
+      "title": "Digital Money, Crypto, and Market Structure — July 25, 2026",
+      "summary": "For the better part of a week, this show has been asking one question. Was the bounce in Bitcoin ETF flows a genuine turn, or just a pause before more selling? On Thursday, July 23rd, we got an answer, and it leans toward pause.",
+      "date": "2026-07-25",
+      "seq": 9,
+      "published_at": "2026-07-25T10:59:03-04:00",
+      "audio_file": "digital-money-2026-07-25.mp3",
+      "length": 3130704,
+      "duration": 522,
+      "transcript_txt": "digital-money-2026-07-25.txt",
+      "transcript_html": "digital-money-2026-07-25.html"
+    },
+    {
+      "guid": "strategic-power-2026-07-25",
+      "prompt_id": "strategic-power",
+      "title": "Strategic Power, Energy, and Institutional Change — July 25, 2026",
+      "summary": "Three of the world's most important oil chokepoints are under attack at once, and yet oil got cheaper this week. Start with the geography. Before this war began in late February, the Strait of Hormuz carried roughly twenty million barrels of crude a day.",
+      "date": "2026-07-25",
+      "seq": 10,
+      "published_at": "2026-07-25T11:01:27-04:00",
+      "audio_file": "strategic-power-2026-07-25.mp3",
+      "length": 3408624,
+      "duration": 568,
+      "transcript_txt": "strategic-power-2026-07-25.txt",
+      "transcript_html": "strategic-power-2026-07-25.html"
+    },
+    {
+      "guid": "throughline-2026-07-25",
+      "prompt_id": "throughline",
+      "title": "The Throughline (daily synthesis) — July 25, 2026",
+      "summary": "Start with the macro backdrop. Strategic Power leads with three oil chokepoints contested at once, Hormuz, the Red Sea, and the Black Sea. The genuinely new piece is Ukrainian drone strikes on Kazakhstan's CPC pipeline, which carries close to two percent of global oil supply and has suspended loadings again.",
+      "date": "2026-07-25",
+      "seq": 11,
+      "published_at": "2026-07-25T11:02:56-04:00",
+      "audio_file": "throughline-2026-07-25.mp3",
+      "length": 2515248,
+      "duration": 419,
+      "transcript_txt": "throughline-2026-07-25.txt",
+      "transcript_html": "throughline-2026-07-25.html"
     }
   ]
 }
