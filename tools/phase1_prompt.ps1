@@ -14,7 +14,10 @@ function Get-Phase1Prompt {
         # Restrict this run to these prompt ids (the midnight half of a split batch). Empty = all.
         [string[]]$Only = @(),
         # Suppress the run-analysis step - a partial run must not overwrite the day's analysis.
-        [switch]$SkipAnalysis
+        [switch]$SkipAnalysis,
+        # The caller already ran init + resume --prune once for the whole batch (chunked runs) - so
+        # this session must NOT re-run them (a per-chunk --prune could disturb sibling chunks).
+        [switch]$SkipInit
     )
 
     if ($Only.Count) {
@@ -36,13 +39,25 @@ Run today's four-stage briefing pipeline for EVERY enabled prompt in prompts.jso
 "@
     }
 
-    $body = @"
-$scope
-Use --date
-$Today. Start with: python orchestrator.py init --date $Today --novelty $Novelty ; then
+    if ($SkipInit) {
+        $startLine = @"
+Use --date $Today. The batch is ALREADY initialised and pruned for the whole day - do NOT run
+``orchestrator.py init`` or ``resume --prune``. Run python orchestrator.py resume --date $Today
+(read-only, no --prune) to see each in-scope prompt's resume_stage; then follow the plan and the
+CLAUDE.md failure rules (validate every JSON artifact, one repair attempt, mark failures/skips).
+"@
+    } else {
+        $startLine = @"
+Use --date $Today. Start with: python orchestrator.py init --date $Today --novelty $Novelty ; then
 python orchestrator.py resume --date $Today --prune ; then follow the plan and the CLAUDE.md
 failure rules (validate every JSON artifact, one repair attempt, mark failures/skips, continue the
 batch).
+"@
+    }
+
+    $body = @"
+$scope
+$startLine
 
 RESUME SEMANTICS - obey these exactly; they are what makes a retry cheap enough to finish:
 (a) PROMPT level: if a prompt's resume_stage is 'done' (already approved or skipped by an earlier
@@ -85,4 +100,69 @@ completed by a later pass) - say so in the analysis and note which prompts ran i
 
     if ($Preamble) { return "$Preamble`n`n$body" }
     return $body
+}
+
+
+# Run phase 1 as SEVERAL small sessions instead of one, to bound the parent session's context
+# accumulation (the "orchestration" token cost) and keep the batch inside one usage-cap window.
+# Reads the run state, chunks the UNFINISHED normal prompts by $ChunkSize (fresh `claude -p` per
+# chunk), then runs any unfinished synthesis prompt LAST in its own session. The caller must have
+# already run `orchestrator.py init` + `resume --prune` once, so chunk prompts use -SkipInit.
+# A large $ChunkSize collapses this back to a single session (the pre-segmentation behavior).
+function Invoke-Phase1Chunked {
+    param(
+        [Parameter(Mandatory)][string]$Claude,
+        [Parameter(Mandatory)][string]$Conda,
+        [Parameter(Mandatory)][string]$Today,
+        [Parameter(Mandatory)][string]$Novelty,
+        [Parameter(Mandatory)][string]$Log,
+        [string]$Model = 'claude-sonnet-5',
+        [string]$Fallback = 'claude-opus-4-8',
+        [int]$ChunkSize = 3,
+        [string[]]$Only = @(),
+        [string]$Preamble = ''
+    )
+    function _clog($m) { "$(Get-Date -Format 'HH:mm:ss')  $m" | Tee-Object -FilePath $Log -Append | Out-Null }
+    if ($ChunkSize -lt 1) { $ChunkSize = 1 }
+
+    $raw = & $Conda run -n Spotify --no-capture-output python orchestrator.py status --date $Today --json 2>> $Log
+    $st = $null
+    try { $st = ($raw -join "`n") | ConvertFrom-Json } catch { $st = $null }
+    if (-not $st) {
+        # No readable state (e.g. init never ran): one full session that DOES init, as a safe fallback.
+        _clog "chunked: no run state - running one full session that initialises the batch"
+        $p = Get-Phase1Prompt -Today $Today -Novelty $Novelty -Only $Only -SkipAnalysis -Preamble $Preamble
+        & $Claude -p $p --model $Model --fallback-model $Fallback --dangerously-skip-permissions *>> $Log
+        return
+    }
+
+    $scope = @($st.prompts)
+    if ($Only.Count) { $scope = @($scope | Where-Object { $Only -contains $_.id }) }
+    $unfinished = @($scope | Where-Object { $_.status -eq 'pending' -or $_.status -eq 'failed' })
+    if (-not $unfinished.Count) { _clog "chunked: nothing unfinished in scope - no sessions needed"; return }
+
+    $normals = @($unfinished | Where-Object { $_.kind -ne 'synthesis' } | ForEach-Object { $_.id })
+    $synth   = @($unfinished | Where-Object { $_.kind -eq 'synthesis' } | ForEach-Object { $_.id })
+
+    $chunks = @()
+    for ($i = 0; $i -lt $normals.Count; $i += $ChunkSize) {
+        $end = [Math]::Min($i + $ChunkSize - 1, $normals.Count - 1)
+        $chunks += , @($normals[$i..$end])
+    }
+    $n = $chunks.Count + $(if ($synth.Count) { 1 } else { 0 })
+    _clog "chunked: $($unfinished.Count) unfinished -> $n session(s) (ChunkSize=$ChunkSize, $Model)"
+
+    $ci = 0
+    foreach ($chunk in $chunks) {
+        $ci++
+        _clog "chunked: normal session $ci/$($chunks.Count) [$($chunk -join ', ')]"
+        $p = Get-Phase1Prompt -Today $Today -Novelty $Novelty -Only $chunk -SkipAnalysis -SkipInit -Preamble $Preamble
+        & $Claude -p $p --model $Model --fallback-model $Fallback --dangerously-skip-permissions *>> $Log
+    }
+    if ($synth.Count) {
+        # Synthesis runs LAST - it reads the day's already-approved briefings from disk.
+        _clog "chunked: synthesis session [$($synth -join ', ')]"
+        $p = Get-Phase1Prompt -Today $Today -Novelty $Novelty -Only $synth -SkipAnalysis -SkipInit -Preamble $Preamble
+        & $Claude -p $p --model $Model --fallback-model $Fallback --dangerously-skip-permissions *>> $Log
+    }
 }

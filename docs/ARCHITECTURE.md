@@ -163,7 +163,16 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   Claude runs the four-stage pipeline, phase 2 `publish_feed.py --require-fresh` publishes; flags:
   `-RepeatOK` = relaxed novelty, `-NoPublish` = dry run that skips phase 2 entirely — agents and
   `runs/` artifacts only, no TTS/feed/commit/push; `-Only "<ids>"` = pipeline just those prompts;
+  `-ChunkSize N` (default 3) = how many prompts each phase-1 Claude session handles;
   logs to `logs\daily-<date>.log`).
+  **CHUNKED PHASE 1 (`Invoke-Phase1Chunked` in `phase1_prompt.ps1`).** Phase 1 runs as several small
+  `claude -p` sessions (≤ `ChunkSize` normal prompts each, synthesis LAST) instead of one, so the
+  parent session's context can't accumulate across the whole batch — the "orchestration" token cost
+  (~28% of a single-session run) and the risk of blowing one usage-cap window. `orchestrator.py init`
+  + `resume --prune` run once up front; chunk prompts use `Get-Phase1Prompt -SkipInit -SkipAnalysis`;
+  a dedicated final session writes the day's analysis. A large `-ChunkSize` restores the old
+  single-session behavior. The Opus retry and the `-Only` split-batch both go through the same
+  chunked runner.
   **THE BATCH IS SPLIT ACROSS TWO SESSION WINDOWS (2026-07-25).** One batch no longer fits in a
   single ~5h Claude session window, so the same script runs twice a night:
   **`-Midnight` task at 00:00** with `-Only <6 least time-sensitive ids> -NoPublish` (pipeline only,

@@ -17,7 +17,7 @@
 #
 # Everything is appended to the SAME logs\daily-<date>.log as the 5 AM run, so one file tells the
 # whole story of the day. Exit code is non-zero only if publishing failed.
-param([switch]$NoPublish)
+param([switch]$NoPublish, [int]$ChunkSize = 3)
 
 $ErrorActionPreference = 'Continue'
 $proj   = 'C:\Users\wamfo\ClaudeDev\Spotify'
@@ -75,11 +75,26 @@ Finish ONLY what is outstanding, exactly per the resume semantics below - re-run
 prompt or a completed stage wastes the budget this pass exists to provide. Some briefings for today
 are ALREADY PUBLISHED to the feed; that is expected and is not a reason to redo them.
 "@
-    $prompt = Get-Phase1Prompt -Today $today -Novelty $novelty -Preamble $preamble
+    # Ensure init + prune have run once (safe even if the 5 AM job never did), so the chunk sessions
+    # can use -SkipInit. Both are idempotent - approvals and prompt.txt survive.
+    & $conda run -n Spotify --no-capture-output python orchestrator.py init --date $today --novelty $novelty *>> $log
+    & $conda run -n Spotify --no-capture-output python orchestrator.py resume --date $today --prune *>> $log
 
-    Log "completion: phase 1 (resume) - parent Sonnet 5, novelty=$novelty"
-    & $claude -p $prompt --model claude-sonnet-5 --fallback-model claude-opus-4-8 --dangerously-skip-permissions *>> $log
-    Log "completion: phase 1 exit code: $LASTEXITCODE"
+    Log "completion: chunked phase 1 (resume, ChunkSize=$ChunkSize) - parent Sonnet 5, novelty=$novelty"
+    Invoke-Phase1Chunked -Claude $claude -Conda $conda -Today $today -Novelty $novelty -Log $log -ChunkSize $ChunkSize -Preamble $preamble
+    Log "completion: chunked phase 1 done"
+
+    # The chunk sessions ran with -SkipAnalysis; write the day's final analysis once, in its own
+    # small session (this pass completes the day, so it owns the analysis).
+    Log "completion: writing run analysis (dedicated session)"
+    $analysisPrompt = @"
+Run python run_report.py --date $today and write the run's agent-performance analysis to
+analyses/$today.md, following the 'Run analysis' section of the daily-briefing skill (fixed template,
+numbers from run_report). Local-only; do NOT commit it. runs/$today/token_window.json holds more than
+one segment (the 5 AM run plus this completion pass) - say so and note which prompts ran when. Do NOT
+run any pipeline agents or touch any briefing; this session is analysis only.
+"@
+    & $claude -p $analysisPrompt --model claude-sonnet-5 --fallback-model claude-opus-4-8 --dangerously-skip-permissions *>> $log
 
     & $conda run -n Spotify --no-capture-output python run_report.py --date $today --end *>> $log
 

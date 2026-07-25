@@ -36,7 +36,10 @@
 # manual single-prompt rerun. Unknown ids abort the run rather than silently doing nothing.
 #
 # Everything is logged to logs\daily-<date>.log. Exit code is non-zero if publishing failed.
-param([switch]$RepeatOK, [switch]$NoPublish, [string]$Only = '')
+# -ChunkSize: how many normal prompts each phase-1 Claude session handles. Small values bound the
+# parent session's context accumulation (the "orchestration" token cost) and help the batch finish
+# inside one usage-cap window. A value >= the prompt count restores the old single-session behavior.
+param([switch]$RepeatOK, [switch]$NoPublish, [string]$Only = '', [int]$ChunkSize = 3)
 
 $ErrorActionPreference = 'Continue'
 $proj   = 'C:\Users\wamfo\ClaudeDev\Spotify'
@@ -84,11 +87,15 @@ if ($onlyIds.Count) { Log "scope: $($onlyIds -join ', ')" }
 & $conda run -n Spotify --no-capture-output python run_report.py --date $today --start *>> $log
 
 # Phase 1 - four-stage pipeline: research -> edit -> write -> review (no publishing, no git) ----
-# The prompt is resume-aware at BOTH the prompt and stage level, so the SAME prompt drives the
-# Sonnet primary run and the Opus retry - the retry picks up at the first missing/superseded
-# artifact. Defined in tools\phase1_prompt.ps1, shared with tools\completion_run.ps1.
+# Run as SEVERAL small sessions (Invoke-Phase1Chunked) instead of one, to bound the parent session's
+# context accumulation. Both the chunk prompts and the resume/retry semantics live in
+# tools\phase1_prompt.ps1, shared with tools\completion_run.ps1.
 . (Join-Path $PSScriptRoot 'phase1_prompt.ps1')
-$prompt = Get-Phase1Prompt -Today $today -Novelty $novelty -Only $onlyIds -SkipAnalysis:($onlyIds.Count -gt 0)
+
+# Initialise + prune ONCE for the whole batch (writes runs/<date>/<id>/prompt.txt too); the per-chunk
+# sessions then use -SkipInit so a per-chunk --prune can never disturb a sibling chunk.
+& $conda run -n Spotify --no-capture-output python orchestrator.py init --date $today --novelty $novelty *>> $log
+& $conda run -n Spotify --no-capture-output python orchestrator.py resume --date $today --prune *>> $log
 
 # How many prompts are still unfinished (pending/failed) per the orchestrator's run state.
 # -1 means the state couldn't be read (e.g. init never ran because phase 1 died immediately).
@@ -112,9 +119,9 @@ function Get-IncompleteCount {
 # deliberately NOT used anywhere in this job). Automatic fallback to Opus 4.8 if Sonnet is
 # overloaded/unavailable mid-run. Note the subagents ignore this and use their frontmatter models
 # (sonnet/opus); this governs only the lightweight orchestration session.
-Log "phase 1: headless Claude - four-stage pipeline (novelty=$novelty), parent Sonnet 5"
-& $claude -p $prompt --model claude-sonnet-5 --fallback-model claude-opus-4-8 --dangerously-skip-permissions *>> $log
-Log "phase 1 (Sonnet 5) exit code: $LASTEXITCODE"
+Log "phase 1: chunked primary run (ChunkSize=$ChunkSize), parent Sonnet 5"
+Invoke-Phase1Chunked -Claude $claude -Conda $conda -Today $today -Novelty $novelty -Log $log -ChunkSize $ChunkSize -Only $onlyIds
+Log "phase 1: chunked primary run done"
 
 # If prompts remain unfinished, retry the leftovers with the parent session on Opus 4.8. Now that
 # the subagents are model-pinned this mainly guards against the parent session dying (rare);
@@ -131,13 +138,27 @@ if ($incomplete -ne 0) {
     # tokens, so a truncated run leaves a readable record of what was salvaged vs. rebuilt. The
     # retry prompt re-runs this itself; --prune is idempotent once the tree is clean.
     & $conda run -n Spotify --no-capture-output python orchestrator.py resume --date $today --prune *>> $log
-    & $claude -p $prompt --model claude-opus-4-8 --dangerously-skip-permissions *>> $log
-    Log "phase 1 (Opus 4.8 retry) exit code: $LASTEXITCODE"
+    Invoke-Phase1Chunked -Claude $claude -Conda $conda -Today $today -Novelty $novelty -Log $log -ChunkSize $ChunkSize -Only $onlyIds -Model claude-opus-4-8 -Fallback claude-opus-4-8
+    Log "phase 1: Opus 4.8 retry done"
     $incomplete = Get-IncompleteCount
     Log "phase 1: $incomplete prompt(s) still unfinished after Opus 4.8 retry"
 } else {
     $what = if ($onlyIds.Count) { 'all in-scope prompts' } else { 'all prompts' }
     Log "phase 1: $what finished on the Sonnet 5 primary run (no Opus retry needed)"
+}
+
+# Write the day's analysis ONCE, in its own small session - the chunk sessions all ran with
+# -SkipAnalysis. A split-batch half (-Only) skips it; the run that completes the day writes it.
+if (-not $onlyIds.Count) {
+    Log "phase 1: writing run analysis (dedicated session)"
+    $analysisPrompt = @"
+Run python run_report.py --date $today and write the run's agent-performance analysis to
+analyses/$today.md, following the 'Run analysis' section of the daily-briefing skill (fixed template,
+numbers from run_report). Local-only; do NOT commit it. If runs/$today/token_window.json holds more
+than one segment, the batch was split across sittings - say so and note which prompts ran when. Do
+NOT run any pipeline agents or touch any briefing; this session is analysis only.
+"@
+    & $claude -p $analysisPrompt --model claude-sonnet-5 --fallback-model claude-opus-4-8 --dangerously-skip-permissions *>> $log
 }
 
 # Stamp the token-window END now that all model work (phase 1) is done. The in-run analysis
