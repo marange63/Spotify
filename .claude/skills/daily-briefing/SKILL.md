@@ -186,7 +186,9 @@ reviewable record of how the agents performed and interacted, plus concrete impr
 `python run_report.py --date <today>` — it emits the deterministic metrics block (per-prompt
 deep-dive firing, new facts, contradictions, word count vs. the prompt's floor, reviewer score, the
 "figure has no verbatim quote" soft-support flag count), the run's **grand-total token usage**
-(tip to tail, including subagents and cache — with a tokens/word figure), and a **5-day trend**.
+(tip to tail, including subagents and cache — with a tokens/word figure), a **per-stage token
+breakdown** (researcher / analyst-editor / deep-researcher / writer / reviewer / orchestration —
+which stage is the hog), and a **5-day trend**.
 Read the last **5 days** of `analyses/<date>.md` too, so you can open with a trend and hold prior
 suggestions accountable. Then wrap the narrative and suggestions around that block — never eyeball
 or miscount the numbers.
@@ -214,7 +216,8 @@ reference example):
    actually showed. Reference `soft_support_flags` as a pointer to read the real `issues_found`
    text, not as a score (it is a keyword proxy). Token cost is a first-class signal now: if
    tokens/word jumps, say why (more dives, retries, longer context) and whether it warrants the
-   stage-1 trim.
+   stage-1 trim. Name the **top one or two stages** from the per-stage breakdown and their share —
+   that is where any token-reduction effort should go (typically researcher + orchestration).
 
 ## Novelty policy
 

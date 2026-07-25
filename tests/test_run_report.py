@@ -172,6 +172,37 @@ class TokenAccountingTest(unittest.TestCase):
                          (11, 22, 33, 44))
         self.assertEqual(u["total"], 11 + 22 + 33 + 44)
 
+    @staticmethod
+    def _write_usage(ts, artifact, i, o, cc, cr):
+        """A usage record that also carries a Write tool_use — identifies the subagent's stage."""
+        rec = TokenAccountingTest._usage(ts, i, o, cc, cr)
+        rec["message"]["content"] = [
+            {"type": "tool_use", "name": "Write", "input": {"file_path": f"runs/x/{artifact}"}}]
+        return rec
+
+    def test_stage_usage_attributes_by_written_artifact(self):
+        with open(run_report.window_path(DATE), "w", encoding="utf-8") as f:
+            json.dump({"start": "2026-07-16T09:00:00.000Z",
+                       "end": "2026-07-16T09:30:00.000Z"}, f)
+        ts = "2026-07-16T09:10:00.000Z"
+        # a researcher subagent (writes research.json) and a writer subagent (writes draft.txt)
+        self._transcript(os.path.join("s", "subagents", "r.jsonl"),
+                         [self._write_usage(ts, "research.json", 1, 1, 1, 100)])
+        self._transcript(os.path.join("s", "subagents", "w.jsonl"),
+                         [self._write_usage(ts, "draft.txt", 1, 1, 1, 10)])
+        # the parent (non-subagent) session -> orchestration
+        self._transcript("parent.jsonl", [self._usage(ts, 1, 1, 1, 50)])
+        # an out-of-window record must not count anywhere
+        self._transcript(os.path.join("s", "subagents", "late.jsonl"),
+                         [self._write_usage("2026-07-16T23:00:00.000Z", "review.json", 9, 9, 9, 9)])
+
+        by = run_report.stage_usage(DATE)
+        self.assertEqual(set(by), {"researcher", "writer", "orchestration"})
+        self.assertEqual(by["researcher"]["total"], 1 + 1 + 1 + 100)
+        self.assertEqual(by["writer"]["cache_read"], 10)
+        self.assertEqual(by["orchestration"]["cache_read"], 50)
+        self.assertEqual(sum(b["total"] for b in by.values()), 103 + 13 + 53)
+
     def test_report_tokens_per_word(self):
         with open(run_report.window_path(DATE), "w", encoding="utf-8") as f:
             json.dump({"start": "2026-07-16T00:00:00.000Z",

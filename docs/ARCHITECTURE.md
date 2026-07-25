@@ -24,8 +24,11 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   analysis. `--date D` prints the per-prompt table (deep-dive firing, new facts, `contradictions`,
   `final.txt` word count vs. the prompt's stated floor, reviewer `overall`, soft-support flag
   count), the run's **grand-total token usage** (tip to tail, incl. subagents + cache, with a
-  tokens/word figure), and a **5-day trend** (`--history N`, default 5; `--json` for one run's
-  data). Token totals are summed from `config.CLAUDE_TRANSCRIPTS_DIR` (the Claude Code session
+  tokens/word figure), a **per-stage token breakdown** (researcher / analyst-editor / deep-researcher
+  / writer / reviewer / orchestration — each subagent attributed by the artifact it Writes, the
+  parent session as `orchestration`; shows where to cut), and a **5-day trend** (`--history N`,
+  default 5; `--json` for one run's data). Token totals are summed from
+  `config.CLAUDE_TRANSCRIPTS_DIR` (the Claude Code session
   transcripts, incl. `subagents/` subdirs) over the run's time window recorded in
   `runs/<date>/token_window.json`. That file holds **`segments`** — one `{start,end}` per *sitting*
   that spent model tokens — and the total is their sum, **gaps excluded**. `--start` opens a

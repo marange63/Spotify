@@ -48,6 +48,18 @@ TOKEN_WINDOW_FILE = "token_window.json"
 _TOKEN_FIELDS = ("input_tokens", "output_tokens",
                  "cache_creation_input_tokens", "cache_read_input_tokens")
 
+# Which pipeline stage a subagent belongs to, by the artifact it actually Writes. This is the
+# reliable signal (the transcript text mentions every artifact; only real Write/Edit tool_use
+# file_paths identify the stage). A non-subagent session in the window is the parent orchestration.
+_ARTIFACT_STAGE = {
+    orchestrator.RESEARCH_FILE: "researcher",
+    orchestrator.PLAN_FILE: "analyst-editor",
+    orchestrator.DEEP_FILE: "deep-researcher",
+    orchestrator.DRAFT_FILE: "writer",
+    orchestrator.REVIEW_FILE: "reviewer",
+    orchestrator.FINAL_FILE: "reviewer",
+}
+
 
 def stated_floor(prompt_text: str) -> int:
     """Lower word bound the prompt asks for (e.g. '1200 to 1500 word' -> 1200); default 700."""
@@ -246,10 +258,100 @@ def token_usage(date: str) -> dict | None:
     return usage
 
 
+def _read_records(path: str) -> list:
+    """All JSON records in a transcript file, tolerating the odd malformed line."""
+    recs = []
+    try:
+        f = open(path, encoding="utf-8")
+    except OSError:
+        return recs
+    with f:
+        for line in f:
+            try:
+                recs.append(json.loads(line))
+            except ValueError:
+                pass
+    return recs
+
+
+def _stage_for_file(records: list, path: str) -> str:
+    """Which pipeline stage a transcript belongs to: a non-subagent session is the parent
+    ``orchestration``; a subagent is identified by the artifact it Writes (``other`` if none)."""
+    if f"{os.sep}subagents{os.sep}" not in path and "/subagents/" not in path:
+        return "orchestration"
+    for o in records:
+        content = (o.get("message") or {}).get("content")
+        if not isinstance(content, list):
+            continue
+        for item in content:
+            if (isinstance(item, dict) and item.get("type") == "tool_use"
+                    and item.get("name") in ("Write", "Edit")):
+                base = os.path.basename((item.get("input") or {}).get("file_path", ""))
+                if base in _ARTIFACT_STAGE:
+                    return _ARTIFACT_STAGE[base]
+    return "other"
+
+
+def _scan_by_stage(segments: list) -> dict:
+    """Sum transcript token usage per pipeline stage over the run's ``segments`` (list of
+    ``(start, end)`` bounds). One pass per file: attribute the file's in-window usage to its stage.
+    Returns ``{stage: {input,output,cache_creation,cache_read,total}}``."""
+    stages = {}
+    tdir = config.CLAUDE_TRANSCRIPTS_DIR
+    if not os.path.isdir(tdir):
+        return {}
+    for path in glob.glob(os.path.join(tdir, "**", "*.jsonl"), recursive=True):
+        recs = _read_records(path)
+        acc = None
+        for o in recs:
+            u = (o.get("message") or {}).get("usage")
+            ts = o.get("timestamp") or ""
+            if not u or not ts or not any(s <= ts <= e for s, e in segments):
+                continue
+            if acc is None:
+                acc = dict.fromkeys(("input", "output", "cache_creation", "cache_read"), 0)
+            acc["input"] += u.get("input_tokens", 0)
+            acc["output"] += u.get("output_tokens", 0)
+            acc["cache_creation"] += u.get("cache_creation_input_tokens", 0)
+            acc["cache_read"] += u.get("cache_read_input_tokens", 0)
+        if acc is None:
+            continue  # no in-window usage in this file
+        bucket = stages.setdefault(
+            _stage_for_file(recs, path),
+            dict.fromkeys(("input", "output", "cache_creation", "cache_read"), 0))
+        for k in acc:
+            bucket[k] += acc[k]
+    for bucket in stages.values():
+        bucket["total"] = sum(bucket.values())
+    return stages
+
+
+def stage_usage(date: str) -> dict | None:
+    """Per-stage token usage for the run, or None if no window/transcripts."""
+    segs = _segments(_load_json(window_path(date)))
+    if not segs:
+        return None
+    now = _now_utc_iso()
+    by_stage = _scan_by_stage([(s["start"], s.get("end") or now) for s in segs])
+    return by_stage or None
+
+
 def build_report(date: str) -> dict:
-    """Full single-run report: cheap metrics + grand-total token usage + tokens/word."""
+    """Full single-run report: cheap metrics + token usage (grand total + per-stage) + tokens/word."""
     report = _cheap_report(date)
-    tokens = token_usage(date)
+    by_stage = stage_usage(date)
+    report["tokens_by_stage"] = by_stage
+    tokens = None
+    if by_stage:
+        # Grand total is derived from the per-stage split (one scan, guaranteed self-consistent).
+        tokens = dict.fromkeys(("input", "output", "cache_creation", "cache_read", "total"), 0)
+        for bucket in by_stage.values():
+            for k in tokens:
+                tokens[k] += bucket[k]
+        segs = _segments(_load_json(window_path(date)))
+        now = _now_utc_iso()
+        tokens["window"] = {"start": segs[0]["start"], "end": segs[-1].get("end") or now,
+                            "segments": [dict(s) for s in segs]}
     report["tokens"] = tokens
     words = report["words_total"]
     report["tokens_per_word"] = (tokens["total"] / words) if (tokens and words) else None
@@ -319,6 +421,16 @@ def _fmt_tokens(tokens: dict, words: int, per_word) -> list:
     return lines
 
 
+def _fmt_stages(by_stage: dict, grand_total: int) -> list:
+    """Per-stage token breakdown, largest first — points at where to cut."""
+    lines = ["tokens by stage (share of run · cache_read is the bulk of each):"]
+    for stage, m in sorted(by_stage.items(), key=lambda kv: kv[1]["total"], reverse=True):
+        pct = 100 * m["total"] / grand_total if grand_total else 0
+        lines.append(f"  {stage:15} {m['total']:>13,}  {pct:5.1f}%   "
+                     f"(cache_read {m['cache_read']:,}, output {m['output']:,})")
+    return lines
+
+
 def format_report(report: dict) -> str:
     lines = [f"run {report['date']} — novelty: {report['novelty']}", ""]
     hdr = (f"{'prompt':24} {'status':9} {'dive':5} {'facts':5} {'contra':6} "
@@ -342,6 +454,9 @@ def format_report(report: dict) -> str:
     lines.append("")
     if report.get("tokens"):
         lines += _fmt_tokens(report["tokens"], report["words_total"], report["tokens_per_word"])
+        if report.get("tokens_by_stage"):
+            lines.append("")
+            lines += _fmt_stages(report["tokens_by_stage"], report["tokens"]["total"])
     else:
         lines.append("grand total token usage: n/a (no runs/<date>/token_window.json for this run)")
     return "\n".join(lines)
