@@ -73,8 +73,11 @@ deep_research.json are already valid and current - pass them to the Writer as-is
 draft.txt written against an editorial plan that was later rewritten). Never resurrect them and
 never assume a file that is absent was merely 'not reached' - if an artifact is missing, build it.
 
-Handle synthesis prompts (kind "synthesis", e.g. throughline) LAST, Writer then Reviewer, from the
-day's APPROVED briefings. Do NOT publish, do NOT run publish_feed.py, and do NOT git commit or push
+Handle synthesis-family prompts LAST (after every normal prompt is approved), each with its
+writer-role agent then the Reviewer: kind "synthesis" (e.g. throughline) uses the Writer from the
+day's APPROVED briefings; kind "forecast" (e.g. forward-curve) uses the Forecaster from the day's
+APPROVED briefings PLUS the last 5 days of every topic's docs/transcripts/<id>-*.txt and its own
+prior docs/transcripts/forward-curve-*.txt. Do NOT publish, do NOT run publish_feed.py, and do NOT git commit or push
 - only orchestrator.py may copy approved scripts to briefings/<id>.txt. When finished, run
 python orchestrator.py status --date $Today and report it.
 "@
@@ -141,8 +144,10 @@ function Invoke-Phase1Chunked {
     $unfinished = @($scope | Where-Object { $_.status -eq 'pending' -or $_.status -eq 'failed' })
     if (-not $unfinished.Count) { _clog "chunked: nothing unfinished in scope - no sessions needed"; return }
 
-    $normals = @($unfinished | Where-Object { $_.kind -ne 'synthesis' } | ForEach-Object { $_.id })
-    $synth   = @($unfinished | Where-Object { $_.kind -eq 'synthesis' } | ForEach-Object { $_.id })
+    # The synthesis family (synthesis + forecast, e.g. throughline + forward-curve) runs LAST.
+    $synthKinds = @('synthesis', 'forecast')
+    $normals = @($unfinished | Where-Object { $synthKinds -notcontains $_.kind } | ForEach-Object { $_.id })
+    $synth   = @($unfinished | Where-Object { $synthKinds -contains $_.kind } | ForEach-Object { $_.id })
 
     $chunks = @()
     for ($i = 0; $i -lt $normals.Count; $i += $ChunkSize) {

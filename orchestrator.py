@@ -64,13 +64,16 @@ REVIEW_FILE = "review.json"
 FINAL_FILE = "final.txt"
 
 
+SYNTHESIS_KINDS = ("synthesis", "forecast")  # families authored/published after normal prompts
+
+
 def ordered_enabled(data: dict) -> list:
-    """Enabled prompts in pipeline order: normal prompts first, then ``kind=="synthesis"``
-    prompts (e.g. The Throughline), which synthesize the others and so must be authored/
-    published last — publishing last also gives them the newest ``published_at`` so they
-    sort to the top of the feed. Stable within each group."""
+    """Enabled prompts in pipeline order: normal prompts first, then the synthesis family
+    (``kind`` in ``SYNTHESIS_KINDS`` — The Throughline and The Forward Curve), which build on
+    the others and so must be authored/published last — publishing last also gives them the
+    newest ``published_at`` so they sort to the top of the feed. Stable within each group."""
     enabled = [p for p in data["prompts"] if p.get("enabled")]
-    return sorted(enabled, key=lambda p: p.get("kind") == "synthesis")
+    return sorted(enabled, key=lambda p: p.get("kind") in SYNTHESIS_KINDS)
 
 
 # --- run state (runs/<date>/run.json) ----------------------------------------
@@ -374,13 +377,15 @@ def _read_json(path: str) -> dict | None:
 def _stage_chain(date: str, prompt_id: str, kind: str) -> list:
     """[(stage, [artifact paths], validator kind or None)] in dependency order.
 
-    Synthesis prompts (the Throughline) are not researched and have no editorial plan — they run
-    Writer then Reviewer over the day's approved briefings — so their chain starts at "write".
+    Synthesis-family prompts (the Throughline, the Forward Curve) are not researched and have no
+    editorial plan — they run their writer-role agent then the Reviewer over the day's approved
+    briefings (and, for the forecast, the recent transcript archive) — so their chain starts at
+    "write".
     """
     d = prompt_dir(date, prompt_id)
     j = lambda n: os.path.join(d, n)  # noqa: E731
     review = ("review", [j(REVIEW_FILE), j(FINAL_FILE)], "review")
-    if kind == "synthesis":
+    if kind in SYNTHESIS_KINDS:
         return [("write", [j(DRAFT_FILE)], None), review]
     return [
         ("research", [j(RESEARCH_FILE)], "research"),

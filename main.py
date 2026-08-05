@@ -86,7 +86,8 @@ class PromptManager:
         self.listbox.delete(0, tk.END)
         for p in self.data["prompts"]:
             mark = "●" if p.get("enabled", True) else "○"
-            suffix = "  ∑" if p.get("kind") == "synthesis" else ""  # cross-briefing synthesis
+            kind = p.get("kind")
+            suffix = "  ∑" if kind == "synthesis" else ("  ◎" if kind == "forecast" else "")
             self.listbox.insert(tk.END, f" {mark}  {p['name']}{suffix}")
         ids = [p["id"] for p in self.data["prompts"]]
         target = select_id if select_id in ids else (ids[0] if (select_first and ids) else None)

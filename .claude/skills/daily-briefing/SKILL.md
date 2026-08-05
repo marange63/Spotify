@@ -112,16 +112,25 @@ with separate contexts** so the reviewer never grades its own writing.
      + `final.txt`. Approve is not its default. Then `validate review <path>` and
      `orchestrator.py approve <id> --date <today>` — copies `final.txt` to `briefings/<id>.txt` **only
      if** the review says `approve`.
-3. **Synthesis prompts last** (`"kind": "synthesis"`, e.g. `throughline`): NOT researched, no plan.
-   Run **Writer then Reviewer** only, giving both the day's APPROVED `briefings/<id>.txt` files as
-   source (no fresh web research, no new facts). The Throughline is a **front-page digest** (headline +
-   a fixed-order tour of every brief that shipped, ≤3 sentences each + an optional cross-cutting close
-   — see its prompt in `prompts.json`). Both also read the last 5
-   `docs/transcripts/throughline-*.txt`; a continuing/escalating/broken pattern is named only in the
-   optional close and only when compelling (never forced), and the reviewer audits any cross-day claim
-   against those transcripts. Same `review.json`/`final.txt`/`approve` flow. If zero prompts were
-   approved today, mark the synthesis prompt skipped. `publish_feed.py` publishes synthesis prompts
-   last so they sort to the top of the feed.
+3. **Synthesis-family prompts last** (`throughline` and `forward-curve`): NOT researched, no plan;
+   each runs its **writer-role agent then the Reviewer** only, over the day's APPROVED
+   `briefings/<id>.txt` files (no fresh web research, no new facts). They run after every normal
+   prompt is approved so those briefings exist on disk. Same `review.json`/`final.txt`/`approve` flow.
+   If zero prompts were approved today, mark them skipped. `publish_feed.py` publishes the whole
+   synthesis family last so they sort to the top of the feed.
+   - **The Throughline** (`"kind": "synthesis"`): run the **Writer** then Reviewer. It is a
+     **front-page digest** (headline + a fixed-order tour of every brief that shipped, ≤3 sentences
+     each + an optional cross-cutting close — see its prompt in `prompts.json`). Both agents also read
+     the last 5 `docs/transcripts/throughline-*.txt`; a continuing/escalating/broken pattern is named
+     only in the optional close and only when compelling (never forced), and the reviewer audits any
+     cross-day claim against those transcripts.
+   - **The Forward Curve** (`"kind": "forecast"`): run the **Forecaster** (`forecaster`, NOT the
+     Writer) then Reviewer. Give both the day's approved `briefings/<id>.txt` files PLUS the last 5
+     days of every topic's `docs/transcripts/<id>-*.txt` and the forecast's own prior
+     `docs/transcripts/forward-curve-*.txt`. It opens by honestly self-scoring prior forecasts that
+     came due, then makes 4–6 explicit, falsifiable probabilistic forecasts (each with a probability,
+     a disconfirming risk, and a horizon), framed up front as guesses grounded in analysis, not
+     certainties. The reviewer runs a **calibration audit** in place of the figure audit.
 4. **Report:** `python orchestrator.py status --date <today>` — per-prompt outcomes + approved ids.
 5. **Run analysis:** once outcomes are final, write the run's agent-performance analysis to
    `analyses/<today>.md` — see "Run analysis" below. Runs on every run (interactive and 5 AM).

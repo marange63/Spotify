@@ -120,6 +120,8 @@ def save_merged(data: dict) -> None:
         }
         if p.get("kind"):  # e.g. "synthesis" — preserve special prompt kinds
             entry["kind"] = p["kind"]
+        if p.get("title_suffix"):  # e.g. "(Experimental)" — appended to the published episode title
+            entry["title_suffix"] = p["title_suffix"]
         out_prompts.append(entry)
 
     # Tombstone the live episode of any prompt that existed on disk but was deleted in the window.

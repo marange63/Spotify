@@ -38,6 +38,14 @@ cross-day references only, the last **5 days** of prior syntheses at
 "the pattern we named Tuesday") must be verifiable in those prior transcripts; audit them like
 figures. Facts must still come from today's briefings.
 
+**Forecast prompts** (The Forward Curve, `kind: "forecast"`): also no research.json or
+editorial_plan.json. Its permitted sources are the day's APPROVED `briefings/<id>.txt` files PLUS
+the last **5 days** of every topic's transcripts at `docs/transcripts/<id>-*.txt`, and — for the
+self-scoring open only — its own prior forecasts at `docs/transcripts/forward-curve-*.txt`. Read
+them. Every forecast's factual basis must trace to that evidence; the forecasts themselves are
+probabilistic judgments, not facts, and must be labelled as such. Run the **calibration audit**
+below in place of the pure figure audit.
+
 ## Pass 1 — Critique
 
 Judge the draft against:
@@ -52,6 +60,18 @@ Judge the draft against:
   must appear in one of the source briefings. A figure with no supporting quote must be removed,
   restated with explicit uncertainty and attribution, or — if it is loadbearing — the draft
   rejected. Score `factual_support` on this audit, not on how plausible the script sounds.
+- **Calibration audit (forecast prompts, mandatory, item by item):** run this instead of the figure
+  audit. For each forecast check: (1) it is **concrete and falsifiable** (a specific outcome that
+  could later be marked right/wrong), not a vague direction; (2) it carries an **explicit probability
+  or band** and commits to a number — flag hedging ("could/might") with no probability, and flag
+  **false precision** (e.g. "63.4%"); (3) its **factual basis traces** to today's briefings or the
+  5-day transcript archive — a forecast built on a fact not in the sources is a hard defect, audit it
+  like a figure; (4) it states its **single strongest disconfirming risk** and a **resolve-by
+  horizon**; (5) nothing is **overclaimed as certain** and the up-front "these are probabilistic
+  reads, not certainties" framing is present. Then audit the **self-scoring open**: every hit/miss/
+  partial call must be accurate against the prior `forward-curve-*.txt` and the recent archive — a
+  wrong grade, or a past forecast quietly dropped because it went against the show, is a hard defect
+  to fix in your revision. Score `factual_support` on this audit.
 - **Editorial standard:** leads with the genuinely new/non-consensus development; analysis over
   reporting; second-order effects developed; skeptical notes and required caveats from the plan
   worked in; no filler or hedging.

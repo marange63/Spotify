@@ -167,7 +167,11 @@ def publish(date: str, summaries: dict, push: bool = True,
         try:
             mp3 = synthesize(text_path)
             summary = summaries.get(pid) or _derive_summary(text_path)
-            rec = add_episode(pid, name, summary, mp3, date)
+            # Optional per-prompt title tag (e.g. "(Experimental)") — appended to the listener-facing
+            # episode title/transcript; drop it by removing `title_suffix` from prompts.json.
+            suffix = (p.get("title_suffix") or "").strip()
+            episode_name = f"{name} {suffix}" if suffix else name
+            rec = add_episode(pid, episode_name, summary, mp3, date)
             results.append((name, rec["guid"]))
             log.info("published %s", rec["guid"])
         except Exception as e:  # keep going; one failure shouldn't sink the batch
