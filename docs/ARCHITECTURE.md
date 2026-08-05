@@ -42,9 +42,14 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
 - **`analyses/<date>.md`** — git-ignored (local-only) per-run agent-performance analysis, authored by
   Claude at the end of each run (see the `daily-briefing` skill's "Run analysis" step) and read in
   the `main.py` viewer tab. Fixed 6-section template; `run_report.py` supplies its numbers.
-- `prompts.json` — the prompt library. Edited by the window, read by the batch. A prompt may carry
-  `"kind": "synthesis"` (currently `throughline`, "The Throughline") — a NOT-researched prompt authored
-  last by synthesizing the day's other briefings. (The `last_episode_uri`/`last_published` fields are
+- `prompts.json` — the prompt library. Edited by the window, read by the batch. A prompt may carry a
+  **synthesis-family `kind`** (`orchestrator.SYNTHESIS_KINDS`) — a NOT-researched prompt authored last
+  (write→review only) that builds on the day's other briefings rather than fresh web research. Two
+  exist: `"kind": "synthesis"` (`throughline`, "The Throughline") — a same-day digest of the other
+  briefings; and `"kind": "forecast"` (`forward-curve`, "The Forward Curve") — a daily set of explicit,
+  falsifiable probabilistic forecasts built from the day's briefings **plus the last 5 days of every
+  topic's transcripts**, opened by self-scoring prior forecasts that came due. Both sort last so they
+  get the newest timestamp and top the feed. (The `last_episode_uri`/`last_published` fields are
   legacy Save-to-Spotify tracking; the public feed tracks episodes in `feed_state.json` instead.)
 - `library.py` — read/write + add/update/delete helpers for `prompts.json`. Mutations from the window go
   through the clobber-proof `apply_new`/`apply_update`/`apply_delete` (reload file → apply one change →
@@ -75,10 +80,10 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
 - **`publish_feed.py`** — the daily batch: synth → `add_episode` per enabled prompt →
   `feed.prune_old` + `_prune_local` (rolling 10-day retention: prune old episodes/audio/transcripts
   from the feed + `docs/`, and sweep `runs/`/`logs` older than the window; analyses exempt) →
-  `build_feed` → git commit + push (the commit note records a prune count when any). Publishes
-  `kind:"synthesis"` prompts LAST (ordering shared with
-  `orchestrator.ordered_enabled`), so The Throughline gets the newest timestamp and sorts to the top
-  of the feed. Flags: `--date`, `--summaries <json>`, `--no-push`, `--require-fresh`,
+  `build_feed` → git commit + push (the commit note records a prune count when any). Publishes the
+  synthesis family (`orchestrator.SYNTHESIS_KINDS` — synthesis + forecast) LAST (ordering shared with
+  `orchestrator.ordered_enabled`), so The Throughline and The Forward Curve get the newest timestamps
+  and sort to the top of the feed. Flags: `--date`, `--summaries <json>`, `--no-push`, `--require-fresh`,
   `--skip-published`, `--email` (the email send is currently disabled), `--no-notify`.
   **`--skip-published`** skips any prompt already recorded in `feed_state.json` for `--date`
   (`feed.has_episode`), reporting it as `ALREADY PUBLISHED`. It is what makes a SECOND publish on
@@ -129,11 +134,18 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   stage (2.5)" section below for rationale, the do-not-re-gate decision, and run-reading notes),
   `writer.md` (no web;
   drafts the script → `draft.txt` only, using only quoted
-  figures; also drafts synthesis prompts from the day's approved briefings), `reviewer.md` (no web;
+  figures; also drafts the `synthesis` prompt, The Throughline, from the day's approved briefings),
+  `forecaster.md` (no web, `opus`; the writer-role agent for the `forecast` prompt, The Forward Curve —
+  makes 4–6 explicit falsifiable probabilistic forecasts from the day's briefings + the last 5 days of
+  every topic's transcripts, and self-scores prior forecasts from its own
+  `docs/transcripts/forward-curve-*.txt`; the parked continuity-ledger `scorecard` is the eventual
+  formal upgrade to that self-scoring), `reviewer.md` (no web;
   independent fresh-context editor — critiques the draft, audits every figure against the research
-  quotes, revises once → `review.json` + `final.txt`; approve is not its default outcome). Each
+  quotes — or, for the forecast, runs a **calibration audit** of each forecast's probability, basis,
+  disconfirming risk, and self-score — revises once → `review.json` + `final.txt`; approve is not its
+  default outcome). Each
   pins a `model:` in its frontmatter — `sonnet` for the throughput stages (researcher,
-  deep-researcher, writer), `opus` for the judgment stages (analyst-editor, reviewer) — and these pins take precedence over
+  deep-researcher, writer), `opus` for the judgment stages (analyst-editor, reviewer, forecaster) — and these pins take precedence over
   whatever model the invoking session uses (interactive **or** the 5 AM CLI `--model`). Change a
   role's cost/quality by editing its frontmatter `model:`, not the caller.
 - **`runs/<date>/<prompt_id>/`** — git-ignored per-day pipeline artifacts: `prompt.txt` (the standing
@@ -166,7 +178,7 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   `-ChunkSize N` (default 3) = how many prompts each phase-1 Claude session handles;
   logs to `logs\daily-<date>.log`).
   **CHUNKED PHASE 1 (`Invoke-Phase1Chunked` in `phase1_prompt.ps1`).** Phase 1 runs as several small
-  `claude -p` sessions (≤ `ChunkSize` normal prompts each, synthesis LAST) instead of one, so the
+  `claude -p` sessions (≤ `ChunkSize` normal prompts each, the synthesis family LAST) instead of one, so the
   parent session's context can't accumulate across the whole batch — the "orchestration" token cost
   (~28% of a single-session run) and the risk of blowing one usage-cap window. `orchestrator.py init`
   + `resume --prune` run once up front; chunk prompts use `Get-Phase1Prompt -SkipInit -SkipAnalysis`;
@@ -186,8 +198,8 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   Current midnight half: `ai-in-biopharma-r-d, robotics-physical-ai, enterprise-tech,
   private-equity, ai-products, semiconductors-compute` — chosen because overnight staleness costs
   them least; the market-sensitive ones (`capital-markets-radar`, `digital-money`,
-  `strategic-power`, `private-credit`), `frontier-ai-labs` and `throughline` (which must synthesize
-  the others) stay at 05:15. `-Only` validates its ids against `prompts.json` and **aborts (exit 2)**
+  `strategic-power`, `private-credit`), `frontier-ai-labs` and the synthesis family (`throughline`
+  and `forward-curve`, which build on the others) stay at 05:15. `-Only` validates its ids against `prompts.json` and **aborts (exit 2)**
   on an unknown/disabled id rather than silently doing nothing, and the Opus-retry's
   incomplete-count is **scoped** to `-Only` — otherwise the other half being `pending` by design
   would fire a pointless retry every night. A split run also suppresses the run analysis; the 05:15
