@@ -1754,6 +1754,21 @@
       "duration": 416,
       "transcript_txt": "forward-curve-2026-08-08.txt",
       "transcript_html": "forward-curve-2026-08-08.html"
+    },
+    {
+      "guid": "enterprise-tech-2026-08-08",
+      "prompt_id": "enterprise-tech",
+      "title": "Enterprise Technology & Software — August 8, 2026",
+      "summary": "Here's the thesis for today. Enterprise AI demand is no longer the open question. Palantir just settled it.",
+      "date": "2026-08-08",
+      "seq": 13,
+      "published_at": "2026-08-08T10:06:51-04:00",
+      "audio_file": "enterprise-tech-2026-08-08.mp3",
+      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/enterprise-tech-2026-08-08.mp3",
+      "length": 3488112,
+      "duration": 581,
+      "transcript_txt": "enterprise-tech-2026-08-08.txt",
+      "transcript_html": "enterprise-tech-2026-08-08.html"
     }
   ]
 }
