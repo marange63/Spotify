@@ -1754,6 +1754,21 @@
       "duration": 434,
       "transcript_txt": "forward-curve-2026-08-09.txt",
       "transcript_html": "forward-curve-2026-08-09.html"
+    },
+    {
+      "guid": "strategic-power-2026-08-09",
+      "prompt_id": "strategic-power",
+      "title": "Strategic Power, Energy, and Institutional Change — August 9, 2026",
+      "summary": "All week this show has been tracking a single pattern: announced power outrunning delivered power. Texas froze its data center interconnection queue on paper. Washington slapped a polysilicon tariff on paper, effective four months out. The Fed chair talked tough on paper while the thirty-year yield did the opposite.",
+      "date": "2026-08-09",
+      "seq": 9,
+      "published_at": "2026-08-09T10:06:08-04:00",
+      "audio_file": "strategic-power-2026-08-09.mp3",
+      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/strategic-power-2026-08-09.mp3",
+      "length": 3149568,
+      "duration": 525,
+      "transcript_txt": "strategic-power-2026-08-09.txt",
+      "transcript_html": "strategic-power-2026-08-09.html"
     }
   ]
 }
