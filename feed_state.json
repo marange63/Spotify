@@ -1769,6 +1769,21 @@
       "duration": 425,
       "transcript_txt": "forward-curve-2026-08-10.txt",
       "transcript_html": "forward-curve-2026-08-10.html"
+    },
+    {
+      "guid": "digital-money-2026-08-10",
+      "prompt_id": "digital-money",
+      "title": "Digital Money, Crypto, and Market Structure — August 10, 2026",
+      "summary": "Start with Bitcoin, because the tape itself is quiet, and that quiet is the story.",
+      "date": "2026-08-10",
+      "seq": 12,
+      "published_at": "2026-08-10T10:06:34-04:00",
+      "audio_file": "digital-money-2026-08-10.mp3",
+      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/digital-money-2026-08-10.mp3",
+      "length": 2841264,
+      "duration": 474,
+      "transcript_txt": "digital-money-2026-08-10.txt",
+      "transcript_html": "digital-money-2026-08-10.html"
     }
   ]
 }
