@@ -1,6 +1,6 @@
 {
   "_note": "User-maintained calendar of SCHEDULED data releases the pipeline must never report as fact before they occur. Each release needs an ISO-8601 datetime WITH a timezone offset and one or more lowercase keywords used to match figure-bearing facts. Past entries are ignored automatically (harmless), so no pruning is needed; a MISSING upcoming entry silently drops protection for that release, so keep the near-term ones current. Timezone: US Eastern is -04:00 (EDT) through 2026-11-01 and -05:00 (EST) from 2026-11-01. FOMC policy statements release at 14:00 ET on the second day of each meeting; BLS releases (CPI/PPI/Employment Situation) are 08:30 ET. See freshness.py and orchestrator.py.",
-  "_verification": "Entries below were confirmed on 2026-08-12 against federalreserve.gov (FOMC dates) and bls.gov via search (each series' next release). NOT YET ADDED because they could not be confirmed authoritatively (BLS blocks automated fetch; a 2025/2026 appropriations lapse may have shifted the normal cadence): the Oct/Nov/Dec 2026 CPI and PPI releases, and the Oct/Nov/Dec 2026 Employment Situation releases. Add them from https://www.bls.gov/schedule/news_release/cpi.htm , /ppi.htm , /empsit.htm once verified. Verify every date against the official BLS/Fed schedule before relying on it.",
+  "_verification": "FOMC dates confirmed against federalreserve.gov (2026-08-12). BLS CPI/PPI/Employment-Situation dates confirmed against bls.gov: the Aug/Sep near-term releases on 2026-08-12, and the Oct-Dec 2026 releases user-verified on 2026-08-12 from the BLS schedule pages (cpi.htm / ppi.htm / empsit.htm). One exception: 'US CPI — August 2026' (Sep 11) is inferred from the concurrent regional CPI release, not directly re-verified. Re-verify against the official BLS/Fed schedule before relying on any date.",
   "releases": [
     {
       "name": "US CPI — July 2026",
@@ -21,6 +21,12 @@
       "source": "bls.gov (confirmed 2026-08-12)"
     },
     {
+      "name": "US PPI — August 2026",
+      "datetime": "2026-09-10T08:30:00-04:00",
+      "keywords": ["ppi", "producer price", "wholesale price"],
+      "source": "bls.gov (user-verified 2026-08-12)"
+    },
+    {
       "name": "US CPI — August 2026",
       "datetime": "2026-09-11T08:30:00-04:00",
       "keywords": ["cpi", "consumer price", "core inflation", "headline inflation"],
@@ -33,16 +39,70 @@
       "source": "federalreserve.gov (confirmed 2026-08-12; Sep 15-16 meeting)"
     },
     {
+      "name": "US Employment Situation — September 2026 (nonfarm payrolls)",
+      "datetime": "2026-10-02T08:30:00-04:00",
+      "keywords": ["payrolls", "nonfarm", "jobs report", "employment situation", "unemployment rate"],
+      "source": "bls.gov (user-verified 2026-08-12)"
+    },
+    {
+      "name": "US CPI — September 2026",
+      "datetime": "2026-10-14T08:30:00-04:00",
+      "keywords": ["cpi", "consumer price", "core inflation", "headline inflation"],
+      "source": "bls.gov (user-verified 2026-08-12)"
+    },
+    {
+      "name": "US PPI — September 2026",
+      "datetime": "2026-10-15T08:30:00-04:00",
+      "keywords": ["ppi", "producer price", "wholesale price"],
+      "source": "bls.gov (user-verified 2026-08-12)"
+    },
+    {
       "name": "FOMC decision — October 2026",
       "datetime": "2026-10-28T14:00:00-04:00",
       "keywords": ["fomc", "fed decision", "rate decision", "federal funds", "interest rate decision", "fed statement"],
       "source": "federalreserve.gov (confirmed 2026-08-12; Oct 27-28 meeting)"
     },
     {
+      "name": "US Employment Situation — October 2026 (nonfarm payrolls)",
+      "datetime": "2026-11-06T08:30:00-05:00",
+      "keywords": ["payrolls", "nonfarm", "jobs report", "employment situation", "unemployment rate"],
+      "source": "bls.gov (user-verified 2026-08-12)"
+    },
+    {
+      "name": "US CPI — October 2026",
+      "datetime": "2026-11-10T08:30:00-05:00",
+      "keywords": ["cpi", "consumer price", "core inflation", "headline inflation"],
+      "source": "bls.gov (user-verified 2026-08-12)"
+    },
+    {
+      "name": "US PPI — October 2026",
+      "datetime": "2026-11-13T08:30:00-05:00",
+      "keywords": ["ppi", "producer price", "wholesale price"],
+      "source": "bls.gov (user-verified 2026-08-12)"
+    },
+    {
+      "name": "US Employment Situation — November 2026 (nonfarm payrolls)",
+      "datetime": "2026-12-04T08:30:00-05:00",
+      "keywords": ["payrolls", "nonfarm", "jobs report", "employment situation", "unemployment rate"],
+      "source": "bls.gov (user-verified 2026-08-12)"
+    },
+    {
       "name": "FOMC decision — December 2026",
       "datetime": "2026-12-09T14:00:00-05:00",
       "keywords": ["fomc", "fed decision", "rate decision", "federal funds", "interest rate decision", "fed statement"],
       "source": "federalreserve.gov (confirmed 2026-08-12; Dec 8-9 meeting)"
+    },
+    {
+      "name": "US CPI — November 2026",
+      "datetime": "2026-12-10T08:30:00-05:00",
+      "keywords": ["cpi", "consumer price", "core inflation", "headline inflation"],
+      "source": "bls.gov (user-verified 2026-08-12)"
+    },
+    {
+      "name": "US PPI — November 2026",
+      "datetime": "2026-12-15T08:30:00-05:00",
+      "keywords": ["ppi", "producer price", "wholesale price"],
+      "source": "bls.gov (user-verified 2026-08-12)"
     }
   ]
 }
