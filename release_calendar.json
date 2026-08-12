@@ -1,0 +1,10 @@
+{
+  "_note": "User-maintained calendar of SCHEDULED data releases the pipeline must never report as fact before they occur. Add upcoming entries from official sources (BLS for CPI/PPI/employment, the Fed for FOMC). Each release needs an ISO-8601 datetime WITH a timezone offset and one or more lowercase keywords used to match figure-bearing facts. Entries whose datetime is in the past are harmless (ignored automatically), so stale entries never need pruning — but a MISSING upcoming entry silently drops protection for that release, so keep the near-term ones current. See freshness.py and orchestrator.py (init writes run_context.txt; validate_research enforces the pre-release gate).",
+  "releases": [
+    {
+      "name": "US CPI — July 2026",
+      "datetime": "2026-08-12T08:30:00-04:00",
+      "keywords": ["cpi", "consumer price", "core inflation", "headline inflation"]
+    }
+  ]
+}

@@ -68,7 +68,12 @@ with separate contexts** so the reviewer never grades its own writing.
 1. **Init:** `python orchestrator.py init --date <today> --novelty strict|relaxed` — creates
    `runs/<date>/<id>/` for every enabled prompt (normal first, synthesis last), records the batch in
    `runs/<date>/run.json`, prints the plan. Idempotent: re-init preserves statuses, so an interrupted
-   batch (or a newly-added prompt) resumes/joins cleanly.
+   batch (or a newly-added prompt) resumes/joins cleanly. It also stamps the run's as-of **timestamp**
+   (`run_started_at`) and writes `runs/<date>/run_context.txt` — the **freshness anchor** the
+   research/review agents read so a print scheduled for 8:30am is known not to have happened on a 5am
+   run. Keep `release_calendar.json` current with near-term scheduled releases (CPI/PPI/payrolls/FOMC):
+   a listed release that is still pending at run time is hard-blocked from being stated as fact; a
+   missing one silently loses that protection. The timestamp is preserved across idempotent re-inits.
    **Resuming an interrupted run:** run `python orchestrator.py resume --date <today> --prune`
    and obey it. For each prompt it gives a `resume_stage` — `research|plan|deep|write|review|
    finalize|done` — computed from which artifacts are present, valid, and newer than what they
@@ -89,7 +94,15 @@ with separate contexts** so the reviewer never grades its own writing.
      the ~800–1200-word prompt makes it accumulate in the parent session's context for the whole
      run — the biggest avoidable slice of the "orchestration" token cost. Same for every stage: keep
      dispatches short (ids, paths, mode), never re-paste the prompt. Then
-     `orchestrator.py validate research <path>`.
+     `orchestrator.py validate research <path>` — which now also runs the **freshness gate** (a figure
+     for a still-pending calendar release, or a future-dated source URL, hard-fails; treat like any
+     validate failure — repair once, else mark). Optionally, on a research/deep dossier whose lead
+     hinges on a fresh externally-sourced figure, run `orchestrator.py verify-sources <path>` — a
+     best-effort network check that fetches each figure's source and confirms the verbatim quote is on
+     the page, writing `source_check.json`. Its **hard** results (future-dated URL, or a 404/DNS
+     "source does not exist") should be fixed; its **advisory** results (quote-not-found, blocked/
+     paywalled) are flags for the reviewer, not auto-rejections. It makes live web calls, so use it on
+     the load-bearing dossier(s), not blanket across the batch, to protect the 5 AM budget.
    - **Analyst-Editor** (`analyst-editor`; no web): judges the dossier vs. the prior briefing
      (`briefings/<id>.txt`, still on disk), the **last 5 days** of this topic's transcripts AND the
      last 5 Throughline transcripts, and the editorial standard; decides write-or-skip, thesis, lead,

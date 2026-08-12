@@ -31,12 +31,15 @@ session's context.)
    cannot copy verbatim goes to `uncertainties` instead, and its figure will not be publishable.
    **Freshness / embargo gate:** a scheduled release (CPI, PPI, payrolls, an earnings print, an FOMC
    decision) whose official time is at or after the run moment has **not happened yet** — this
-   pipeline runs pre-dawn, so an 8:30am ET print is not out at 5am. Never report such a number as a
-   confirmed fact, never infer it from consensus, and reject any source whose timestamp or URL slug is
-   dated after the run (e.g. a slug ending `-202508121356` on an August 12 morning run is a
-   future-dated, hallucinated source). Record the not-yet-released figure in `research_gaps` and let
-   the analyst lead on the setup instead — a fabricated print laundered through a verbatim quote
-   defeats every downstream audit.
+   pipeline runs pre-dawn, so an 8:30am ET print is not out at 5am. **Read `runs/<date>/run_context.txt`**
+   (written at init): it states the run's as-of *time* and lists the scheduled releases that have NOT
+   occurred as of this run. Never report such a number as a confirmed fact, never infer it from
+   consensus, and reject any source whose timestamp or URL slug is dated after the run (e.g. a slug
+   ending `-202508121356` on an August 12 morning run is a future-dated, hallucinated source). Record
+   the not-yet-released figure in `research_gaps` and let the analyst lead on the setup instead — a
+   fabricated print laundered through a verbatim quote defeats every downstream audit. The orchestrator
+   enforces this: `validate research` hard-fails a figure that reports a pre-release calendar item or a
+   future-dated source URL, so the repair falls on you.
 5. Note plausible second-order effects per item (candidates for the analyst, not conclusions).
 6. Flag conflicting figures, single-source claims, and weak evidence in `uncertainties`.
 7. Put stories that look important but are probably noise (PR without substance, recycled news,

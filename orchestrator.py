@@ -32,6 +32,7 @@ import shutil
 import sys
 
 import config
+import freshness
 import library
 
 log = logging.getLogger("orchestrator")
@@ -114,12 +115,17 @@ def _find_entry(state: dict, prompt_id: str) -> dict:
 
 # --- init ---------------------------------------------------------------------
 
-def init_run(date: str, novelty: str) -> dict:
+def init_run(date: str, novelty: str, now_iso: str | None = None) -> dict:
     """Create runs/<date>/<id>/ for every enabled prompt and (re)write run.json.
 
     Idempotent: re-running the same day preserves the recorded status of prompts
     already in the run (so a resumed batch doesn't lose approvals); newly-enabled
     prompts are added as pending. Returns the plan for the session to follow.
+
+    ``now_iso`` records the run's as-of *timestamp* (not just its date), so the freshness
+    gate knows a print scheduled for 08:30 has not occurred on a 05:15 run. Defaults to now;
+    overridable for re-inits/tests. Also writes ``runs/<date>/run_context.txt`` — the temporal
+    anchor the web-research agents read (they otherwise get a date but no time).
     """
     if novelty not in NOVELTY_MODES:
         raise ValueError(f"novelty must be one of {NOVELTY_MODES}")
@@ -127,8 +133,16 @@ def init_run(date: str, novelty: str) -> dict:
     prompts = ordered_enabled(data)
 
     prior = {}
+    prior_started = None
     if os.path.exists(_state_path(date)):
-        prior = {e["id"]: e for e in load_state(date)["prompts"]}
+        _prior_state = load_state(date)
+        prior = {e["id"]: e for e in _prior_state["prompts"]}
+        prior_started = _prior_state.get("run_started_at")
+
+    # Preserve the original as-of timestamp across idempotent re-inits (a resume must not reset
+    # the embargo clock forward past a release that was pending when the run first started).
+    run_started_at = now_iso or prior_started \
+        or datetime.datetime.now().astimezone().isoformat(timespec="seconds")
 
     entries = []
     for p in prompts:
@@ -149,8 +163,19 @@ def init_run(date: str, novelty: str) -> dict:
             "reason": old.get("reason"),
         })
 
-    state = {"date": date, "novelty": novelty, "prompts": entries}
+    state = {"date": date, "novelty": novelty, "run_started_at": run_started_at,
+             "prompts": entries}
     _save_state(date, state)
+
+    # Temporal anchor for the run: the as-of time + any releases not yet occurred. Written once
+    # per run (shared across prompts); the research/review agents read it so "this morning's
+    # print" can be judged against the actual clock, not just the date.
+    try:
+        now_dt = datetime.datetime.fromisoformat(run_started_at)
+    except ValueError:
+        now_dt = datetime.datetime.now().astimezone()
+    with open(os.path.join(run_dir(date), "run_context.txt"), "w", encoding="utf-8") as f:
+        f.write(freshness.run_context_text(now_dt))
 
     # The plan carries each prompt's resume point, so a retry restarts at the first missing or
     # superseded artifact instead of re-running finished stages (see resume_for_prompt). On a
@@ -195,8 +220,64 @@ def _need_enum(doc: dict, key: str, allowed, errors: list) -> None:
         errors.append(f"{key} must be one of {sorted(allowed)}, got {doc[key]!r}")
 
 
-def validate_research(doc: dict) -> list:
-    """Structural check of research.json. Returns a list of problems (empty = valid)."""
+def _freshness_errors(doc: dict, run_now) -> list:
+    """Deterministic freshness/embargo checks on a research/deep dossier (see freshness.py).
+
+    Catches the two ways the 2026-08-12 phantom-CPI fabrication would have entered the pipeline:
+    a source URL dated after the run (an impossible/hallucinated source), and a figure reported
+    for a scheduled release that had not occurred at the run's as-of time. ``run_now`` (aware
+    datetime or None) enables the release gate; the URL-date gate needs only the dossier's own
+    ``run_date``.
+    """
+    errors = []
+    ref_date = None
+    if isinstance(doc.get("run_date"), str):
+        try:
+            ref_date = datetime.date.fromisoformat(doc["run_date"])
+        except ValueError:
+            ref_date = None
+
+    def check_items(items, group):
+        for i, c in enumerate(items or []):
+            if not isinstance(c, dict):
+                continue
+            if ref_date is not None:
+                for src in c.get("sources") or []:
+                    url = src.get("url") if isinstance(src, dict) else None
+                    late = freshness.url_date_tokens_after(url, ref_date)
+                    if late:
+                        errors.append(f"{group}[{i}].sources: URL dated {late} is after the run "
+                                      f"date {ref_date} — future-dated (hallucinated/misdated) "
+                                      f"source: {url}")
+            for j, fact in enumerate(c.get("important_facts") or []):
+                if not isinstance(fact, dict):
+                    continue
+                url = fact.get("source_url")
+                if ref_date is not None:
+                    late = freshness.url_date_tokens_after(url, ref_date)
+                    if late:
+                        errors.append(f"{group}[{i}].important_facts[{j}]: source_url dated "
+                                      f"{late} is after the run date {ref_date} — future-dated "
+                                      f"(hallucinated/misdated) source: {url}")
+                text = f"{fact.get('fact', '')} {fact.get('quote', '')}"
+                rel = freshness.fact_reports_pending_release(text, run_now)
+                if rel:
+                    errors.append(
+                        f"{group}[{i}].important_facts[{j}]: reports a figure for "
+                        f"'{rel['name']}' (releases {rel['datetime'].isoformat(timespec='minutes')}"
+                        f"), which has not occurred as of the run "
+                        f"({run_now.isoformat(timespec='minutes')}). A scheduled release cannot be "
+                        f"stated as fact before it happens — drop the number and frame it as pending.")
+
+    check_items(doc.get("lead_candidates"), "lead_candidates")
+    check_items(doc.get("secondary_items"), "secondary_items")
+    return errors
+
+
+def validate_research(doc: dict, run_now=None) -> list:
+    """Structural check of research.json plus deterministic freshness/embargo checks.
+    Returns a list of problems (empty = valid). ``run_now`` (aware datetime) enables the
+    pre-release gate; when None only the schema + URL-date checks run."""
     errors = []
     _need(doc, "prompt_id", str, errors)
     _need(doc, "run_date", str, errors)
@@ -227,6 +308,7 @@ def validate_research(doc: dict) -> list:
                 for key in ("fact", "quote"):
                     if not isinstance(fact.get(key), str) or not fact[key].strip():
                         errors.append(f"{where}.{key} missing or empty")
+    errors += _freshness_errors(doc, run_now)
     return errors
 
 
@@ -324,6 +406,143 @@ _VALIDATORS = {"research": validate_research, "plan": validate_plan, "review": v
                "deep": validate_research}
 
 
+def _strip_html(raw: str) -> str:
+    """Crude HTML -> normalized lowercase text for substring matching."""
+    import html as _html
+    import re as _re
+    raw = _re.sub(r"(?is)<(script|style|noscript).*?</\1>", " ", raw)
+    raw = _re.sub(r"(?s)<[^>]+>", " ", raw)
+    return _re.sub(r"\s+", " ", _html.unescape(raw)).strip().lower()
+
+
+def _quote_needle(quote: str) -> str:
+    """A normalized, shortened form of a dossier quote for tolerant substring matching:
+    lowercase, whitespace-collapsed, first ~12 significant words (so trailing paraphrase,
+    ellipses, or truncation on the page don't cause false 'not found's)."""
+    import re as _re
+    q = _re.sub(r"\s+", " ", (quote or "").strip().strip('"“”…. ')).lower()
+    words = q.split(" ")
+    return " ".join(words[:12]) if len(words) > 12 else q
+
+
+def verify_sources(path: str, write: bool = True, timeout: float = 12.0) -> tuple:
+    """Fetch each figure-bearing source in a research/deep dossier and confirm the verbatim
+    quote is on the page. Best-effort and defensive — a fetch that is blocked, paywalled, or
+    JS-rendered yields an *advisory*, never a hard failure, so real facts are not stripped on a
+    false negative. Only two outcomes are hard (severity 'error'): a future-dated source URL
+    (deterministic, no network) and a source that definitively does not exist (404 / DNS).
+
+    Returns ``(problems, checked)`` where ``problems`` is a list of
+    ``{severity, where, url, issue}`` and ``checked`` is the number of distinct URLs fetched.
+    Writes ``source_check.json`` beside the dossier unless ``write`` is False.
+    """
+    import urllib.error
+    import urllib.request
+
+    doc = _read_json(path) or {}
+    ref_date = None
+    if isinstance(doc.get("run_date"), str):
+        try:
+            ref_date = datetime.date.fromisoformat(doc["run_date"])
+        except ValueError:
+            ref_date = None
+
+    facts = []
+    for group in ("lead_candidates", "secondary_items"):
+        for i, c in enumerate(doc.get(group) or []):
+            if not isinstance(c, dict):
+                continue
+            for j, fact in enumerate(c.get("important_facts") or []):
+                if isinstance(fact, dict) and fact.get("source_url"):
+                    facts.append((f"{group}[{i}].important_facts[{j}]",
+                                  fact["source_url"], fact.get("quote", "")))
+
+    problems, results = [], []
+    page_cache: dict = {}
+    for where, url, quote in facts:
+        late = freshness.url_date_tokens_after(url, ref_date) if ref_date else None
+        if late:
+            p = {"severity": "error", "where": where, "url": url,
+                 "issue": f"future-dated source URL ({late} > run {ref_date}) — cannot exist yet"}
+            problems.append(p)
+            results.append({**p, "status": "future_dated"})
+            continue
+
+        if url not in page_cache:
+            page_cache[url] = _fetch_page(url, timeout, urllib)
+        status, page = page_cache[url]
+
+        if status == "notfound":
+            issue = "source does not exist (404 / DNS failure)"
+            sev, st = "error", "unreachable"
+        elif status == "blocked":
+            issue = "could not verify (blocked, paywalled, timed out, or JS-rendered)"
+            sev, st = "advisory", "unverified"
+        else:  # ok
+            if _quote_needle(quote) and _quote_needle(quote) in page:
+                sev, st, issue = None, "quote_found", ""
+            else:
+                issue = "verbatim quote not found on page (possible paraphrase/JS/paywall — verify)"
+                sev, st = "advisory", "quote_not_found"
+
+        rec = {"severity": sev, "where": where, "url": url, "issue": issue, "status": st}
+        results.append(rec)
+        if sev:
+            problems.append({"severity": sev, "where": where, "url": url, "issue": issue})
+
+    if write:
+        out = os.path.join(os.path.dirname(os.path.abspath(path)), "source_check.json")
+        with open(out, "w", encoding="utf-8") as f:
+            json.dump({"path": path, "checked": len(page_cache), "results": results},
+                      f, indent=2, ensure_ascii=False)
+            f.write("\n")
+    return problems, len(page_cache)
+
+
+def _fetch_page(url: str, timeout: float, urllib) -> tuple:
+    """Return ``(status, normalized_text)`` where status is 'ok' | 'notfound' | 'blocked'.
+    'notfound' is reserved for definitive non-existence (404 / DNS) — the only network
+    outcome allowed to hard-fail a source."""
+    req = urllib.request.Request(url, headers={
+        "User-Agent": "Mozilla/5.0 (compatible; CautiousOptimismBriefings/1.0; +sourcecheck)",
+        "Accept": "text/html,application/xhtml+xml",
+    })
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            raw = resp.read(2_000_000).decode(resp.headers.get_content_charset() or "utf-8",
+                                               errors="replace")
+        return "ok", _strip_html(raw)
+    except urllib.error.HTTPError as e:
+        return ("notfound" if e.code == 404 else "blocked"), ""
+    except urllib.error.URLError as e:
+        reason = str(getattr(e, "reason", "")).lower()
+        dns = any(s in reason for s in ("name or service not known", "getaddrinfo",
+                                        "nodename nor servname", "no address associated",
+                                        "name resolution"))
+        return ("notfound" if dns else "blocked"), ""
+    except Exception:
+        return "blocked", ""
+
+
+def _run_started_from_artifact(path: str):
+    """Best-effort: locate runs/<date>/run.json for an artifact at runs/<date>/<id>/<file> and
+    return its ``run_started_at`` as an aware datetime, or None. Lets the validator apply the
+    pre-release embargo gate without the caller having to pass the run clock explicitly."""
+    run_json = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(path))), "run.json")
+    try:
+        with open(run_json, encoding="utf-8") as f:
+            started = json.load(f).get("run_started_at")
+    except (OSError, json.JSONDecodeError):
+        return None
+    if not isinstance(started, str):
+        return None
+    try:
+        dt = datetime.datetime.fromisoformat(started)
+    except ValueError:
+        return None
+    return dt if dt.tzinfo else dt.astimezone()
+
+
 def validate_file(kind: str, path: str) -> list:
     """Validate the artifact at ``path`` as ``kind``. Returns a list of problems."""
     if kind not in _VALIDATORS:
@@ -337,6 +556,8 @@ def validate_file(kind: str, path: str) -> list:
         return [f"invalid JSON: {e}"]
     if not isinstance(doc, dict):
         return ["top level must be a JSON object"]
+    if kind in ("research", "deep"):
+        return validate_research(doc, run_now=_run_started_from_artifact(path))
     return _VALIDATORS[kind](doc)
 
 
@@ -578,10 +799,20 @@ def main(argv=None) -> int:
     p = sub.add_parser("init", help="create run dirs + run.json for every enabled prompt")
     p.add_argument("--date", default=today)
     p.add_argument("--novelty", choices=NOVELTY_MODES, default="strict")
+    p.add_argument("--now", default=None,
+                   help="run as-of timestamp (ISO-8601 with offset) for the freshness gate; "
+                        "defaults to the current time. Preserved across idempotent re-inits.")
 
     p = sub.add_parser("validate", help="schema-check a pipeline artifact")
     p.add_argument("kind", choices=sorted(_VALIDATORS))
     p.add_argument("path")
+
+    p = sub.add_parser("verify-sources",
+                       help="fetch each figure-bearing source in a research/deep dossier and "
+                            "confirm the verbatim quote is on the page (best-effort)")
+    p.add_argument("path", help="path to research.json or deep_research.json")
+    p.add_argument("--no-write", action="store_true",
+                   help="do not write source_check.json alongside the dossier")
 
     p = sub.add_parser("approve", help="copy final.txt to briefings/ if the review approves")
     p.add_argument("prompt_id")
@@ -608,9 +839,19 @@ def main(argv=None) -> int:
     args = ap.parse_args(argv)
 
     if args.cmd == "init":
-        plan = init_run(args.date, args.novelty)
+        plan = init_run(args.date, args.novelty, now_iso=args.now)
         print(json.dumps(plan, indent=2, ensure_ascii=False))
         return 0
+
+    if args.cmd == "verify-sources":
+        problems, checked = verify_sources(args.path, write=not args.no_write)
+        hard = [p for p in problems if p["severity"] == "error"]
+        for p in problems:
+            print(f"  [{p['severity'].upper()}] {p['where']}: {p['issue']}")
+        print(f"{'FAIL' if hard else 'OK'} verify-sources: {args.path} "
+              f"({checked} source(s) checked, {len(hard)} hard, "
+              f"{len(problems) - len(hard)} advisory)")
+        return 1 if hard else 0
 
     if args.cmd == "validate":
         problems = validate_file(args.kind, args.path)

@@ -65,7 +65,11 @@ Judge the draft against:
   scheduled release (CPI, PPI, payrolls, an earnings print, an FOMC decision) that the draft states
   as an accomplished fact must have an official release time **at or before the run date/time** — the
   pipeline runs pre-dawn, so a print scheduled for later today (e.g. an 8:30am ET CPI on a 5am run)
-  cannot yet be a fact no matter how confidently the dossier quotes it. A dossier `quote` sourced
+  cannot yet be a fact no matter how confidently the dossier quotes it. `runs/<date>/run_context.txt`
+  lists the run's as-of time and the releases still pending; a draft figure for any of those is a hard
+  defect. (`orchestrator.py validate research|deep` now blocks these upstream, but audit the draft too —
+  a synthesis/forecast draft is built from approved briefings, not the dossier, so a phantom that slipped
+  through before this gate existed can still reach you.) A dossier `quote` sourced
   from a URL or timestamp dated **after** the run is a hallucinated source: treat the figure as
   unsupported and strip it, exactly as if it had no quote. When you remove such a figure, reframe the
   draft to the honest posture — the release is *pending/due today*, here is the setup and what each

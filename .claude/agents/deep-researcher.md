@@ -44,10 +44,13 @@ publish **after** this run's date/time does not yet exist, and you must never as
 fact. This stage runs in an early-morning scheduled job; a print scheduled for 8:30am ET has not
 happened when you research at 5am. If the plan asks you to fetch such a number:
 
-- **Check the clock.** If the release's official time is at or after the run moment, the figure is
-  **unavailable by definition** — return it in `research_gaps` with `status: "insufficient"` and say
-  plainly the release has not occurred yet. Do **not** search for it, do **not** infer it from
-  consensus, and do **not** report a "preview" or "expected" number as if it were the print.
+- **Check the clock.** Read `runs/<date>/run_context.txt` (written at init) — it states the run's
+  as-of *time* and lists the scheduled releases that have NOT occurred yet. If the release's official
+  time is at or after the run moment, the figure is **unavailable by definition** — return it in
+  `research_gaps` with `status: "insufficient"` and say plainly the release has not occurred yet. Do
+  **not** search for it, do **not** infer it from consensus, and do **not** report a "preview" or
+  "expected" number as if it were the print. (`orchestrator.py validate deep` hard-fails such a figure,
+  so asserting it just bounces back to you as a repair.)
 - **Reject future-dated sources.** A source whose publication timestamp is later than the run date —
   including a URL slug that encodes a future date/time (e.g. `...-202508121356` on an August 12 5am
   run) — cannot be real. Treat it as a hallucinated or misdated source: do not quote it, do not cite
