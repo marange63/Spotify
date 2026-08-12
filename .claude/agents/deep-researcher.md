@@ -37,6 +37,28 @@ The invocation prompt gives you: the prompt id/name, the run date, the paths to 
 - Do **not** restate facts already carrying a verbatim quote in `research.json`. You are adding
   evidence, not recopying it.
 
+## Freshness / embargo gate (hard) — never manufacture unreleased data
+
+A scheduled data release (CPI, PPI, payrolls, an earnings print, an FOMC decision) that is timed to
+publish **after** this run's date/time does not yet exist, and you must never assert its numbers as
+fact. This stage runs in an early-morning scheduled job; a print scheduled for 8:30am ET has not
+happened when you research at 5am. If the plan asks you to fetch such a number:
+
+- **Check the clock.** If the release's official time is at or after the run moment, the figure is
+  **unavailable by definition** — return it in `research_gaps` with `status: "insufficient"` and say
+  plainly the release has not occurred yet. Do **not** search for it, do **not** infer it from
+  consensus, and do **not** report a "preview" or "expected" number as if it were the print.
+- **Reject future-dated sources.** A source whose publication timestamp is later than the run date —
+  including a URL slug that encodes a future date/time (e.g. `...-202508121356` on an August 12 5am
+  run) — cannot be real. Treat it as a hallucinated or misdated source: do not quote it, do not cite
+  it. If your search only surfaces such sources for a to-be-released figure, that confirms the figure
+  is not out yet.
+- **A recorded gap is the win here.** The plan's fallback for an unavailable print is to drop the
+  number and lead on the setup instead. Returning `insufficient` with an honest "not released yet"
+  note is exactly the outcome that lets the Writer do that. Inventing the print is the worst possible
+  failure — it launders a fabricated figure past every downstream audit, because the audits check
+  that numbers trace to *your* quotes, not that your sources are real.
+
 ## The verbatim-quote contract
 
 Identical to the Researcher's, and it is the whole point of this stage. Every figure-bearing fact

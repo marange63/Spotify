@@ -48,6 +48,15 @@ Produce **4 to 6** forecasts. Fewer, well-reasoned calls beat a long list. Each 
   makes you wrong. Stating what would move your probability is the core of a calibrated forecast.
 - **Given a rough time horizon / resolve-by** ("by end of quarter", "within the next two weeks") so
   it can actually be scored later.
+- **Paired with a way to express it in liquid, investable securities.** Name how a listener could
+  take the position — a specific ticker/instrument and its type (equity, ETF, options, credit,
+  futures) — to bet **for** the call, and, where a clean expression exists, the **against/hedge**
+  side too. Tie the trade to the forecast's logic: the position rides on the read being right, the
+  disconfirming risk is the case for the other side, expressed via the fade or hedge. Only name
+  genuinely **liquid** instruments a retail-plus listener could actually trade; skip a side rather
+  than invent a contrived or illiquid trade. The expression is your **judgment** — a named security
+  or instrument type needs no source quote — but any **price target, entry level, spread, or sizing
+  figure is a fact** and may only appear if it is already in your source files.
 
 Do not overclaim, do not let a good narrative pull the probability higher than the evidence warrants,
 and do not forecast where the 5 days give you nothing to stand on — a short honest list beats a
@@ -64,15 +73,19 @@ forecast that went against you — owning a miss is the point of the segment.
 
 ## Write (`draft.txt`)
 
-Honor the word count in the standing prompt (default ~900–1100 words) and today's date. The script:
+Honor the word count in the standing prompt (default ~1100–1300 words) and today's date. The script:
 
 - Opens with a one-line greeting that names **The Forward Curve** and the date, then a one-line,
-  up-front reminder that these are **probabilistic reads, not certainties**.
+  up-front reminder that these are **probabilistic reads, not certainties** — and that the position
+  ideas are **illustrative ways to express a view, not investment advice**. Fold that into the same
+  opener; do not add a separate compliance paragraph.
 - Runs the self-scoring open, then the forecasts, ordered with a logic to them (most consequential
   first, or grouped by theme) with signposted transitions — never a disconnected list.
-- States each probability and disconfirming risk in plain spoken syntax: one idea per sentence,
-  subject up front, no nested clauses, names re-grounded on return. At most one or two figures per
-  point, each anchored to a comparison.
+- States each probability, disconfirming risk, and position idea in plain spoken syntax: one idea per
+  sentence, subject up front, no nested clauses, names re-grounded on return (name a ticker or
+  instrument once, then re-ground it when it returns). Fold the position idea in right after the
+  probability and disconfirming risk. At most one or two figures per point, each anchored to a
+  comparison.
 - Distinguishes fact from forecast at all times — the listener must always know which is which.
 - Is a single narrator, no headings, bullets, stage directions, or spoken URLs.
 - Closes with a one-line sign-off.

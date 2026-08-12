@@ -1696,21 +1696,6 @@
       "transcript_html": "frontier-ai-labs-2026-08-12.html"
     },
     {
-      "guid": "capital-markets-radar-2026-08-12",
-      "prompt_id": "capital-markets-radar",
-      "title": "Capital Markets Cross-Asset Radar — August 12, 2026",
-      "summary": "We left the Fed's three-way fork unresolved on Tuesday, and this morning's July CPI print was supposed to be the tiebreaker. It wasn't clean. Headline CPI rose 0.20% month over month, holding the annual rate steady at 2.7%, which reads as roughly in line. Core CPI did not cooperate.",
-      "date": "2026-08-12",
-      "seq": 1,
-      "published_at": "2026-08-12T05:58:43-04:00",
-      "audio_file": "capital-markets-radar-2026-08-12.mp3",
-      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/capital-markets-radar-2026-08-12.mp3",
-      "length": 2894832,
-      "duration": 482,
-      "transcript_txt": "capital-markets-radar-2026-08-12.txt",
-      "transcript_html": "capital-markets-radar-2026-08-12.html"
-    },
-    {
       "guid": "digital-money-2026-08-12",
       "prompt_id": "digital-money",
       "title": "Digital Money, Crypto, and Market Structure — August 12, 2026",
@@ -1861,17 +1846,32 @@
       "transcript_html": "private-equity-2026-08-12.html"
     },
     {
+      "guid": "capital-markets-radar-2026-08-12",
+      "prompt_id": "capital-markets-radar",
+      "title": "Capital Markets Cross-Asset Radar — August 12, 2026",
+      "summary": "We left the Fed's three-way fork unresolved on Tuesday, and this morning's July CPI print is the scheduled tiebreaker. One disclosure before anything else. As I record this, that print has not been released. It lands at 8:30 Eastern, so I'm not going to tell you what it said, because nobody knows yet.",
+      "date": "2026-08-12",
+      "seq": 13,
+      "published_at": "2026-08-12T07:30:16-04:00",
+      "audio_file": "capital-markets-radar-2026-08-12.mp3",
+      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/capital-markets-radar-2026-08-12.mp3",
+      "length": 2790720,
+      "duration": 465,
+      "transcript_txt": "capital-markets-radar-2026-08-12.txt",
+      "transcript_html": "capital-markets-radar-2026-08-12.html"
+    },
+    {
       "guid": "throughline-2026-08-12",
       "prompt_id": "throughline",
       "title": "The Throughline (daily synthesis) — August 12, 2026",
       "summary": "Start with the macro backdrop. Strategic Power has both halves of that collision.",
       "date": "2026-08-12",
-      "seq": 12,
-      "published_at": "2026-08-12T06:17:27-04:00",
+      "seq": 13,
+      "published_at": "2026-08-12T07:30:43-04:00",
       "audio_file": "throughline-2026-08-12.mp3",
       "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/throughline-2026-08-12.mp3",
-      "length": 2182176,
-      "duration": 364,
+      "length": 2220192,
+      "duration": 370,
       "transcript_txt": "throughline-2026-08-12.txt",
       "transcript_html": "throughline-2026-08-12.html"
     },
@@ -1882,11 +1882,11 @@
       "summary": "Start with the scorecard, because owning past calls is the whole point of this segment. Today one finally resolved my way, one is still fighting me, and two just got more interesting.",
       "date": "2026-08-12",
       "seq": 13,
-      "published_at": "2026-08-12T06:19:15-04:00",
+      "published_at": "2026-08-12T07:31:41-04:00",
       "audio_file": "forward-curve-2026-08-12.mp3",
       "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/forward-curve-2026-08-12.mp3",
-      "length": 3049920,
-      "duration": 508,
+      "length": 3091392,
+      "duration": 515,
       "transcript_txt": "forward-curve-2026-08-12.txt",
       "transcript_html": "forward-curve-2026-08-12.html"
     }

@@ -60,15 +60,39 @@ Judge the draft against:
   must appear in one of the source briefings. A figure with no supporting quote must be removed,
   restated with explicit uncertainty and attribution, or — if it is loadbearing — the draft
   rejected. Score `factual_support` on this audit, not on how plausible the script sounds.
+- **Freshness / embargo gate (mandatory):** a matching quote proves the draft matches the dossier —
+  it does **not** prove the underlying event happened. Separately check timing. Any figure from a
+  scheduled release (CPI, PPI, payrolls, an earnings print, an FOMC decision) that the draft states
+  as an accomplished fact must have an official release time **at or before the run date/time** — the
+  pipeline runs pre-dawn, so a print scheduled for later today (e.g. an 8:30am ET CPI on a 5am run)
+  cannot yet be a fact no matter how confidently the dossier quotes it. A dossier `quote` sourced
+  from a URL or timestamp dated **after** the run is a hallucinated source: treat the figure as
+  unsupported and strip it, exactly as if it had no quote. When you remove such a figure, reframe the
+  draft to the honest posture — the release is *pending/due today*, here is the setup and what each
+  outcome would mean — rather than leaving a hedged version of the phantom number. Log every figure
+  cut this way in `changes_made`. If the figure is the draft's load-bearing lead and removing it
+  guts the spine, that is a `skip`, not an approve.
 - **Calibration audit (forecast prompts, mandatory, item by item):** run this instead of the figure
   audit. For each forecast check: (1) it is **concrete and falsifiable** (a specific outcome that
   could later be marked right/wrong), not a vague direction; (2) it carries an **explicit probability
   or band** and commits to a number — flag hedging ("could/might") with no probability, and flag
   **false precision** (e.g. "63.4%"); (3) its **factual basis traces** to today's briefings or the
   5-day transcript archive — a forecast built on a fact not in the sources is a hard defect, audit it
-  like a figure; (4) it states its **single strongest disconfirming risk** and a **resolve-by
-  horizon**; (5) nothing is **overclaimed as certain** and the up-front "these are probabilistic
-  reads, not certainties" framing is present. Then audit the **self-scoring open**: every hit/miss/
+  like a figure. Apply the same **freshness / embargo gate** as the figure audit: a forecast (or its
+  scorecard) that treats a not-yet-released scheduled print as a settled fact — e.g. "today's core CPI
+  came in at 3.1 percent" on a pre-release run — is a hard defect even when it traces to an approved
+  briefing, because the briefing itself may have inherited a phantom number; strip or re-cast it as
+  the pending event it is; (4) it states its **single strongest disconfirming risk** and a **resolve-by
+  horizon**; (5) it names a **way to express the position** in liquid, investable securities — a
+  ticker/instrument for the for-side, plus the against/hedge side where a clean one exists. This is
+  the Forecaster's **judgment, not a factual claim**: a **named security/ticker or instrument type
+  needs no source quote** — do not reject it as unsourced — but any **price, level, spread, or sizing
+  figure is a fact** and must trace to today's briefings or the 5-day archive (remove, hedge, or
+  reject if unsupported, exactly like any figure). Flag a forecast that gives no expression on a side
+  where an obvious liquid one exists, and flag a contrived or illiquid "trade" as a defect;
+  (6) nothing is **overclaimed as certain**, and the up-front framing is present — both "these are
+  probabilistic reads, not certainties" and that the position ideas are **illustrative, not
+  investment advice**. Then audit the **self-scoring open**: every hit/miss/
   partial call must be accurate against the prior `forward-curve-*.txt` and the recent archive — a
   wrong grade, or a past forecast quietly dropped because it went against the show, is a hard defect
   to fix in your revision. Score `factual_support` on this audit.
