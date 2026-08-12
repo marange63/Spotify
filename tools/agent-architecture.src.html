@@ -1,0 +1,973 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cautious Optimism Briefings — Agent Architecture</title>
+<meta name="description" content="An illustrated tutorial on the Cautious Optimism Briefings agent pipeline: the five agents, their file handoffs, the deterministic gate, and the full path to Spotify.">
+
+<!--
+  Standalone companion to docs/ARCHITECTURE.md. Open it directly in a browser.
+  Diagrams are Mermaid and load the renderer from a CDN, so the first render needs
+  an internet connection; offline, each diagram degrades to readable source text.
+
+  Deliberately NOT in docs/ — publish_feed.py runs `git add docs`, so a file there
+  would be auto-committed and served publicly on the podcast's GitHub Pages site.
+-->
+
+<style>
+  :root {
+    --ink:        #10151C;
+    --ink-2:      #1B232D;
+    --paper:      #F4F7F9;
+    --paper-2:    #FFFFFF;
+    --text:       #17202A;
+    --text-dim:   #4E5C6A;
+    --text-faint: #74838F;
+    --rule:       #D3DCE3;
+    --rule-soft:  #E4EBF0;
+
+    --agent:      #B0730F;
+    --agent-tint: #FBF0DC;
+    --machine:    #21707A;
+    --machine-tint:#E0EFF1;
+
+    --ok:         #3F7A4E;
+    --warn:       #A8761B;
+    --bad:        #A63C33;
+
+    --plate-bg:   #F0F4F6;
+    --plate-rule: #C8D4DB;
+
+    --display: "Segoe UI Variable Display", "Segoe UI Semibold", "Segoe UI", system-ui, -apple-system, sans-serif;
+    --body: Georgia, "Iowan Old Style", "Palatino Linotype", ui-serif, serif;
+    --mono: "Cascadia Code", "Cascadia Mono", Consolas, ui-monospace, "SF Mono", Menlo, monospace;
+
+    --col: 68ch;
+    --plate: min(1120px, 94vw);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper:      #10151C;
+      --paper-2:    #161E27;
+      --text:       #DFE7EE;
+      --text-dim:   #A2B0BC;
+      --text-faint: #7C8B98;
+      --rule:       #2A3540;
+      --rule-soft:  #212B35;
+      --agent:      #E0A241;
+      --agent-tint: #2C2317;
+      --machine:    #4FB4BE;
+      --machine-tint:#12262A;
+      --ok:         #6FB07E;
+      --warn:       #D6A44A;
+      --bad:        #D9756A;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:      #10151C;
+    --paper-2:    #161E27;
+    --text:       #DFE7EE;
+    --text-dim:   #A2B0BC;
+    --text-faint: #7C8B98;
+    --rule:       #2A3540;
+    --rule-soft:  #212B35;
+    --agent:      #E0A241;
+    --agent-tint: #2C2317;
+    --machine:    #4FB4BE;
+    --machine-tint:#12262A;
+    --ok:         #6FB07E;
+    --warn:       #D6A44A;
+    --bad:        #D9756A;
+  }
+  :root[data-theme="light"] {
+    --paper:      #F4F7F9;
+    --paper-2:    #FFFFFF;
+    --text:       #17202A;
+    --text-dim:   #4E5C6A;
+    --text-faint: #74838F;
+    --rule:       #D3DCE3;
+    --rule-soft:  #E4EBF0;
+    --agent:      #B0730F;
+    --agent-tint: #FBF0DC;
+    --machine:    #21707A;
+    --machine-tint:#E0EFF1;
+    --ok:         #3F7A4E;
+    --warn:       #A8761B;
+    --bad:        #A63C33;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--text);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.68;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { display: flex; flex-direction: column; align-items: center; gap: 0; }
+
+  .col { width: var(--col); max-width: 92vw; }
+
+  /* ---------- masthead ---------- */
+  .masthead {
+    width: 100%;
+    border-bottom: 1px solid var(--rule);
+    background: var(--paper-2);
+    display: flex; flex-direction: column; align-items: center;
+    padding: 68px 20px 40px;
+  }
+  .masthead .col { display: flex; flex-direction: column; gap: 18px; }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--machine);
+    display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+  }
+  .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--agent); display: inline-block; }
+  h1 {
+    font-family: var(--display);
+    font-size: clamp(34px, 5.2vw, 52px);
+    line-height: 1.05;
+    letter-spacing: -.022em;
+    font-weight: 700;
+    margin: 0;
+    text-wrap: balance;
+  }
+  .standfirst { font-size: 19px; color: var(--text-dim); margin: 0; text-wrap: pretty; }
+  .meta {
+    font-family: var(--mono); font-size: 12px; color: var(--text-faint);
+    display: flex; flex-wrap: wrap; gap: 6px 20px; padding-top: 6px;
+    border-top: 1px solid var(--rule-soft);
+  }
+
+  /* ---------- sections ---------- */
+  section { width: 100%; display: flex; flex-direction: column; align-items: center; padding: 46px 20px 0; }
+  section:last-of-type { padding-bottom: 60px; }
+
+  h2 {
+    font-family: var(--display);
+    font-size: 27px; line-height: 1.2; letter-spacing: -.015em; font-weight: 700;
+    margin: 0 0 4px; text-wrap: balance;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  h2 .num {
+    font-family: var(--mono); font-size: 12px; font-weight: 400;
+    color: var(--machine); letter-spacing: .1em; flex: none;
+    transform: translateY(-2px);
+  }
+  h3 {
+    font-family: var(--display); font-size: 18px; font-weight: 700;
+    letter-spacing: -.008em; margin: 26px 0 2px;
+  }
+  p { margin: 14px 0; text-wrap: pretty; }
+  .lede { font-size: 18.5px; color: var(--text-dim); }
+
+  code {
+    font-family: var(--mono); font-size: .84em;
+    background: var(--rule-soft); color: var(--text);
+    padding: .12em .38em; border-radius: 3px;
+    word-break: break-word;
+  }
+  a { color: var(--machine); text-underline-offset: 3px; }
+  strong { font-weight: 700; color: var(--text); }
+  em.term { font-style: normal; font-family: var(--mono); font-size: .84em; color: var(--agent); }
+
+  ul, ol { margin: 14px 0; padding-left: 1.3em; }
+  li { margin: 7px 0; }
+  li::marker { color: var(--text-faint); }
+
+  /* ---------- plates (diagrams) ---------- */
+  .plate {
+    width: var(--plate);
+    margin: 30px 0 8px;
+    border: 1px solid var(--plate-rule);
+    border-radius: 2px;
+    background: var(--plate-bg);
+    overflow: hidden;
+  }
+  .plate__bar {
+    display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--plate-rule);
+    background: #E4EBEF;
+    font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    color: #3E4C57;
+  }
+  .plate__bar .fig { color: #21707A; font-weight: 700; }
+  .plate__body { padding: 20px 12px; overflow-x: auto; }
+  .plate pre.mermaid {
+    background: transparent; margin: 0; text-align: center;
+    font-family: var(--mono); font-size: 11px; color: #3E4C57;
+    white-space: pre-wrap; /* readable fallback if the renderer can't load */
+  }
+  .plate pre.mermaid[data-processed="true"] { white-space: normal; }
+  .caption {
+    width: var(--plate); max-width: 94vw;
+    font-family: var(--mono); font-size: 12px; line-height: 1.6;
+    color: var(--text-faint); margin: 0 0 8px; text-align: left;
+  }
+
+  /* ---------- agent roster ---------- */
+  .roster { width: var(--plate); display: grid; gap: 14px; margin: 26px 0 6px;
+            grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); }
+  .agent-card {
+    border: 1px solid var(--rule); border-left: 3px solid var(--agent);
+    background: var(--paper-2); padding: 15px 16px 16px;
+    display: flex; flex-direction: column; gap: 9px;
+  }
+  .agent-card.is-gate { border-left-color: var(--machine); }
+  .agent-card h4 {
+    margin: 0; font-family: var(--display); font-size: 16.5px; font-weight: 700; letter-spacing: -.01em;
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  }
+  .agent-card h4 .stage {
+    font-family: var(--mono); font-size: 10.5px; font-weight: 400;
+    color: var(--text-faint); letter-spacing: .08em; flex: none;
+  }
+  .agent-card p { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--text-dim); }
+  .chips { display: flex; flex-wrap: wrap; gap: 5px; }
+  .chip {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .05em;
+    padding: 2px 7px; border-radius: 2px; border: 1px solid var(--rule); color: var(--text-dim);
+    white-space: nowrap;
+  }
+  .chip--model { background: var(--agent-tint); border-color: var(--agent); color: var(--agent); font-weight: 700; }
+  .chip--web   { background: var(--machine-tint); border-color: var(--machine); color: var(--machine); }
+  .chip--noweb { opacity: .8; }
+  .io { font-family: var(--mono); font-size: 11.5px; line-height: 1.75; color: var(--text-faint); }
+  .io b { color: var(--text-dim); font-weight: 400; }
+
+  /* ---------- tables ---------- */
+  .tablewrap { width: var(--plate); max-width: 94vw; overflow-x: auto; margin: 24px 0 6px;
+               border: 1px solid var(--rule); background: var(--paper-2); }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; font-family: var(--mono); }
+  th, td { text-align: left; padding: 9px 13px; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+  th {
+    font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--text-faint); font-weight: 400; background: var(--rule-soft);
+    position: sticky; top: 0;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  td.num { font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+  .tag { font-size: 11px; padding: 1px 6px; border-radius: 2px; white-space: nowrap; }
+  .tag--ok  { background: color-mix(in srgb, var(--ok) 16%, transparent); color: var(--ok); }
+  .tag--warn{ background: color-mix(in srgb, var(--warn) 18%, transparent); color: var(--warn); }
+  .tag--bad { background: color-mix(in srgb, var(--bad) 16%, transparent); color: var(--bad); }
+
+  /* ---------- token chart ---------- */
+  .chart { width: var(--plate); max-width: 94vw; margin: 24px 0 6px;
+           border: 1px solid var(--rule); background: var(--paper-2); padding: 18px 18px 14px; }
+  .bar-row { display: grid; grid-template-columns: 132px 1fr 92px; align-items: center; gap: 12px; padding: 5px 0; }
+  .bar-row .lbl { font-family: var(--mono); font-size: 12px; color: var(--text-dim); }
+  .bar-track { height: 15px; background: var(--rule-soft); position: relative; }
+  .bar-fill { height: 100%; background: var(--agent); display: block; }
+  .bar-fill.is-machine { background: var(--machine); }
+  .bar-row .val { font-family: var(--mono); font-size: 12px; color: var(--text-faint);
+                  text-align: right; font-variant-numeric: tabular-nums; }
+  .chart__foot { font-family: var(--mono); font-size: 11.5px; color: var(--text-faint);
+                 border-top: 1px solid var(--rule-soft); margin-top: 12px; padding-top: 10px; line-height: 1.7; }
+
+  /* ---------- callouts ---------- */
+  .note {
+    width: var(--col); max-width: 92vw;
+    border-left: 3px solid var(--machine); background: var(--machine-tint);
+    padding: 13px 16px; margin: 22px 0 6px; font-size: 15.5px; line-height: 1.6;
+  }
+  .note--war { border-left-color: var(--bad); background: color-mix(in srgb, var(--bad) 9%, transparent); }
+  .note h5 {
+    margin: 0 0 5px; font-family: var(--mono); font-size: 11px; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--machine); font-weight: 700;
+  }
+  .note--war h5 { color: var(--bad); }
+  .note p { margin: 6px 0 0; }
+  .note p:first-of-type { margin-top: 0; }
+
+  .rule { width: var(--plate); max-width: 94vw; height: 1px; background: var(--rule); margin: 44px 0 0; }
+
+  footer {
+    width: 100%; display: flex; flex-direction: column; align-items: center;
+    padding: 34px 20px 56px; border-top: 1px solid var(--rule); margin-top: 44px; background: var(--paper-2);
+  }
+  footer .col { font-family: var(--mono); font-size: 12px; color: var(--text-faint); line-height: 1.8; }
+
+  :focus-visible { outline: 2px solid var(--agent); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+  @media (max-width: 620px) {
+    body { font-size: 16px; }
+    .bar-row { grid-template-columns: 104px 1fr 74px; }
+  }
+  @media print {
+    /* Force the light palette: printers drop background colours by default, which would
+       flatten the amber/teal encoding the diagrams depend on. */
+    :root {
+      --paper: #FFFFFF; --paper-2: #FFFFFF;
+      --text: #000000; --text-dim: #2E3A44; --text-faint: #55636E;
+      --rule: #B9C4CC; --rule-soft: #DDE4E9;
+      --agent: #8A5A0B; --agent-tint: #FBF0DC;
+      --machine: #175A62; --machine-tint: #E0EFF1;
+      --plate-bg: #F4F7F8; --plate-rule: #B9C4CC;
+    }
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    @page { size: A4 portrait; margin: 14mm 12mm; }
+
+    body { background: #fff; font-size: 10.5pt; line-height: 1.55; }
+    .wrap { display: block; }
+    section { display: block; padding: 16px 0 0; }
+    .masthead { display: block; padding: 0 0 16px; border-bottom: 1px solid var(--rule); }
+    footer { display: block; padding: 16px 0 0; margin-top: 20px; }
+    .col, .plate, .tablewrap, .chart, .caption, .rule, .roster, .note {
+      width: 100% !important; max-width: 100% !important;
+    }
+
+    /* The actual fix for blank diagrams: never clip or scroll a diagram when paginating,
+       and let the SVG size itself to the page instead of its on-screen pixel width. */
+    .plate__body { overflow: visible !important; padding: 12px 4px; }
+    .tablewrap { overflow: visible !important; }
+    .plate pre.mermaid { white-space: normal; }
+    .plate img.figure { max-width: 100% !important; max-height: 218mm !important;
+                        width: auto !important; height: auto !important; margin: 0 auto; }
+
+    .plate, .chart, .agent-card, .note, .tablewrap, tr { break-inside: avoid; }
+    h1, h2, h3 { break-after: avoid; }
+    .caption { break-after: avoid; }
+    .rule { margin: 22px 0 0; }
+    .roster { grid-template-columns: repeat(2, 1fr); }
+    th { position: static; }
+    a { color: inherit; text-decoration: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header class="masthead">
+  <div class="col">
+    <div class="eyebrow"><span class="dot"></span> Cautious Optimism Briefings <span>·</span> Agent architecture &amp; flow</div>
+    <h1>Twelve expert briefings, written and shipped every night by a crew of agents that never meet</h1>
+    <p class="standfirst">A working tour of how a standing prompt becomes a researched, fact-audited, narrated podcast episode on Spotify — the five agents, the artifacts they hand each other, the deterministic gate none of them can talk their way past, and everything that happens after the last word is written.</p>
+    <div class="meta">
+      <span>REPO · ClaudeDev/Spotify</span>
+      <span>FEED · marange63.github.io/Spotify/feed.xml</span>
+      <span>SHOW · Cautious Optimism Briefings</span>
+      <span>REV · 2026-07-25</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================ -->
+<section>
+  <div class="col">
+    <h2><span class="num">01</span> What the machine makes</h2>
+    <p class="lede">Every night, without a human in the loop, the system turns a library of standing topic prompts into a batch of fresh audio briefings and publishes them as new episodes of a public podcast.</p>
+    <p>The listener is assumed to be fluent in economics, capital markets, technology and AI. That assumption is the product: no 101-level definitions, no recaps of well-known context, lead with what is genuinely new or non-consensus, and carry analysis rather than headlines. A briefing that has nothing new to say is <strong>skipped</strong> rather than padded — a skipped day beats a weak episode, and the architecture is built to make skipping easy and cheap.</p>
+    <p>One prompt produces one episode. Twelve prompts run per night, and a thirteenth kind of prompt — <em class="term">The Throughline</em> — is a <strong>synthesis</strong> that reads the other twelve after they are finished and digests them into a front page. The whole batch publishes together as new episodes with per-day GUIDs, so followers get normal new-episode notifications.</p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section>
+  <div class="col">
+    <h2><span class="num">02</span> The governing idea: agents write, code decides</h2>
+    <p>Everything else in this document follows from one split. <strong>Language models produce judgment and prose. Plain Python decides what is allowed to happen.</strong> No agent can publish, commit, push, or promote its own work — those verbs live exclusively in deterministic code that reads the agents' output files and applies fixed rules to them.</p>
+    <p>Concretely: an agent's entire influence on the outside world is the <em>file it writes to disk</em>. A gatekeeper (<code>orchestrator.py</code>, stdlib only, no model calls) schema-checks that file and refuses to advance the prompt if it fails. The only path from a written script to a published episode is <code>orchestrator.py approve</code>, which copies a finished script into <code>briefings/</code> <em>only</em> if a separate reviewer agent's verdict file says <code>approve</code>. Everything downstream — audio, feed, git, Spotify — is triggered by a second, entirely non-AI phase.</p>
+    <p>Throughout the diagrams that follow, <span style="color:var(--agent);font-weight:700">amber</span> marks work done by a model and <span style="color:var(--machine);font-weight:700">teal</span> marks deterministic code.</p>
+  </div>
+
+  <p class="caption">Figure 1 — Three layers. The scheduler starts things, models do the thinking, and deterministic Python owns every irreversible action.</p>
+  <div class="plate">
+    <div class="plate__bar"><span class="fig">Fig. 1</span><span>System layers</span></div>
+    <div class="plate__body">
+<pre class="mermaid">
+%%{init: {'theme':'base','flowchart':{'nodeSpacing':45,'rankSpacing':55,'padding':12},'themeVariables':{'primaryColor':'#E8EFF2','primaryTextColor':'#12181F','primaryBorderColor':'#8FA3AF','lineColor':'#5B6B78','clusterBkg':'#F7FAFB','clusterBorder':'#C8D4DB'}}}%%
+flowchart TD
+    subgraph SCHED["SCHEDULER — Windows Task Scheduler + PowerShell"]
+        direction LR
+        T1["00:00 midnight half"]
+        T2["05:15 main run + publish"]
+        T3["10:05 completion pass"]
+    end
+    subgraph MODEL["MODEL LAYER — headless Claude Code sessions"]
+        direction LR
+        P["Parent session<br/>reads state, dispatches"]
+        A["5 subagents<br/>research · plan · dive · write · review"]
+    end
+    subgraph GATE["GATE — orchestrator.py (stdlib, no model)"]
+        direction LR
+        V["validate · approve · mark<br/>status · resume"]
+    end
+    subgraph PUB["PUBLISH — deterministic Python"]
+        direction LR
+        TTS["edge-tts narration"]
+        FEED["feed.py + github_release.py"]
+        GIT["git commit + push"]
+    end
+    OUT(["GitHub Pages RSS → Spotify"])
+
+    SCHED --> P
+    P <--> A
+    A -- "writes artifacts" --> V
+    V -- "approved scripts only" --> PUB
+    TTS --> FEED --> GIT --> OUT
+
+    classDef agent fill:#FBF0DC,stroke:#B0730F,color:#3D2A08;
+    classDef machine fill:#E0EFF1,stroke:#21707A,color:#0C2C30;
+    classDef out fill:#21707A,stroke:#21707A,color:#FFFFFF;
+    class P,A agent;
+    class V,TTS,FEED,GIT,T1,T2,T3 machine;
+    class OUT out;
+</pre>
+    </div>
+  </div>
+
+  <div class="note">
+    <h5>Why bother</h5>
+    <p>An agent that can publish can publish a mistake. By making the gate a stdlib program with no model in it, the failure modes become inspectable: a malformed dossier fails a schema check, a rejected draft fails an equality test against the string <code>"approve"</code>, and a stale script fails a file-mtime comparison. None of those depend on a model behaving well on a bad night.</p>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ============================================================ -->
+<section>
+  <div class="col">
+    <h2><span class="num">03</span> The cast</h2>
+    <p>Five subagents, each defined by a markdown file in <code>.claude/agents/</code> whose frontmatter pins its model and its tool access. Those pins <strong>override the caller</strong> — the scheduled run launches a Sonnet parent session, but the analyst and reviewer still run on Opus because their own definitions say so. To change a role's cost or quality you edit that role's frontmatter, never the caller.</p>
+    <p>Note the tool columns carefully: <strong>only two of the five agents can reach the internet.</strong> That is a deliberate constraint, not an oversight — see §05.</p>
+  </div>
+
+  <div class="roster">
+    <div class="agent-card">
+      <h4>Researcher <span class="stage">STAGE 1</span></h4>
+      <div class="chips">
+        <span class="chip chip--model">sonnet</span>
+        <span class="chip chip--web">web access</span>
+      </div>
+      <p>Gathers the strongest raw material for one prompt. Surveys the topic, finds what is new, and files a structured dossier. Explicitly does <em>not</em> choose the thesis or judge novelty.</p>
+      <div class="io"><b>reads</b> prompt.txt<br><b>writes</b> research.json</div>
+    </div>
+    <div class="agent-card">
+      <h4>Analyst-Editor <span class="stage">STAGE 2</span></h4>
+      <div class="chips">
+        <span class="chip chip--model">opus</span>
+        <span class="chip chip--noweb">no web</span>
+      </div>
+      <p>The editorial brain. Judges the dossier against the prior briefing and the last five days of transcripts, then decides <strong>write or skip</strong>, fixes the thesis, picks and orders the stories, and names the arguments the script must make.</p>
+      <div class="io"><b>reads</b> research.json, prior briefings<br><b>writes</b> editorial_plan.json</div>
+    </div>
+    <div class="agent-card">
+      <h4>Deep Researcher <span class="stage">STAGE 2.5 · OPTIONAL</span></h4>
+      <div class="chips">
+        <span class="chip chip--model">sonnet</span>
+        <span class="chip chip--web">web access</span>
+      </div>
+      <p>Runs only when the plan names specific evidence gaps. Answers up to 3 questions on exactly 1 approved story within ~6 web calls. Cannot propose new stories or reopen the plan.</p>
+      <div class="io"><b>reads</b> research.json, editorial_plan.json<br><b>writes</b> deep_research.json</div>
+    </div>
+    <div class="agent-card">
+      <h4>Writer <span class="stage">STAGE 3</span></h4>
+      <div class="chips">
+        <span class="chip chip--model">sonnet</span>
+        <span class="chip chip--noweb">no web</span>
+      </div>
+      <p>Turns plan plus evidence into a spoken script for the ear — one spine, signposted transitions, one idea per sentence. May use <strong>only</strong> figures that carry a verbatim quote in its input files.</p>
+      <div class="io"><b>reads</b> plan + dossier (+ deep dive)<br><b>writes</b> draft.txt</div>
+    </div>
+    <div class="agent-card">
+      <h4>Reviewer <span class="stage">STAGE 4</span></h4>
+      <div class="chips">
+        <span class="chip chip--model">opus</span>
+        <span class="chip chip--noweb">no web</span>
+      </div>
+      <p>An independent editor in a <strong>fresh context</strong> that did not write the draft. Audits every figure against its source quote, critiques against the plan and the standard, revises once, and may refuse. Approve is not its default.</p>
+      <div class="io"><b>reads</b> draft + all evidence<br><b>writes</b> review.json, final.txt</div>
+    </div>
+    <div class="agent-card is-gate">
+      <h4>orchestrator.py <span class="stage">THE GATE</span></h4>
+      <div class="chips">
+        <span class="chip">stdlib python</span>
+        <span class="chip">no model</span>
+      </div>
+      <p>Not an agent. Creates the run, schema-checks every artifact, records outcomes, computes where to resume, and owns the single write path into <code>briefings/</code>. It is the only component that can say no and mean it.</p>
+      <div class="io"><b>reads</b> every artifact<br><b>writes</b> run.json, briefings/&lt;id&gt;.txt</div>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ============================================================ -->
+<section>
+  <div class="col">
+    <h2><span class="num">04</span> One briefing, end to end</h2>
+    <p>The five agents never talk to each other. They communicate exclusively through <strong>files on disk</strong> under <code>runs/&lt;date&gt;/&lt;prompt_id&gt;/</code>, and between every pair of stages the gate validates the handoff. A stage receives no conversational history from the stage before it — only the artifact.</p>
+    <p>That is what makes the pipeline auditable. Months later you can open one directory and reconstruct exactly why an episode said what it said, or why it was skipped.</p>
+  </div>
+
+  <p class="caption">Figure 2a — Research and the editorial decision. The dossier is validated before the Analyst-Editor sees it, and the plan may end the prompt outright.</p>
+  <div class="plate">
+    <div class="plate__bar"><span class="fig">Fig. 2a</span><span>Research &amp; editorial decision</span></div>
+    <div class="plate__body">
+<pre class="mermaid">
+%%{init: {'theme':'base','flowchart':{'nodeSpacing':45,'rankSpacing':55,'padding':12},'themeVariables':{'primaryColor':'#E8EFF2','primaryTextColor':'#12181F','primaryBorderColor':'#8FA3AF','lineColor':'#5B6B78'}}}%%
+flowchart TD
+    P[/"prompt.txt"/] -->|dispatch| R("Researcher<br/>sonnet · web")
+    R -->|writes| RJ["research.json<br/>leads + quotes"]
+    RJ -->|validate research| AE("Analyst-Editor<br/>opus · no web")
+    AE -->|writes| EP["editorial_plan.json<br/>thesis · stories · gaps"]
+    EP -->|validate plan| DEC{"decision"}
+    DEC -->|skip| SK(["no episode today"])
+    DEC -->|write| GO(["continue — Fig. 2b"])
+
+    classDef agent fill:#FBF0DC,stroke:#B0730F,color:#3D2A08;
+    classDef file fill:#FFFFFF,stroke:#8FA3AF,color:#17202A;
+    classDef check fill:#E0EFF1,stroke:#21707A,color:#0C2C30;
+    classDef term fill:#21707A,stroke:#21707A,color:#FFFFFF;
+    class R,AE agent;
+    class P,RJ,EP file;
+    class DEC check;
+    class SK,GO term;
+</pre>
+    </div>
+  </div>
+
+  <p class="caption">Figure 2b — Evidence, drafting and the gate. The optional deep dive runs only when the plan named gaps; the reviewer holds an independent veto.</p>
+  <div class="plate">
+    <div class="plate__bar"><span class="fig">Fig. 2b</span><span>Drafting, review &amp; the gate</span></div>
+    <div class="plate__body">
+<pre class="mermaid">
+%%{init: {'theme':'base','flowchart':{'nodeSpacing':45,'rankSpacing':55,'padding':12},'themeVariables':{'primaryColor':'#E8EFF2','primaryTextColor':'#12181F','primaryBorderColor':'#8FA3AF','lineColor':'#5B6B78'}}}%%
+flowchart TD
+    GO(["from Fig. 2a"]) -->|gaps named| DD("Deep Researcher<br/>sonnet · web")
+    GO -->|no gaps| W("Writer<br/>sonnet · no web")
+    DD -->|writes| DJ["deep_research.json"]
+    DJ --> W
+    W -->|writes| DR["draft.txt"]
+    DR --> RV("Reviewer<br/>opus · no web")
+    RV -->|writes| RVJ["review.json<br/>final.txt"]
+    RVJ -->|"decision == approve"| APP(["orchestrator approve<br/>briefings/id.txt"])
+    RVJ -->|skip / failed| SK(["no episode today"])
+
+    classDef agent fill:#FBF0DC,stroke:#B0730F,color:#3D2A08;
+    classDef file fill:#FFFFFF,stroke:#8FA3AF,color:#17202A;
+    classDef check fill:#E0EFF1,stroke:#21707A,color:#0C2C30;
+    classDef term fill:#21707A,stroke:#21707A,color:#FFFFFF;
+    class DD,W,RV agent;
+    class DJ,DR,RVJ file;
+    class GO,APP,SK term;
+</pre>
+    </div>
+  </div>
+
+  <div class="col">
+    <h3>The artifact chain</h3>
+    <p>Each row is a file, and the file <em>is</em> the interface. Anything not in the file does not reach the next stage.</p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr><th>Artifact</th><th>Written by</th><th>Carries</th><th>Gate</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>prompt.txt</td><td>orchestrator init</td><td>The standing prompt text, written to disk once so agents read it rather than the parent re-sending it every dispatch</td><td>—</td></tr>
+        <tr><td>research.json</td><td>Researcher</td><td>Lead candidates, secondary items, items deliberately ignored, research gaps — every important fact bound to a verbatim <code>quote</code></td><td><span class="tag tag--ok">schema + quote contract</span></td></tr>
+        <tr><td>editorial_plan.json</td><td>Analyst-Editor</td><td><code>decision</code>, thesis, lead story, approved items with treatment, required arguments and second-order effects, emergent 5-day patterns, <code>deep_dive_requests</code></td><td><span class="tag tag--ok">schema + dive caps</span></td></tr>
+        <tr><td>deep_research.json</td><td>Deep Researcher</td><td>Answers to the named gaps, plus a <code>contradictions</code> array when fresh evidence undercuts the plan. Absent on most prompts.</td><td><span class="tag tag--ok">dossier schema</span></td></tr>
+        <tr><td>draft.txt</td><td>Writer</td><td>The spoken script, first pass</td><td><span class="tag tag--warn">judged, not schema-checked</span></td></tr>
+        <tr><td>review.json</td><td>Reviewer</td><td><code>decision</code>, issues found, changes made, per-axis scores</td><td><span class="tag tag--ok">schema + decision</span></td></tr>
+        <tr><td>final.txt</td><td>Reviewer</td><td>The revised, publishable script</td><td><span class="tag tag--ok">non-empty</span></td></tr>
+        <tr><td>briefings/&lt;id&gt;.txt</td><td><strong>orchestrator approve</strong></td><td>The copy that TTS and the transcript are built from</td><td><span class="tag tag--bad">only write path</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ============================================================ -->
+<section>
+  <div class="col">
+    <h2><span class="num">05</span> Why the seams are where they are</h2>
+    <p>The stage boundaries look bureaucratic until you notice each one removes a specific, observed failure.</p>
+
+    <h3>The writer is not the reviewer</h3>
+    <p>They are separate agents with separate contexts, and the reviewer is told it did not write the draft. A model grading its own prose approves it; a model handed an anonymous draft and an evidence file audits it. On a recent run the reviewers caught and fixed five figure-audit failures on each of two briefings and three in the synthesis — including a cross-day claim that the last five transcripts actually contradicted.</p>
+
+    <h3>Three of five agents have no internet</h3>
+    <p>The analyst, writer and reviewer are sealed off from the web on purpose. If the writer could search, it would quietly introduce facts that never passed the researcher's sourcing discipline, and the reviewer would have no fixed evidence set to audit against. Cutting web access converts "is this true?" — unanswerable — into "is this in the dossier?" — mechanically checkable.</p>
+
+    <h3>Every figure must trace to a verbatim quote</h3>
+    <p>The researcher must attach a literal source <code>quote</code> to each important fact, and the schema check enforces it. The writer may use only quoted figures. The reviewer audits each number in the draft back to its quote. A number with no quote gets hedged or cut — which is why the pipeline sometimes says "reported near $17.9 billion" instead of asserting it.</p>
+
+    <h3>The plan can say "skip"</h3>
+    <p>Under <strong>strict</strong> novelty — the mode every scheduled run uses — the analyst rejects material that merely repeats the prior briefing unless there is genuinely new news or data. If nothing clears the bar, the prompt is skipped and no episode ships. Interactive runs default to <strong>relaxed</strong>. The reviewer holds a second, independent skip veto at stage 4.</p>
+  </div>
+
+  <div class="note">
+    <h5>Stage 2.5 exists to stop the writer hedging</h5>
+    <p>The analyst writes required arguments knowing the writer has no web access and may only use quoted figures. When the dossier cannot support what the plan demanded, drafts came in short and hedged — 6 of 10 under the word floor on one measured run. The deep dive closes that loop at the one moment the gap is both known and specific, and it is deliberately capped at 1 story, 3 questions, ~6 web calls so a research stage cannot blow the batch budget. It can never fail a prompt: on error its file is deleted and the writer proceeds without it.</p>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ============================================================ -->
+<section>
+  <div class="col">
+    <h2><span class="num">06</span> The gate in motion</h2>
+    <p>Here is the actual control loop for one stage. The parent session never trusts a subagent's word that it succeeded — it validates the file. A malformed artifact gets exactly <strong>one</strong> repair attempt before the prompt is marked failed and the batch moves on. One bad prompt never stops the other eleven.</p>
+  </div>
+
+  <p class="caption">Figure 3 — Dispatch, validate, repair once, then advance or abandon. The gate's refusal is unconditional: no reviewer verdict, no copy into briefings/.</p>
+  <div class="plate">
+    <div class="plate__bar"><span class="fig">Fig. 3</span><span>Control loop &amp; failure handling</span></div>
+    <div class="plate__body">
+<pre class="mermaid">
+%%{init: {'theme':'base','flowchart':{'nodeSpacing':45,'rankSpacing':55,'padding':12},'themeVariables':{'primaryColor':'#E8EFF2','primaryTextColor':'#12181F','primaryBorderColor':'#8FA3AF','lineColor':'#5B6B78','actorBkg':'#FBF0DC','actorBorder':'#B0730F','actorTextColor':'#3D2A08','noteBkgColor':'#E0EFF1','noteBorderColor':'#21707A','noteTextColor':'#0C2C30','signalColor':'#3E4C57','signalTextColor':'#17202A'}}}%%
+sequenceDiagram
+    autonumber
+    participant PS as Parent session
+    participant AG as Subagent
+    participant OR as orchestrator.py
+    participant FS as runs/date/id/
+
+    PS->>OR: init --date D --novelty strict
+    OR->>FS: create dirs, run.json, prompt.txt
+    OR-->>PS: plan + per-prompt resume_stage
+
+    PS->>AG: dispatch with paths only
+    AG->>FS: read inputs
+    AG->>FS: write artifact
+    AG-->>PS: done
+
+    PS->>OR: validate research runs/D/id/research.json
+    alt artifact valid
+        OR-->>PS: OK
+        Note over PS,OR: advance to next stage
+    else invalid
+        OR-->>PS: INVALID + readable errors
+        PS->>AG: one repair attempt
+        AG->>FS: rewrite artifact
+        PS->>OR: validate again
+        alt still invalid
+            PS->>OR: mark id --status failed --stage research
+            Note over PS,OR: prompt abandoned, batch continues
+        end
+    end
+
+    PS->>OR: approve id --date D
+    Note over OR,FS: refuses unless review.json<br/>decision == "approve"<br/>and final.txt is non-empty
+    OR->>FS: copy final.txt → briefings/id.txt
+</pre>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ============================================================ -->
+<section>
+  <div class="col">
+    <h2><span class="num">07</span> From one prompt to a whole batch</h2>
+    <p>Running twelve prompts through five stages inside a single Claude session used to be the design. It failed for an unobvious reason: the parent session's context accumulates across the entire batch, so by prompt twelve every dispatch is re-sending an enormous history. Measured on a real run, that <em>orchestration</em> overhead was <strong>36.5% of all tokens spent</strong> — as much as the researcher itself.</p>
+    <p>Phase 1 therefore runs as <strong>several small sessions</strong>. Prompts are chunked (default 3 per session), each chunk gets a fresh <code>claude -p</code> process, and the parent context resets between them. Any synthesis prompt runs <strong>last, alone</strong>, because it must read the day's already-approved briefings off disk. The day's analysis is written in its own final session.</p>
+  </div>
+
+  <p class="caption">Figure 4 — Chunked phase 1. init and prune run once for the whole batch; each chunk session is told to skip them so a per-chunk prune can never disturb a sibling.</p>
+  <div class="plate">
+    <div class="plate__bar"><span class="fig">Fig. 4</span><span>Chunked batch execution</span></div>
+    <div class="plate__body">
+<pre class="mermaid">
+%%{init: {'theme':'base','flowchart':{'nodeSpacing':45,'rankSpacing':55,'padding':12},'themeVariables':{'primaryColor':'#E8EFF2','primaryTextColor':'#12181F','primaryBorderColor':'#8FA3AF','lineColor':'#5B6B78','clusterBkg':'#F7FAFB','clusterBorder':'#C8D4DB'}}}%%
+flowchart TD
+    S["daily_run.ps1"] --> I["orchestrator init + resume --prune<br/>ONCE for the whole batch"]
+    I --> C1
+    subgraph SESS["one fresh claude -p session per chunk — context resets between them"]
+        direction LR
+        C1["session 1<br/>3 normal prompts"] --> C2["session 2<br/>3 normal prompts"] --> C3["session 3<br/>3 normal prompts"] --> C4["session 4<br/>remaining normals"]
+    end
+    C4 --> SY["synthesis session<br/>Throughline reads the day's<br/>approved briefings"]
+    SY --> CK{"any prompt still<br/>pending or failed?"}
+    CK -- "yes" --> RT["Opus 4.8 retry<br/>same chunked runner"]
+    CK -- "no" --> AN
+    RT --> AN["analysis session<br/>writes analyses/date.md"]
+    AN --> P2["PHASE 2 — publish"]
+
+    classDef machine fill:#E0EFF1,stroke:#21707A,color:#0C2C30;
+    classDef agent fill:#FBF0DC,stroke:#B0730F,color:#3D2A08;
+    classDef check fill:#FFFFFF,stroke:#8FA3AF,color:#17202A;
+    class S,I,P2 machine;
+    class C1,C2,C3,C4,SY,RT,AN agent;
+    class CK check;
+</pre>
+    </div>
+  </div>
+
+  <div class="col">
+    <p>Every prompt is independent, so a chunk that dies takes only its own prompts with it — and even those survive, because of the resume machinery in §09.</p>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ============================================================ -->
+<section>
+  <div class="col">
+    <h2><span class="num">08</span> The night: three runs, two usage windows</h2>
+    <p>Claude usage limits are enforced per rolling <strong>~5-hour session window</strong>. One full batch now costs more than a single window allows — on 2026-07-25 phase 1 spent ~58M tokens in 16 minutes, finished 9 of 11 prompts, and hit the cap.</p>
+    <p>Idle time inside a window restores nothing, so pausing mid-run does not help. Starting <em>earlier</em> is actively worse: the evening's own interactive session may still hold an open window past midnight. The only pause that helps is one that <strong>crosses the reset boundary</strong>. So the batch is deliberately split across two windows, with a third run as a safety net.</p>
+  </div>
+
+  <p class="caption">Figure 5 — The nightly schedule. Each run opens its own usage window; the gaps between them are what make the split work.</p>
+  <div class="plate">
+    <div class="plate__bar"><span class="fig">Fig. 5</span><span>Nightly timeline</span></div>
+    <div class="plate__body">
+<pre class="mermaid">
+%%{init: {'theme':'base','flowchart':{'nodeSpacing':45,'rankSpacing':55,'padding':12},'themeVariables':{'primaryColor':'#E8EFF2','primaryTextColor':'#12181F','primaryBorderColor':'#8FA3AF','lineColor':'#5B6B78'}}}%%
+gantt
+    dateFormat HH:mm
+    axisFormat %H:%M
+    todayMarker off
+
+    section Midnight task
+    pipeline 6 least time-sensitive prompts   :done, m1, 00:00, 25m
+    usage window 1 open                        :active, w1, 00:00, 5h
+
+    section Main task 05:15
+    pipeline remaining prompts + Throughline   :done, d1, 05:15, 30m
+    publish ALL 12 episodes                    :crit, d2, 05:45, 12m
+    usage window 2 open                        :active, w2, 05:15, 5h
+
+    section Completion 10:05
+    resume check — usually zero tokens         :done, c1, 10:05, 3m
+</pre>
+    </div>
+  </div>
+
+  <div class="col">
+    <h3>Why 05:15 and not 05:00</h3>
+    <p>The midnight run's window opens at its first model call and resets ~05:00. Starting the second run at exactly 05:00 lands on the boundary and risks inheriting the spent window. Fifteen minutes buys margin, at the cost of publishing around 05:55.</p>
+
+    <h3>The midnight half is chosen editorially, not arbitrarily</h3>
+    <p>Its research is ~5 hours staler by air time, so it takes the prompts where that costs least — biopharma, robotics, enterprise tech, private equity, AI products, semiconductors. The market-sensitive briefings (capital markets, digital money, strategic power, private credit), plus frontier AI labs and the Throughline, stay on the 05:15 run.</p>
+
+    <h3>Only one publish</h3>
+    <p>The midnight run pipelines its half and stops — it publishes nothing. The 05:15 run picks up everything still outstanding and publishes the <strong>whole day in one commit, one push, one phone notification</strong>. It needs no list of what midnight did: the resume check reports those prompts as <code>done</code> and skips them. A newly added prompt therefore falls to the 05:15 run by default, which is the safe side.</p>
+
+    <h3>The 10:05 completion pass</h3>
+    <p>A third scheduled run, just after the 05:15 window resets, finishes anything the cap truncated — in fresh quota, automatically. On a normal morning it asks the resume machinery what is outstanding, finds nothing, <strong>spends zero model tokens</strong>, and exits in about two seconds after confirming every episode is already live.</p>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ============================================================ -->
+<section>
+  <div class="col">
+    <h2><span class="num">09</span> When a run is interrupted</h2>
+    <p>Because agents hand off through files, an interrupted run leaves a partially built directory rather than a lost conversation. <code>orchestrator.py resume</code> reads those directories and computes, per prompt, the first stage that actually needs to run.</p>
+    <p>It walks the artifact chain and stops at the first file that is missing, empty, schema-invalid, or — the subtle one — <strong>older than the artifact it derives from</strong>. Everything from that point onward is stale by construction and is reported for deletion; <code>--prune</code> removes it.</p>
+  </div>
+
+  <p class="caption">Figure 6 — Resume states. Forward edges are normal progress; the backward edges are the staleness rule kicking a prompt back when an upstream artifact was rewritten underneath it.</p>
+  <div class="plate">
+    <div class="plate__bar"><span class="fig">Fig. 6</span><span>Resume state machine</span></div>
+    <div class="plate__body">
+<pre class="mermaid">
+%%{init: {'theme':'base','flowchart':{'nodeSpacing':45,'rankSpacing':55,'padding':12},'themeVariables':{'primaryColor':'#E8EFF2','primaryTextColor':'#12181F','primaryBorderColor':'#8FA3AF','lineColor':'#5B6B78'}}}%%
+stateDiagram-v2
+    direction TB
+    [*] --> research
+    research --> plan : research.json valid
+    plan --> deep : plan requests a dive
+    plan --> write : no dive requested
+    deep --> write : deep_research.json valid
+    write --> review : draft.txt present
+    review --> finalize : review.json + final.txt valid
+    plan --> finalize : decision == skip
+    finalize --> done : approve or mark
+    done --> [*]
+
+    write --> deep : upstream rewritten — dive is stale
+    review --> write : upstream rewritten — draft is stale
+
+    note right of deep
+      --prune deletes every
+      artifact downstream of
+      the resume point
+    end note
+    note right of done
+      already approved or skipped:
+      never re-run, costs nothing
+    end note
+</pre>
+    </div>
+  </div>
+
+  <div class="note note--war">
+    <h5>The failure this was built for</h5>
+    <p>On 2026-07-25 the cap stopped the run mid-batch and the retry restarted each unfinished prompt <em>from the researcher</em>, rewriting complete artifacts and exhausting the remaining budget without finishing anything. Worse, the downstream files built from the <em>old</em> plan survived on disk with nothing flagging the mismatch — a deep dive about Bitcoin whale flows sitting beside a plan about the CLARITY Act. A naive resume would have handed the writer that mismatched pair, and the resulting script would have looked entirely plausible. Hence: staleness is detected by comparing modification times against the upstream artifact, and pruning is what makes resuming safe.</p>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ============================================================ -->
+<section>
+  <div class="col">
+    <h2><span class="num">10</span> Publishing: from approved script to Spotify</h2>
+    <p>Phase 2 contains no AI at all. It is a deterministic Python batch that takes whatever is sitting in <code>briefings/</code> and turns it into a live podcast episode. Its guard rail is <code>--require-fresh</code>: only scripts whose file was <em>modified today</em> are published, so a prompt that was skipped or failed keeps yesterday's file on disk and is automatically excluded rather than re-shipped as new.</p>
+  </div>
+
+  <p class="caption">Figure 7 — The publish path. Audio is hosted as GitHub Release assets so the git object store never grows; only the RSS and transcripts live in the repo.</p>
+  <div class="plate">
+    <div class="plate__bar"><span class="fig">Fig. 7</span><span>Publish &amp; distribution</span></div>
+    <div class="plate__body">
+<pre class="mermaid">
+%%{init: {'theme':'base','flowchart':{'nodeSpacing':45,'rankSpacing':55,'padding':12},'themeVariables':{'primaryColor':'#E8EFF2','primaryTextColor':'#12181F','primaryBorderColor':'#8FA3AF','lineColor':'#5B6B78','actorBkg':'#E0EFF1','actorBorder':'#21707A','actorTextColor':'#0C2C30','noteBkgColor':'#FBF0DC','noteBorderColor':'#B0730F','noteTextColor':'#3D2A08','signalColor':'#3E4C57','signalTextColor':'#17202A'}}}%%
+sequenceDiagram
+    autonumber
+    participant PF as publish_feed.py
+    participant EP as episode.py (edge-tts)
+    participant GR as github_release.py
+    participant FD as feed.py
+    participant GH as GitHub → Spotify
+
+    loop each enabled prompt, synthesis LAST
+        PF->>PF: fresh today? already published?
+        PF->>EP: synthesize briefings/id.txt
+        Note over EP: chunk ~1500 chars, retry per chunk,<br/>fall back to per-paragraph,<br/>voice en-US-AndrewNeural at -4%
+        EP-->>PF: id.mp3
+        PF->>GR: upload asset to the permanent "audio" release
+        GR-->>PF: public download URL
+        PF->>FD: add_episode(guid = id-YYYY-MM-DD)
+        FD->>FD: write transcript .txt + .html
+    end
+
+    PF->>FD: prune_old(10 days)
+    Note over FD,GH: drop aged episodes from state,<br/>delete their release assets + transcripts
+    PF->>FD: build_feed()
+    FD-->>PF: docs/feed.xml, newest first
+    PF->>GH: git commit + push (docs + feed_state.json)
+    Note over GH: Pages serves feed.xml<br/>Spotify re-ingests on its next refresh<br/>ntfy push → owner's phone
+</pre>
+    </div>
+  </div>
+
+  <div class="col">
+    <h3>Identity and idempotency</h3>
+    <p>An episode's GUID is <code>&lt;prompt_id&gt;-&lt;YYYY-MM-DD&gt;</code> — unique per topic per day. Re-running the same prompt on the same date overwrites that day's episode in place; a new date creates a new episode. Enclosure URLs carry a <code>?v=&lt;publish-epoch&gt;</code> cache-bust token, because replacing already-ingested audio at a stable URL makes Spotify serve the <em>old</em> cached file.</p>
+
+    <h3>Publishing twice in one day</h3>
+    <p>The completion pass adds <code>--skip-published</code>, which skips any prompt already recorded in the feed for that date. Without it, a second pass re-runs TTS on live episodes and changes their enclosure URLs, forcing Spotify to re-download audio that never changed. "Already published" counts as success for the exit code but not as newly published, so the phone notification stays silent unless something genuinely shipped.</p>
+
+    <h3>Rolling retention</h3>
+    <p>The show keeps a <strong>10-day window</strong>. After each publish, aged episodes are dropped from the feed, their audio assets deleted from the GitHub Release, and their transcripts removed; local <code>runs/</code> and logs older than the window are swept too. The per-run analyses are deliberately exempt — they are the kept history.</p>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ============================================================ -->
+<section>
+  <div class="col">
+    <h2><span class="num">11</span> What it costs, and where</h2>
+    <p>Every run's token spend is attributed by stage — each subagent identified by the artifact it writes, the parent session booked as <em>orchestration</em>. This is the measurement that drives design decisions rather than intuition. Figures below are one real 12-prompt run.</p>
+  </div>
+
+  <div class="chart">
+    <div class="bar-row"><span class="lbl">researcher</span><span class="bar-track"><span class="bar-fill" style="width:100%"></span></span><span class="val">36.5%</span></div>
+    <div class="bar-row"><span class="lbl">orchestration</span><span class="bar-track"><span class="bar-fill is-machine" style="width:100%"></span></span><span class="val">36.5%</span></div>
+    <div class="bar-row"><span class="lbl">analyst-editor</span><span class="bar-track"><span class="bar-fill" style="width:29.9%"></span></span><span class="val">10.9%</span></div>
+    <div class="bar-row"><span class="lbl">reviewer</span><span class="bar-track"><span class="bar-fill" style="width:23.3%"></span></span><span class="val">8.5%</span></div>
+    <div class="bar-row"><span class="lbl">deep-researcher</span><span class="bar-track"><span class="bar-fill" style="width:14.2%"></span></span><span class="val">5.2%</span></div>
+    <div class="bar-row"><span class="lbl">writer</span><span class="bar-track"><span class="bar-fill" style="width:6.0%"></span></span><span class="val">2.2%</span></div>
+    <div class="bar-row"><span class="lbl">other</span><span class="bar-track"><span class="bar-fill" style="width:0.8%"></span></span><span class="val">0.3%</span></div>
+    <div class="chart__foot">
+      Run 2026-07-25 · 12 prompts · 64,632,406 tokens tip to tail · 14,510 published words · 4,454 tokens/word.<br>
+      86% of the total is <code>cache_read</code> — context re-sent on every agent turn, which is exactly the term chunking attacks.
+    </div>
+  </div>
+
+  <div class="col">
+    <p>Two findings are worth internalising. First, <strong>writing is nearly free</strong> — the writer is 2.2% of spend. Research and orchestration are the entire cost centre, which is why the levers are chunk size and researcher breadth, not prose quality. Second, <strong>raw token totals are a poor proxy for quota consumption</strong>: an interactive window on 2026-07-24 reached 78.6M tokens without hitting a cap, while a 58M Opus-heavy pipeline run did. Model mix matters more than volume, so the robust move is halving demand per window rather than optimising toward a threshold that cannot be observed.</p>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ============================================================ -->
+<section>
+  <div class="col">
+    <h2><span class="num">12</span> Operator's quick reference</h2>
+    <p>Where to look, in the order worth looking.</p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Question</th><th>Where to look</th></tr></thead>
+      <tbody>
+        <tr><td>How did last night go?</td><td><code>logs/daily-&lt;date&gt;.log</code> — all three runs append to one file</td></tr>
+        <tr><td>What shipped, what skipped?</td><td><code>python orchestrator.py status --date &lt;date&gt;</code></td></tr>
+        <tr><td>What still needs running?</td><td><code>python orchestrator.py resume --date &lt;date&gt;</code> (add <code>--prune</code> before resuming)</td></tr>
+        <tr><td>Why did this episode say that?</td><td><code>runs/&lt;date&gt;/&lt;id&gt;/</code> — dossier, plan, dive, draft, review</td></tr>
+        <tr><td>Why was this prompt skipped?</td><td><code>editorial_plan.json → decision_reason</code>, or <code>review.json → decision_reason</code></td></tr>
+        <tr><td>How did the agents perform?</td><td><code>analyses/&lt;date&gt;.md</code>, or the Run analyses tab in <code>main.py</code></td></tr>
+        <tr><td>Where did the tokens go?</td><td><code>python run_report.py --date &lt;date&gt;</code></td></tr>
+        <tr><td>Is it live?</td><td><code>feed_state.json</code>, then the public <code>docs/feed.xml</code></td></tr>
+        <tr><td>Change a role's model</td><td><code>.claude/agents/&lt;role&gt;.md</code> frontmatter — never the caller</td></tr>
+        <tr><td>Change what a briefing covers</td><td><code>prompts.json</code>, via the <code>main.py</code> window</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col">
+    <h3>The three failure classes</h3>
+    <ul>
+      <li><strong>One prompt fails.</strong> Marked failed, batch continues, eleven episodes still ship. The stale-script guard keeps the failed one out of the feed.</li>
+      <li><strong>A run is truncated</strong> (usage cap, machine sleep). Resume computes where to restart; the 10:05 pass finishes it automatically in a fresh window.</li>
+      <li><strong>TTS drops mid-stream.</strong> Retried per chunk, then per paragraph; exhausting retries fails that episode only, and the script stays on disk for a manual re-publish.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="col">
+    Cautious Optimism Briefings — agent architecture &amp; flow.<br>
+    Companion documents: <code>CLAUDE.md</code> (the always-on editorial standard) ·
+    <code>docs/ARCHITECTURE.md</code> (module-level reference) ·
+    the <code>daily-briefing</code> skill (operational procedure).
+  </div>
+</footer>
+
+</div>
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  // htmlLabels:false is the important one. By default Mermaid puts node labels in an SVG
+  // <foreignObject> containing HTML — which clips long labels here, and which print engines and
+  // PDF renderers frequently drop altogether (the classic "diagram prints blank"). Rendering
+  // labels as native SVG <text> makes the output portable to paper.
+  mermaid.initialize({
+    startOnLoad: true,
+    securityLevel: 'loose',
+    flowchart: { htmlLabels: false, useMaxWidth: true, nodeSpacing: 45, rankSpacing: 55, padding: 12 },
+    state:     { htmlLabels: false },
+    sequence:  { useMaxWidth: true, wrap: true, width: 170 },
+    gantt:     { useMaxWidth: true, barHeight: 22, fontSize: 12 }
+  });
+</script>
+
+</body>
+</html>
