@@ -1919,6 +1919,21 @@
       "duration": 509,
       "transcript_txt": "forward-curve-2026-08-13.txt",
       "transcript_html": "forward-curve-2026-08-13.html"
+    },
+    {
+      "guid": "capital-markets-radar-2026-08-13",
+      "prompt_id": "capital-markets-radar",
+      "title": "Capital Markets Cross-Asset Radar — August 13, 2026",
+      "summary": "Yesterday we flagged the July CPI print as the tiebreaker on the market's live rate debate and refused to call it ahead of time. It landed, and it landed cool. The Bureau of Labor Statistics reported headline CPI up 0.1% month over month and 3.4% year over year, down from 3.5% in June.",
+      "date": "2026-08-13",
+      "seq": 11,
+      "published_at": "2026-08-13T10:29:08-04:00",
+      "audio_file": "capital-markets-radar-2026-08-13.mp3",
+      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/capital-markets-radar-2026-08-13.mp3",
+      "length": 3031632,
+      "duration": 505,
+      "transcript_txt": "capital-markets-radar-2026-08-13.txt",
+      "transcript_html": "capital-markets-radar-2026-08-13.html"
     }
   ]
 }
