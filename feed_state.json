@@ -1844,6 +1844,66 @@
       "duration": 547,
       "transcript_txt": "forward-curve-2026-08-18.txt",
       "transcript_html": "forward-curve-2026-08-18.html"
+    },
+    {
+      "guid": "strategic-power-2026-08-18",
+      "prompt_id": "strategic-power",
+      "title": "Strategic Power, Energy, and Institutional Change — August 18, 2026",
+      "summary": "Two days ago, this beat argued that Russia's energy export machine was being damaged less by the West's sanctions bills than by Ukraine's drones — the physical channel outpacing the paper one. This week that thesis escalated fast.",
+      "date": "2026-08-18",
+      "seq": 9,
+      "published_at": "2026-08-18T10:07:55-04:00",
+      "audio_file": "strategic-power-2026-08-18.mp3",
+      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/strategic-power-2026-08-18.mp3",
+      "length": 2956320,
+      "duration": 493,
+      "transcript_txt": "strategic-power-2026-08-18.txt",
+      "transcript_html": "strategic-power-2026-08-18.html"
+    },
+    {
+      "guid": "semiconductors-compute-2026-08-18",
+      "prompt_id": "semiconductors-compute",
+      "title": "Semiconductors & Compute Infrastructure — August 18, 2026",
+      "summary": "The lead today is a financing story, not a chip story, and it may matter more than any product launch this month.",
+      "date": "2026-08-18",
+      "seq": 10,
+      "published_at": "2026-08-18T10:10:29-04:00",
+      "audio_file": "semiconductors-compute-2026-08-18.mp3",
+      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/semiconductors-compute-2026-08-18.mp3",
+      "length": 2932416,
+      "duration": 489,
+      "transcript_txt": "semiconductors-compute-2026-08-18.txt",
+      "transcript_html": "semiconductors-compute-2026-08-18.html"
+    },
+    {
+      "guid": "ai-products-2026-08-18",
+      "prompt_id": "ai-products",
+      "title": "AI Products & Applications — August 18, 2026",
+      "summary": "The biggest AI-product story of the week is a deal that neither company will actually confirm. Bloomberg and TechCrunch report that Stripe has finalized an acquisition of OpenRouter for more than 7 billion dollars. Hold onto that \"report\" — it becomes the story later.",
+      "date": "2026-08-18",
+      "seq": 11,
+      "published_at": "2026-08-18T10:12:20-04:00",
+      "audio_file": "ai-products-2026-08-18.mp3",
+      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/ai-products-2026-08-18.mp3",
+      "length": 2883024,
+      "duration": 481,
+      "transcript_txt": "ai-products-2026-08-18.txt",
+      "transcript_html": "ai-products-2026-08-18.html"
+    },
+    {
+      "guid": "throughline-2026-08-18",
+      "prompt_id": "throughline",
+      "title": "The Throughline (daily synthesis) — August 18, 2026",
+      "summary": "Start with the macro backdrop. Strategic Power has Ukraine's drone strikes doing more damage to Russian refining, down to a 24-year low, than a Senate sanctions bill still stuck in House recess, while TSMC's raised capex guidance shows AI chip demand still outrunning the power buildout needed to run those chips.",
+      "date": "2026-08-18",
+      "seq": 12,
+      "published_at": "2026-08-18T10:13:57-04:00",
+      "audio_file": "throughline-2026-08-18.mp3",
+      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/throughline-2026-08-18.mp3",
+      "length": 2024784,
+      "duration": 337,
+      "transcript_txt": "throughline-2026-08-18.txt",
+      "transcript_html": "throughline-2026-08-18.html"
     }
   ]
 }
