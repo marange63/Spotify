@@ -1949,6 +1949,21 @@
       "duration": 529,
       "transcript_txt": "forward-curve-2026-08-20.txt",
       "transcript_html": "forward-curve-2026-08-20.html"
+    },
+    {
+      "guid": "private-equity-2026-08-20",
+      "prompt_id": "private-equity",
+      "title": "Private Equity & the Deal Economy — August 20, 2026",
+      "summary": "This week gave us a case study in the gap between narrative and cash. On August 19th, Bloomberg reported that private equity buyers may finally be joining the broader M&A surge that has put three and a half trillion dollars of deals on the board this year, a surge so far dominated by corporate acquirers.",
+      "date": "2026-08-20",
+      "seq": 13,
+      "published_at": "2026-08-20T10:06:06-04:00",
+      "audio_file": "private-equity-2026-08-20.mp3",
+      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/private-equity-2026-08-20.mp3",
+      "length": 2613888,
+      "duration": 436,
+      "transcript_txt": "private-equity-2026-08-20.txt",
+      "transcript_html": "private-equity-2026-08-20.html"
     }
   ]
 }
