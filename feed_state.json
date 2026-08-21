@@ -1919,6 +1919,51 @@
       "duration": 582,
       "transcript_txt": "forward-curve-2026-08-21.txt",
       "transcript_html": "forward-curve-2026-08-21.html"
+    },
+    {
+      "guid": "semiconductors-compute-2026-08-21",
+      "prompt_id": "semiconductors-compute",
+      "title": "Semiconductors & Compute Infrastructure — August 21, 2026",
+      "summary": "This week, this show has been tracking the AI buildout as a credit story — Intel's equity raise, Nvidia's financing memoranda, AMD's record bond sale, Tuesday's five-percent rout across chip stocks. The wafer market did not get that memo.",
+      "date": "2026-08-21",
+      "seq": 11,
+      "published_at": "2026-08-21T10:09:26-04:00",
+      "audio_file": "semiconductors-compute-2026-08-21.mp3",
+      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/semiconductors-compute-2026-08-21.mp3",
+      "length": 3625344,
+      "duration": 604,
+      "transcript_txt": "semiconductors-compute-2026-08-21.txt",
+      "transcript_html": "semiconductors-compute-2026-08-21.html"
+    },
+    {
+      "guid": "enterprise-tech-2026-08-21",
+      "prompt_id": "enterprise-tech",
+      "title": "Enterprise Technology & Software — August 21, 2026",
+      "summary": "This week the best AI numbers in enterprise tech and the best stock reaction did not belong to the same company. That gap is the story today.",
+      "date": "2026-08-21",
+      "seq": 12,
+      "published_at": "2026-08-21T10:12:06-04:00",
+      "audio_file": "enterprise-tech-2026-08-21.mp3",
+      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/enterprise-tech-2026-08-21.mp3",
+      "length": 3181968,
+      "duration": 530,
+      "transcript_txt": "enterprise-tech-2026-08-21.txt",
+      "transcript_html": "enterprise-tech-2026-08-21.html"
+    },
+    {
+      "guid": "private-equity-2026-08-21",
+      "prompt_id": "private-equity",
+      "title": "Private Equity & the Deal Economy — August 21, 2026",
+      "summary": "For two days running, this briefing has argued that the industry was generating fees and deal activity without actually returning cash to limited partners. On Wednesday the frame was financialization. On Thursday it was that the thaw talk had run well ahead of the cash.",
+      "date": "2026-08-21",
+      "seq": 13,
+      "published_at": "2026-08-21T10:13:34-04:00",
+      "audio_file": "private-equity-2026-08-21.mp3",
+      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/private-equity-2026-08-21.mp3",
+      "length": 3146112,
+      "duration": 524,
+      "transcript_txt": "private-equity-2026-08-21.txt",
+      "transcript_html": "private-equity-2026-08-21.html"
     }
   ]
 }
