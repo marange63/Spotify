@@ -1919,6 +1919,36 @@
       "duration": 535,
       "transcript_txt": "forward-curve-2026-08-22.txt",
       "transcript_html": "forward-curve-2026-08-22.html"
+    },
+    {
+      "guid": "ai-products-2026-08-22",
+      "prompt_id": "ai-products",
+      "title": "AI Products & Applications — August 22, 2026",
+      "summary": "For the last week, this show has tracked capability and cost: what a model can do, and what it costs to run it. Today the variable that moves is different. It's who pays, and who distributes. Every item in today's briefing is a decision about money and access, not a demonstration of new capability.",
+      "date": "2026-08-22",
+      "seq": 11,
+      "published_at": "2026-08-22T10:06:54-04:00",
+      "audio_file": "ai-products-2026-08-22.mp3",
+      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/ai-products-2026-08-22.mp3",
+      "length": 3533616,
+      "duration": 589,
+      "transcript_txt": "ai-products-2026-08-22.txt",
+      "transcript_html": "ai-products-2026-08-22.html"
+    },
+    {
+      "guid": "private-credit-2026-08-22",
+      "prompt_id": "private-credit",
+      "title": "Private Credit & the Corporate Credit Cycle — August 22, 2026",
+      "summary": "A new dataset landed this week on a book we have tracked every day for the last five sessions, and the interesting number in it is not the one in the headline. PitchBook LCD published its second-quarter tracker of the ten largest publicly traded business development companies on Wednesday.",
+      "date": "2026-08-22",
+      "seq": 12,
+      "published_at": "2026-08-22T10:09:41-04:00",
+      "audio_file": "private-credit-2026-08-22.mp3",
+      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/private-credit-2026-08-22.mp3",
+      "length": 2986992,
+      "duration": 498,
+      "transcript_txt": "private-credit-2026-08-22.txt",
+      "transcript_html": "private-credit-2026-08-22.html"
     }
   ]
 }
