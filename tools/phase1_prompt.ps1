@@ -5,6 +5,31 @@
 # semantics can never drift between them - the completion pass depends entirely on those semantics
 # being obeyed, and a stale copy would silently restart finished prompts.
 
+# Locate the Claude Code executable. Resolved at RUN TIME rather than hard-coded, because the
+# install location moved once already: this project originally used the native installer's
+# %USERPROFILE%\.local\bin\claude.exe, which vanished when that install was removed in favour of
+# the global npm one (2026-08-21). Preference order is npm-global, then the native installer,
+# then whatever is on PATH.
+#
+# NOTE we deliberately target the npm package's REAL bin\claude.exe and never the
+# %APPDATA%\npm\claude.cmd shim: the phase-1 prompts are multi-line strings, and routing them
+# through cmd.exe mangles the embedded newlines. The Get-Command fallback is filtered to a .exe
+# for the same reason.
+#
+# Returns $null when nothing usable is found, so the caller can abort loudly instead of failing
+# once per chunk and leaving a run that quietly published nothing.
+function Resolve-ClaudeExe {
+    $candidates = @(
+        (Join-Path $env:APPDATA 'npm\node_modules\@anthropic-ai\claude-code\bin\claude.exe'),
+        (Join-Path $env:USERPROFILE '.local\bin\claude.exe')
+    )
+    foreach ($c in $candidates) { if ($c -and (Test-Path $c)) { return $c } }
+    $cmd = Get-Command claude -CommandType Application -ErrorAction SilentlyContinue |
+           Where-Object { $_.Source -like '*.exe' } | Select-Object -First 1
+    if ($cmd) { return $cmd.Source }
+    return $null
+}
+
 function Get-Phase1Prompt {
     param(
         [Parameter(Mandatory)][string]$Today,

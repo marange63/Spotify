@@ -43,7 +43,7 @@ param([switch]$RepeatOK, [switch]$NoPublish, [string]$Only = '', [int]$ChunkSize
 
 $ErrorActionPreference = 'Continue'
 $proj   = 'C:\Users\wamfo\ClaudeDev\Spotify'
-$claude = Join-Path $env:USERPROFILE '.local\bin\claude.exe'
+# $claude is resolved below via Resolve-ClaudeExe (tools\phase1_prompt.ps1) - see the note there.
 $conda  = Join-Path $env:USERPROFILE 'anaconda3\Scripts\conda.exe'
 $today  = Get-Date -Format 'yyyy-MM-dd'
 
@@ -91,6 +91,15 @@ if ($onlyIds.Count) { Log "scope: $($onlyIds -join ', ')" }
 # context accumulation. Both the chunk prompts and the resume/retry semantics live in
 # tools\phase1_prompt.ps1, shared with tools\completion_run.ps1.
 . (Join-Path $PSScriptRoot 'phase1_prompt.ps1')
+# Resolve the Claude Code binary now that the helper is loaded. Aborting here is deliberate: an
+# unresolvable path used to surface only as a per-chunk invocation error, and the run would carry on
+# to publish nothing.
+$claude = Resolve-ClaudeExe
+if (-not $claude) {
+    Log "ABORT: could not locate claude.exe (looked in %APPDATA%\npm, %USERPROFILE%\.local\bin, and PATH)"
+    exit 3
+}
+Log "claude: $claude"
 
 # Initialise + prune ONCE for the whole batch (writes runs/<date>/<id>/prompt.txt too); the per-chunk
 # sessions then use -SkipInit so a per-chunk --prune can never disturb a sibling chunk.

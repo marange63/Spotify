@@ -21,7 +21,7 @@ param([switch]$NoPublish, [int]$ChunkSize = 3)
 
 $ErrorActionPreference = 'Continue'
 $proj   = 'C:\Users\wamfo\ClaudeDev\Spotify'
-$claude = Join-Path $env:USERPROFILE '.local\bin\claude.exe'
+# $claude is resolved below via Resolve-ClaudeExe (tools\phase1_prompt.ps1) - see the note there.
 $conda  = Join-Path $env:USERPROFILE 'anaconda3\Scripts\conda.exe'
 $today  = Get-Date -Format 'yyyy-MM-dd'
 
@@ -68,6 +68,16 @@ if ($unfinished -eq 0) {
     & $conda run -n Spotify --no-capture-output python run_report.py --date $today --start *>> $log
 
     . (Join-Path $PSScriptRoot 'phase1_prompt.ps1')
+    # Resolve the Claude Code binary now that the helper is loaded. Aborting here is deliberate: an
+    # unresolvable path used to surface only as a per-chunk invocation error, and the run would carry on
+    # to publish nothing.
+    $claude = Resolve-ClaudeExe
+    if (-not $claude) {
+        Log "ABORT: could not locate claude.exe (looked in %APPDATA%\npm, %USERPROFILE%\.local\bin, and PATH)"
+        exit 3
+    }
+    Log "claude: $claude"
+
     $preamble = @"
 CONTEXT: this is the 10:05 COMPLETION PASS. The 5 AM scheduled run was cut short (usually by the
 session usage cap) and left some prompts unfinished. A fresh session window is now available.
