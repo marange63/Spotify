@@ -1934,6 +1934,51 @@
       "duration": 534,
       "transcript_txt": "forward-curve-2026-08-23.txt",
       "transcript_html": "forward-curve-2026-08-23.html"
+    },
+    {
+      "guid": "ai-products-2026-08-23",
+      "prompt_id": "ai-products",
+      "title": "AI Products & Applications — August 23, 2026",
+      "summary": "This week this show tracked what agents can do, then what running them costs, then who gets paid when they act. Today the variable that shipped is permission: who, or what, is actually allowed to act.",
+      "date": "2026-08-23",
+      "seq": 11,
+      "published_at": "2026-08-23T10:07:02-04:00",
+      "audio_file": "ai-products-2026-08-23.mp3",
+      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/ai-products-2026-08-23.mp3",
+      "length": 3781440,
+      "duration": 630,
+      "transcript_txt": "ai-products-2026-08-23.txt",
+      "transcript_html": "ai-products-2026-08-23.html"
+    },
+    {
+      "guid": "robotics-physical-ai-2026-08-23",
+      "prompt_id": "robotics-physical-ai",
+      "title": "Robotics & Physical AI — August 23, 2026",
+      "summary": "This show has spent the past week pricing physical AI off private marks and a retail IPO tape. The freshest disclosures this week sort differently. They line up almost exactly by who had to check the number before you heard it. That's the spine of today's briefing.",
+      "date": "2026-08-23",
+      "seq": 12,
+      "published_at": "2026-08-23T10:09:41-04:00",
+      "audio_file": "robotics-physical-ai-2026-08-23.mp3",
+      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/robotics-physical-ai-2026-08-23.mp3",
+      "length": 3539088,
+      "duration": 590,
+      "transcript_txt": "robotics-physical-ai-2026-08-23.txt",
+      "transcript_html": "robotics-physical-ai-2026-08-23.html"
+    },
+    {
+      "guid": "private-credit-2026-08-23",
+      "prompt_id": "private-credit",
+      "title": "Private Credit & the Corporate Credit Cycle — August 23, 2026",
+      "summary": "This show has spent five straight sessions on one question: are private marks stale, or just honest and slow. On Tuesday we looked at a Blue Owl loan sale that cleared at 99.7 cents on the dollar, declined to call it proof either way, and said watch for the next forced event. We got it this week.",
+      "date": "2026-08-23",
+      "seq": 13,
+      "published_at": "2026-08-23T10:10:57-04:00",
+      "audio_file": "private-credit-2026-08-23.mp3",
+      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/private-credit-2026-08-23.mp3",
+      "length": 3604896,
+      "duration": 601,
+      "transcript_txt": "private-credit-2026-08-23.txt",
+      "transcript_html": "private-credit-2026-08-23.html"
     }
   ]
 }
