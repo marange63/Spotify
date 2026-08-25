@@ -258,8 +258,15 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   only the lightweight **parent orchestrator session** (reading files, running `orchestrator.py`,
   dispatching subagents). **Fable 5 is deliberately not used anywhere in the scheduled job** (its
   usage-limit deaths killed past runs), and because the job passes explicit `--model` flags, an
-  interactive terminal left on Fable (or anything else) can never leak into the 5 AM run. The
-  Opus-4.8 re-invoke on any still-pending/failed prompt is kept as a safety net. It resumes at
+  interactive terminal left on Fable (or anything else) can never leak into the 5 AM run.
+  **Effort pinning:** the same leak exists for reasoning effort, so every headless session also
+  passes an explicit `--effort` (`-Effort` on `daily_run.ps1`/`completion_run.ps1`, default
+  **`medium`**, threaded into `Invoke-Phase1Chunked`). Without it the run inherits
+  `effortLevel` from the user-global `%USERPROFILE%\.claude\settings.json`, which `/effort`
+  rewrites — so an interactive session set to `high` would silently raise what the unattended
+  batch costs, against a job already chunked to fit one usage-cap window. None of the
+  `.claude/agents/*.md` pin an effort, so the subagents inherit the session's.
+  The Opus-4.8 re-invoke on any still-pending/failed prompt is kept as a safety net. It resumes at
   **two** levels: prompt level via the idempotent orchestrator (approved prompts are never re-done)
   and **stage level** via `orchestrator.py resume --prune`, which the script runs before the retry
   and the retry prompt runs again itself. Before 2026-07-25 only the prompt level existed, so a

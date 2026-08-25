@@ -1919,6 +1919,36 @@
       "duration": 494,
       "transcript_txt": "private-credit-2026-08-25.txt",
       "transcript_html": "private-credit-2026-08-25.html"
+    },
+    {
+      "guid": "throughline-2026-08-25",
+      "prompt_id": "throughline",
+      "title": "The Throughline (daily synthesis) — August 25, 2026",
+      "summary": "Start with the macro backdrop. Capital Markets Radar has Treasury escalating its long-bond buyback in stages, and now reportedly weighing funding it out of its General Account cash balance rather than new bill issuance.",
+      "date": "2026-08-25",
+      "seq": 7,
+      "published_at": "2026-08-25T10:44:48-04:00",
+      "audio_file": "throughline-2026-08-25.mp3",
+      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/throughline-2026-08-25.mp3",
+      "length": 2189664,
+      "duration": 365,
+      "transcript_txt": "throughline-2026-08-25.txt",
+      "transcript_html": "throughline-2026-08-25.html"
+    },
+    {
+      "guid": "forward-curve-2026-08-25",
+      "prompt_id": "forward-curve",
+      "title": "The Forward Curve (daily forecast) (Experimental) — August 25, 2026",
+      "summary": "Start with the scorecard. Nothing came due today, so nothing gets graded as final. Several open calls moved, and the ones moving against me go first.",
+      "date": "2026-08-25",
+      "seq": 8,
+      "published_at": "2026-08-25T10:50:33-04:00",
+      "audio_file": "forward-curve-2026-08-25.mp3",
+      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/forward-curve-2026-08-25.mp3",
+      "length": 3355056,
+      "duration": 559,
+      "transcript_txt": "forward-curve-2026-08-25.txt",
+      "transcript_html": "forward-curve-2026-08-25.html"
     }
   ]
 }
