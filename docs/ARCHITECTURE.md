@@ -20,10 +20,56 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   finished while the window was open appears without a restart.
 - `analyses.py` — the viewer's data layer: `list_dates()` (newest first) and `read(date)` over
   `config.ANALYSES_DIR`, mirroring `library`'s role so `main.py` holds no filesystem logic.
+- **`.claude/agents/final-reader.md`** — **stage 5**, the fresh pair of ears (opus, `Read`/`Write`,
+  no web). Reads **only** `final.txt` and `prompt.txt` — never the dossier, plan, deep dive, draft or
+  review, because those would tell it what the script *meant* to say and reintroduce the very bias it
+  exists to remove. Writes `final_check.json` (`verdict: pass|revise|skip`, `listener_question`,
+  `answer_heard`, three 0–10 scores, and quoted `defects` with a concrete `fix`) and **never rewrites
+  the script**.
+  - **Why:** across 134 consecutive August 2026 episodes the Reviewer returned **134 approvals and
+    zero skips**, averaging seven defects found per review, because it critiques the draft, rewrites
+    it, then grades its own rewrite. `final.txt` is the Reviewer's own prose.
+  - **Teeth:** `approve` refuses unless `final_check.json` is present, **newer than `final.txt`**,
+    valid, and `verdict == "pass"`. The staleness rule is what forces a re-read after a Reviewer
+    revision instead of inheriting the pre-revision verdict.
+  - **Two validator rules make the verdict answerable to its own findings:** a `revise` requires at
+    least one `hard` defect (no vetoes without naming one), and a `pass` may carry none (it cannot
+    wave through what it just called broken).
+  - **Loop bound:** the revision counter lives in **`run.json`**, not the artifact — `resume --prune`
+    deletes the artifact and phase 1 runs in chunked sessions that share nothing but disk, so a
+    counter in `final_check.json` would reset and let a prompt ping-pong forever.
+    `orchestrator.py revision <id>` charges one and **exits 3** when the budget is spent, which the
+    session treats as "skip, do not retry".
+- **`script_check.py`** — stdlib **leaf** module (imports nothing from this project, because both
+  `orchestrator` and `run_report` need it and `run_report` already imports `orchestrator`). Measures
+  a spoken script — sentence lengths, paragraph lengths, figure density — and turns those numbers
+  plus a set of format/leakage regexes into `{severity, code, where, detail}` problems.
+  `orchestrator.py validate script <path>` is the CLI front end; it writes
+  `<stem>_script_check.json` beside the script and is wired in as the **write**-stage validator
+  (which passed `None` before, so neither `draft.txt` nor `final.txt` was ever checked by anything
+  but the reviewer's prose judgement — and the reviewer writes `final.txt`).
+  - **Why it exists:** across the 134 August 2026 finals the median script carries a 48-word longest
+    sentence and seven figures in one paragraph, against a standard of "one idea per sentence" and
+    "at most one or two figures per point" — while `audio_flow` never scored below 7. These are
+    arithmetic, so they belong in code, not in a self-graded score.
+  - **Figure counting is date-aware.** Years, month-day pairs, quarters and ordinals are stripped
+    before counting: a naive digit scan inflates the count several-fold and makes any density bound
+    meaningless.
+  - **Format/leakage patterns are deliberately narrow** — each fires zero false positives across all
+    268 August drafts+finals. `deep dive`, `treatment`, `the plan` and `lead story` are NOT flagged
+    (measured as ordinary English in shipped scripts); the spoken-URL check requires a scheme,
+    `www.`, or a trailing slash so `Monday.com` stays clean. Do not widen them without re-running
+    the calibration.
+  - **Listenability starts advisory.** `ENFORCE_LISTENABILITY = False`; bounds are calibrated
+    against the archive and several hard bounds fire on a large slice of history by design. Re-derive
+    with `python script_check.py --calibrate "runs/2026-08-*/*/final.txt"`, which prints each
+    metric's distribution and how many archive files each bound would fail. Flip the flag only after
+    a calibration run says the rate is sane, and never in the same run as another enforcement change.
 - **`run_report.py`** — stdlib CLI, read-only, the deterministic metrics backbone of the after-run
   analysis. `--date D` prints the per-prompt table (deep-dive firing, new facts, `contradictions`,
   `final.txt` word count vs. the prompt's stated floor, reviewer `overall`, soft-support flag
-  count), the run's **grand-total token usage** (tip to tail, incl. subagents + cache, with a
+  count, and the **`lstn` warn/hard listenability counts** from `script_check` beside the reviewer's
+  self-graded `flow` — the pairing that shows whether the self-grade tracks the text), the run's **grand-total token usage** (tip to tail, incl. subagents + cache, with a
   tokens/word figure), a **per-stage token breakdown** (researcher / analyst-editor / deep-researcher
   / writer / reviewer / orchestration — each subagent attributed by the artifact it Writes, the
   parent session as `orchestration`; shows where to cut), and a **5-day trend** (`--history N`,
@@ -96,7 +142,7 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   notification failure is logged and never fails the publish). On by default (interactive AND the
   5 AM scheduled run); suppress with `--no-notify` or by setting `NTFY_TOPIC`/env
   `BRIEFING_NTFY_TOPIC` to `""`. This is the working replacement for the disabled confirmation email.
-- **`orchestrator.py`** — deterministic gates of the four-stage pipeline (stdlib only, no agent
+- **`orchestrator.py`** — deterministic gates of the five-stage pipeline (stdlib only, no agent
   runner): `init` (run dirs + `runs/<date>/run.json`, idempotent), `validate research|plan|deep|review`
   (schema checks with readable errors — `validate research` also enforces the verbatim-quote
   contract on each lead candidate's `important_facts`; `validate deep` is an alias for the same
@@ -172,7 +218,7 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   Podcasting 2.0 apps read the `<podcast:transcript>` tag; Spotify ignores RSS transcripts, so the
   description link is how Spotify listeners reach the hosted page.)
 - **`tools/`** — `daily_run.ps1` (the unattended Task Scheduler entry point: phase 1 headless
-  Claude runs the four-stage pipeline, phase 2 `publish_feed.py --require-fresh` publishes; flags:
+  Claude runs the five-stage pipeline, phase 2 `publish_feed.py --require-fresh` publishes; flags:
   `-RepeatOK` = relaxed novelty, `-NoPublish` = dry run that skips phase 2 entirely — agents and
   `runs/` artifacts only, no TTS/feed/commit/push; `-Only "<ids>"` = pipeline just those prompts;
   `-ChunkSize N` (default 3) = how many prompts each phase-1 Claude session handles;
