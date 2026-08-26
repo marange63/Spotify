@@ -1,6 +1,6 @@
 ---
 name: daily-briefing
-description: Produce and publish the daily podcast briefings. Invoke for "make my daily briefing" (the standing auto-publish command), for running/re-running the four-stage research→edit→write→review pipeline for any prompt, for publishing or re-publishing an episode to the feed, and for the novelty policy or pipeline failure rules.
+description: Produce and publish the daily podcast briefings. Invoke for "make my daily briefing" (the standing auto-publish command), for running/re-running the five-stage research→edit→write→review→final-read pipeline for any prompt, for publishing or re-publishing an episode to the feed, and for the novelty policy or pipeline failure rules.
 ---
 
 # Daily briefing pipeline
@@ -14,7 +14,7 @@ reference is in `docs/ARCHITECTURE.md`.
 When the user says **"make my daily briefing,"** this is a single standing, **auto-publishing**
 command. **First re-read `prompts.json` fresh from disk** (do not trust an earlier read this
 session — the user may have added prompts in the window since; the count can change mid-session).
-Then run the four-stage pipeline (below) for **every** currently-enabled prompt and publish the
+Then run the five-stage pipeline (below) for **every** currently-enabled prompt and publish the
 batch — interactive runs default to **relaxed** novelty.
 
 **Run to completion with zero further input.** From that point, research every enabled prompt,
@@ -50,8 +50,8 @@ update; Spotify re-ingests on its next refresh. `--require-fresh` publishes only
 **Publishing a second time on the same day** (finishing a run the usage cap truncated): add
 `--skip-published`, which skips any prompt already in `feed_state.json` for that date and reports it
 as `ALREADY PUBLISHED`. Without it you re-run TTS on live episodes and change their enclosure URLs,
-making Spotify re-download identical audio. The scheduled 10:05 completion pass
-(`tools/completion_run.ps1`) does exactly this automatically — so if the 5 AM run was truncated,
+making Spotify re-download identical audio. The scheduled 06:20 completion pass
+(`tools/completion_run.ps1`) does exactly this automatically — so if the 01:15 run was truncated,
 check whether that pass already fixed it before doing anything by hand.
 
 **Confirmation email is DISABLED (since 2026-07-08) — do not send it** (no working delivery path;
@@ -60,7 +60,7 @@ automatically inside `publish_feed.py`. Report the results table and skip the em
 
 ## Four-stage pipeline (how each script is produced)
 
-Each script is produced by four separated Claude Code subagents (in `.claude/agents/`) with file
+Each script is produced by five separated Claude Code subagents (in `.claude/agents/`) with file
 handoffs under `runs/<date>/<prompt_id>/`, gated by `orchestrator.py` (stdlib CLI; the ONLY path
 allowed to copy a script into `briefings/`). Writer and Reviewer are deliberately **separate agents
 with separate contexts** so the reviewer never grades its own writing.
@@ -85,7 +85,7 @@ with separate contexts** so the reviewer never grades its own writing.
    plausible if you feed it to the Writer (this shipped undetected on 2026-07-25). Never restart a
    prompt from the Researcher just because it is unfinished. Then stamp the token-window start:
    `python run_report.py --date <today> --start` (idempotent; lets the analysis total the run's
-   grand-total token usage. The 5 AM job also does this in `daily_run.ps1`, so this only matters for
+   grand-total token usage. The scheduled job also does this in `daily_run.ps1`, so this only matters for
    interactive runs).
 2. **For each normal prompt, in plan order:**
    - **Researcher** (`researcher`; web allowed): strongest recent material → `research.json`. Pass the
@@ -102,7 +102,7 @@ with separate contexts** so the reviewer never grades its own writing.
      the page, writing `source_check.json`. Its **hard** results (future-dated URL, or a 404/DNS
      "source does not exist") should be fixed; its **advisory** results (quote-not-found, blocked/
      paywalled) are flags for the reviewer, not auto-rejections. It makes live web calls, so use it on
-     the load-bearing dossier(s), not blanket across the batch, to protect the 5 AM budget.
+     the load-bearing dossier(s), not blanket across the batch, to protect the scheduled run's budget.
    - **Analyst-Editor** (`analyst-editor`; no web): judges the dossier vs. the prior briefing
      (`briefings/<id>.txt`, still on disk), the **last 5 days** of this topic's transcripts AND the
      last 5 Throughline transcripts, and the editorial standard; decides write-or-skip, thesis, lead,
@@ -110,7 +110,7 @@ with separate contexts** so the reviewer never grades its own writing.
      `validate plan <path>`. If `decision` is `skip`:
      `orchestrator.py mark <id> --date <today> --status skipped --stage plan --reason "…"`, next prompt.
    - **Deep Researcher** (`deep-researcher`; web allowed) — **optional; runs in every mode,
-     including the 5 AM job.** Run it whenever the plan's `deep_dive_requests` is non-empty (and
+     including the scheduled job.** Run it whenever the plan's `deep_dive_requests` is non-empty (and
      skip it silently when empty, which is the common case). Pass the prompt id/name, the date,
      the research + plan paths, and the output path
      `deep_research.json`. Then `orchestrator.py validate deep <path>`. It answers the analyst's
@@ -119,16 +119,45 @@ with separate contexts** so the reviewer never grades its own writing.
      repair attempt, **delete `deep_research.json` and continue to the Writer** — the stage is an
      enhancement, never a reason to fail a prompt. See "Deep-dive stage" below.
    - **Writer** (`writer`; no web): script from dossier + plan (+ `deep_research.json` if it exists)
-     → `draft.txt` only. May use only figures carrying a verbatim `quote` in those files.
+     → `draft.txt` only. May use only figures carrying a verbatim `quote` in those files. Then
+     **`orchestrator.py validate script <draft.txt>`** — a deterministic, zero-token check of the
+     spoken text (markdown/bullets/stage directions, internal-artifact leakage such as the word
+     "dossier" or a pasted "Say clearly that…", spoken URLs, and word count vs. the prompt's stated
+     floor). Hard problems are a `validate` failure like any other: repair once, else mark. It also
+     prints `[ADVISORY]` lines — the word-count shortfall at draft stage and the **listenability
+     metrics** (sentence length, figures per paragraph, paragraph length). Those are warnings for
+     now, not gates; **pass them to the Reviewer in its dispatch line** so its one revision pass has
+     a concrete target instead of re-deriving them by eye.
    - **Reviewer** (`reviewer`; no web; fresh context — did NOT write the draft): critiques vs. dossier,
      plan (+ deep dive), standard, **audits every figure against the research quotes**, revises once → `review.json`
      + `final.txt`. Approve is not its default. Then `validate review <path>` and
      `orchestrator.py approve <id> --date <today>` — copies `final.txt` to `briefings/<id>.txt` **only
-     if** the review says `approve`.
+     if** the review says `approve` **and `final.txt` passes the same script gate** (approve runs it
+     itself, so a stage direction or an under-floor script cannot ship even when the review approved
+     it).
+   - **Final Reader** (`final-reader`; no web; reads **only** `final.txt` + `prompt.txt`): the fresh
+     pair of ears. Pass it the prompt id/name, the date, the two paths, and **the metrics block from
+     `final_script_check.json`** (longest sentence, figures per paragraph, paragraph length) so it
+     judges rather than recounts. Never pass it — or let it open — the dossier, plan, deep dive,
+     draft, or review: those would tell it what the script *meant* to say, which is the exact bias it
+     exists to remove. It writes `final_check.json` and **never rewrites the script**. Then
+     `validate final_check <path>`.
+     - `verdict: pass` → `orchestrator.py approve <id> --date <today>`.
+     - `verdict: revise` → `orchestrator.py revision <id> --date <today>`. **Exit 0:** re-dispatch
+       the **Reviewer** with the `defects` list (it does the rewriting), then re-run the Final Reader
+       with `revision_round: 2`. **Exit 3 (budget exhausted), or a second `revise`:**
+       `mark <id> --status skipped --stage final_check --reason "final reader could not clear: …"`.
+     - `verdict: skip` → `mark` skipped immediately; no revision.
+     Why it exists: across 134 consecutive August episodes the Reviewer returned **134 approvals and
+     zero skips** while averaging seven defects found per review. Nobody can judge prose they just
+     wrote, and `final.txt` is the Reviewer's own rewrite.
 3. **Synthesis-family prompts last** (`throughline` and `forward-curve`): NOT researched, no plan;
-   each runs its **writer-role agent then the Reviewer** only, over the day's APPROVED
-   `briefings/<id>.txt` files (no fresh web research, no new facts). They run after every normal
-   prompt is approved so those briefings exist on disk. Same `review.json`/`final.txt`/`approve` flow.
+   each runs its **writer-role agent, then the Reviewer, then the Final Reader**, over the day's
+   APPROVED `briefings/<id>.txt` files (no fresh web research, no new facts). They run after every
+   normal prompt is approved so those briefings exist on disk. Same
+   `review.json`/`final.txt`/`final_check.json`/`approve` flow. **The Final Reader applies to these
+   too** — they have no research or plan gate at all, and the Throughline is the archive's worst
+   listenability offender, so they are the last prompts that should skip a fresh read.
    If zero prompts were approved today, mark them skipped. `publish_feed.py` publishes the whole
    synthesis family last so they sort to the top of the feed.
    - **The Throughline** (`"kind": "synthesis"`): run the **Writer** then Reviewer. It is a
@@ -146,7 +175,7 @@ with separate contexts** so the reviewer never grades its own writing.
      certainties. The reviewer runs a **calibration audit** in place of the figure audit.
 4. **Report:** `python orchestrator.py status --date <today>` — per-prompt outcomes + approved ids.
 5. **Run analysis:** once outcomes are final, write the run's agent-performance analysis to
-   `analyses/<today>.md` — see "Run analysis" below. Runs on every run (interactive and 5 AM).
+   `analyses/<today>.md` — see "Run analysis" below. Runs on every run (interactive and scheduled).
 
 ## Failure rules (always continue the batch; one bad prompt never stops the rest)
 
@@ -155,6 +184,17 @@ with separate contexts** so the reviewer never grades its own writing.
 - Research `status: "insufficient"` → the Analyst-Editor may still decide, but skipping is expected;
   `failed` research → mark failed, move on.
 - Writer or Reviewer failure → retry that subagent **once**, then mark failed.
+- `validate script` hard failure on `draft.txt` → re-dispatch the **Writer** once with the problem
+  list, then mark failed. On `final.txt` (inside `approve`) → re-dispatch the **Reviewer** once with
+  the problem list; if it still fails, `mark <id> --status skipped --stage review`. Never hand-edit a
+  script to get it past the gate — the gate is measuring a real defect in what the agent produced.
+- Final Reader failure or invalid output → retry it **once**, then `mark failed --stage final_check`.
+  **Never approve a prompt by deleting or hand-writing its `final_check.json`.** A `revise` you
+  cannot clear inside the revision budget is a **skip** — that is the stage working, not a blocker.
+  A skipped day beats an episode nobody can follow.
+- If the Reviewer's revision changes `final.txt`, the existing `final_check.json` is **stale** and
+  `approve` will refuse it. Always re-run the Final Reader after a Reviewer pass; never reuse the
+  verdict from the pre-revision script.
 - Review decision `skip`/`failed` → mark accordingly (a reviewer skip is a normal editorial outcome,
   not an error); `approve` refuses the copy, so the prompt cannot publish.
 - TTS/feed/git failures keep their `publish_feed.py` behavior (per-prompt try/except; the batch still
@@ -175,10 +215,10 @@ caps are a token-budget control, not style: a web-research agent's cost is super
 calls, so bounding the *request* is what keeps the batch predictable. Estimated cost when it runs is
 ~+12% on that prompt; an empty `deep_dive_requests` costs nothing.
 
-**It runs in the 5 AM job.** That is the point: the scheduled run is the one that publishes to
+**It runs in the scheduled job.** That is the point: the scheduled run is the one that publishes to
 Spotify, so a quality stage gated out of it improves nothing. It is on in both novelty modes.
 
-**Watch the usage cap.** The 5 AM phase 1 has a known failure mode where later prompts get skipped
+**Watch the usage cap.** The scheduled phase 1 has a known failure mode where later prompts get skipped
 silently (see the `scheduled-run-usage-limit-risk` memory). This stage adds ~+12% tokens on a
 prompt that uses it. A dry run of the analyst's first gap test over the 2026-07-23 artifacts fired
 on **7 of 10** prompts, so budget ~+8% on the batch rather than the ~+5% a thinner hit rate would
@@ -232,11 +272,29 @@ reference example):
    legitimate (strict-novelty) or failures.
 4. **Metrics** — paste the `run_report.py` table (including the token block) verbatim in a code
    block. Call out the grand-total tokens and tokens/word, and flag a large move vs. the trend.
+   Then read the **`lstn` column (warn/hard)** and the `by metric:` line beneath the table — the
+   deterministic listenability signal from `script_check`. Unlike the reviewer's `audio_flow`
+   (self-graded, printed in the adjacent `flow` column, and never below 7 in 134 August reviews),
+   these are measured off the shipped text. Report: the run's hard-breach count, which bound is
+   binding, and any prompt where a **hard** breach sits beside a `flow` of 7–8 — that pairing is
+   the clearest evidence the self-grade is decoupled from the script. Hard breaches are still
+   **advisory** (`script_check.ENFORCE_LISTENABILITY` is False); the trend's `lstn` column is the
+   series that decides when to flip it. Rule of thumb: flip only after ~5 runs at ≤1 hard breach
+   per run, start with the binding metric alone, and never in the same run as another enforcement
+   change.
+   Also report the **`fc` column (verdict/hard defects)**, the `rev` column, and the **send-back
+   rate** under the table. `0 of 134` approvals was the Reviewer's baseline before stage 5 existed;
+   a send-back rate of exactly zero means the Final Reader is rubber-stamping, and a rate near 100%
+   means it is miscalibrated. Sustained **>25%** is the trigger to split the Reviewer into
+   critic/revisor — that would say partial repair is systematic, not occasional.
 5. **Agent performance & interaction** — one short paragraph per stage: Researcher (dossier depth,
    any `insufficient`, JSON repairs), Analyst-Editor (skips, gap-check firing rate, emergent
    patterns), Deep-Researcher (fire rate, contradictions found and honored, any `insufficient`),
    Writer (word counts, contradictions honored), Reviewer (defects **caught vs. shipped**,
-   expansions). Call out where a handoff created friction or where one stage saved another.
+   expansions, and whether its revision **cleared or left** the listenability breaches the script
+   gate flagged on the draft), Final Reader (verdicts, the defects it caught that every earlier
+   stage passed, and whether a `revise` was cleared inside the revision budget). Call out where a
+   handoff created friction or where one stage saved another.
 6. **Notable events** — JSON repairs, agent retries, the Opus fallback, usage-cap pressure, and
    phase-1 wall time vs. the ~22 min baseline (from `logs/daily-<today>.log`).
 7. **Suggestions for continual improvement** — prioritized and concrete, tied to what this run

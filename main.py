@@ -181,7 +181,7 @@ class AnalysisViewer:
 
     EMPTY = ("No run analyses yet.\n\n"
              "One is written after each run to analyses/<date>.md — say “make my daily "
-             "briefing” in Claude Code, or wait for the 5 AM job. Then press Reload.")
+             "briefing” in Claude Code, or wait for the overnight job. Then press Reload.")
 
     def __init__(self, parent: tk.Widget):
         self.parent = parent

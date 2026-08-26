@@ -1,4 +1,6 @@
-"""Unit tests for publish_feed ordering (synthesis prompts publish last) and local pruning."""
+"""Unit tests for publish_feed ordering (synthesis prompts publish last), the --require-fresh
+window, and local pruning."""
+import datetime
 import os
 import shutil
 import sys
@@ -66,6 +68,43 @@ class PruneLocalTest(unittest.TestCase):
         self.assertEqual(logs_left, ["daily-2026-07-15.log", "daily-2026-07-24.log"])
         # analyses are the kept history — untouched regardless of age
         self.assertEqual(len(os.listdir(self.analyses)), 3)
+
+
+class FreshnessWindowTest(unittest.TestCase):
+    """--require-fresh accepts the pre-midnight half (written the evening before the run date)."""
+
+    def setUp(self):
+        self.d = tempfile.mkdtemp()
+        self.f = os.path.join(self.d, "a.txt")
+        with open(self.f, "w", encoding="utf-8") as fh:
+            fh.write("script")
+
+    def tearDown(self):
+        shutil.rmtree(self.d, ignore_errors=True)
+
+    def _stamp(self, when):
+        ts = when.timestamp()
+        os.utime(self.f, (ts, ts))
+
+    def test_written_on_the_run_date_is_fresh(self):
+        now = datetime.datetime(2026, 8, 27, 1, 55)
+        self._stamp(datetime.datetime(2026, 8, 27, 1, 30))
+        self.assertTrue(publish_feed._fresh_for_run(self.f, "2026-08-27", now))
+
+    def test_prior_evening_is_fresh_for_the_next_days_run(self):
+        now = datetime.datetime(2026, 8, 27, 1, 55)          # the 01:15 publish run
+        self._stamp(datetime.datetime(2026, 8, 26, 20, 30))  # the 20:00 pre-midnight half
+        self.assertTrue(publish_feed._fresh_for_run(self.f, "2026-08-27", now))
+
+    def test_still_fresh_at_the_completion_pass(self):
+        now = datetime.datetime(2026, 8, 27, 6, 20)          # the 06:20 completion pass
+        self._stamp(datetime.datetime(2026, 8, 26, 20, 0))
+        self.assertTrue(publish_feed._fresh_for_run(self.f, "2026-08-27", now))
+
+    def test_yesterdays_morning_run_is_stale(self):
+        now = datetime.datetime(2026, 8, 27, 6, 20)
+        self._stamp(datetime.datetime(2026, 8, 26, 5, 55))   # ~24h old: the guard must reject it
+        self.assertFalse(publish_feed._fresh_for_run(self.f, "2026-08-27", now))
 
 
 if __name__ == "__main__":

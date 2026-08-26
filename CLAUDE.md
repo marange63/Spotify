@@ -19,14 +19,14 @@ only the last **`config.RETENTION_DAYS` (10) days**: after each publish, `feed.p
 episodes from the feed and deletes their audio (the GitHub Release asset — real reclamation, since
 release assets live outside git) and transcripts, and the local `runs/`/`logs` older than the window
 are swept — so neither Spotify, the repo (including `.git`), nor local disk accumulates stale briefing
-files. The **5 AM performance analyses (`analyses/<date>.md`) are exempt** and kept.
+files. The **nightly performance analyses (`analyses/<date>.md`) are exempt** and kept.
 
 - **Show:** Cautious Optimism Briefings · Feed: https://marange63.github.io/Spotify/feed.xml
 - **Pages site:** https://marange63.github.io/Spotify/ (served from `main` branch, `/docs` folder)
 - **Owner/verification email:** wamfour@gmail.com (in the feed's `itunes:owner`)
 
 The editorial standard below is the always-on core — the soul of the product. Operational mechanics
-live on demand: the **`daily-briefing` skill** (the four-stage pipeline, publishing, novelty policy,
+live on demand: the **`daily-briefing` skill** (the five-stage pipeline, publishing, novelty policy,
 failure rules) and **`docs/ARCHITECTURE.md`** (every module, TTS internals, the staging feed, and the
 known-working-tree note). A retired *private* "Save to Spotify" path still lingers in `episode.py`
 (kept only for its `synthesize` TTS helper); details in `docs/ARCHITECTURE.md`.
@@ -106,11 +106,12 @@ lean:
 
 - **`daily-briefing` skill** — invoke it for **"make my daily briefing"** and all pipeline work. Key
   always-on facts to know without loading it: "make my daily briefing" is a **standing, auto-publishing
-  command** — re-read `prompts.json` fresh, run the four-stage pipeline (researcher → analyst-editor →
-  writer → reviewer, gated by `orchestrator.py`, published by `publish_feed.py`) for every enabled
-  prompt, publish and push, and **run to completion without pausing to confirm**. Novelty defaults:
-  **relaxed** for interactive runs, **strict** for the scheduled 5 AM job. The confirmation email is
+  command** — re-read `prompts.json` fresh, run the five-stage pipeline (researcher → analyst-editor →
+  writer → reviewer → final-reader, gated by `orchestrator.py`, published by `publish_feed.py`) for
+  every enabled prompt, publish and push, and **run to completion without pausing to confirm**. Novelty defaults:
+  **relaxed** for interactive runs, **strict** for the scheduled overnight job (20:00 pipeline-only
+  half → 01:15 publish → 06:20 completion pass; everything is on Spotify by 07:00 ET). The confirmation email is
   **disabled** — never send it (an ntfy phone push replaces it, fired automatically).
 - **`docs/ARCHITECTURE.md`** — read it for how any module works (`config.py`, `feed.py`,
-  `orchestrator.py`, `publish_feed.py`, the four `.claude/agents/`, TTS reliability + pronunciation
+  `orchestrator.py`, `publish_feed.py`, the `.claude/agents/`, TTS reliability + pronunciation
   internals, enclosure-URL cache-busting, the staging feed, and the known-working-tree note).

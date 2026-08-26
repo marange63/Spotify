@@ -69,7 +69,7 @@ COVER_FILE = os.path.join(DOCS_DIR, "cover.jpg")
 FEED_STATE_FILE = os.path.join(HERE, "feed_state.json")
 # Rolling retention window (days) for briefing history. After each publish, episodes and their
 # audio/transcripts older than this are pruned from the feed + docs/, and runs/<date>/ + logs older
-# than this are swept locally. The 5 AM analyses (analyses/<date>.md) are exempt and kept.
+# than this are swept locally. The nightly analyses (analyses/<date>.md) are exempt and kept.
 RETENTION_DAYS = 10
 
 # Prompt ids that must sort BELOW the rest of their publish day in the feed (i.e. show up as the
@@ -78,6 +78,13 @@ RETENTION_DAYS = 10
 # synthesize the day's other briefings, so their real publish times would otherwise put them on top;
 # feed.add_episode backdates their `published_at` below that day's earliest regular episode instead.
 FEED_DAY_LAST_PROMPTS = ("throughline", "forward-curve")
+
+# How recent a briefings/<id>.txt must be for `publish_feed.py --require-fresh` to publish it when
+# its mtime is not on the run date itself. The pre-midnight half of the batch runs at 20:00 the
+# evening BEFORE the date it produces, so its scripts legitimately carry the prior day's date;
+# 14h covers that (20:00 -> the 06:20 completion pass) while still rejecting a script left over
+# from the previous day's morning run (~24h old).
+FRESH_WINDOW_HOURS = 14
 
 # Where the "briefings published" confirmation email goes (see notify.py). The
 # SMTP credentials themselves come from env vars, never the repo.

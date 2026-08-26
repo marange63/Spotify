@@ -39,13 +39,24 @@
 # -ChunkSize: how many normal prompts each phase-1 Claude session handles. Small values bound the
 # parent session's context accumulation (the "orchestration" token cost) and help the batch finish
 # inside one usage-cap window. A value >= the prompt count restores the old single-session behavior.
-param([switch]$RepeatOK, [switch]$NoPublish, [string]$Only = '', [int]$ChunkSize = 3)
+# Reasoning effort for every headless Claude session this script starts. Pinned for the same
+# reason as --model: effortLevel in %USERPROFILE%\.claude\settings.json is user-global, so an
+# interactive /effort would otherwise silently change what the unattended run costs. The
+# pipeline subagents inherit it (none pin an effort in their frontmatter).
+# -DayOffset shifts the run date the whole script works in (runs\<date>\, logs\daily-<date>.log,
+# briefings, feed GUIDs). The pre-midnight half of the batch fires at 20:00, i.e. the EVENING BEFORE
+# the day it is producing, so its task passes -DayOffset 1. Without it that half would file its
+# artifacts under the previous calendar day and the 01:15 run would find nothing done and re-run
+# every prompt from the Researcher.
+param([switch]$RepeatOK, [switch]$NoPublish, [string]$Only = '', [int]$ChunkSize = 3,
+      [int]$DayOffset = 0,
+      [ValidateSet('low','medium','high','xhigh','max')][string]$Effort = 'medium')
 
 $ErrorActionPreference = 'Continue'
 $proj   = 'C:\Users\wamfo\ClaudeDev\Spotify'
 # $claude is resolved below via Resolve-ClaudeExe (tools\phase1_prompt.ps1) - see the note there.
 $conda  = Join-Path $env:USERPROFILE 'anaconda3\Scripts\conda.exe'
-$today  = Get-Date -Format 'yyyy-MM-dd'
+$today  = (Get-Date).AddDays($DayOffset).ToString('yyyy-MM-dd')   # see -DayOffset above
 
 Set-Location $proj
 New-Item -ItemType Directory -Force -Path (Join-Path $proj 'logs') | Out-Null
@@ -129,7 +140,7 @@ function Get-IncompleteCount {
 # overloaded/unavailable mid-run. Note the subagents ignore this and use their frontmatter models
 # (sonnet/opus); this governs only the lightweight orchestration session.
 Log "phase 1: chunked primary run (ChunkSize=$ChunkSize), parent Sonnet 5"
-Invoke-Phase1Chunked -Claude $claude -Conda $conda -Today $today -Novelty $novelty -Log $log -ChunkSize $ChunkSize -Only $onlyIds
+Invoke-Phase1Chunked -Claude $claude -Conda $conda -Today $today -Novelty $novelty -Log $log -ChunkSize $ChunkSize -Effort $Effort -Only $onlyIds
 Log "phase 1: chunked primary run done"
 
 # If prompts remain unfinished, retry the leftovers with the parent session on Opus 4.8. Now that
@@ -147,7 +158,7 @@ if ($incomplete -ne 0) {
     # tokens, so a truncated run leaves a readable record of what was salvaged vs. rebuilt. The
     # retry prompt re-runs this itself; --prune is idempotent once the tree is clean.
     & $conda run -n Spotify --no-capture-output python orchestrator.py resume --date $today --prune *>> $log
-    Invoke-Phase1Chunked -Claude $claude -Conda $conda -Today $today -Novelty $novelty -Log $log -ChunkSize $ChunkSize -Only $onlyIds -Model claude-opus-4-8 -Fallback claude-opus-4-8
+    Invoke-Phase1Chunked -Claude $claude -Conda $conda -Today $today -Novelty $novelty -Log $log -ChunkSize $ChunkSize -Effort $Effort -Only $onlyIds -Model claude-opus-4-8 -Fallback claude-opus-4-8
     Log "phase 1: Opus 4.8 retry done"
     $incomplete = Get-IncompleteCount
     Log "phase 1: $incomplete prompt(s) still unfinished after Opus 4.8 retry"
@@ -167,7 +178,7 @@ numbers from run_report). Local-only; do NOT commit it. If runs/$today/token_win
 than one segment, the batch was split across sittings - say so and note which prompts ran when. Do
 NOT run any pipeline agents or touch any briefing; this session is analysis only.
 "@
-    & $claude -p $analysisPrompt --model claude-sonnet-5 --fallback-model claude-opus-4-8 --dangerously-skip-permissions *>> $log
+    & $claude -p $analysisPrompt --model claude-sonnet-5 --fallback-model claude-opus-4-8 --effort $Effort --dangerously-skip-permissions *>> $log
 }
 
 # Stamp the token-window END now that all model work (phase 1) is done. The in-run analysis

@@ -106,11 +106,21 @@ def _derive_summary(text_path: str, limit: int = 320) -> str:
     return cut.rsplit(" ", 1)[0].strip() + "…"
 
 
-def _fresh_today(text_path: str, date: str) -> bool:
-    """True if the script file was last modified on ``date`` (guards against
-    republishing a stale prior-day briefing that Claude failed to refresh)."""
-    mtime = datetime.date.fromtimestamp(os.path.getmtime(text_path)).isoformat()
-    return mtime == date
+def _fresh_for_run(text_path: str, date: str, now: datetime.datetime | None = None) -> bool:
+    """True if the script file is fresh enough to publish for ``date`` — the guard against
+    republishing a stale prior-day briefing that Claude failed to refresh.
+
+    Written *on* ``date`` always counts. It is also fresh if it was written within the last
+    ``config.FRESH_WINDOW_HOURS`` — which is what makes the pre-midnight half of the batch
+    publishable: since the 20:00 job runs the evening BEFORE the date it is producing, its
+    briefings carry the prior calendar day's mtime by design. The window is short enough that a
+    genuinely stale file (the previous day's morning run, ~24h back) is still rejected.
+    """
+    mtime = datetime.datetime.fromtimestamp(os.path.getmtime(text_path))
+    if mtime.date().isoformat() == date:
+        return True
+    age = (now or datetime.datetime.now()) - mtime
+    return age <= datetime.timedelta(hours=config.FRESH_WINDOW_HOURS)
 
 
 def _git(*args: str) -> None:
@@ -154,8 +164,8 @@ def publish(date: str, summaries: dict, push: bool = True,
             log.warning("%s: no script at %s — skipping", name, text_path)
             results.append((name, "NO SCRIPT"))
             continue
-        if require_fresh and not _fresh_today(text_path, date):
-            log.warning("%s: script not written today (%s) — skipping stale briefing", name, date)
+        if require_fresh and not _fresh_for_run(text_path, date):
+            log.warning("%s: script too old for run %s — skipping stale briefing", name, date)
             results.append((name, "STALE — skipped"))
             continue
         if skip_published and has_episode(pid, date):
@@ -219,7 +229,9 @@ def main() -> int:
     ap.add_argument("--summaries", help="JSON file: {prompt_id: summary}")
     ap.add_argument("--no-push", action="store_true")
     ap.add_argument("--require-fresh", action="store_true",
-                    help="only publish briefings whose script was written on --date")
+                    help="only publish briefings whose script was written on --date, or within "
+                         "config.FRESH_WINDOW_HOURS (the pre-midnight half writes its scripts "
+                         "the evening before --date)")
     ap.add_argument("--email", action="store_true",
                     help="email a publish-summary confirmation to the owner (see notify.py; "
                          "used by the unattended scheduled run)")

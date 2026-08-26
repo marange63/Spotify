@@ -69,11 +69,20 @@ class RunReportTest(unittest.TestCase):
             json.dump(doc, f) if name.endswith(".json") else f.write(doc)
 
     def _approve(self, pid, words):
+        """Seed an approved prompt with an exactly ``words``-long final.
+
+        Sets run.json status directly instead of calling ``orchestrator.approve``: approve now
+        runs the deterministic script gate, which (correctly) rejects the deliberately tiny
+        finals these tests use to exercise run_report's ``under_floor`` metric. The approve gate
+        has its own coverage in test_orchestrator.
+        """
         self._artifact(pid, "review.json", _review(pid, [
             "Figure audit: the value appears only in the summary prose, not a verbatim quote.",
             "Minor: rounded 4.707 to 4.71 for the ear."]))
         self._artifact(pid, "final.txt", " ".join(["word"] * words))
-        orchestrator.approve(pid, DATE)
+        state = orchestrator.load_state(DATE)
+        orchestrator._find_entry(state, pid).update(status="approved", stage=None, reason=None)
+        orchestrator._save_state(DATE, state)
 
     def test_metrics_with_and_without_deep_dive(self):
         # "a": deep dive fired (3 facts, 2 contradictions), 5-word final -> under the 1200 floor,
@@ -219,7 +228,11 @@ class TokenAccountingTest(unittest.TestCase):
             json.dump(review, f)
         with open(os.path.join(pdir, "final.txt"), "w", encoding="utf-8") as f:
             f.write(" ".join(["w"] * 100))
-        orchestrator.approve("a", DATE)
+        # Status set directly, not via approve: the tokens/word assertion below needs exactly 100
+        # words, which the script gate rejects as under floor. See _approve's note.
+        state = orchestrator.load_state(DATE)
+        orchestrator._find_entry(state, "a").update(status="approved", stage=None, reason=None)
+        orchestrator._save_state(DATE, state)
         report = run_report.build_report(DATE)
         self.assertEqual(report["tokens"]["total"], 1000)
         self.assertEqual(report["tokens_per_word"], 10.0)
@@ -269,3 +282,181 @@ class HistoryTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ListenabilityMetricsTest(unittest.TestCase):
+    """run_report surfaces the deterministic listenability signal.
+
+    This is the series that decides when ``script_check.ENFORCE_LISTENABILITY`` can be flipped, so
+    the counts must be visible per prompt, in the totals, and in the trend.
+    """
+
+    CLEAN = ("Good morning. The desk repriced that trade today. " * 30).strip()
+    # One 60-word sentence: breaches max_sentence_words (hard bound 60 -> needs >60).
+    LONG = "Good morning. " + " ".join(["word"] * 80) + "."
+
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp()
+        self._saved = (config.PROMPTS_FILE, config.BRIEFINGS_DIR, config.RUNS_DIR)
+        config.PROMPTS_FILE = os.path.join(self.tmp, "prompts.json")
+        config.BRIEFINGS_DIR = os.path.join(self.tmp, "briefings")
+        config.RUNS_DIR = os.path.join(self.tmp, "runs")
+        with open(config.PROMPTS_FILE, "w", encoding="utf-8") as f:
+            json.dump({"version": 1, "show_id": "x", "orphans": [], "prompts": [
+                {"id": "a", "name": "A", "prompt": "a 1200 to 1500 word briefing",
+                 "enabled": True, "last_episode_uri": None, "last_published": None},
+                {"id": "b", "name": "B", "prompt": "a 1200 to 1500 word briefing",
+                 "enabled": True, "last_episode_uri": None, "last_published": None},
+            ]}, f)
+        orchestrator.init_run(DATE, "strict")
+
+    def tearDown(self):
+        config.PROMPTS_FILE, config.BRIEFINGS_DIR, config.RUNS_DIR = self._saved
+        shutil.rmtree(self.tmp, ignore_errors=True)
+
+    def _final(self, pid, text):
+        path = os.path.join(orchestrator.prompt_dir(DATE, pid), "final.txt")
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(text)
+        return path
+
+    def test_missing_final_yields_zeros_not_an_error(self):
+        m = run_report._listenability(os.path.join(self.tmp, "nope.txt"))
+        self.assertEqual((m["listen_warn"], m["listen_hard"]), (0, 0))
+        self.assertEqual(m["listen_breaches"], {})
+
+    def test_clean_script_has_no_breaches(self):
+        m = run_report._listenability(self._final("a", self.CLEAN))
+        self.assertEqual((m["listen_warn"], m["listen_hard"]), (0, 0))
+
+    def test_long_sentence_is_a_hard_breach(self):
+        m = run_report._listenability(self._final("a", self.LONG))
+        self.assertEqual(m["listen_breaches"].get("max_sentence_words"), "hard")
+        self.assertGreaterEqual(m["listen_hard"], 1)
+
+    def test_metrics_are_carried_for_trending(self):
+        m = run_report._listenability(self._final("a", self.CLEAN))
+        self.assertIn("max_sentence_words", m["listen_metrics"])
+        self.assertIn("figures_per_100w", m["listen_metrics"])
+
+    def test_totals_aggregate_and_count_affected_scripts(self):
+        self._final("a", self.LONG)
+        self._final("b", self.CLEAN)
+        report = run_report.build_report(DATE)
+        rows = {r["id"]: r for r in report["prompts"]}
+        self.assertGreaterEqual(rows["a"]["listen_hard"], 1)
+        self.assertEqual(rows["b"]["listen_hard"], 0)
+        t = report["totals"]
+        self.assertEqual(t["listen_would_fail"], 1)   # one script carries a hard breach
+        self.assertGreaterEqual(t["listen_hard"], 1)
+
+    def test_report_shows_the_column_and_the_enforcement_state(self):
+        self._final("a", self.LONG)
+        text = run_report.format_report(run_report.build_report(DATE))
+        self.assertIn("lstn", text)
+        self.assertIn("listenability", text)
+        # The flag is off, so the report must say so rather than implying these are gates.
+        self.assertIn("advisory only", text)
+        self.assertIn("by metric:", text)
+
+    def test_report_shows_reviewer_audio_flow_beside_the_computed_signal(self):
+        self._final("a", self.LONG)
+        self._final("a", self.LONG)
+        path = os.path.join(orchestrator.prompt_dir(DATE, "a"), "review.json")
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(_review("a", []), f)
+        report = run_report.build_report(DATE)
+        row = {r["id"]: r for r in report["prompts"]}["a"]
+        # The whole point: a self-graded 8 sitting next to a hard computed breach.
+        self.assertEqual(row["review_audio_flow"], 8)
+        self.assertGreaterEqual(row["listen_hard"], 1)
+        self.assertIn("flow", run_report.format_report(report))
+
+    def test_trend_carries_the_listenability_series(self):
+        self._final("a", self.LONG)
+        rows = run_report.build_history(DATE, 1)
+        self.assertEqual(len(rows), 1)
+        self.assertIn("listen_hard", rows[0])
+        self.assertGreaterEqual(rows[0]["listen_hard"], 1)
+        self.assertIn("lstn", run_report.format_history(rows))
+
+
+class FinalReaderMetricsTest(unittest.TestCase):
+    """run_report surfaces the stage-5 verdict and the send-back rate.
+
+    The send-back rate is the escalation signal: 0 of 134 approvals is the baseline the final
+    reader exists to move, and a sustained rate above ~25% is the trigger to split the reviewer
+    into critic/revisor rather than patching it.
+    """
+
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp()
+        self._saved = (config.PROMPTS_FILE, config.BRIEFINGS_DIR, config.RUNS_DIR)
+        config.PROMPTS_FILE = os.path.join(self.tmp, "prompts.json")
+        config.BRIEFINGS_DIR = os.path.join(self.tmp, "briefings")
+        config.RUNS_DIR = os.path.join(self.tmp, "runs")
+        with open(config.PROMPTS_FILE, "w", encoding="utf-8") as f:
+            json.dump({"version": 1, "show_id": "x", "orphans": [], "prompts": [
+                {"id": "a", "name": "A", "prompt": "a 1200 to 1500 word briefing",
+                 "enabled": True, "last_episode_uri": None, "last_published": None},
+                {"id": "b", "name": "B", "prompt": "a 1200 to 1500 word briefing",
+                 "enabled": True, "last_episode_uri": None, "last_published": None},
+            ]}, f)
+        orchestrator.init_run(DATE, "strict")
+
+    def tearDown(self):
+        config.PROMPTS_FILE, config.BRIEFINGS_DIR, config.RUNS_DIR = self._saved
+        shutil.rmtree(self.tmp, ignore_errors=True)
+
+    def _fc(self, pid, verdict, hard=0):
+        defects = [{"severity": "hard", "kind": "clarity", "quote": "q", "why": "w", "fix": "f"}
+                   for _ in range(hard)]
+        doc = {"prompt_id": pid, "run_date": DATE, "revision_round": 1, "verdict": verdict,
+               "listener_question": "q", "answer_heard": "a", "answered": True,
+               "scores": {"clarity": 7, "listenability": 6, "payoff": 7},
+               "defects": defects, "verdict_reason": "r"}
+        pdir = orchestrator.prompt_dir(DATE, pid)
+        with open(os.path.join(pdir, "final.txt"), "w", encoding="utf-8") as f:
+            f.write("Good morning. " + " ".join(["word"] * 1300))
+        with open(os.path.join(pdir, orchestrator.FINAL_CHECK_FILE), "w", encoding="utf-8") as f:
+            json.dump(doc, f)
+
+    def test_absent_final_check_reads_as_none_not_zero(self):
+        """Historical runs predate stage 5 — they must show '-', not a fabricated pass."""
+        report = run_report.build_report(DATE)
+        row = {r["id"]: r for r in report["prompts"]}["a"]
+        self.assertIsNone(row["final_verdict"])
+        self.assertEqual(report["totals"]["final_pass"], 0)
+
+    def test_verdicts_and_hard_defects_are_counted(self):
+        self._fc("a", "pass")
+        self._fc("b", "revise", hard=2)
+        report = run_report.build_report(DATE)
+        rows = {r["id"]: r for r in report["prompts"]}
+        self.assertEqual(rows["a"]["final_verdict"], "pass")
+        self.assertEqual(rows["b"]["final_hard_defects"], 2)
+        t = report["totals"]
+        self.assertEqual((t["final_pass"], t["final_revise"]), (1, 1))
+        self.assertEqual(t["final_hard_defects"], 2)
+
+    def test_revisions_come_from_run_json(self):
+        self._fc("a", "revise", hard=1)
+        orchestrator.record_revision("a", DATE)
+        report = run_report.build_report(DATE)
+        row = {r["id"]: r for r in report["prompts"]}["a"]
+        self.assertEqual(row["revisions"], 1)
+        self.assertEqual(report["totals"]["revisions"], 1)
+
+    def test_report_shows_the_send_back_rate(self):
+        self._fc("a", "pass")
+        self._fc("b", "revise", hard=1)
+        text = run_report.format_report(run_report.build_report(DATE))
+        self.assertIn("final reader", text)
+        self.assertIn("send-back rate", text)
+        self.assertIn("fc", text)
+
+    def test_trend_carries_the_send_back_series(self):
+        self._fc("a", "revise", hard=1)
+        rows = run_report.build_history(DATE, 1)
+        self.assertEqual(rows[0]["final_revise"], 1)
+        self.assertIn("back", run_report.format_history(rows))

@@ -175,13 +175,15 @@ class DayLastOrderingTest(unittest.TestCase):
         self.assertEqual(first, again)
 
     def test_other_days_do_not_constrain_it(self):
-        feed.add_episode("a", "A", "s", self.mp3, "2026-08-24")   # yesterday, irrelevant
+        feed.add_episode("a", "A", "s", self.mp3, "2026-08-24")   # another day, irrelevant
         rec = feed.add_episode("fc", "FC", "s", self.mp3, "2026-08-25")
-        self.assertEqual(rec["published_at"][:10], "2026-08-25")
+        # nothing regular on 2026-08-25 yet, so the baseline is the wall clock, not 08-24's episode
+        self.assertGreater(feed._episode_datetime(rec),
+                           feed._episode_datetime({"date": "2026-08-24", "published_at": None,
+                                                   "seq": 0}))
 
     def test_no_regular_episode_yet_falls_back_to_now(self):
         rec = feed.add_episode("fc", "FC", "s", self.mp3, "2026-08-25")
-        self.assertEqual(rec["published_at"][:10], "2026-08-25")
         later = feed.add_episode("a", "A", "s", self.mp3, "2026-08-25")
         self.assertLess(feed._episode_datetime(rec), feed._episode_datetime(later))
 

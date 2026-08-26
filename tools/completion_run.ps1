@@ -1,23 +1,39 @@
-# Cautious Optimism Briefings - 10:05 completion pass (Windows Task Scheduler).
+# Cautious Optimism Briefings - 06:20 completion pass (Windows Task Scheduler).
 #
-# WHY THIS EXISTS. The 5 AM batch now costs more than a single Claude session window allows. On
+# WHY THIS EXISTS. The nightly batch now costs more than a single Claude session window allows. On
 # 2026-07-25 the primary run spent ~58M tokens in 16 minutes, finished 9 of 11 prompts, and the
 # session cap ("resets 10am") stopped the rest - three episodes had to be finished by hand at 11:00.
 # No scheduling tweak fixes that: the quota is per rolling ~5-hour window, so idle time inside the
 # window restores nothing and starting EARLIER only risks colliding with the previous evening's
 # session. The one pause that works is one that crosses the reset boundary. This job is that pause.
 #
-# It runs at 10:05, just after the window the 5 AM job opened has reset, and finishes whatever was
-# truncated - in a fresh quota, automatically.
+# It runs at 06:20, just after the window the 01:15 publish job opened has reset, and finishes
+# whatever was truncated - in a fresh quota, automatically.
+#
+# WHY :20 AND NOT :05 PAST THE RESET. The reset boundary is not fixed at the top of the hour - it
+# tracks when the window actually opened, so it drifts. On 2026-08-25 the cap message read "resets
+# 10:10am" and the pass, then scheduled five minutes after the expected reset, fired early: every
+# session died instantly, it spent its one shot on nothing, and four prompts had to be finished by
+# hand. The 15-minute cushion is margin against that drift. If a future run again dies instantly
+# with a "session limit" line, read the reset time in logs\daily-<date>.log and push this later
+# still, rather than assuming the pass itself is broken.
+#
+# TIMES SHIFTED 4h EARLIER (2026-08-26): the batch now runs 20:00 -> 01:15 -> 06:20 (was
+# 00:00 -> 05:15 -> 10:20) so that everything is on Spotify by 07:00 ET. Spacing is unchanged.
 #
 # IT IS CHEAP WHEN THERE IS NOTHING TO DO. It asks orchestrator.py resume whether any prompt is
 # unfinished; if none are, it spends ZERO model tokens and only runs the (deterministic) publish
 # with --skip-published to catch anything approved but not yet in the feed. On a normal morning
 # that is a few seconds and no cost.
 #
-# Everything is appended to the SAME logs\daily-<date>.log as the 5 AM run, so one file tells the
+# Everything is appended to the SAME logs\daily-<date>.log as the 01:15 run, so one file tells the
 # whole story of the day. Exit code is non-zero only if publishing failed.
-param([switch]$NoPublish, [int]$ChunkSize = 3)
+# Reasoning effort for every headless Claude session this script starts. Pinned for the same
+# reason as --model: effortLevel in %USERPROFILE%\.claude\settings.json is user-global, so an
+# interactive /effort would otherwise silently change what the unattended run costs. The
+# pipeline subagents inherit it (none pin an effort in their frontmatter).
+param([switch]$NoPublish, [int]$ChunkSize = 3,
+      [ValidateSet('low','medium','high','xhigh','max')][string]$Effort = 'medium')
 
 $ErrorActionPreference = 'Continue'
 $proj   = 'C:\Users\wamfo\ClaudeDev\Spotify'
@@ -79,7 +95,7 @@ if ($unfinished -eq 0) {
     Log "claude: $claude"
 
     $preamble = @"
-CONTEXT: this is the 10:05 COMPLETION PASS. The 5 AM scheduled run was cut short (usually by the
+CONTEXT: this is the 10:20 COMPLETION PASS. The 5 AM scheduled run was cut short (usually by the
 session usage cap) and left some prompts unfinished. A fresh session window is now available.
 Finish ONLY what is outstanding, exactly per the resume semantics below - re-running a finished
 prompt or a completed stage wastes the budget this pass exists to provide. Some briefings for today
@@ -91,7 +107,7 @@ are ALREADY PUBLISHED to the feed; that is expected and is not a reason to redo 
     & $conda run -n Spotify --no-capture-output python orchestrator.py resume --date $today --prune *>> $log
 
     Log "completion: chunked phase 1 (resume, ChunkSize=$ChunkSize) - parent Sonnet 5, novelty=$novelty"
-    Invoke-Phase1Chunked -Claude $claude -Conda $conda -Today $today -Novelty $novelty -Log $log -ChunkSize $ChunkSize -Preamble $preamble
+    Invoke-Phase1Chunked -Claude $claude -Conda $conda -Today $today -Novelty $novelty -Log $log -ChunkSize $ChunkSize -Effort $Effort -Preamble $preamble
     Log "completion: chunked phase 1 done"
 
     # The chunk sessions ran with -SkipAnalysis; write the day's final analysis once, in its own
@@ -104,7 +120,7 @@ numbers from run_report). Local-only; do NOT commit it. runs/$today/token_window
 one segment (the 5 AM run plus this completion pass) - say so and note which prompts ran when. Do NOT
 run any pipeline agents or touch any briefing; this session is analysis only.
 "@
-    & $claude -p $analysisPrompt --model claude-sonnet-5 --fallback-model claude-opus-4-8 --dangerously-skip-permissions *>> $log
+    & $claude -p $analysisPrompt --model claude-sonnet-5 --fallback-model claude-opus-4-8 --effort $Effort --dangerously-skip-permissions *>> $log
 
     & $conda run -n Spotify --no-capture-output python run_report.py --date $today --end *>> $log
 

@@ -57,6 +57,30 @@ def _valid_review(pid="a", decision="approve"):
             "issues_found": [], "changes_made": []}
 
 
+def _valid_final_check(pid="a", verdict="pass", defects=None, rnd=1):
+    if defects is None:
+        defects = [] if verdict == "pass" else [{
+            "severity": "hard", "kind": "clarity", "quote": "a 62-word sentence",
+            "why": "unfollowable on one listen", "fix": "split at 'and because'"}]
+    return {"prompt_id": pid, "run_date": DATE, "revision_round": rnd, "verdict": verdict,
+            "listener_question": "what changed in semis today?",
+            "answer_heard": "a warrant restructured a supply relationship",
+            "answered": True,
+            "scores": {"clarity": 8, "listenability": 7, "payoff": 8},
+            "defects": defects, "verdict_reason": "clears the bar on one hearing"}
+
+
+def _script(marker: str = "one") -> str:
+    """A well-formed ~760-word script for approve() fixtures.
+
+    approve() now runs the deterministic script gate over final.txt, so a 4-word stub no longer
+    reaches the copy step. ``marker`` keeps otherwise-identical fixtures distinguishable.
+    """
+    body = "The desk repriced that trade today. " * 10
+    paras = [f"Good morning. The script covers {marker} today."] + [body.strip()] * 14
+    return "\n\n".join(paras) + "\n"
+
+
 class OrchestratorTest(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.mkdtemp()
@@ -251,10 +275,15 @@ class OrchestratorTest(unittest.TestCase):
     def _briefing(self, pid):
         return os.path.join(config.BRIEFINGS_DIR, pid + ".txt")
 
+    def _pass_final_check(self, pid="a"):
+        """Satisfy stage 5 so tests targeting the earlier gates can reach the copy."""
+        return self._write_artifact(pid, "final_check.json", _valid_final_check(pid))
+
     def test_approve_copies_only_on_approve(self):
         orchestrator.init_run(DATE, "strict")
         self._write_artifact("a", "review.json", _valid_review())
-        self._write_artifact("a", "final.txt", "Good morning. The script.\n")
+        self._write_artifact("a", "final.txt", _script())
+        self._pass_final_check("a")
         dest = orchestrator.approve("a", DATE)
         self.assertEqual(dest, self._briefing("a"))
         with open(dest, encoding="utf-8") as f:
@@ -262,11 +291,11 @@ class OrchestratorTest(unittest.TestCase):
         state = orchestrator.load_state(DATE)
         self.assertEqual(next(e for e in state["prompts"] if e["id"] == "a")["status"], "approved")
         # the approved copy is what --require-fresh publishing selects
-        self.assertTrue(publish_feed._fresh_today(dest, orchestrator.datetime.date.today().isoformat()))
+        self.assertTrue(publish_feed._fresh_for_run(dest, orchestrator.datetime.date.today().isoformat()))
 
     def test_approve_refuses_without_review(self):
         orchestrator.init_run(DATE, "strict")
-        self._write_artifact("a", "final.txt", "script")
+        self._write_artifact("a", "final.txt", _script())
         with self.assertRaises(RuntimeError):
             orchestrator.approve("a", DATE)
         self.assertFalse(os.path.exists(self._briefing("a")))
@@ -275,7 +304,7 @@ class OrchestratorTest(unittest.TestCase):
         orchestrator.init_run(DATE, "strict")
         for decision in ("skip", "failed"):
             self._write_artifact("a", "review.json", _valid_review(decision=decision))
-            self._write_artifact("a", "final.txt", "script")
+            self._write_artifact("a", "final.txt", _script())
             with self.assertRaises(RuntimeError):
                 orchestrator.approve("a", DATE)
         self.assertFalse(os.path.exists(self._briefing("a")))
@@ -293,12 +322,16 @@ class OrchestratorTest(unittest.TestCase):
     def test_approve_same_day_rerun_overwrites_in_place(self):
         orchestrator.init_run(DATE, "strict")
         self._write_artifact("a", "review.json", _valid_review())
-        self._write_artifact("a", "final.txt", "version one")
+        self._write_artifact("a", "final.txt", _script("version one"))
+        self._pass_final_check("a")
         orchestrator.approve("a", DATE)
-        self._write_artifact("a", "final.txt", "version two")
+        self._write_artifact("a", "final.txt", _script("version two"))
+        self._pass_final_check("a")  # the rewritten script must be re-read
         orchestrator.approve("a", DATE)  # idempotent re-run, no duplicate files
         with open(self._briefing("a"), encoding="utf-8") as f:
-            self.assertEqual(f.read(), "version two")
+            shipped = f.read()
+        self.assertIn("version two", shipped)
+        self.assertNotIn("version one", shipped)
 
     # --- batch independence + status (spec tests 10, 11) -----------------------
 
@@ -306,7 +339,8 @@ class OrchestratorTest(unittest.TestCase):
         orchestrator.init_run(DATE, "strict")
         orchestrator.mark("a", DATE, "failed", "research", "all retries exhausted")
         self._write_artifact("b", "review.json", _valid_review(pid="b"))
-        self._write_artifact("b", "final.txt", "b script")
+        self._write_artifact("b", "final.txt", _script("b"))
+        self._pass_final_check("b")
         orchestrator.approve("b", DATE)
         summary = orchestrator.run_status(DATE)
         by_id = {e["id"]: e["status"] for e in summary["prompts"]}
@@ -325,10 +359,218 @@ class OrchestratorTest(unittest.TestCase):
         """Dry-run guarantee: the gates never touch docs/, feed_state, or git."""
         orchestrator.init_run(DATE, "strict")
         self._write_artifact("a", "review.json", _valid_review())
-        self._write_artifact("a", "final.txt", "script")
+        self._write_artifact("a", "final.txt", _script())
+        self._pass_final_check("a")
         orchestrator.approve("a", DATE)
         top = set(os.listdir(self.tmp))
         self.assertEqual(top, {"prompts.json", "runs", "briefings"})
+
+    # --- script gate (the write stage had no validator at all before) -----------
+
+    def test_stage_chain_validates_the_draft(self):
+        """_stage_chain passed None for the write stage, so draft.txt was never checked."""
+        for kind in ("normal", "synthesis"):
+            chain = dict((stage, vkind) for stage, _paths, vkind in
+                         orchestrator._stage_chain(DATE, "a", kind))
+            self.assertEqual(chain["write"], "script", kind)
+
+    def test_validate_script_cli_and_dispatch(self):
+        orchestrator.init_run(DATE, "strict")
+        clean = self._write_artifact("a", "draft.txt", _script())
+        self.assertEqual(orchestrator.validate_file("script", clean, write=False), [])
+        self.assertEqual(orchestrator.main(["validate", "script", clean]), 0)
+        leaky = self._write_artifact("b", "draft.txt",
+                                     "Good morning. The dossier puts it near ten billion.")
+        self.assertTrue(orchestrator.validate_file("script", leaky, write=False))
+        self.assertEqual(orchestrator.main(["validate", "script", leaky]), 1)
+
+    def test_validate_script_writes_metrics_sidecar(self):
+        orchestrator.init_run(DATE, "strict")
+        path = self._write_artifact("a", "final.txt", _script())
+        orchestrator.validate_script_file(path, write=True)
+        side = orchestrator.script_check_path(path)
+        self.assertTrue(os.path.exists(side))
+        with open(side, encoding="utf-8") as f:
+            doc = json.load(f)
+        self.assertIn("metrics", doc)
+        self.assertEqual(doc["stage"], "final")
+
+    def test_resume_does_not_write_sidecars(self):
+        """A resume walk is read-only — it must not litter the tree with metrics files."""
+        orchestrator.init_run(DATE, "strict")
+        self._write_artifact("a", "research.json", _valid_research())
+        self._write_artifact("a", "editorial_plan.json", _valid_plan())
+        draft = self._write_artifact("a", "draft.txt", _script())
+        state = orchestrator.load_state(DATE)
+        orchestrator.resume_for_prompt(DATE, orchestrator._find_entry(state, "a"))
+        self.assertFalse(os.path.exists(orchestrator.script_check_path(draft)))
+
+    def test_approve_refuses_a_script_that_fails_the_gate(self):
+        orchestrator.init_run(DATE, "strict")
+        self._write_artifact("a", "review.json", _valid_review())
+        # A stage direction the reviewer waved through — the real 2026-08-24 failure mode.
+        self._write_artifact("a", "final.txt",
+                             _script() + "\nSay clearly that these are letters of intent.")
+        with self.assertRaises(RuntimeError) as ctx:
+            orchestrator.approve("a", DATE)
+        self.assertIn("script gate", str(ctx.exception))
+        self.assertFalse(os.path.exists(self._briefing("a")))
+
+    def test_approve_refuses_an_under_floor_final(self):
+        orchestrator.init_run(DATE, "strict")
+        self._write_artifact("a", "review.json", _valid_review())
+        self._write_artifact("a", "final.txt", "Good morning. Far too short.")
+        with self.assertRaises(RuntimeError) as ctx:
+            orchestrator.approve("a", DATE)
+        self.assertIn("under_floor", str(ctx.exception))
+
+    # --- source_check filename collision (research.json and deep share a directory) ----
+
+    def test_source_check_paths_do_not_collide(self):
+        research = orchestrator.source_check_path("runs/D/id/research.json")
+        deep = orchestrator.source_check_path("runs/D/id/deep_research.json")
+        self.assertNotEqual(research, deep)
+        self.assertTrue(os.path.basename(research).startswith("research"))
+        self.assertTrue(os.path.basename(deep).startswith("deep_research"))
+
+    # --- mark --stage deep was rejected because STAGES omitted it ---------------
+
+    def test_mark_accepts_the_deep_stage(self):
+        orchestrator.init_run(DATE, "strict")
+        orchestrator.mark("a", DATE, "failed", "deep", "dive came back unusable")
+        entry = orchestrator._find_entry(orchestrator.load_state(DATE), "a")
+        self.assertEqual((entry["status"], entry["stage"]), ("failed", "deep"))
+
+    # --- stage 5: the fresh final reader ----------------------------------------
+
+    def test_final_check_is_in_both_chains(self):
+        """Synthesis prompts especially — they have no research or plan gate at all."""
+        for kind in ("normal", "synthesis"):
+            chain = [stage for stage, _p, _v in orchestrator._stage_chain(DATE, "a", kind)]
+            self.assertEqual(chain[-1], "final_check", kind)
+
+    def test_validate_final_check_schema(self):
+        v = orchestrator.validate_final_check
+        self.assertEqual(v(_valid_final_check()), [])
+        self.assertTrue(v(_valid_final_check(verdict="nope")))
+        bad = _valid_final_check()
+        bad["scores"]["clarity"] = 11
+        self.assertTrue(v(bad))
+        bad = _valid_final_check()
+        bad["revision_round"] = orchestrator.MAX_FINAL_CHECK_ROUNDS + 1
+        self.assertTrue(v(bad))
+        bad = _valid_final_check()
+        bad["answer_heard"] = "   "
+        self.assertTrue(v(bad))
+
+    def test_revise_needs_a_named_hard_defect(self):
+        """No vetoing a script without saying what is wrong with it."""
+        doc = _valid_final_check(verdict="revise", defects=[])
+        self.assertTrue(any("hard" in e for e in orchestrator.validate_final_check(doc)))
+        soft_only = _valid_final_check(verdict="revise", defects=[{
+            "severity": "soft", "kind": "payoff", "quote": "q", "why": "w", "fix": "f"}])
+        self.assertTrue(orchestrator.validate_final_check(soft_only))
+
+    def test_pass_may_not_carry_a_hard_defect(self):
+        """The mirror rule: it cannot wave through something it just called broken."""
+        doc = _valid_final_check(verdict="pass", defects=[{
+            "severity": "hard", "kind": "clarity", "quote": "q", "why": "w", "fix": "f"}])
+        self.assertTrue(orchestrator.validate_final_check(doc))
+
+    def test_defects_must_be_actionable(self):
+        """Someone else does the rewriting, so an unquoted or fixless defect is useless."""
+        doc = _valid_final_check(verdict="revise", defects=[{
+            "severity": "hard", "kind": "clarity", "quote": "", "why": "w", "fix": ""}])
+        problems = orchestrator.validate_final_check(doc)
+        self.assertTrue(any("quote" in e for e in problems))
+        self.assertTrue(any("fix" in e for e in problems))
+
+    def _ready_to_approve(self, pid="a"):
+        orchestrator.init_run(DATE, "strict")
+        self._write_artifact(pid, "review.json", _valid_review(pid=pid))
+        self._write_artifact(pid, "final.txt", _script())
+
+    def test_approve_refuses_without_a_final_check(self):
+        self._ready_to_approve()
+        with self.assertRaises(RuntimeError) as ctx:
+            orchestrator.approve("a", DATE)
+        self.assertIn("final_check.json", str(ctx.exception))
+        self.assertFalse(os.path.exists(self._briefing("a")))
+
+    def test_approve_refuses_a_revise_verdict(self):
+        """The reviewer approved; the fresh reader did not. The fresh reader wins."""
+        self._ready_to_approve()
+        self._write_artifact("a", "final_check.json", _valid_final_check(verdict="revise"))
+        with self.assertRaises(RuntimeError) as ctx:
+            orchestrator.approve("a", DATE)
+        self.assertIn("revise", str(ctx.exception))
+
+    def test_approve_refuses_a_stale_final_check(self):
+        """A reviewer revision must be re-read, not inherited from the pre-revision script."""
+        self._ready_to_approve()
+        fc = self._write_artifact("a", "final_check.json", _valid_final_check())
+        final = os.path.join(orchestrator.prompt_dir(DATE, "a"), "final.txt")
+        old = os.path.getmtime(final) - 60
+        os.utime(fc, (old, old))
+        with self.assertRaises(RuntimeError) as ctx:
+            orchestrator.approve("a", DATE)
+        self.assertIn("older than", str(ctx.exception))
+
+    def test_approve_refuses_an_invalid_final_check(self):
+        self._ready_to_approve()
+        self._write_artifact("a", "final_check.json", {"prompt_id": "a"})
+        with self.assertRaises(RuntimeError) as ctx:
+            orchestrator.approve("a", DATE)
+        self.assertIn("invalid", str(ctx.exception))
+
+    # --- revision budget (must survive --prune and chunked sessions) -------------
+
+    def test_revision_budget_charges_and_exhausts(self):
+        orchestrator.init_run(DATE, "strict")
+        first = orchestrator.record_revision("a", DATE, budget=2)
+        self.assertEqual((first["count"], first["exhausted"]), (1, False))
+        second = orchestrator.record_revision("a", DATE, budget=2)
+        self.assertEqual((second["count"], second["exhausted"]), (2, True))
+
+    def test_revision_budget_lives_in_run_json_so_prune_cannot_reset_it(self):
+        orchestrator.init_run(DATE, "strict")
+        orchestrator.record_revision("a", DATE)
+        # Deleting the artifact (what `resume --prune` does) must not forgive the revision.
+        fc = os.path.join(orchestrator.prompt_dir(DATE, "a"), "final_check.json")
+        if os.path.exists(fc):
+            os.remove(fc)
+        entry = orchestrator._find_entry(orchestrator.load_state(DATE), "a")
+        self.assertEqual(entry["revisions"]["final_check"], 1)
+
+    def test_revision_cli_exit_three_when_exhausted(self):
+        orchestrator.init_run(DATE, "strict")
+        self.assertEqual(orchestrator.main(["revision", "a", "--date", DATE, "--budget", "2"]), 0)
+        self.assertEqual(orchestrator.main(["revision", "a", "--date", DATE, "--budget", "2"]), 3)
+
+    # --- resume must not point at an unreachable stage 5 ------------------------
+
+    def test_resume_finalizes_when_the_review_did_not_approve(self):
+        """A skipped review leaves no script to read, so resume must say finalize, not final_check."""
+        orchestrator.init_run(DATE, "strict")
+        self._write_artifact("a", "research.json", _valid_research())
+        self._write_artifact("a", "editorial_plan.json", _valid_plan())
+        self._write_artifact("a", "draft.txt", _script())
+        self._write_artifact("a", "review.json", _valid_review(decision="skip"))
+        self._write_artifact("a", "final.txt", _script())
+        state = orchestrator.load_state(DATE)
+        out = orchestrator.resume_for_prompt(DATE, orchestrator._find_entry(state, "a"))
+        self.assertEqual(out["resume_stage"], "finalize")
+
+    def test_resume_points_at_final_check_when_it_is_missing(self):
+        orchestrator.init_run(DATE, "strict")
+        self._write_artifact("a", "research.json", _valid_research())
+        self._write_artifact("a", "editorial_plan.json", _valid_plan())
+        self._write_artifact("a", "draft.txt", _script())
+        self._write_artifact("a", "review.json", _valid_review())
+        self._write_artifact("a", "final.txt", _script())
+        state = orchestrator.load_state(DATE)
+        out = orchestrator.resume_for_prompt(DATE, orchestrator._find_entry(state, "a"))
+        self.assertEqual(out["resume_stage"], "final_check")
 
     # --- CLI exit codes ---------------------------------------------------------
 
@@ -340,7 +582,8 @@ class OrchestratorTest(unittest.TestCase):
         self.assertEqual(orchestrator.main(["validate", "research", bad]), 1)
         self.assertEqual(orchestrator.main(["approve", "a", "--date", DATE]), 1)  # no review yet
         self._write_artifact("a", "review.json", _valid_review())
-        self._write_artifact("a", "final.txt", "script")
+        self._write_artifact("a", "final.txt", _script())
+        self._pass_final_check("a")
         self.assertEqual(orchestrator.main(["approve", "a", "--date", DATE]), 0)
         self.assertEqual(orchestrator.main(["status", "--date", DATE, "--json"]), 0)
         self.assertEqual(orchestrator.main(["status", "--date", "1999-01-01"]), 1)
