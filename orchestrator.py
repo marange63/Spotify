@@ -78,6 +78,11 @@ FINAL_CHECK_FILE = "final_check.json"
 # lives in run.json, NOT in final_check.json: `resume --prune` deletes the artifact, and phase-1
 # runs in chunked sessions that share nothing but disk, so a counter in the artifact would reset
 # and the prompt could bounce between reviewer and final-reader forever.
+# BUDGET = HOW MANY REVISIONS ARE ALLOWED, not how many final_check rounds exist. Charging the
+# first revise verdict must NOT exhaust it: with a budget of 1 the prompt gets one revision pass
+# (final_check round 2), and only a SECOND revise gives up. Until 2026-08-26 the test was
+# `count >= budget`, so the first revise exited 3 and the prompt was skipped on the spot — the
+# revision path was unreachable and 6 of 14 briefings were dropped on 2026-08-26 alone.
 DEFAULT_REVISION_BUDGET = 1
 MAX_FINAL_CHECK_ROUNDS = 2
 
@@ -897,6 +902,9 @@ def record_revision(prompt_id: str, date: str, stage: str = "final_check",
                    budget: int = DEFAULT_REVISION_BUDGET) -> dict:
     """Charge one revision against ``prompt_id``'s budget and report whether it is now exhausted.
 
+    ``budget`` is the number of revisions ALLOWED, so charging the first one against the default
+    budget of 1 is not exhaustion — it buys the single revision pass the Final Reader flow expects.
+
     Kept in run.json rather than in the artifact so it survives ``resume --prune`` and the chunked
     phase-1 sessions — the two things that would otherwise reset it and let a prompt ping-pong
     between the Reviewer and the final reader indefinitely.
@@ -908,7 +916,7 @@ def record_revision(prompt_id: str, date: str, stage: str = "final_check",
     revisions[stage] = count
     _save_state(date, state)
     out = {"id": prompt_id, "stage": stage, "count": count, "budget": budget,
-           "exhausted": count >= budget}
+           "exhausted": count > budget}   # budget = revisions ALLOWED; see the constant
     log.info("revision %s/%s charged to %s (%s)", count, budget, prompt_id, stage)
     return out
 

@@ -530,7 +530,18 @@ class OrchestratorTest(unittest.TestCase):
         first = orchestrator.record_revision("a", DATE, budget=2)
         self.assertEqual((first["count"], first["exhausted"]), (1, False))
         second = orchestrator.record_revision("a", DATE, budget=2)
-        self.assertEqual((second["count"], second["exhausted"]), (2, True))
+        self.assertEqual((second["count"], second["exhausted"]), (2, False))
+        third = orchestrator.record_revision("a", DATE, budget=2)
+        self.assertEqual((third["count"], third["exhausted"]), (3, True))
+
+    def test_default_budget_buys_one_revision_before_exhausting(self):
+        """Regression (2026-08-26): the FIRST revise verdict used to exhaust a budget of 1, so the
+        revision pass never ran and any single defect killed the episode."""
+        orchestrator.init_run(DATE, "strict")
+        first = orchestrator.record_revision("a", DATE)
+        self.assertFalse(first["exhausted"])          # buys final_check round 2
+        second = orchestrator.record_revision("a", DATE)
+        self.assertTrue(second["exhausted"])          # a second revise does give up
 
     def test_revision_budget_lives_in_run_json_so_prune_cannot_reset_it(self):
         orchestrator.init_run(DATE, "strict")
@@ -544,8 +555,8 @@ class OrchestratorTest(unittest.TestCase):
 
     def test_revision_cli_exit_three_when_exhausted(self):
         orchestrator.init_run(DATE, "strict")
-        self.assertEqual(orchestrator.main(["revision", "a", "--date", DATE, "--budget", "2"]), 0)
-        self.assertEqual(orchestrator.main(["revision", "a", "--date", DATE, "--budget", "2"]), 3)
+        self.assertEqual(orchestrator.main(["revision", "a", "--date", DATE, "--budget", "1"]), 0)
+        self.assertEqual(orchestrator.main(["revision", "a", "--date", DATE, "--budget", "1"]), 3)
 
     # --- resume must not point at an unreachable stage 5 ------------------------
 
