@@ -1,4 +1,4 @@
-# Cautious Optimism Briefings - 06:20 completion pass (Windows Task Scheduler).
+# Cautious Optimism Briefings - 08:20 completion pass (Windows Task Scheduler).
 #
 # WHY THIS EXISTS. The nightly batch now costs more than a single Claude session window allows. On
 # 2026-07-25 the primary run spent ~58M tokens in 16 minutes, finished 9 of 11 prompts, and the
@@ -7,7 +7,7 @@
 # window restores nothing and starting EARLIER only risks colliding with the previous evening's
 # session. The one pause that works is one that crosses the reset boundary. This job is that pause.
 #
-# It runs at 06:20, just after the window the 01:15 publish job opened has reset, and finishes
+# It runs at 08:20, just after the window the 03:15 publish job opened has reset, and finishes
 # whatever was truncated - in a fresh quota, automatically.
 #
 # WHY :20 AND NOT :05 PAST THE RESET. The reset boundary is not fixed at the top of the hour - it
@@ -18,15 +18,16 @@
 # with a "session limit" line, read the reset time in logs\daily-<date>.log and push this later
 # still, rather than assuming the pass itself is broken.
 #
-# TIMES SHIFTED 4h EARLIER (2026-08-26): the batch now runs 20:00 -> 01:15 -> 06:20 (was
-# 00:00 -> 05:15 -> 10:20) so that everything is on Spotify by 07:00 ET. Spacing is unchanged.
+# TIMES SHIFTED 4h EARLIER (2026-08-26): the batch now runs 22:00 -> 03:15 -> 08:20 (was
+# 00:00 -> 05:15 -> 10:20) so a normal night is live by ~03:55, well before 07:00 ET. Spacing is
+# unchanged; only this pass can now land after 07:00, and only when the 03:15 run was truncated.
 #
 # IT IS CHEAP WHEN THERE IS NOTHING TO DO. It asks orchestrator.py resume whether any prompt is
 # unfinished; if none are, it spends ZERO model tokens and only runs the (deterministic) publish
 # with --skip-published to catch anything approved but not yet in the feed. On a normal morning
 # that is a few seconds and no cost.
 #
-# Everything is appended to the SAME logs\daily-<date>.log as the 01:15 run, so one file tells the
+# Everything is appended to the SAME logs\daily-<date>.log as the 03:15 run, so one file tells the
 # whole story of the day. Exit code is non-zero only if publishing failed.
 # Reasoning effort for every headless Claude session this script starts. Pinned for the same
 # reason as --model: effortLevel in %USERPROFILE%\.claude\settings.json is user-global, so an
@@ -95,7 +96,7 @@ if ($unfinished -eq 0) {
     Log "claude: $claude"
 
     $preamble = @"
-CONTEXT: this is the 10:20 COMPLETION PASS. The 5 AM scheduled run was cut short (usually by the
+CONTEXT: this is the 08:20 COMPLETION PASS. The 03:15 scheduled run was cut short (usually by the
 session usage cap) and left some prompts unfinished. A fresh session window is now available.
 Finish ONLY what is outstanding, exactly per the resume semantics below - re-running a finished
 prompt or a completed stage wastes the budget this pass exists to provide. Some briefings for today

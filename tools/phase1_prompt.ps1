@@ -1,6 +1,6 @@
 # Shared phase-1 prompt for the briefing pipeline.
 #
-# Dot-sourced by BOTH tools\daily_run.ps1 (the 5 AM job) and tools\completion_run.ps1 (the 10:05
+# Dot-sourced by BOTH tools\daily_run.ps1 (the nightly job) and tools\completion_run.ps1 (the 08:20
 # pass that finishes whatever the session cap truncated). It lives in one file so the resume
 # semantics can never drift between them - the completion pass depends entirely on those semantics
 # being obeyed, and a stale copy would silently restart finished prompts.
@@ -146,6 +146,10 @@ function Invoke-Phase1Chunked {
         [Parameter(Mandatory)][string]$Log,
         [string]$Model = 'claude-sonnet-5',
         [string]$Fallback = 'claude-opus-4-8',
+        # Reasoning effort for the headless sessions. Pinned explicitly for the same reason
+        # as -Model: settings.json's effortLevel is user-global, so an interactive /effort
+        # would otherwise silently change what the unattended run costs. Subagents inherit it.
+        [ValidateSet('low','medium','high','xhigh','max')][string]$Effort = 'medium',
         [int]$ChunkSize = 3,
         [string[]]$Only = @(),
         [string]$Preamble = ''
@@ -160,7 +164,7 @@ function Invoke-Phase1Chunked {
         # No readable state (e.g. init never ran): one full session that DOES init, as a safe fallback.
         _clog "chunked: no run state - running one full session that initialises the batch"
         $p = Get-Phase1Prompt -Today $Today -Novelty $Novelty -Only $Only -SkipAnalysis -Preamble $Preamble
-        & $Claude -p $p --model $Model --fallback-model $Fallback --dangerously-skip-permissions *>> $Log
+        & $Claude -p $p --model $Model --fallback-model $Fallback --effort $Effort --dangerously-skip-permissions *>> $Log
         return
     }
 
@@ -180,19 +184,19 @@ function Invoke-Phase1Chunked {
         $chunks += , @($normals[$i..$end])
     }
     $n = $chunks.Count + $(if ($synth.Count) { 1 } else { 0 })
-    _clog "chunked: $($unfinished.Count) unfinished -> $n session(s) (ChunkSize=$ChunkSize, $Model)"
+    _clog "chunked: $($unfinished.Count) unfinished -> $n session(s) (ChunkSize=$ChunkSize, $Model, effort=$Effort)"
 
     $ci = 0
     foreach ($chunk in $chunks) {
         $ci++
         _clog "chunked: normal session $ci/$($chunks.Count) [$($chunk -join ', ')]"
         $p = Get-Phase1Prompt -Today $Today -Novelty $Novelty -Only $chunk -SkipAnalysis -SkipInit -Preamble $Preamble
-        & $Claude -p $p --model $Model --fallback-model $Fallback --dangerously-skip-permissions *>> $Log
+        & $Claude -p $p --model $Model --fallback-model $Fallback --effort $Effort --dangerously-skip-permissions *>> $Log
     }
     if ($synth.Count) {
         # Synthesis runs LAST - it reads the day's already-approved briefings from disk.
         _clog "chunked: synthesis session [$($synth -join ', ')]"
         $p = Get-Phase1Prompt -Today $Today -Novelty $Novelty -Only $synth -SkipAnalysis -SkipInit -Preamble $Preamble
-        & $Claude -p $p --model $Model --fallback-model $Fallback --dangerously-skip-permissions *>> $Log
+        & $Claude -p $p --model $Model --fallback-model $Fallback --effort $Effort --dangerously-skip-permissions *>> $Log
     }
 }

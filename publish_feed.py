@@ -112,7 +112,7 @@ def _fresh_for_run(text_path: str, date: str, now: datetime.datetime | None = No
 
     Written *on* ``date`` always counts. It is also fresh if it was written within the last
     ``config.FRESH_WINDOW_HOURS`` — which is what makes the pre-midnight half of the batch
-    publishable: since the 20:00 job runs the evening BEFORE the date it is producing, its
+    publishable: since the 22:00 job runs the evening BEFORE the date it is producing, its
     briefings carry the prior calendar day's mtime by design. The window is short enough that a
     genuinely stale file (the previous day's morning run, ~24h back) is still rejected.
     """

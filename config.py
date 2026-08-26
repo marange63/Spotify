@@ -80,9 +80,9 @@ RETENTION_DAYS = 10
 FEED_DAY_LAST_PROMPTS = ("throughline", "forward-curve")
 
 # How recent a briefings/<id>.txt must be for `publish_feed.py --require-fresh` to publish it when
-# its mtime is not on the run date itself. The pre-midnight half of the batch runs at 20:00 the
+# its mtime is not on the run date itself. The pre-midnight half of the batch runs at 22:00 the
 # evening BEFORE the date it produces, so its scripts legitimately carry the prior day's date;
-# 14h covers that (20:00 -> the 06:20 completion pass) while still rejecting a script left over
+# 14h covers that (22:00 -> the 08:20 completion pass) while still rejecting a script left over
 # from the previous day's morning run (~24h old).
 FRESH_WINDOW_HOURS = 14
 

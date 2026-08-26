@@ -87,23 +87,23 @@ class FreshnessWindowTest(unittest.TestCase):
         os.utime(self.f, (ts, ts))
 
     def test_written_on_the_run_date_is_fresh(self):
-        now = datetime.datetime(2026, 8, 27, 1, 55)
-        self._stamp(datetime.datetime(2026, 8, 27, 1, 30))
+        now = datetime.datetime(2026, 8, 27, 3, 55)          # the 03:15 publish run, publishing
+        self._stamp(datetime.datetime(2026, 8, 27, 3, 30))
         self.assertTrue(publish_feed._fresh_for_run(self.f, "2026-08-27", now))
 
     def test_prior_evening_is_fresh_for_the_next_days_run(self):
-        now = datetime.datetime(2026, 8, 27, 1, 55)          # the 01:15 publish run
-        self._stamp(datetime.datetime(2026, 8, 26, 20, 30))  # the 20:00 pre-midnight half
+        now = datetime.datetime(2026, 8, 27, 3, 55)          # the 03:15 publish run
+        self._stamp(datetime.datetime(2026, 8, 26, 22, 30))  # written by the 22:00 evening half
         self.assertTrue(publish_feed._fresh_for_run(self.f, "2026-08-27", now))
 
     def test_still_fresh_at_the_completion_pass(self):
-        now = datetime.datetime(2026, 8, 27, 6, 20)          # the 06:20 completion pass
-        self._stamp(datetime.datetime(2026, 8, 26, 20, 0))
+        now = datetime.datetime(2026, 8, 27, 8, 20)          # the 08:20 completion pass
+        self._stamp(datetime.datetime(2026, 8, 26, 22, 0))   # 10h20 old: inside the 14h window
         self.assertTrue(publish_feed._fresh_for_run(self.f, "2026-08-27", now))
 
-    def test_yesterdays_morning_run_is_stale(self):
-        now = datetime.datetime(2026, 8, 27, 6, 20)
-        self._stamp(datetime.datetime(2026, 8, 26, 5, 55))   # ~24h old: the guard must reject it
+    def test_previous_nights_run_is_stale(self):
+        now = datetime.datetime(2026, 8, 27, 8, 20)
+        self._stamp(datetime.datetime(2026, 8, 26, 3, 55))   # ~28h old: the guard must reject it
         self.assertFalse(publish_feed._fresh_for_run(self.f, "2026-08-27", now))
 
 

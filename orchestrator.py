@@ -12,14 +12,20 @@ stdlib-only gatekeeper the session calls between stages:
     python orchestrator.py validate plan     runs/D/<id>/editorial_plan.json
     python orchestrator.py validate deep     runs/D/<id>/deep_research.json   # optional stage 2.5
     python orchestrator.py validate review   runs/D/<id>/review.json
+    python orchestrator.py validate script   runs/D/<id>/draft.txt      # or final.txt
+    python orchestrator.py validate final_check runs/D/<id>/final_check.json   # stage 5
+    python orchestrator.py revision <id> --date D     # charge a revision; exit 3 = out of budget
     python orchestrator.py approve <id> --date D      # the ONLY path that writes briefings/
     python orchestrator.py mark <id> --date D --status skipped|failed --stage X --reason "…"
     python orchestrator.py status --date D [--json]
     python orchestrator.py resume --date D [--prune]   # where to restart an interrupted run
 
 ``approve`` copies ``final.txt`` to ``briefings/<id>.txt`` only when
-``review.json`` says ``decision: "approve"`` — so an unreviewed or rejected
-script can never reach TTS/publishing, regardless of what the session does.
+``review.json`` says ``decision: "approve"`` **and** ``final.txt`` itself passes the deterministic
+script gate (``script_check``) — so neither an unreviewed/rejected script nor one carrying a stage
+direction, a leaked internal artifact, or a word count under its floor can reach TTS/publishing,
+regardless of what the session does. The second half matters because ``final.txt`` is the
+*reviewer's own* rewrite: it is the one artifact no agent grades independently.
 Batch state lives in ``runs/<date>/run.json``; ``status`` reports per-prompt
 outcomes and the approved prompt ids for the publishing phase.
 """
@@ -34,17 +40,19 @@ import sys
 import config
 import freshness
 import library
+import script_check
 
 log = logging.getLogger("orchestrator")
 
 NOVELTY_MODES = ("strict", "relaxed")
 MARK_STATUSES = ("skipped", "failed")
-STAGES = ("research", "plan", "write", "review")
+STAGES = ("research", "plan", "deep", "write", "review", "final_check")
 
 # Stages a resumed prompt can restart at, in dependency order. "finalize" means every artifact is
 # present and consistent — only `approve` (or `mark`, per review.json's decision) is left to run;
 # "done" means the prompt is already approved/skipped and must not be touched.
-RESUME_STAGES = ("research", "plan", "deep", "write", "review", "finalize", "done")
+RESUME_STAGES = ("research", "plan", "deep", "write", "review", "final_check",
+                 "finalize", "done")
 
 # Artifacts whose mtime may legitimately equal their upstream's (same-second writes).
 _MTIME_SLACK = 1.0
@@ -63,6 +71,15 @@ DEEP_FILE = "deep_research.json"
 DRAFT_FILE = "draft.txt"
 REVIEW_FILE = "review.json"
 FINAL_FILE = "final.txt"
+# Stage 5 — the fresh final reader's verdict on the SHIPPED script (see .claude/agents/final-reader.md).
+FINAL_CHECK_FILE = "final_check.json"
+
+# How many times a prompt may be sent back for revision before it is skipped instead. The counter
+# lives in run.json, NOT in final_check.json: `resume --prune` deletes the artifact, and phase-1
+# runs in chunked sessions that share nothing but disk, so a counter in the artifact would reset
+# and the prompt could bounce between reviewer and final-reader forever.
+DEFAULT_REVISION_BUDGET = 1
+MAX_FINAL_CHECK_ROUNDS = 2
 
 
 SYNTHESIS_KINDS = ("synthesis", "forecast")  # families authored/published after normal prompts
@@ -123,7 +140,7 @@ def init_run(date: str, novelty: str, now_iso: str | None = None) -> dict:
     prompts are added as pending. Returns the plan for the session to follow.
 
     ``now_iso`` records the run's as-of *timestamp* (not just its date), so the freshness
-    gate knows a print scheduled for 08:30 has not occurred on a 05:15 run. Defaults to now;
+    gate knows a print scheduled for 08:30 has not occurred on an overnight run. Defaults to now;
     overridable for re-inits/tests. Also writes ``runs/<date>/run_context.txt`` — the temporal
     anchor the web-research agents read (they otherwise get a date but no time).
     """
@@ -400,10 +417,121 @@ def validate_review(doc: dict) -> list:
     return errors
 
 
+def validate_final_check(doc: dict) -> list:
+    """Structural check of final_check.json — the fresh final reader's verdict.
+
+    Two rules carry the weight. A ``revise`` verdict must name at least one HARD defect, so nobody
+    can veto a script without saying what is wrong with it; and a ``pass`` may carry no hard defect
+    at all, so the reader cannot wave through something it just called broken. Together they make
+    the verdict answerable to its own findings — which is exactly what the reviewer's
+    ``decision``/``issues_found`` pair does not do (134 approves against a mean of 7 issues).
+    """
+    errors = []
+    _need(doc, "prompt_id", str, errors)
+    _need(doc, "run_date", str, errors)
+    _need_enum(doc, "verdict", ("pass", "revise", "skip"), errors)
+    for key in ("verdict_reason", "listener_question", "answer_heard"):
+        if _need(doc, key, str, errors) and not doc[key].strip():
+            errors.append(f"{key} must not be empty")
+    _need(doc, "answered", bool, errors)
+
+    if _need(doc, "scores", dict, errors):
+        for key in ("clarity", "listenability", "payoff"):
+            v = doc["scores"].get(key)
+            if not isinstance(v, (int, float)) or isinstance(v, bool):
+                errors.append(f"scores.{key} missing or not a number")
+            elif not 0 <= v <= 10:
+                errors.append(f"scores.{key} must be within 0-10, got {v}")
+
+    rnd = doc.get("revision_round")
+    if not isinstance(rnd, int) or isinstance(rnd, bool):
+        errors.append("revision_round missing or not an integer")
+    elif not 1 <= rnd <= MAX_FINAL_CHECK_ROUNDS:
+        errors.append(f"revision_round must be within 1-{MAX_FINAL_CHECK_ROUNDS}, got {rnd}")
+
+    hard = 0
+    if _need(doc, "defects", list, errors):
+        for i, d in enumerate(doc["defects"]):
+            if not isinstance(d, dict):
+                errors.append(f"defects[{i}] must be an object")
+                continue
+            if d.get("severity") not in ("hard", "soft"):
+                errors.append(f'defects[{i}].severity must be "hard" or "soft"')
+            elif d["severity"] == "hard":
+                hard += 1
+            for key in ("kind", "quote", "why", "fix"):
+                if not isinstance(d.get(key), str) or not d[key].strip():
+                    errors.append(f"defects[{i}].{key} missing or empty")
+
+    verdict = doc.get("verdict")
+    if verdict == "revise" and not hard:
+        errors.append('verdict "revise" requires at least one defect with severity "hard"')
+    if verdict == "pass" and hard:
+        errors.append(f'verdict "pass" but {hard} hard defect(s) listed — resolve them or revise')
+    return errors
+
+
+SCRIPT_CHECK_SUFFIX = "_script_check.json"
+
+
+def script_check_path(script_path: str) -> str:
+    """Where :func:`validate_script_file` records its metrics for ``script_path``."""
+    stem = os.path.splitext(os.path.basename(script_path))[0]
+    return os.path.join(os.path.dirname(os.path.abspath(script_path)), stem + SCRIPT_CHECK_SUFFIX)
+
+
+def validate_script_file(path, stage=None, prompt_path=None, enforce_listenability=None,
+                         write=True) -> list:
+    """Check a spoken script (``draft.txt`` / ``final.txt``) and return its HARD problems.
+
+    ``stage`` defaults from the basename; ``prompt_path`` defaults to ``prompt.txt`` beside the
+    script, which supplies the word floor/ceiling. Advisories are recorded in
+    ``<stem>_script_check.json`` but never returned — only hard problems fail a gate.
+
+    This is the first validator over the write stage: ``_stage_chain`` passed ``None`` there, so
+    until now neither the draft nor the shipped script was checked by anything but the reviewer's
+    prose judgement. See ``script_check`` for what "hard" means and why listenability starts
+    advisory.
+    """
+    if not os.path.exists(path):
+        return [f"file not found: {path}"]
+    with open(path, encoding="utf-8", errors="replace") as f:
+        text = f.read()
+    if stage is None:
+        stage = "draft" if os.path.basename(path).startswith("draft") else "final"
+    if prompt_path is None:
+        prompt_path = os.path.join(os.path.dirname(os.path.abspath(path)), PROMPT_FILE)
+    floor = ceiling = None
+    try:
+        with open(prompt_path, encoding="utf-8") as f:
+            floor, ceiling = script_check.stated_range(f.read())
+    except OSError:
+        pass  # no standing prompt on disk — skip the length check rather than inventing a bound
+
+    problems = script_check.check(text, floor=floor, ceiling=ceiling, stage=stage,
+                                  enforce_listenability=enforce_listenability)
+    if write:
+        enforce = (script_check.ENFORCE_LISTENABILITY if enforce_listenability is None
+                   else enforce_listenability)
+        doc = {"path": path, "stage": stage, "floor": floor, "ceiling": ceiling,
+               "metrics": script_check.metrics(text),
+               "enforce_listenability": enforce, "problems": problems}
+        try:
+            with open(script_check_path(path), "w", encoding="utf-8") as f:
+                json.dump(doc, f, indent=2, ensure_ascii=False)
+                f.write("\n")
+        except OSError:  # a read-only resume walk must never fail on a metrics side-file
+            pass
+    return [f"{p['code']}: {p['detail']}" for p in problems if p["severity"] == "error"]
+
+
 # "deep" deliberately reuses the research validator: deep_research.json shares research.json's
 # schema, so the verbatim-quote contract is enforced on deep-dive facts by the same code path.
+# "script" is handled separately in validate_file — it validates TEXT, not a JSON document.
 _VALIDATORS = {"research": validate_research, "plan": validate_plan, "review": validate_review,
-               "deep": validate_research}
+               "deep": validate_research, "final_check": validate_final_check}
+_TEXT_KINDS = ("script",)
+VALIDATE_KINDS = tuple(sorted(set(_VALIDATORS) | set(_TEXT_KINDS)))
 
 
 def _strip_html(raw: str) -> str:
@@ -425,6 +553,20 @@ def _quote_needle(quote: str) -> str:
     return " ".join(words[:12]) if len(words) > 12 else q
 
 
+SOURCE_CHECK_SUFFIX = "_source_check.json"
+
+
+def source_check_path(dossier_path: str) -> str:
+    """Where :func:`verify_sources` records its verdict for ``dossier_path``.
+
+    Derived from the dossier's own stem because ``research.json`` and ``deep_research.json`` live
+    in the SAME directory — a single fixed ``source_check.json`` meant the deep-dive check silently
+    clobbered the research one, so only the last dossier verified was ever represented on disk.
+    """
+    stem = os.path.splitext(os.path.basename(dossier_path))[0]
+    return os.path.join(os.path.dirname(os.path.abspath(dossier_path)), stem + SOURCE_CHECK_SUFFIX)
+
+
 def verify_sources(path: str, write: bool = True, timeout: float = 12.0) -> tuple:
     """Fetch each figure-bearing source in a research/deep dossier and confirm the verbatim
     quote is on the page. Best-effort and defensive — a fetch that is blocked, paywalled, or
@@ -434,7 +576,8 @@ def verify_sources(path: str, write: bool = True, timeout: float = 12.0) -> tupl
 
     Returns ``(problems, checked)`` where ``problems`` is a list of
     ``{severity, where, url, issue}`` and ``checked`` is the number of distinct URLs fetched.
-    Writes ``source_check.json`` beside the dossier unless ``write`` is False.
+    Writes ``<dossier-stem>_source_check.json`` beside the dossier unless ``write`` is False.
+    (A single fixed name would collide: research.json and deep_research.json share a directory.)
     """
     import urllib.error
     import urllib.request
@@ -491,7 +634,7 @@ def verify_sources(path: str, write: bool = True, timeout: float = 12.0) -> tupl
             problems.append({"severity": sev, "where": where, "url": url, "issue": issue})
 
     if write:
-        out = os.path.join(os.path.dirname(os.path.abspath(path)), "source_check.json")
+        out = source_check_path(path)
         with open(out, "w", encoding="utf-8") as f:
             json.dump({"path": path, "checked": len(page_cache), "results": results},
                       f, indent=2, ensure_ascii=False)
@@ -543,10 +686,13 @@ def _run_started_from_artifact(path: str):
     return dt if dt.tzinfo else dt.astimezone()
 
 
-def validate_file(kind: str, path: str) -> list:
+def validate_file(kind: str, path: str, write: bool = True) -> list:
     """Validate the artifact at ``path`` as ``kind``. Returns a list of problems."""
-    if kind not in _VALIDATORS:
-        raise ValueError(f"kind must be one of {sorted(_VALIDATORS)}")
+    if kind not in _VALIDATORS and kind not in _TEXT_KINDS:
+        raise ValueError(f"kind must be one of {list(VALIDATE_KINDS)}")
+    if kind == "script":
+        # Read-only: resume walks call this on every prompt, so it must not write side-files there.
+        return validate_script_file(path, write=write)
     if not os.path.exists(path):
         return [f"file not found: {path}"]
     try:
@@ -606,14 +752,19 @@ def _stage_chain(date: str, prompt_id: str, kind: str) -> list:
     d = prompt_dir(date, prompt_id)
     j = lambda n: os.path.join(d, n)  # noqa: E731
     review = ("review", [j(REVIEW_FILE), j(FINAL_FILE)], "review")
+    # Stage 5 applies to the synthesis family too: the Throughline and Forward Curve have no
+    # research or plan gate at all, and the Throughline is the archive's worst listenability
+    # offender — it is the LAST prompt that should skip a fresh read.
+    final_check = ("final_check", [j(FINAL_CHECK_FILE)], "final_check")
     if kind in SYNTHESIS_KINDS:
-        return [("write", [j(DRAFT_FILE)], None), review]
+        return [("write", [j(DRAFT_FILE)], "script"), review, final_check]
     return [
         ("research", [j(RESEARCH_FILE)], "research"),
         ("plan", [j(PLAN_FILE)], "plan"),
         ("deep", [j(DEEP_FILE)], "deep"),
-        ("write", [j(DRAFT_FILE)], None),
+        ("write", [j(DRAFT_FILE)], "script"),
         review,
+        final_check,
     ]
 
 
@@ -670,10 +821,20 @@ def resume_for_prompt(date: str, entry: dict) -> dict:
             break
 
         if vkind:
-            problems = validate_file(vkind, paths[0])
+            problems = validate_file(vkind, paths[0], write=False)
             if problems:
                 resume, cut = stage, idx
                 reason = f"{os.path.basename(paths[0])} invalid: {problems[0]}"
+                break
+
+        # A review that did not approve ends the prompt: there is no script for the final reader
+        # to read, so without this the walk would point at final_check forever.
+        if stage == "review":
+            review_doc = _read_json(paths[0]) or {}
+            if review_doc.get("decision") != "approve":
+                resume, cut = "finalize", len(chain)
+                reason = (f'review decision is {review_doc.get("decision")!r}, not "approve" — '
+                          "mark the prompt, do not final-check it")
                 break
 
         # A plan that says "skip" ends the prompt — there is nothing downstream to build.
@@ -732,10 +893,57 @@ def prune_stale(plan: dict) -> list:
 
 # --- approve / mark / status ----------------------------------------------------
 
+def record_revision(prompt_id: str, date: str, stage: str = "final_check",
+                   budget: int = DEFAULT_REVISION_BUDGET) -> dict:
+    """Charge one revision against ``prompt_id``'s budget and report whether it is now exhausted.
+
+    Kept in run.json rather than in the artifact so it survives ``resume --prune`` and the chunked
+    phase-1 sessions — the two things that would otherwise reset it and let a prompt ping-pong
+    between the Reviewer and the final reader indefinitely.
+    """
+    state = load_state(date)
+    entry = _find_entry(state, prompt_id)
+    revisions = entry.setdefault("revisions", {})
+    count = int(revisions.get(stage, 0)) + 1
+    revisions[stage] = count
+    _save_state(date, state)
+    out = {"id": prompt_id, "stage": stage, "count": count, "budget": budget,
+           "exhausted": count >= budget}
+    log.info("revision %s/%s charged to %s (%s)", count, budget, prompt_id, stage)
+    return out
+
+
+def final_check_status(date: str, prompt_id: str) -> dict:
+    """State of ``final_check.json`` for one prompt: present / fresh / valid / verdict."""
+    pdir = prompt_dir(date, prompt_id)
+    path = os.path.join(pdir, FINAL_CHECK_FILE)
+    final_path = os.path.join(pdir, FINAL_FILE)
+    out = {"path": path, "present": os.path.exists(path), "stale": False,
+           "problems": [], "verdict": None}
+    if not out["present"]:
+        return out
+    # Stale = older than the script it judges. A reviewer revision must be re-read, not inherited.
+    try:
+        out["stale"] = os.path.getmtime(path) < os.path.getmtime(final_path) - _MTIME_SLACK
+    except OSError:
+        pass
+    out["problems"] = validate_file("final_check", path)
+    out["verdict"] = (_read_json(path) or {}).get("verdict")
+    return out
+
+
 def approve(prompt_id: str, date: str) -> str:
-    """Copy runs/<date>/<id>/final.txt to briefings/<id>.txt — ONLY if review.json
-    validates and says ``decision: "approve"`` and final.txt is non-empty. This is
-    the single gate between the pipeline and TTS/publishing. Returns the briefing path.
+    """Copy runs/<date>/<id>/final.txt to briefings/<id>.txt — the single gate between the
+    pipeline and TTS/publishing. Returns the briefing path. Four checks, cheapest first, each
+    naming itself on refusal so an unattended failure is diagnosable from the log alone:
+
+    1. ``review.json`` validates and says ``decision: "approve"``
+    2. ``final.txt`` exists and is non-empty
+    3. ``final.txt`` passes the deterministic script gate (format, leakage, word floor)
+    4. ``final_check.json`` is present, fresh, valid, and its verdict is ``pass``
+
+    3 and 4 exist because ``final.txt`` is the *reviewer's own rewrite*: without them the only
+    thing standing between a draft and the podcast is an agent grading its own prose.
     """
     pdir = prompt_dir(date, prompt_id)
     review_path = os.path.join(pdir, REVIEW_FILE)
@@ -754,6 +962,29 @@ def approve(prompt_id: str, date: str) -> str:
     with open(final_path, encoding="utf-8") as f:
         if not f.read().strip():
             raise RuntimeError(f"approve refused — missing or empty {final_path}")
+
+    # The shipped script itself was never checked by anything but the reviewer's prose judgement —
+    # and the reviewer wrote it. Format, leakage and word floor are arithmetic, so they gate here.
+    problems = validate_script_file(final_path, stage="final")
+    if problems:
+        raise RuntimeError(f"approve refused — {FINAL_FILE} failed the script gate: "
+                           f"{'; '.join(problems)}")
+
+    # The final reader is the only agent that judges the SHIPPED script without having written any
+    # of it. Its verdict gates the copy, or the separation it exists to provide is decorative.
+    fc = final_check_status(date, prompt_id)
+    if not fc["present"]:
+        raise RuntimeError(f"approve refused — missing {FINAL_CHECK_FILE}; run the final-reader "
+                           f"agent over {FINAL_FILE} first")
+    if fc["stale"]:
+        raise RuntimeError(f"approve refused — {FINAL_CHECK_FILE} is older than {FINAL_FILE}; "
+                           "the script changed after it was read, so re-run the final-reader")
+    if fc["problems"]:
+        raise RuntimeError(f"approve refused — {FINAL_CHECK_FILE} invalid: "
+                           f"{'; '.join(fc['problems'])}")
+    if fc["verdict"] != "pass":
+        raise RuntimeError(f'approve refused — final-reader verdict is {fc["verdict"]!r}, '
+                           'not "pass"')
 
     os.makedirs(config.BRIEFINGS_DIR, exist_ok=True)
     dest = os.path.join(config.BRIEFINGS_DIR, prompt_id + ".txt")
@@ -804,7 +1035,7 @@ def main(argv=None) -> int:
                         "defaults to the current time. Preserved across idempotent re-inits.")
 
     p = sub.add_parser("validate", help="schema-check a pipeline artifact")
-    p.add_argument("kind", choices=sorted(_VALIDATORS))
+    p.add_argument("kind", choices=list(VALIDATE_KINDS))
     p.add_argument("path")
 
     p = sub.add_parser("verify-sources",
@@ -812,7 +1043,7 @@ def main(argv=None) -> int:
                             "confirm the verbatim quote is on the page (best-effort)")
     p.add_argument("path", help="path to research.json or deep_research.json")
     p.add_argument("--no-write", action="store_true",
-                   help="do not write source_check.json alongside the dossier")
+                   help="do not write <stem>_source_check.json alongside the dossier")
 
     p = sub.add_parser("approve", help="copy final.txt to briefings/ if the review approves")
     p.add_argument("prompt_id")
@@ -824,6 +1055,13 @@ def main(argv=None) -> int:
     p.add_argument("--status", choices=MARK_STATUSES, required=True)
     p.add_argument("--stage", choices=STAGES)
     p.add_argument("--reason", default="")
+
+    p = sub.add_parser("revision", help="charge one revision against a prompt's budget "
+                                       "(exit 3 = budget exhausted, skip instead of retrying)")
+    p.add_argument("prompt_id")
+    p.add_argument("--date", default=today)
+    p.add_argument("--stage", default="final_check", choices=STAGES)
+    p.add_argument("--budget", type=int, default=DEFAULT_REVISION_BUDGET)
 
     p = sub.add_parser("status", help="per-prompt outcomes + approved ids")
     p.add_argument("--date", default=today)
@@ -855,6 +1093,13 @@ def main(argv=None) -> int:
 
     if args.cmd == "validate":
         problems = validate_file(args.kind, args.path)
+        if args.kind == "script":
+            # Advisories carry the listenability signal while it is still warn-only — print them
+            # even on a pass, or the whole warn phase would be invisible.
+            doc = _read_json(script_check_path(args.path)) or {}
+            for prob in doc.get("problems") or []:
+                if prob.get("severity") != "error":
+                    print(f"  [ADVISORY] {prob.get('code')}: {prob.get('detail')}")
         if problems:
             print(f"INVALID {args.kind}: {args.path}")
             for msg in problems:
@@ -878,6 +1123,19 @@ def main(argv=None) -> int:
         except (FileNotFoundError, KeyError) as e:
             print(str(e))
             return 1
+        return 0
+
+    if args.cmd == "revision":
+        try:
+            out = record_revision(args.prompt_id, args.date, args.stage, args.budget)
+        except (FileNotFoundError, KeyError) as e:
+            print(str(e))
+            return 1
+        print(f"revision {out['count']}/{out['budget']} for {out['id']} ({out['stage']})")
+        if out["exhausted"]:
+            # A distinct exit code so the session can branch without parsing prose.
+            print("budget exhausted — mark the prompt skipped rather than revising again")
+            return 3
         return 0
 
     if args.cmd == "resume":

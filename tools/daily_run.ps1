@@ -44,9 +44,9 @@
 # interactive /effort would otherwise silently change what the unattended run costs. The
 # pipeline subagents inherit it (none pin an effort in their frontmatter).
 # -DayOffset shifts the run date the whole script works in (runs\<date>\, logs\daily-<date>.log,
-# briefings, feed GUIDs). The pre-midnight half of the batch fires at 20:00, i.e. the EVENING BEFORE
+# briefings, feed GUIDs). The pre-midnight half of the batch fires at 22:00, i.e. the EVENING BEFORE
 # the day it is producing, so its task passes -DayOffset 1. Without it that half would file its
-# artifacts under the previous calendar day and the 01:15 run would find nothing done and re-run
+# artifacts under the previous calendar day and the 03:15 run would find nothing done and re-run
 # every prompt from the Researcher.
 param([switch]$RepeatOK, [switch]$NoPublish, [string]$Only = '', [int]$ChunkSize = 3,
       [int]$DayOffset = 0,

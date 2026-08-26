@@ -172,7 +172,7 @@ def has_episode(prompt_id: str, date: str) -> bool:
     """True if ``<prompt_id>-<date>`` is already recorded in feed_state.
 
     Used by ``publish_feed.py --skip-published`` so a second publishing pass on the same day (the
-    06:20 completion run) adds only the missing episodes. Re-publishing an unchanged one would
+    08:20 completion run) adds only the missing episodes. Re-publishing an unchanged one would
     re-run TTS and change its enclosure URL, forcing Spotify to re-download identical audio.
     """
     guid = f"{prompt_id}-{date}"

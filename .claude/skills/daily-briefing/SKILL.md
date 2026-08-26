@@ -50,8 +50,8 @@ update; Spotify re-ingests on its next refresh. `--require-fresh` publishes only
 **Publishing a second time on the same day** (finishing a run the usage cap truncated): add
 `--skip-published`, which skips any prompt already in `feed_state.json` for that date and reports it
 as `ALREADY PUBLISHED`. Without it you re-run TTS on live episodes and change their enclosure URLs,
-making Spotify re-download identical audio. The scheduled 06:20 completion pass
-(`tools/completion_run.ps1`) does exactly this automatically — so if the 01:15 run was truncated,
+making Spotify re-download identical audio. The scheduled 08:20 completion pass
+(`tools/completion_run.ps1`) does exactly this automatically — so if the 03:15 run was truncated,
 check whether that pass already fixed it before doing anything by hand.
 
 **Confirmation email is DISABLED (since 2026-07-08) — do not send it** (no working delivery path;
