@@ -132,7 +132,7 @@ class DayLastOrderingTest(unittest.TestCase):
         self.tx = os.path.join(self.d, "transcripts")
         for p in (self.brief, self.audio, self.tx):
             os.makedirs(p)
-        for pid in ("a", "fc"):
+        for pid in ("a", "tl", "fc"):
             with open(os.path.join(self.brief, pid + ".txt"), "w", encoding="utf-8") as f:
                 f.write("Good morning.\n\nBody.")
         self.mp3 = os.path.join(self.d, "src.mp3")
@@ -145,7 +145,7 @@ class DayLastOrderingTest(unittest.TestCase):
             mock.patch.object(config, "DOCS_TRANSCRIPTS_DIR", self.tx),
             mock.patch.object(config, "BRIEFINGS_DIR", self.brief),
             mock.patch.object(config, "AUDIO_HOST", "pages"),
-            mock.patch.object(config, "FEED_DAY_LAST_PROMPTS", ("fc",)),
+            mock.patch.object(config, "FEED_DAY_LAST_PROMPTS", ("tl", "fc")),
         ]
         for c in self._ctx:
             c.start()
@@ -160,17 +160,30 @@ class DayLastOrderingTest(unittest.TestCase):
         last = feed.add_episode("fc", "FC", "s", self.mp3, "2026-08-25")
         self.assertLess(feed._episode_datetime(last), feed._episode_datetime(first))
 
+    def test_tuple_order_decides_placement_not_publish_order(self):
+        feed.add_episode("a", "A", "s", self.mp3, "2026-08-25")
+        # publish the two day-last prompts in the "wrong" order: fc first, tl second
+        fc = feed.add_episode("fc", "FC", "s", self.mp3, "2026-08-25")
+        tl = feed.add_episode("tl", "TL", "s", self.mp3, "2026-08-25")
+        # tuple is ("tl", "fc"), so fc still ends up below tl
+        self.assertLess(feed._episode_datetime(fc), feed._episode_datetime(tl))
+
+    def test_republishing_does_not_drift_further_down(self):
+        feed.add_episode("a", "A", "s", self.mp3, "2026-08-25")
+        first = feed.add_episode("fc", "FC", "s", self.mp3, "2026-08-25")["published_at"]
+        again = feed.add_episode("fc", "FC", "s", self.mp3, "2026-08-25")["published_at"]
+        self.assertEqual(first, again)
+
     def test_other_days_do_not_constrain_it(self):
         feed.add_episode("a", "A", "s", self.mp3, "2026-08-24")   # yesterday, irrelevant
         rec = feed.add_episode("fc", "FC", "s", self.mp3, "2026-08-25")
         self.assertEqual(rec["published_at"][:10], "2026-08-25")
 
-    def test_first_publish_of_the_day_keeps_its_real_time(self):
+    def test_no_regular_episode_yet_falls_back_to_now(self):
         rec = feed.add_episode("fc", "FC", "s", self.mp3, "2026-08-25")
         self.assertEqual(rec["published_at"][:10], "2026-08-25")
         later = feed.add_episode("a", "A", "s", self.mp3, "2026-08-25")
-        # equal is fine: published_at has second resolution and both land in the same second
-        self.assertLessEqual(feed._episode_datetime(rec), feed._episode_datetime(later))
+        self.assertLess(feed._episode_datetime(rec), feed._episode_datetime(later))
 
 
 class PruneOldTest(unittest.TestCase):

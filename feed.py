@@ -95,16 +95,18 @@ def _episode_datetime(e: dict) -> _dt.datetime:
     return _pub_datetime(e["date"], e.get("seq", 0))
 
 
-def _day_last_timestamp(eps: list, date: str, now: _dt.datetime) -> _dt.datetime:
-    """Publish instant for a prompt that must appear as the *least* recent episode of its day
-    (``config.FEED_DAY_LAST_PROMPTS``). The feed sorts newest-first by ``published_at``, so we
-    backdate to one minute before that day's earliest episode. If it is genuinely the day's first
-    publish (or already the earliest), ``now`` stands."""
-    same_day = [_episode_datetime(e) for e in eps if e["date"] == date]
-    if not same_day:
-        return now
-    earliest = min(same_day)
-    return min(now, earliest - _dt.timedelta(minutes=1))
+def _day_last_timestamp(eps: list, date: str, prompt_id: str, now: _dt.datetime) -> _dt.datetime:
+    """Publish instant for a prompt that must sink below the rest of its publish day
+    (``config.FEED_DAY_LAST_PROMPTS``, listed in the order they should appear in the feed — the last
+    entry ends up bottom-most). The feed sorts newest-first by ``published_at``, so we backdate to
+    ``rank`` minutes before that day's earliest *regular* episode, where rank counts down the tuple.
+    The result depends only on the tuple, not on the order the day's episodes happen to be published.
+    If no regular episode exists yet for the day, ``now`` is the baseline instead."""
+    rank = config.FEED_DAY_LAST_PROMPTS.index(prompt_id) + 1
+    regular = [_episode_datetime(e) for e in eps
+               if e["date"] == date and e["prompt_id"] not in config.FEED_DAY_LAST_PROMPTS]
+    base = min([now] + regular)
+    return base - _dt.timedelta(minutes=rank)
 
 
 def _fmt_duration(seconds: int) -> str:
@@ -225,7 +227,7 @@ def add_episode(prompt_id: str, name: str, summary: str, mp3_path: str,
     same_day = sum(1 for e in eps if e["date"] == date)
     published_at = _dt.datetime.now().astimezone()
     if prompt_id in config.FEED_DAY_LAST_PROMPTS:
-        published_at = _day_last_timestamp(eps, date, published_at)
+        published_at = _day_last_timestamp(eps, date, prompt_id, published_at)
     rec = {
         "guid": guid,
         "prompt_id": prompt_id,

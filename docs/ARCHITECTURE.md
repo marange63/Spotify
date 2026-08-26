@@ -94,9 +94,10 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   exist: `"kind": "synthesis"` (`throughline`, "The Throughline") — a same-day digest of the other
   briefings; and `"kind": "forecast"` (`forward-curve`, "The Forward Curve") — a daily set of explicit,
   falsifiable probabilistic forecasts built from the day's briefings **plus the last 5 days of every
-  topic's transcripts**, opened by self-scoring prior forecasts that came due. Both are authored last;
-  The Throughline then gets the newest timestamp and tops the feed, while The Forward Curve is
-  backdated by `feed.add_episode` (`config.FEED_DAY_LAST_PROMPTS`) to sit at the BOTTOM of its day.
+  topic's transcripts**, opened by self-scoring prior forecasts that came due. Both are authored last
+  but published to the BOTTOM of their day: `feed.add_episode` backdates every prompt id in
+  `config.FEED_DAY_LAST_PROMPTS` — currently `("throughline", "forward-curve")` — below the day's
+  regular episodes, so The Throughline is the day's second-least-recent and The Forward Curve last.
   (The `last_episode_uri`/`last_published` fields are
   legacy Save-to-Spotify tracking; the public feed tracks episodes in `feed_state.json` instead.)
 - `library.py` — read/write + add/update/delete helpers for `prompts.json`. Mutations from the window go
@@ -132,10 +133,11 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   from the feed + `docs/`, and sweep `runs/`/`logs` older than the window; analyses exempt) →
   `build_feed` → git commit + push (the commit note records a prune count when any). Publishes the
   synthesis family (`orchestrator.SYNTHESIS_KINDS` — synthesis + forecast) LAST (ordering shared with
-  `orchestrator.ordered_enabled`). The Throughline thus gets the newest timestamp and sorts to the top
-  of the feed; The Forward Curve is authored last too, but any prompt id in
-  `config.FEED_DAY_LAST_PROMPTS` has its `published_at` backdated to one minute before that day's
-  earliest episode, so it deliberately appears as the day's LEAST recent episode.
+  `orchestrator.ordered_enabled`) — they need the day's other briefings as input. Their feed
+  position is decoupled from that: each prompt id in `config.FEED_DAY_LAST_PROMPTS` (listed in feed
+  order, last entry bottom-most) has its `published_at` backdated to `rank` minutes before the day's
+  earliest *regular* episode, so The Throughline appears as the day's second-least-recent episode and
+  The Forward Curve as the least recent — regardless of the order they were actually published in.
   Flags: `--date`, `--summaries <json>`, `--no-push`, `--require-fresh`,
   `--skip-published`, `--email` (the email send is currently disabled), `--no-notify`.
   **`--skip-published`** skips any prompt already recorded in `feed_state.json` for `--date`
