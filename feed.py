@@ -95,6 +95,18 @@ def _episode_datetime(e: dict) -> _dt.datetime:
     return _pub_datetime(e["date"], e.get("seq", 0))
 
 
+def _day_last_timestamp(eps: list, date: str, now: _dt.datetime) -> _dt.datetime:
+    """Publish instant for a prompt that must appear as the *least* recent episode of its day
+    (``config.FEED_DAY_LAST_PROMPTS``). The feed sorts newest-first by ``published_at``, so we
+    backdate to one minute before that day's earliest episode. If it is genuinely the day's first
+    publish (or already the earliest), ``now`` stands."""
+    same_day = [_episode_datetime(e) for e in eps if e["date"] == date]
+    if not same_day:
+        return now
+    earliest = min(same_day)
+    return min(now, earliest - _dt.timedelta(minutes=1))
+
+
 def _fmt_duration(seconds: int) -> str:
     h, rem = divmod(int(seconds), 3600)
     m, s = divmod(rem, 60)
@@ -211,6 +223,9 @@ def add_episode(prompt_id: str, name: str, summary: str, mp3_path: str,
     state = _load_state()
     eps = [e for e in state["episodes"] if e["guid"] != guid]  # replace same-day rerun
     same_day = sum(1 for e in eps if e["date"] == date)
+    published_at = _dt.datetime.now().astimezone()
+    if prompt_id in config.FEED_DAY_LAST_PROMPTS:
+        published_at = _day_last_timestamp(eps, date, published_at)
     rec = {
         "guid": guid,
         "prompt_id": prompt_id,
@@ -218,7 +233,7 @@ def add_episode(prompt_id: str, name: str, summary: str, mp3_path: str,
         "summary": summary,
         "date": date,
         "seq": same_day,
-        "published_at": _dt.datetime.now().astimezone().isoformat(timespec="seconds"),
+        "published_at": published_at.isoformat(timespec="seconds"),
         "audio_file": audio_name,
         "audio_url": audio_url,   # set for release-hosted episodes; None for Pages-hosted
         "length": length,

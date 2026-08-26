@@ -122,6 +122,57 @@ class ReleaseHostingTest(unittest.TestCase):
         self.assertFalse(os.path.exists(os.path.join(self.tx, "a-2026-07-01.txt")))  # transcript gone
 
 
+class DayLastOrderingTest(unittest.TestCase):
+    """Prompts in config.FEED_DAY_LAST_PROMPTS sort to the bottom of their publish day."""
+
+    def setUp(self):
+        self.d = tempfile.mkdtemp()
+        self.brief = os.path.join(self.d, "briefings")
+        self.audio = os.path.join(self.d, "audio")
+        self.tx = os.path.join(self.d, "transcripts")
+        for p in (self.brief, self.audio, self.tx):
+            os.makedirs(p)
+        for pid in ("a", "fc"):
+            with open(os.path.join(self.brief, pid + ".txt"), "w", encoding="utf-8") as f:
+                f.write("Good morning.\n\nBody.")
+        self.mp3 = os.path.join(self.d, "src.mp3")
+        with open(self.mp3, "wb") as f:
+            f.write(b"\xff\xfb\x90\x00" + b"x" * 500)
+        self._ctx = [
+            mock.patch.object(config, "FEED_STATE_FILE", os.path.join(self.d, "state.json")),
+            mock.patch.object(config, "DOCS_DIR", self.d),
+            mock.patch.object(config, "DOCS_AUDIO_DIR", self.audio),
+            mock.patch.object(config, "DOCS_TRANSCRIPTS_DIR", self.tx),
+            mock.patch.object(config, "BRIEFINGS_DIR", self.brief),
+            mock.patch.object(config, "AUDIO_HOST", "pages"),
+            mock.patch.object(config, "FEED_DAY_LAST_PROMPTS", ("fc",)),
+        ]
+        for c in self._ctx:
+            c.start()
+
+    def tearDown(self):
+        for c in self._ctx:
+            c.stop()
+        shutil.rmtree(self.d, ignore_errors=True)
+
+    def test_backdated_below_the_days_earliest_episode(self):
+        first = feed.add_episode("a", "A", "s", self.mp3, "2026-08-25")
+        last = feed.add_episode("fc", "FC", "s", self.mp3, "2026-08-25")
+        self.assertLess(feed._episode_datetime(last), feed._episode_datetime(first))
+
+    def test_other_days_do_not_constrain_it(self):
+        feed.add_episode("a", "A", "s", self.mp3, "2026-08-24")   # yesterday, irrelevant
+        rec = feed.add_episode("fc", "FC", "s", self.mp3, "2026-08-25")
+        self.assertEqual(rec["published_at"][:10], "2026-08-25")
+
+    def test_first_publish_of_the_day_keeps_its_real_time(self):
+        rec = feed.add_episode("fc", "FC", "s", self.mp3, "2026-08-25")
+        self.assertEqual(rec["published_at"][:10], "2026-08-25")
+        later = feed.add_episode("a", "A", "s", self.mp3, "2026-08-25")
+        # equal is fine: published_at has second resolution and both land in the same second
+        self.assertLessEqual(feed._episode_datetime(rec), feed._episode_datetime(later))
+
+
 class PruneOldTest(unittest.TestCase):
     def setUp(self):
         self.d = tempfile.mkdtemp()

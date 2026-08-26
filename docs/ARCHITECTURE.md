@@ -81,7 +81,7 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   segment (idempotent while one is open, so a retry never splits a sitting) and `--end` closes it;
   `daily_run.ps1` calls them around phase 1, `completion_run.ps1` opens a second segment, and the
   skill's init stamps `--start` for interactive runs. Segments exist because a truncated 5 AM run
-  plus a 10:05 completion pass would otherwise be measured as one span straddling hours of
+  plus a 10:20 completion pass would otherwise be measured as one span straddling hours of
   unrelated interactive work — which is exactly what made 2026-07-25's tokens/word uninterpretable.
   The legacy flat `{start,end}` shape is still read as a single segment. No window (or transcripts
   absent on this machine) → token metric reads n/a.
@@ -94,8 +94,10 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   exist: `"kind": "synthesis"` (`throughline`, "The Throughline") — a same-day digest of the other
   briefings; and `"kind": "forecast"` (`forward-curve`, "The Forward Curve") — a daily set of explicit,
   falsifiable probabilistic forecasts built from the day's briefings **plus the last 5 days of every
-  topic's transcripts**, opened by self-scoring prior forecasts that came due. Both sort last so they
-  get the newest timestamp and top the feed. (The `last_episode_uri`/`last_published` fields are
+  topic's transcripts**, opened by self-scoring prior forecasts that came due. Both are authored last;
+  The Throughline then gets the newest timestamp and tops the feed, while The Forward Curve is
+  backdated by `feed.add_episode` (`config.FEED_DAY_LAST_PROMPTS`) to sit at the BOTTOM of its day.
+  (The `last_episode_uri`/`last_published` fields are
   legacy Save-to-Spotify tracking; the public feed tracks episodes in `feed_state.json` instead.)
 - `library.py` — read/write + add/update/delete helpers for `prompts.json`. Mutations from the window go
   through the clobber-proof `apply_new`/`apply_update`/`apply_delete` (reload file → apply one change →
@@ -107,7 +109,9 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   `audio_url` when release-hosted, and transcript filenames) in `feed_state.json`, and writes the
   verbatim transcript to `docs/transcripts/<id>-<date>.txt` + `.html` (from `briefings/<id>.txt`).
   `build_feed()` renders `docs/feed.xml` (iTunes tags, newest-first, `<pubDate>` from the real
-  `published_at`, `<podcast:transcript>` tags + a "Read the full transcript" link) — each enclosure
+  `published_at` — except prompts in `config.FEED_DAY_LAST_PROMPTS`, whose
+  timestamp `add_episode` backdates below their day), `<podcast:transcript>` tags + a "Read the full
+  transcript" link) — each enclosure
   uses the episode's `audio_url` (release) or the legacy `docs/audio` Pages URL. Stable per-day GUIDs.
   `prune_old(keep_days=config.RETENTION_DAYS, today)` enforces the **rolling 10-day retention window**:
   it drops episodes older than the window from `feed_state.json` and deletes their audio — the GitHub
@@ -128,8 +132,11 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   from the feed + `docs/`, and sweep `runs/`/`logs` older than the window; analyses exempt) →
   `build_feed` → git commit + push (the commit note records a prune count when any). Publishes the
   synthesis family (`orchestrator.SYNTHESIS_KINDS` — synthesis + forecast) LAST (ordering shared with
-  `orchestrator.ordered_enabled`), so The Throughline and The Forward Curve get the newest timestamps
-  and sort to the top of the feed. Flags: `--date`, `--summaries <json>`, `--no-push`, `--require-fresh`,
+  `orchestrator.ordered_enabled`). The Throughline thus gets the newest timestamp and sorts to the top
+  of the feed; The Forward Curve is authored last too, but any prompt id in
+  `config.FEED_DAY_LAST_PROMPTS` has its `published_at` backdated to one minute before that day's
+  earliest episode, so it deliberately appears as the day's LEAST recent episode.
+  Flags: `--date`, `--summaries <json>`, `--no-push`, `--require-fresh`,
   `--skip-published`, `--email` (the email send is currently disabled), `--no-notify`.
   **`--skip-published`** skips any prompt already recorded in `feed_state.json` for `--date`
   (`feed.has_episode`), reporting it as `ALREADY PUBLISHED`. It is what makes a SECOND publish on
@@ -273,7 +280,7 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   retry restarted each unfinished prompt from the Researcher — on that date it rewrote
   `research.json`/`editorial_plan.json` over complete artifacts and exhausted the session cap
   without finishing anything.
-  **`completion_run.ps1` — the 10:05 second pass (Task Scheduler: `CautiousOptimismBriefings-
+  **`completion_run.ps1` — the 10:20 second pass (Task Scheduler: `CautiousOptimismBriefings-
   Completion`).** The 12-prompt batch now costs more than one Claude session window allows (2026-07-25:
   ~58M tokens in 16 min, cap hit, 3 episodes finished by hand). The quota is per rolling ~5-hour
   window, so idle time inside it restores nothing and starting the job EARLIER only risks colliding

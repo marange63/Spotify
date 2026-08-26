@@ -72,6 +72,12 @@ FEED_STATE_FILE = os.path.join(HERE, "feed_state.json")
 # than this are swept locally. The 5 AM analyses (analyses/<date>.md) are exempt and kept.
 RETENTION_DAYS = 10
 
+# Prompt ids that must sort to the BOTTOM of their own publish day in the feed (i.e. show up as
+# the *least* recent episode of that day in Spotify). The Forward Curve is written last because it
+# synthesizes the day's other briefings, so its real publish time would otherwise put it on top;
+# feed.add_episode backdates its `published_at` to just before that day's earliest episode.
+FEED_DAY_LAST_PROMPTS = ("forward-curve",)
+
 # Where the "briefings published" confirmation email goes (see notify.py). The
 # SMTP credentials themselves come from env vars, never the repo.
 NOTIFY_EMAIL = "wamfour@gmail.com"
