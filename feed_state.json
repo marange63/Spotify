@@ -1769,6 +1769,21 @@
       "duration": 429,
       "transcript_txt": "throughline-2026-09-01.txt",
       "transcript_html": "throughline-2026-09-01.html"
+    },
+    {
+      "guid": "forward-curve-2026-09-01",
+      "prompt_id": "forward-curve",
+      "title": "The Forward Curve (daily forecast) (Experimental) — September 1, 2026",
+      "summary": "Start with the scorecard, and start with the one still losing. I have bitcoin below sixty-five thousand dollars before the September Fed meeting. Today's digital-money read has the coin opening Monday near seventy-eight thousand. That call is nowhere near working, and I am not dropping it.",
+      "date": "2026-09-01",
+      "seq": 12,
+      "published_at": "2026-09-01T04:09:40-04:00",
+      "audio_file": "forward-curve-2026-09-01.mp3",
+      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/forward-curve-2026-09-01.mp3",
+      "length": 3055392,
+      "duration": 509,
+      "transcript_txt": "forward-curve-2026-09-01.txt",
+      "transcript_html": "forward-curve-2026-09-01.html"
     }
   ]
 }
