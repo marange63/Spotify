@@ -317,6 +317,22 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   **`phase1_prompt.ps1`** holds the phase-1 prompt (incl. the resume semantics) as
   `Get-Phase1Prompt`, dot-sourced by both scripts so the two can never drift — the completion pass
   depends entirely on those semantics being obeyed.
+  **USAGE-CAP WAIT + RUN LOCK (2026-09-03; also in `phase1_prompt.ps1`).** Both jobs used to lose
+  their whole slot when Claude's rolling window was spent: every `claude -p` was refused with
+  `You've hit your session limit · resets 10:10pm` and the script just moved on (2026-09-03: the
+  08:20 pass published a partial day after "resets 10:50am", and the 22:00 half did zero work ten
+  minutes before its reset). Now `Invoke-ClaudeSession` captures each session's output (still
+  appended to the log), `Get-LimitReset` parses the cap line into a reset time (session time-only,
+  plus weekly "Sep 8 at 9am" / "Tuesday 9am" phrasings), and `Wait-ForReset` sleeps to reset+5 min
+  at zero tokens, then the SAME chunk is re-run once after `resume --prune`. The wait is bounded by
+  the job's **`-Deadline HH:mm`** (Task Scheduler args: 22:00 half `02:45`, 03:15 job `07:30`,
+  completion `13:00`) and `-MaxRuntimeMinutes`; a reset past the deadline is a GIVE-UP: log line,
+  ntfy alert via `ntfy_push.py`, `$script:CapBlocked` set so the Opus retry / analysis sessions are
+  skipped, and the next scheduled job resumes. One wait per job. The three tasks' ExecutionTimeLimit
+  was raised PT2H → PT5H / PT6H / PT5H (a 2h limit would have killed the waiting job first).
+  `Wait-RunLock` / `Remove-RunLock` keep two jobs off the same `runs/` tree: `logs/run.lock` holds
+  the owner's PID; a later job waits (to its deadline) while that PID is a live powershell, and a
+  dead owner (crash, scheduler kill) is a stale lock taken over at once.
   `make_cover.py` (regenerates the cover via Pillow), `seed_feed.py` (one-off backfill).
 - **`logs/`** — git-ignored per-day logs from the scheduled run (`daily-<YYYY-MM-DD>.log`); check the
   latest one first when asked how the morning run went.
