@@ -33,14 +33,20 @@
 # reason as --model: effortLevel in %USERPROFILE%\.claude\settings.json is user-global, so an
 # interactive /effort would otherwise silently change what the unattended run costs. The
 # pipeline subagents inherit it (none pin an effort in their frontmatter).
+# -Deadline 'HH:mm' / -MaxRuntimeMinutes (since 2026-09-03): if this pass ITSELF hits the usage
+# cap (2026-09-03: "resets 10:50am"), it now waits for the reset and resumes, instead of publishing
+# a partial day - but only when the reset lands before this deadline (the task passes 13:00).
+# See Wait-ForReset in tools\phase1_prompt.ps1.
 param([switch]$NoPublish, [int]$ChunkSize = 3,
-      [ValidateSet('low','medium','high','xhigh','max')][string]$Effort = 'medium')
+      [ValidateSet('low','medium','high','xhigh','max')][string]$Effort = 'medium',
+      [string]$Deadline = '', [int]$MaxRuntimeMinutes = 0)
 
 $ErrorActionPreference = 'Continue'
 $proj   = 'C:\Users\wamfo\ClaudeDev\Spotify'
 # $claude is resolved below via Resolve-ClaudeExe (tools\phase1_prompt.ps1) - see the note there.
 $conda  = Join-Path $env:USERPROFILE 'anaconda3\Scripts\conda.exe'
 $today  = Get-Date -Format 'yyyy-MM-dd'
+$jobStart = Get-Date
 
 Set-Location $proj
 New-Item -ItemType Directory -Force -Path (Join-Path $proj 'logs') | Out-Null
@@ -49,6 +55,22 @@ $log = Join-Path $proj "logs\daily-$today.log"
 function Log($msg) { "$(Get-Date -Format 'HH:mm:ss')  $msg" | Tee-Object -FilePath $log -Append }
 
 Log "=== completion pass start ($today) ==="
+
+# Shared helpers: phase-1 prompts + chunking, usage-cap wait, run lock (see the notes there).
+. (Join-Path $PSScriptRoot 'phase1_prompt.ps1')
+$jobName    = "completion pass ($today)"
+$deadlineAt = Resolve-Deadline $Deadline
+if ($MaxRuntimeMinutes -gt 0) {
+    $cap = $jobStart.AddMinutes($MaxRuntimeMinutes)
+    if (-not $deadlineAt -or $cap -lt $deadlineAt) { $deadlineAt = $cap }
+}
+if ($deadlineAt) { Log "cap-wait deadline: $($deadlineAt.ToString('ddd HH:mm'))" } else { Log "cap-wait deadline: none (a usage cap is not waited for)" }
+
+# Never overlap the 03:15 job (it may have waited for a cap reset and still be publishing).
+if (-not (Wait-RunLock -Proj $proj -Log $log -Job $jobName -Deadline $deadlineAt)) {
+    Log "ABORT: another briefing job is still running - see the lock line above"
+    exit 4
+}
 
 # Novelty must match the morning's run so a resumed prompt is judged on the same bar. Read it from
 # the run state; fall back to strict (the scheduled default) if the 5 AM job never got as far as init.
@@ -84,13 +106,12 @@ if ($unfinished -eq 0) {
     # is meaningless on any day this job does work.
     & $conda run -n Spotify --no-capture-output python run_report.py --date $today --start *>> $log
 
-    . (Join-Path $PSScriptRoot 'phase1_prompt.ps1')
-    # Resolve the Claude Code binary now that the helper is loaded. Aborting here is deliberate: an
-    # unresolvable path used to surface only as a per-chunk invocation error, and the run would carry on
-    # to publish nothing.
+    # Resolve the Claude Code binary. Aborting here is deliberate: an unresolvable path used to
+    # surface only as a per-chunk invocation error, and the run would carry on to publish nothing.
     $claude = Resolve-ClaudeExe
     if (-not $claude) {
         Log "ABORT: could not locate claude.exe (looked in %APPDATA%\npm, %USERPROFILE%\.local\bin, and PATH)"
+        Remove-RunLock -Proj $proj
         exit 3
     }
     Log "claude: $claude"
@@ -108,11 +129,15 @@ are ALREADY PUBLISHED to the feed; that is expected and is not a reason to redo 
     & $conda run -n Spotify --no-capture-output python orchestrator.py resume --date $today --prune *>> $log
 
     Log "completion: chunked phase 1 (resume, ChunkSize=$ChunkSize) - parent Sonnet 5, novelty=$novelty"
-    Invoke-Phase1Chunked -Claude $claude -Conda $conda -Today $today -Novelty $novelty -Log $log -ChunkSize $ChunkSize -Effort $Effort -Preamble $preamble
+    Invoke-Phase1Chunked -Claude $claude -Conda $conda -Today $today -Novelty $novelty -Log $log -ChunkSize $ChunkSize -Effort $Effort -Preamble $preamble -Deadline $deadlineAt -Job $jobName
     Log "completion: chunked phase 1 done"
 
     # The chunk sessions ran with -SkipAnalysis; write the day's final analysis once, in its own
-    # small session (this pass completes the day, so it owns the analysis).
+    # small session (this pass completes the day, so it owns the analysis). Under a cap block the
+    # session would only be refused - skip it and still publish what is approved.
+    if ($script:CapBlocked) {
+        Log "completion: run analysis skipped (usage cap blocked this pass - see the cap lines above)"
+    } else {
     Log "completion: writing run analysis (dedicated session)"
     $analysisPrompt = @"
 Run python run_report.py --date $today and write the run's agent-performance analysis to
@@ -121,7 +146,8 @@ numbers from run_report). Local-only; do NOT commit it. runs/$today/token_window
 one segment (the 5 AM run plus this completion pass) - say so and note which prompts ran when. Do NOT
 run any pipeline agents or touch any briefing; this session is analysis only.
 "@
-    & $claude -p $analysisPrompt --model claude-sonnet-5 --fallback-model claude-opus-4-8 --effort $Effort --dangerously-skip-permissions *>> $log
+    [void](Invoke-ClaudeSession -Claude $claude -Prompt $analysisPrompt -Log $log -Model claude-sonnet-5 -Fallback claude-opus-4-8 -Effort $Effort)
+    }
 
     & $conda run -n Spotify --no-capture-output python run_report.py --date $today --end *>> $log
 
@@ -136,6 +162,7 @@ run any pipeline agents or touch any briefing; this session is analysis only.
 if ($NoPublish) {
     Log "completion: phase 2 SKIPPED (-NoPublish)"
     Log "=== completion pass done (dry run) ==="
+    Remove-RunLock -Proj $proj
     exit 0
 }
 
@@ -148,4 +175,5 @@ $pubExit = $LASTEXITCODE
 Log "completion: phase 2 exit code: $pubExit"
 
 Log "=== completion pass done ==="
+Remove-RunLock -Proj $proj
 exit $pubExit

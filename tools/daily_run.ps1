@@ -48,21 +48,38 @@
 # the day it is producing, so its task passes -DayOffset 1. Without it that half would file its
 # artifacts under the previous calendar day and the 03:15 run would find nothing done and re-run
 # every prompt from the Researcher.
+# -Deadline 'HH:mm' (since 2026-09-03): the latest clock time this job may still be WAITING for a
+# Claude usage-cap reset (see Wait-ForReset in tools\phase1_prompt.ps1). A cap whose reset lands
+# later than this is not waited for - the job logs it, pushes an ntfy alert and exits, leaving the
+# rest to the next scheduled job. The 22:00 half passes 02:45 (clear of the 03:15 job), the 03:15
+# job 07:30 (the morning). -MaxRuntimeMinutes caps the same wait relative to this job's own start,
+# as a backstop under the task's execution limit. Omit both to never wait.
 param([switch]$RepeatOK, [switch]$NoPublish, [string]$Only = '', [int]$ChunkSize = 3,
       [int]$DayOffset = 0,
-      [ValidateSet('low','medium','high','xhigh','max')][string]$Effort = 'medium')
+      [ValidateSet('low','medium','high','xhigh','max')][string]$Effort = 'medium',
+      [string]$Deadline = '', [int]$MaxRuntimeMinutes = 0)
 
 $ErrorActionPreference = 'Continue'
 $proj   = 'C:\Users\wamfo\ClaudeDev\Spotify'
 # $claude is resolved below via Resolve-ClaudeExe (tools\phase1_prompt.ps1) - see the note there.
 $conda  = Join-Path $env:USERPROFILE 'anaconda3\Scripts\conda.exe'
 $today  = (Get-Date).AddDays($DayOffset).ToString('yyyy-MM-dd')   # see -DayOffset above
+$jobStart = Get-Date
 
 Set-Location $proj
 New-Item -ItemType Directory -Force -Path (Join-Path $proj 'logs') | Out-Null
 $log = Join-Path $proj "logs\daily-$today.log"
 
 function Log($msg) { "$(Get-Date -Format 'HH:mm:ss')  $msg" | Tee-Object -FilePath $log -Append }
+
+# Shared helpers: phase-1 prompts + chunking, usage-cap wait, run lock (see the notes there).
+. (Join-Path $PSScriptRoot 'phase1_prompt.ps1')
+$jobName    = if ($DayOffset -gt 0) { "22:00 half ($today)" } else { "daily run ($today)" }
+$deadlineAt = Resolve-Deadline $Deadline
+if ($MaxRuntimeMinutes -gt 0) {
+    $cap = $jobStart.AddMinutes($MaxRuntimeMinutes)
+    if (-not $deadlineAt -or $cap -lt $deadlineAt) { $deadlineAt = $cap }
+}
 
 $novelty = if ($RepeatOK) { 'relaxed' } else { 'strict' }
 $onlyIds = @()
@@ -91,6 +108,14 @@ $mode = "$novelty novelty" + $(if ($NoPublish) { ' + dry run (-NoPublish)' } els
         $(if ($onlyIds.Count) { " + split batch ($($onlyIds.Count) prompt(s))" } else { '' })
 Log "=== daily run start ($today) - $mode ==="
 if ($onlyIds.Count) { Log "scope: $($onlyIds -join ', ')" }
+if ($deadlineAt) { Log "cap-wait deadline: $($deadlineAt.ToString('ddd HH:mm'))" } else { Log "cap-wait deadline: none (a usage cap is not waited for)" }
+
+# Never overlap another briefing job on the same runs\ tree (a 22:00 half that waited for a cap
+# reset could still be running now). Wait for it - up to this job's deadline - then proceed.
+if (-not (Wait-RunLock -Proj $proj -Log $log -Job $jobName -Deadline $deadlineAt)) {
+    Log "ABORT: another briefing job is still running - see the lock line above"
+    exit 4
+}
 
 # Stamp the token-window START before any model work, so run_report.py can total this run's
 # grand-total token usage (tip to tail) from the Claude transcripts. Idempotent (a retry won't
@@ -100,14 +125,13 @@ if ($onlyIds.Count) { Log "scope: $($onlyIds -join ', ')" }
 # Phase 1 - four-stage pipeline: research -> edit -> write -> review (no publishing, no git) ----
 # Run as SEVERAL small sessions (Invoke-Phase1Chunked) instead of one, to bound the parent session's
 # context accumulation. Both the chunk prompts and the resume/retry semantics live in
-# tools\phase1_prompt.ps1, shared with tools\completion_run.ps1.
-. (Join-Path $PSScriptRoot 'phase1_prompt.ps1')
-# Resolve the Claude Code binary now that the helper is loaded. Aborting here is deliberate: an
-# unresolvable path used to surface only as a per-chunk invocation error, and the run would carry on
-# to publish nothing.
+# tools\phase1_prompt.ps1 (dot-sourced above), shared with tools\completion_run.ps1.
+# Resolve the Claude Code binary. Aborting here is deliberate: an unresolvable path used to surface
+# only as a per-chunk invocation error, and the run would carry on to publish nothing.
 $claude = Resolve-ClaudeExe
 if (-not $claude) {
     Log "ABORT: could not locate claude.exe (looked in %APPDATA%\npm, %USERPROFILE%\.local\bin, and PATH)"
+    Remove-RunLock -Proj $proj
     exit 3
 }
 Log "claude: $claude"
@@ -140,14 +164,17 @@ function Get-IncompleteCount {
 # overloaded/unavailable mid-run. Note the subagents ignore this and use their frontmatter models
 # (sonnet/opus); this governs only the lightweight orchestration session.
 Log "phase 1: chunked primary run (ChunkSize=$ChunkSize), parent Sonnet 5"
-Invoke-Phase1Chunked -Claude $claude -Conda $conda -Today $today -Novelty $novelty -Log $log -ChunkSize $ChunkSize -Effort $Effort -Only $onlyIds
+Invoke-Phase1Chunked -Claude $claude -Conda $conda -Today $today -Novelty $novelty -Log $log -ChunkSize $ChunkSize -Effort $Effort -Only $onlyIds -Deadline $deadlineAt -Job $jobName
 Log "phase 1: chunked primary run done"
 
 # If prompts remain unfinished, retry the leftovers with the parent session on Opus 4.8. Now that
 # the subagents are model-pinned this mainly guards against the parent session dying (rare);
 # idempotent init means this resumes - approved prompts are skipped.
 $incomplete = Get-IncompleteCount
-if ($incomplete -ne 0) {
+if ($script:CapBlocked) {
+    # A usage cap that could not be waited out: every further session would be refused too.
+    Log "phase 1: $incomplete prompt(s) unfinished - usage cap blocked this job (see the cap lines above); no Opus retry, the next scheduled job resumes"
+} elseif ($incomplete -ne 0) {
     if ($incomplete -lt 0) {
         $why = "run state unreadable - primary run may have died before init"
     } else {
@@ -158,7 +185,7 @@ if ($incomplete -ne 0) {
     # tokens, so a truncated run leaves a readable record of what was salvaged vs. rebuilt. The
     # retry prompt re-runs this itself; --prune is idempotent once the tree is clean.
     & $conda run -n Spotify --no-capture-output python orchestrator.py resume --date $today --prune *>> $log
-    Invoke-Phase1Chunked -Claude $claude -Conda $conda -Today $today -Novelty $novelty -Log $log -ChunkSize $ChunkSize -Effort $Effort -Only $onlyIds -Model claude-opus-4-8 -Fallback claude-opus-4-8
+    Invoke-Phase1Chunked -Claude $claude -Conda $conda -Today $today -Novelty $novelty -Log $log -ChunkSize $ChunkSize -Effort $Effort -Only $onlyIds -Model claude-opus-4-8 -Fallback claude-opus-4-8 -Deadline $deadlineAt -Job $jobName
     Log "phase 1: Opus 4.8 retry done"
     $incomplete = Get-IncompleteCount
     Log "phase 1: $incomplete prompt(s) still unfinished after Opus 4.8 retry"
@@ -169,7 +196,10 @@ if ($incomplete -ne 0) {
 
 # Write the day's analysis ONCE, in its own small session - the chunk sessions all ran with
 # -SkipAnalysis. A split-batch half (-Only) skips it; the run that completes the day writes it.
-if (-not $onlyIds.Count) {
+# Skipped under a cap block too - the session would only be refused; the completion pass writes it.
+if ($script:CapBlocked) {
+    Log "phase 1: run analysis skipped (usage cap) - the completion pass writes it"
+} elseif (-not $onlyIds.Count) {
     Log "phase 1: writing run analysis (dedicated session)"
     $analysisPrompt = @"
 Run python run_report.py --date $today and write the run's agent-performance analysis to
@@ -178,7 +208,7 @@ numbers from run_report). Local-only; do NOT commit it. If runs/$today/token_win
 than one segment, the batch was split across sittings - say so and note which prompts ran when. Do
 NOT run any pipeline agents or touch any briefing; this session is analysis only.
 "@
-    & $claude -p $analysisPrompt --model claude-sonnet-5 --fallback-model claude-opus-4-8 --effort $Effort --dangerously-skip-permissions *>> $log
+    [void](Invoke-ClaudeSession -Claude $claude -Prompt $analysisPrompt -Log $log -Model claude-sonnet-5 -Fallback claude-opus-4-8 -Effort $Effort)
 }
 
 # Stamp the token-window END now that all model work (phase 1) is done. The in-run analysis
@@ -199,6 +229,7 @@ if ($NoPublish) {
         Log "phase 2: SKIPPED (-NoPublish dry run - no TTS, no feed update, no commit, no push)"
         Log "=== daily run done (dry run) ==="
     }
+    Remove-RunLock -Proj $proj
     exit 0
 }
 
@@ -208,4 +239,5 @@ $pubExit = $LASTEXITCODE
 Log "phase 2 exit code: $pubExit"
 
 Log "=== daily run done ==="
+Remove-RunLock -Proj $proj
 exit $pubExit

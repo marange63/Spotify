@@ -4,6 +4,9 @@
 # pass that finishes whatever the session cap truncated). It lives in one file so the resume
 # semantics can never drift between them - the completion pass depends entirely on those semantics
 # being obeyed, and a stale copy would silently restart finished prompts.
+#
+# Since 2026-09-03 it also holds the USAGE-CAP HANDLING (Invoke-ClaudeSession / Get-LimitReset /
+# Wait-ForReset) and the cross-job RUN LOCK (Wait-RunLock / Remove-RunLock) - see the notes on each.
 
 # Locate the Claude Code executable. Resolved at RUN TIME rather than hard-coded, because the
 # install location moved once already: this project originally used the native installer's
@@ -28,6 +31,225 @@ function Resolve-ClaudeExe {
            Where-Object { $_.Source -like '*.exe' } | Select-Object -First 1
     if ($cmd) { return $cmd.Source }
     return $null
+}
+
+# --- deadlines ------------------------------------------------------------------------------
+# Turn a 'HH:mm' clock (the job's -Deadline argument) into the NEXT occurrence of that time:
+# today if it is still ahead, otherwise tomorrow. The 22:00 half passes 02:45 (= tomorrow),
+# the 03:15 job passes 07:30 (= today). $null in -> $null out.
+function Resolve-Deadline {
+    param([string]$Clock)
+    if (-not $Clock) { return $null }
+    $t = [datetime]::ParseExact($Clock.Trim(), 'HH:mm', [Globalization.CultureInfo]::InvariantCulture)
+    $d = (Get-Date).Date.AddHours($t.Hour).AddMinutes($t.Minute)
+    if ($d -le (Get-Date)) { $d = $d.AddDays(1) }
+    return $d
+}
+
+# --- usage-cap handling -----------------------------------------------------------------------
+# WHY. The nightly batch runs inside Claude's rolling ~5-hour usage window. When the window is
+# spent, every `claude -p` is refused instantly with one line on stdout:
+#     You've hit your session limit - resets 10:10pm (America/New_York)
+# Before 2026-09-03 nothing read that line: the job just moved on to the next chunk, which was
+# refused too, and the whole slot was lost (2026-09-03 22:00: reset was 10 minutes away; 2026-09-03
+# 08:20: reset at 10:50 and five episodes never shipped). The fix is to READ the reset time, sleep
+# past it (zero tokens), and re-run the same chunk once. The resume semantics make the re-run
+# cheap: a session refused up front did nothing, and one cut short mid-batch left artifacts that
+# `resume --prune` picks up at the stage level.
+#
+# BOUNDED. The sleep is capped by the job's deadline (Resolve-Deadline) so a 22:00 half can never
+# still be running when the 03:15 job fires, and a 03:15 job never waits past the morning. A reset
+# beyond the deadline means GIVE UP: log it, push an ntfy alert, and leave the rest to the next
+# scheduled job. One wait per job - a second cap in the same job means the batch outgrew a window.
+# The Task Scheduler execution limits were raised alongside this (a 2h limit would have killed the
+# waiting job before the reset).
+
+# Run one headless Claude session. Output is appended to the log exactly as before AND captured,
+# so the caller can look for the cap line. Returns the captured text.
+function Invoke-ClaudeSession {
+    param(
+        [Parameter(Mandatory)][string]$Claude,
+        [Parameter(Mandatory)][string]$Prompt,
+        [Parameter(Mandatory)][string]$Log,
+        [string]$Model = 'claude-sonnet-5',
+        [string]$Fallback = 'claude-opus-4-8',
+        [string]$Effort = 'medium'
+    )
+    $lines = & $Claude -p $Prompt --model $Model --fallback-model $Fallback --effort $Effort --dangerously-skip-permissions 2>&1 |
+             ForEach-Object { "$_" } | Tee-Object -FilePath $Log -Append
+    return (@($lines) -join "`n")
+}
+
+# Parse the CLI's cap line. Returns $null when there is none, else a hashtable:
+#   Kind  - 'session' / 'weekly' / whatever the CLI said
+#   Text  - the raw "resets ..." phrase, for the log
+#   At    - [datetime] of the reset (local), or $null when the phrase could not be parsed
+function Get-LimitReset {
+    param([string]$Text)
+    if (-not $Text) { return $null }
+    $m = [regex]::Match($Text, "hit your (\w+) limit[^\r\n]*?resets\s+([^\r\n(]+?)\s*(?:\(|\r|\n|$)",
+                        [Text.RegularExpressions.RegexOptions]'IgnoreCase, Multiline')
+    if (-not $m.Success) { return $null }
+    $kind = $m.Groups[1].Value.ToLower()
+    $when = $m.Groups[2].Value.Trim()
+    $at   = $null
+    $inv  = [Globalization.CultureInfo]::InvariantCulture
+    $norm = ($when -replace '\s+', ' ')
+    # Casing candidates: month/day names parse case-sensitively under the invariant culture,
+    # the AM/PM designator wants upper case - try the phrase as-is, upper-cased, and title-cased.
+    $cands = @($norm, $norm.ToUpper(), ((Get-Culture).TextInfo.ToTitleCase($norm.ToLower()) -replace '(?i)(\d)(am|pm)\b', { $_.Groups[1].Value + $_.Groups[2].Value.ToUpper() }))
+    $now  = Get-Date
+    # Time-only ("10:10pm", "10pm"): today, or tomorrow if that time is already well past.
+    # A reset a few minutes in the past means it already happened - retry straight away.
+    foreach ($f in 'h:mmtt','htt','h:mm tt','h tt') {
+        foreach ($c in $cands) {
+            try {
+                $t = [datetime]::ParseExact($c, $f, $inv)
+                $at = $now.Date.AddHours($t.Hour).AddMinutes($t.Minute)
+                if ($at -lt $now) {
+                    if (($now - $at).TotalMinutes -le 30) { $at = $now } else { $at = $at.AddDays(1) }
+                }
+                break
+            } catch { }
+        }
+        if ($at) { break }
+    }
+    if (-not $at) {
+        # Weekday + time ("Tuesday 9am", "Tue at 9:30am") - .NET will not parse a bare day name
+        # (it checks it against its default date), so split it off and step forward to that day.
+        $wd = [regex]::Match($norm, '^(?i)(mon|tue|wed|thu|fri|sat|sun)\w*\s+(?:at\s+)?(.+)$')
+        if ($wd.Success) {
+            $days = @{ mon='Monday'; tue='Tuesday'; wed='Wednesday'; thu='Thursday'; fri='Friday'; sat='Saturday'; sun='Sunday' }
+            $want = [DayOfWeek]$days[$wd.Groups[1].Value.ToLower()]
+            $tp = $wd.Groups[2].Value.Trim().ToUpper()
+            foreach ($f in 'h:mmtt','htt','h:mm tt','h tt') {
+                try {
+                    $t = [datetime]::ParseExact($tp, $f, $inv)
+                    $at = $now.Date.AddHours($t.Hour).AddMinutes($t.Minute)
+                    while ($at.DayOfWeek -ne $want -or $at -lt $now) { $at = $at.AddDays(1) }
+                    break
+                } catch { }
+            }
+        }
+    }
+    if (-not $at) {
+        # Month day + time ("Sep 8 at 9am") - the other weekly-cap phrasing.
+        foreach ($f in 'MMM d \a\t htt','MMM d \a\t h:mmtt','MMM d htt','MMM d h:mmtt') {
+            foreach ($c in $cands) {
+                try {
+                    $t = [datetime]::ParseExact($c, $f, $inv)
+                    $at = New-Object datetime ($now.Year, $t.Month, $t.Day, $t.Hour, $t.Minute, 0)
+                    if ($at -lt $now.AddDays(-1)) { $at = $at.AddYears(1) }
+                    break
+                } catch { }
+            }
+            if ($at) { break }
+        }
+    }
+    return @{ Kind = $kind; Text = "$kind limit, resets $when"; At = $at }
+}
+
+# Send the give-up alert to the owner's phone (best-effort; never throws).
+function Send-RunAlert {
+    param([string]$Conda, [string]$Title, [string]$Body, [string]$Log)
+    try {
+        & $Conda run -n Spotify --no-capture-output python ntfy_push.py --title $Title --tags warning $Body *>> $Log
+    } catch { "$(Get-Date -Format 'HH:mm:ss')  alert push failed ($_)" | Tee-Object -FilePath $Log -Append | Out-Null }
+}
+
+# Sleep until the cap resets (plus a cushion). Returns $true when the caller may retry, $false
+# when the job should give up (reset unparseable, or past the deadline) - in which case the alert
+# has already been pushed and $script:CapBlocked is set so the caller skips further model work.
+function Wait-ForReset {
+    param(
+        [Parameter(Mandatory)]$Cap,
+        $Deadline = $null,
+        [Parameter(Mandatory)][string]$Log,
+        [string]$Conda = '',
+        [string]$Job = 'briefing run',
+        [string]$Left = '',
+        [int]$CushionMinutes = 5
+    )
+    function _wlog($m) { "$(Get-Date -Format 'HH:mm:ss')  $m" | Tee-Object -FilePath $Log -Append | Out-Null }
+    $script:CapBlocked = $false
+    if (-not $Cap.At) {
+        _wlog "cap: could not parse the reset time from '$($Cap.Text)' - giving up; the next scheduled job will resume"
+        $script:CapBlocked = $true
+        if ($Conda) { Send-RunAlert -Conda $Conda -Log $Log -Title "Briefing run paused ($Job)" -Body "Claude $($Cap.Text) - could not parse the reset time. Left unfinished: $Left. The next scheduled job will resume." }
+        return $false
+    }
+    $until = $Cap.At.AddMinutes($CushionMinutes)
+    if ($Deadline -and $until -gt $Deadline) {
+        _wlog "cap: $($Cap.Text) -> would resume at $($until.ToString('HH:mm')) but this job's deadline is $($Deadline.ToString('ddd HH:mm')) - giving up; the next scheduled job will resume"
+        $script:CapBlocked = $true
+        if ($Conda) { Send-RunAlert -Conda $Conda -Log $Log -Title "Briefing run paused ($Job)" -Body "Claude $($Cap.Text) (past this job's $($Deadline.ToString('HH:mm')) deadline). Left unfinished: $Left. The next scheduled job will resume." }
+        return $false
+    }
+    $mins = [Math]::Max(0, [int]([Math]::Ceiling(($until - (Get-Date)).TotalMinutes)))
+    $dl = 'none'
+    if ($Deadline) { $dl = $Deadline.ToString('ddd HH:mm') }
+    _wlog "cap: $($Cap.Text) -> waiting ~$mins min until $($until.ToString('HH:mm')) (deadline $dl), no tokens spent"
+    while ((Get-Date) -lt $until) {
+        $rem = ($until - (Get-Date)).TotalSeconds
+        Start-Sleep -Seconds ([int][Math]::Max(1, [Math]::Min(900, $rem)))
+        if ((Get-Date) -lt $until) { _wlog "cap: still waiting - resume at $($until.ToString('HH:mm'))" }
+    }
+    _wlog "cap: reset reached - resuming"
+    return $true
+}
+
+# --- run lock ---------------------------------------------------------------------------------
+# WHY. Once a job can wait for a reset, two scheduled jobs could in principle overlap on the same
+# runs\<date>\ tree (a 22:00 half still running at 03:15; a long 03:15 publish still going at
+# 08:20). The deadlines above make that unlikely; this lock makes it impossible. Each job writes
+# its PID to logs\run.lock; a later job whose start finds a LIVE owner waits (up to its own
+# deadline) for that owner to exit, then proceeds - the earlier job's results are on disk and the
+# resume plan skips them. A dead owner (crash, Task Scheduler kill) is a stale lock and is taken
+# over at once, so this can never wedge the schedule.
+function Wait-RunLock {
+    param(
+        [Parameter(Mandatory)][string]$Proj,
+        [Parameter(Mandatory)][string]$Log,
+        [string]$Job = 'job',
+        $Deadline = $null
+    )
+    function _llog($m) { "$(Get-Date -Format 'HH:mm:ss')  $m" | Tee-Object -FilePath $Log -Append | Out-Null }
+    $lock = Join-Path $Proj 'logs\run.lock'
+    $announced = $false
+    while ($true) {
+        $owner = $null
+        if (Test-Path $lock) {
+            try {
+                $info = (Get-Content $lock -Raw | ConvertFrom-Json)
+                $p = Get-Process -Id ([int]$info.pid) -ErrorAction SilentlyContinue
+                if ($p -and $p.ProcessName -like 'powershell*') { $owner = $info }
+            } catch { $owner = $null }
+        }
+        if (-not $owner) { break }
+        if ($Deadline -and (Get-Date) -gt $Deadline) {
+            _llog "lock: '$($owner.job)' (pid $($owner.pid), since $($owner.since)) is STILL running past this job's deadline - aborting rather than overlapping it"
+            return $false
+        }
+        if (-not $announced) {
+            _llog "lock: '$($owner.job)' (pid $($owner.pid), since $($owner.since)) is still running - waiting for it to finish"
+            $announced = $true
+        }
+        Start-Sleep -Seconds 30
+    }
+    if ($announced) { _llog "lock: previous job finished - proceeding" }
+    @{ pid = $PID; job = $Job; since = (Get-Date -Format 'yyyy-MM-dd HH:mm:ss') } | ConvertTo-Json -Compress | Set-Content -Path $lock -Encoding ASCII
+    return $true
+}
+
+function Remove-RunLock {
+    param([Parameter(Mandatory)][string]$Proj)
+    $lock = Join-Path $Proj 'logs\run.lock'
+    try {
+        if (Test-Path $lock) {
+            $info = (Get-Content $lock -Raw | ConvertFrom-Json)
+            if ([int]$info.pid -eq $PID) { Remove-Item $lock -Force -ErrorAction SilentlyContinue }
+        }
+    } catch { }
 }
 
 function Get-Phase1Prompt {
@@ -137,6 +359,13 @@ completed by a later pass) - say so in the analysis and note which prompts ran i
 # chunk), then runs any unfinished synthesis prompt LAST in its own session. The caller must have
 # already run `orchestrator.py init` + `resume --prune` once, so chunk prompts use -SkipInit.
 # A large $ChunkSize collapses this back to a single session (the pre-segmentation behavior).
+#
+# USAGE CAP: every session's output is checked for the cap line. The first cap in a job waits for
+# the reset (bounded by -Deadline, see Wait-ForReset), re-primes the resume plan with
+# `resume --prune` (safe here: chunks run one after another, and prune only touches artifacts of
+# UNFINISHED prompts), and re-runs the same chunk once. A cap that cannot be waited out, or a
+# second cap in the same job, stops the loop - the remaining chunks would only be refused too - and
+# sets $script:CapBlocked so the caller skips its own follow-up sessions.
 function Invoke-Phase1Chunked {
     param(
         [Parameter(Mandatory)][string]$Claude,
@@ -152,10 +381,46 @@ function Invoke-Phase1Chunked {
         [ValidateSet('low','medium','high','xhigh','max')][string]$Effort = 'medium',
         [int]$ChunkSize = 3,
         [string[]]$Only = @(),
-        [string]$Preamble = ''
+        [string]$Preamble = '',
+        # Latest moment a cap wait may end (from Resolve-Deadline). $null = no bound.
+        $Deadline = $null,
+        [string]$Job = 'briefing run'
     )
     function _clog($m) { "$(Get-Date -Format 'HH:mm:ss')  $m" | Tee-Object -FilePath $Log -Append | Out-Null }
     if ($ChunkSize -lt 1) { $ChunkSize = 1 }
+    if ($null -eq $script:CapBlocked) { $script:CapBlocked = $false }
+    if ($null -eq $script:CapWaited)  { $script:CapWaited  = $false }
+    if ($script:CapBlocked) { _clog "chunked: skipped - a usage cap already blocked this job"; return }
+
+    # Run one session for $ids; on a cap, wait (once per job) and re-run it. Returns $true to
+    # carry on with the next session, $false to stop the loop.
+    function _session([string[]]$ids, [string]$label) {
+        _clog "chunked: $label [$($ids -join ', ')]"
+        $p = Get-Phase1Prompt -Today $Today -Novelty $Novelty -Only $ids -SkipAnalysis -SkipInit -Preamble $Preamble
+        $out = Invoke-ClaudeSession -Claude $Claude -Prompt $p -Log $Log -Model $Model -Fallback $Fallback -Effort $Effort
+        $cap = Get-LimitReset $out
+        if (-not $cap) { return $true }
+        if ($script:CapWaited) {
+            _clog "cap: $($cap.Text) - hit again after already waiting once this job; leaving the rest to the next scheduled job"
+            $script:CapBlocked = $true
+            return $false
+        }
+        $script:CapWaited = $true
+        $left = ($ids -join ', ')
+        if (-not (Wait-ForReset -Cap $cap -Deadline $Deadline -Log $Log -Conda $Conda -Job $Job -Left $left)) { return $false }
+        # The refused/truncated session may have left a half-written stage: re-derive the resume
+        # points and drop anything superseded before the retry reads the tree.
+        & $Conda run -n Spotify --no-capture-output python orchestrator.py resume --date $Today --prune *>> $Log
+        _clog "chunked: retry after cap reset - $label [$($ids -join ', ')]"
+        $out = Invoke-ClaudeSession -Claude $Claude -Prompt $p -Log $Log -Model $Model -Fallback $Fallback -Effort $Effort
+        $cap = Get-LimitReset $out
+        if ($cap) {
+            _clog "cap: $($cap.Text) - refused again right after the reset; leaving the rest to the next scheduled job"
+            $script:CapBlocked = $true
+            return $false
+        }
+        return $true
+    }
 
     $raw = & $Conda run -n Spotify --no-capture-output python orchestrator.py status --date $Today --json 2>> $Log
     $st = $null
@@ -164,7 +429,16 @@ function Invoke-Phase1Chunked {
         # No readable state (e.g. init never ran): one full session that DOES init, as a safe fallback.
         _clog "chunked: no run state - running one full session that initialises the batch"
         $p = Get-Phase1Prompt -Today $Today -Novelty $Novelty -Only $Only -SkipAnalysis -Preamble $Preamble
-        & $Claude -p $p --model $Model --fallback-model $Fallback --effort $Effort --dangerously-skip-permissions *>> $Log
+        $out = Invoke-ClaudeSession -Claude $Claude -Prompt $p -Log $Log -Model $Model -Fallback $Fallback -Effort $Effort
+        $cap = Get-LimitReset $out
+        if ($cap -and -not $script:CapWaited) {
+            $script:CapWaited = $true
+            if (Wait-ForReset -Cap $cap -Deadline $Deadline -Log $Log -Conda $Conda -Job $Job -Left 'whole batch') {
+                _clog "chunked: retry after cap reset - full session"
+                $out = Invoke-ClaudeSession -Claude $Claude -Prompt $p -Log $Log -Model $Model -Fallback $Fallback -Effort $Effort
+                if (Get-LimitReset $out) { $script:CapBlocked = $true }
+            }
+        }
         return
     }
 
@@ -189,14 +463,10 @@ function Invoke-Phase1Chunked {
     $ci = 0
     foreach ($chunk in $chunks) {
         $ci++
-        _clog "chunked: normal session $ci/$($chunks.Count) [$($chunk -join ', ')]"
-        $p = Get-Phase1Prompt -Today $Today -Novelty $Novelty -Only $chunk -SkipAnalysis -SkipInit -Preamble $Preamble
-        & $Claude -p $p --model $Model --fallback-model $Fallback --effort $Effort --dangerously-skip-permissions *>> $Log
+        if (-not (_session $chunk "normal session $ci/$($chunks.Count)")) { return }
     }
     if ($synth.Count) {
         # Synthesis runs LAST - it reads the day's already-approved briefings from disk.
-        _clog "chunked: synthesis session [$($synth -join ', ')]"
-        $p = Get-Phase1Prompt -Today $Today -Novelty $Novelty -Only $synth -SkipAnalysis -SkipInit -Preamble $Preamble
-        & $Claude -p $p --model $Model --fallback-model $Fallback --effort $Effort --dangerously-skip-permissions *>> $Log
+        [void](_session $synth 'synthesis session')
     }
 }
