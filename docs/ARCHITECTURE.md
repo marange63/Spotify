@@ -333,6 +333,35 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   `Wait-RunLock` / `Remove-RunLock` keep two jobs off the same `runs/` tree: `logs/run.lock` holds
   the owner's PID; a later job waits (to its deadline) while that PID is a live powershell, and a
   dead owner (crash, scheduler kill) is a stale lock taken over at once.
+  **`catchup_run.ps1` — the logon safety net (Task Scheduler: `CautiousOptimismBriefings-Catchup`;
+  added 2026-09-09).** All three production tasks run with `LogonType=Interactive`, so they need a
+  logged-on session to run **at all**. On 2026-09-09 Windows Update (KB5124008, KB5126052) logged the
+  user off at 01:29 and restarted three times; with no session until 08:30 the 03:15 and 08:20 jobs
+  did not fail, they **never started** — Task Scheduler logged no run for either, `LastRunTime` stayed
+  on the 8th, `NextRunTime` skipped to the 10th, and `StartWhenAvailable` (already True) did not catch
+  them up at login. Nothing in the pipeline can notice that, because nothing in the pipeline runs; the
+  whole day was produced by hand at 14:38. This task fires on **user logon + 3 min** and is almost
+  always a no-op: it compares `prompts.json`'s enabled ids against `feed_state.json` for today,
+  treating anything `runs/<date>/run.json` marks `skipped`/`failed` as settled rather than owed, and
+  exits in ~2 s at zero model tokens when the day is complete. When the day is genuinely short it
+  pushes an ntfy alert (turning a silent scheduler failure into a visible one) and delegates to
+  `completion_run.ps1`, which already re-inits, resumes only what is unfinished and publishes with
+  `--skip-published`. Two guards stop it firing at the wrong moment: it only acts between
+  `-EarliestHour` (04:00, safely after the 03:15 publish) and `-LatestHour` (21:00, safely before the
+  22:00 job starts the next day's batch) — "today has no episodes" is the *normal* state between 22:00
+  and 03:15 and must not trigger anything — and it exits immediately if `logs/run.lock` names a live
+  process. `-WhatIfOnly` probes without acting.
+  **This is a safety net, not the cure.** It cannot run while nobody is logged on, so a late logon
+  still means a late publish. The complete fix is `LogonType=S4U` ("run whether the user is logged on
+  or not"), which needs an **elevated** shell — a non-elevated `Register-ScheduledTask` returns
+  *Access is denied*. `tools/register_tasks.ps1` registers the catch-up unelevated and carries the
+  upgrade behind `-UpgradeToS4U` (which also enables the `Microsoft-Windows-TaskScheduler/Operational`
+  event log — disabled by default, and the reason the 09-09 outage had to be reconstructed from kernel
+  boot events). Verify before trusting it: S4U hands the task a restricted token with no stored
+  credentials, which is exactly where DPAPI-protected secrets can fail to decrypt, so a headless
+  `claude` could authenticate when logged on and fail under S4U. `-Probe` registers a one-shot S4U
+  task that runs a trivial Claude call and writes `logs/s4u_probe.txt`; it must contain `PROBE_OK`
+  before an overnight run depends on the new principal. `-RevertToInteractive` undoes the swap.
   `make_cover.py` (regenerates the cover via Pillow), `seed_feed.py` (one-off backfill).
 - **`logs/`** — git-ignored per-day logs from the scheduled run (`daily-<YYYY-MM-DD>.log`); check the
   latest one first when asked how the morning run went.
