@@ -1874,6 +1874,36 @@
       "duration": 557,
       "transcript_txt": "forward-curve-2026-09-15.txt",
       "transcript_html": "forward-curve-2026-09-15.html"
+    },
+    {
+      "guid": "strategic-power-2026-09-15",
+      "prompt_id": "strategic-power",
+      "title": "Strategic Power, Energy, and Institutional Change — September 15, 2026",
+      "summary": "On September 11th, this beat called the Red Sea route Saudi Arabia's single remaining point of failure. That was the last way to get crude out of the kingdom while the Strait of Hormuz stayed disrupted by the US-Iran fighting. Four days later, the pipeline that feeds that route is shut.",
+      "date": "2026-09-15",
+      "seq": 11,
+      "published_at": "2026-09-15T09:33:41-04:00",
+      "audio_file": "strategic-power-2026-09-15.mp3",
+      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/strategic-power-2026-09-15.mp3",
+      "length": 3129984,
+      "duration": 522,
+      "transcript_txt": "strategic-power-2026-09-15.txt",
+      "transcript_html": "strategic-power-2026-09-15.html"
+    },
+    {
+      "guid": "space-orbital-economy-2026-09-15",
+      "prompt_id": "space-orbital-economy",
+      "title": "Space & the Orbital Economy — September 15, 2026",
+      "summary": "Starship Flight 14 has been filed for today, September 15th, after weeks of slipped dates. Either it flies or it slips again. But the more useful lens on this briefing is a different one. The sector's real fight has quietly moved from building capacity to rationing the capacity that already exists.",
+      "date": "2026-09-15",
+      "seq": 12,
+      "published_at": "2026-09-15T09:36:30-04:00",
+      "audio_file": "space-orbital-economy-2026-09-15.mp3",
+      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/space-orbital-economy-2026-09-15.mp3",
+      "length": 3019104,
+      "duration": 503,
+      "transcript_txt": "space-orbital-economy-2026-09-15.txt",
+      "transcript_html": "space-orbital-economy-2026-09-15.html"
     }
   ]
 }
