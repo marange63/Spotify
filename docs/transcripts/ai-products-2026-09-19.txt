@@ -1,0 +1,67 @@
+Good morning, and welcome to Cautious Optimism Briefings for Saturday, September 19th, 2026.
+
+This week, the product news stopped being about which assistant you talk to. It became about who owns the corpus underneath the assistant, and where the meter sits behind the flat-rate plan. We start with the corpus.
+
+OpenAI launched Astra for Law on Thursday. The important fact is what it is not. It is not a new model. Artificial Lawyer describes it as GPT-6 Astra with instructions for legal analysis and writing, settings for thorough work, and a new Legal Search Index. LawSites says that index covers U.S. case law, statutes, regulations, court rules and administrative decisions, across more than 230 million URLs.
+
+So the product is a configuration plus a retrieval layer. That is the moat moving from the weights to the corpus. Every model-for-a-profession that follows will probably look the same.
+
+Now the capability claim. SiliconANGLE reports that Astra for Law passed the overall correctness check on 54 percent of 200 questions. Those questions came from the private validation set of Vals AI's Legal Research Bench, with both systems run at their highest reasoning effort. GPT-6 Astra with web search alone managed 38.7 percent on the same questions.
+
+Treat that carefully. LawSites attributes the test to OpenAI. The benchmark belongs to a third party, but the question set is private, so nobody else can rerun it. No source we found says who graded the answers. One analysis outlet notes that two hundred questions is a small sample, and not a general measure of legal accuracy. The gap is real enough to notice. It is still a vendor-reported number.
+
+The access model tells you more than the score does. Initially this goes to selected law firms through a Trusted Access program, aimed at Am Law 200 firms. LawSites says the access agreement runs some 30 pages. That suggests the binding constraint at large firms is confidentiality, data retention and privilege. Model quality is not the gate.
+
+It also means the index may be a thinner moat than it sounds. Much of that corpus is public law. The defensible piece may be the contract around your client's data, not the pile of case law.
+
+Then there is the supplier problem. LawSites and SiliconANGLE both name Harvey and Legora as API customers. Artificial Lawyer separately lists them among the launch's plugin partners. So they appear to be both customers and channel partners for a product OpenAI is selling directly to their target buyers. I would not read intent into that. But if answer quality now sits upstream of Harvey and Legora, they have to defend on workflow, governance and trust. Thomson Reuters and LexisNexis face the same question.
+
+The honest bottom line is that almost none of this is a product yet. The API, called gpt-6-astra-law, is due later with no date or pricing attached. Trade coverage says no price, firm count or seat count was given. And we could not retrieve OpenAI's own page, so every figure here reaches us through the trade press.
+
+That same OpenAI logic, packaging standardised on its terms, shows up one layer down. OpenAI is retiring custom GPTs.
+
+The Enterprise timeline, per the outlet Mixed, runs like this. An admin notice on September 11, a migration experience targeted for September 17, an end to new custom GPTs on September 25, and a scheduled retirement on December 11. Reporting says a GPT's instructions become a skill inside a plugin.
+
+The detail that matters is this line from the same report. GPT custom actions do not transfer through the migration workflow. Instructions are the easy part. Actions are the executable part. So the most functional listings in the GPT Store are exactly the ones that break.
+
+Two cautions. Those dates are the Enterprise track, and other plans are unconfirmed. And OpenAI has also said GPT-5.5 retires from ChatGPT, ChatGPT Work and Codex on October 14. Together they tell you the pace. Builders are being told to rebuild on plugins and skills, on a schedule set by the platform.
+
+So the packaging unit, not the model, is what builders are now forced to bet on. If plugins, skills and MCP converge across vendors, building once and shipping to several assistants gets cheaper. The lossy migration shows the price of betting wrong.
+
+Anthropic is moving in the same direction, and its version comes with a number attached.
+
+Also on Thursday, Anthropic launched a beta redesign of Projects in Claude Code. This follows the Cowork and chat merge we covered yesterday, and it extends that merge into the agent layer. A coordinator conversation spawns parallel worker threads. Per the release notes, each thread is a Claude Code cloud session working on its own branch and copy of the repo. When work overlaps, it surfaces as merge conflicts.
+
+That last design choice is an admission. Anthropic is not orchestrating the agents so much as letting them collide and handing you the diff. Whether that is acceptable depends on how good your review process is.
+
+Now the disclosure that matters. MarkTechPost reports that a project uses plan limits faster than a single session, because every running thread is a full session. It also reports an enforced ceiling of 200 new threads per day across your projects.
+
+That is a limit on a flat-rate plan, published in advance. Parallel agents on a fixed subscription are an arbitrage the vendor has to close. A thread cap is the seam where metered pricing enters. I would expect the ceiling to move first, and the price second.
+
+Availability is narrow. The beta is limited to select Pro and Max users on web and desktop, and not the command line. The command line is where many professional developers work. MarkTechPost is our source here too, since we could not retrieve Anthropic's own page.
+
+One smaller item, from Friday. Claude Code version 2.1.277 now checks for an AGENTS.md file when a folder has no CLAUDE.md, and you can toggle that in config. Nothing in the sources goes further than that. It removes a small friction for teams running more than one coding agent on a repo.
+
+The takeaway on Anthropic is that the meter is arriving before the capability does.
+
+If agents are going to drive everything, platforms have to make themselves callable. This week one platform did that for its rivals' agents.
+
+Google began early access on Wednesday to a Home MCP server. TechCrunch lists the supported agents as Claude, Hermes, OpenClaw, ChatGPT, and Google Antigravity. They can review camera summaries, monitor smart home activity, and control connected devices.
+
+Now the friction. It is early access, U.S. only, and limited to subscribers of Google Home Premium Advanced, a twenty-dollar-per-month tier. Reporting says users must also create a Google Cloud project and hand the configuration to the agent. That is an enthusiast release, not a mass-market one.
+
+It is also worth being precise about the openness. Google is charging a subscription to let someone else's assistant drive its hardware. That monetises interoperability more than it concedes anything.
+
+The tail risk is obvious. Camera history and device control sit behind a third-party agent. Prompt injection into a home is a consumer-safety problem. Coverage of the permission scopes is thin. The first incident will probably decide whether Apple and Amazon expose anything similar.
+
+We finish with a callback. On September 16, this briefing said no verified figure existed for ChatGPT's advertising run rate. Now there is one. The Next Web reports that ChatGPT Ads reached a one-billion-dollar annualised run rate, as of August 31.
+
+Hold it loosely. It comes from one secondary outlet, relaying OpenAI, and OpenAI's own page was not retrievable.
+
+The product news sits alongside it. OpenAI is testing Sponsored Agents with select advertisers in the United States. A user can choose to start a clearly labeled conversation with a business-sponsored agent. That is a test, with no advertiser count and no performance data. An ad that becomes a conversation the advertiser controls turns labeling into a regulatory question.
+
+Commercially, the bigger move is the plugin and integration hooks. An Ads Manager plugin lets advertisers create, update and analyse campaigns with plain-language prompts in ChatGPT. OpenAI also announced HubSpot and Shopify integrations. Together they make ChatGPT a self-serve performance channel for merchants who never had to think about it.
+
+So here is the week. The checkable numbers were a consumption ceiling and an ad run rate. Still no vendor published a price, a customer count, or an independent quality figure for the products themselves. That gap is the one to keep watching.
+
+That is the briefing for today. Thanks for listening, and have a good weekend.
