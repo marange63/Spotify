@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Products &amp; Applications — Transcript</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { margin:0; font:1.125rem/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+  main { max-width:44rem; margin:0 auto; padding:2.5rem 1.25rem 4rem; }
+  .show a { text-transform:uppercase; letter-spacing:.08em; font-size:.75rem; text-decoration:none; opacity:.7; }
+  h1 { font-size:1.6rem; line-height:1.25; margin:.4rem 0 .25rem; }
+  .date { opacity:.6; font-size:.95rem; margin:0 0 2rem; }
+  p { margin:0 0 1.15rem; }
+</style>
+</head>
+<body>
+  <main>
+    <p class="show"><a href="https://marange63.github.io/Spotify/">Cautious Optimism Briefings</a></p>
+    <h1>AI Products &amp; Applications</h1>
+    <p class="date">Transcript · September 20, 2026</p>
+    <p>Good morning, and welcome to Cautious Optimism Briefings for Sunday, September 20th, 2026. This is the AI products briefing.</p>
+    <p>All week, this briefing has asked vendors for one thing: a number that shows an agent product works. We kept getting labels instead. Beta, preview, generally available. This week the numbers finally showed up, and every one of them is a price or a limit. None of them is a result. That is today's story.</p>
+    <p>Start with Microsoft. In a September 16th partner notice, Microsoft said that starting November 2nd, new Microsoft 365 Copilot Business licenses bought through the Cloud Solution Provider channel include usage-based billing by default. Microsoft's own wording is that pay-as-you-go is the default billing configuration for eligible usage-based experiences. The three it names are Copilot Cowork, Work IQ APIs, and GitHub Copilot Harness.</p>
+    <p>Put that next to what Anthropic did on Thursday. Anthropic put a hard ceiling on how many parallel agent threads a flat-rate Claude Code subscriber can run, reported at two hundred new threads a day. A ceiling like that is the seam where metered pricing gets in. We said exactly that on this beat yesterday. Now a vendor far larger than Anthropic has given the same shift a date.</p>
+    <p>Now the skepticism, because Microsoft's notice is narrower than it sounds. It covers new licenses in the partner channel. It says nothing about existing Copilot seats or direct enterprise agreements. Microsoft attaches no price to any of the three metered experiences. The notice we could read mentions a preset monthly limit, but does not say how large it is. And there is no consumption data anywhere.</p>
+    <p>There is also a tell about motive. On September 1st, Microsoft launched a Copilot Cowork activation incentive for its Cloud Solution Provider partners, rewarding them for driving adoption and usage of Copilot Cowork. A default billing setting paired with a partner bonus is a supply-side push. Microsoft is trying to create metered consumption. It is not reporting any.</p>
+    <p>The default matters more than the rate, because defaults set behavior. A per-seat license is priced against a human who still does the work. A metered agent run is priced against the task. Once metering is the default, the buyer stops approving seats and starts forecasting consumption that nobody has ever measured. That is a procurement problem, not a pricing-page change, and the partners who resell it inherit some of the risk.</p>
+    <p>Consider the uncomfortable reading too. The obvious interpretation is that vendors meter because they are confident agents deliver value. The alternative is that flat-rate plans are being arbitraged by parallel agent runs faster than vendors expected. In that case metering is margin repair. Anthropic capping threads on a flat-rate coding plan and Microsoft metering by default are both consistent with cost control. Neither is evidence of demand.</p>
+    <p>So the meter is being installed before anyone has published proof the agents work. Which raises the next question. If buyers will soon compare invoices, the vendor with the lowest cost per completed task wins. The rest of today's items are attempts to lower that cost.</p>
+    <p>Google moved first. On September 17th, Google released a new September preview of its Antigravity harness for managed Gemini agents. According to Investing.com, citing Google's internal testing, the new harness uses 40 percent fewer output tokens on file changes. The same report gives up to 6 percent higher task completion on multi-turn software engineering and research tasks, and says pricing is unchanged from the previous version.</p>
+    <p>Treat that carefully. Those figures come from Google grading itself, relayed by one secondary outlet. I could not find them on a Google primary page. And the pricing claim has a wrinkle. Google's own documentation says the agent is billed pay-as-you-go on model tokens and tools. It also says environment compute, meaning CPU, memory and sandbox execution, is not billed during the preview period. So unchanged pricing sits on a product where one leg of the meter is currently free. A token saving is not a like-for-like comparison of total cost, and a future compute charge is a cost the efficiency claim does not cover.</p>
+    <p>Notice who is making the claim. A token-efficiency number comes from the party that bills for tokens. That is unusual to volunteer. The plausible reading is that Google is competing on cost per task because it is not winning on the surfaces where buyers actually sit.</p>
+    <p>Developers on the older harness also face a clock. Reporting, not Google's changelog, gives October 5th as the day Google deprecates the May harness and redirects requests to the new one. If that date holds, it is a migration cost Google is not pricing.</p>
+    <p>The more transferable piece is the Credentials API. Google's documentation describes server-managed secrets that let agents reach third-party services without the secret ever entering the agent's environment. Secrets are stored once and referenced by ID. The egress proxy injects them at request time, so they are never exposed inside the sandbox. Investing.com names GitHub and Slack as example services.</p>
+    <p>Read that wording carefully. Google says agent's environment and sandbox. It does not say the model can never see a secret. The documentation also lists a credential type that injects secrets as environment variables for client libraries, and it does not say whether that type carries the same guarantee. So the design is documented. Do not treat it as absolute.</p>
+    <p>Even so, the direction matters. The security review for agents shifts from asking what the model can see to asking what the egress path can reach. If that pattern becomes standard, it becomes table stakes, and it takes a differentiator away from the startups selling exactly that blast-radius control.</p>
+    <p>One line of plumbing explains why these tool servers are getting easier to run at all. The Model Context Protocol specification dated July 28th made the core protocol stateless, so any request can land on any server instance behind a plain round-robin load balancer. That is a July spec, not news. But it is the reason running far more tool calls got cheap enough that vendors now have to care what each individual call costs.</p>
+    <p>The same cost pressure shows up in a single changelog line at Anthropic.</p>
+    <p>Claude Code version 2.1.278, released September 19th, changed auto mode for Claude API and Enterprise users, and on Bedrock, Vertex, Foundry and gateways. Those users now default to a server-side classifier, which the changelog says does not charge for classifier overhead.</p>
+    <p>Unpack what that admits. Permission checking, the step where an agent decides whether an action is allowed, was a billed per-run cost. Now it is zero. No vendor has published how large that overhead was, so its size is unknown. But it was worth removing.</p>
+    <p>Then look at who the waiver is for. It applies to API and Enterprise users and the cloud gateway paths. That is the metered, price-sensitive customer, not the flat-rate subscriber. Removing a fee for exactly the cohort that can see it on an invoice is a competitive price move dressed up as a changelog line. Do not read it as applying to every Claude Code user.</p>
+    <p>Why does that overhead exist at all? Look at the workload. Cursor launched a beta called Projects on September 10th. That is older than the rest of today's material, so take it for its shape rather than as news. Cursor describes a coordinator agent that, in its words, doesn't write code itself. It plans the work and delegates it to agents that implement it. Every delegated action is another permission decision, and another line item. Cursor's claims about scale and longevity are vendor marketing, with no independent evidence on reliability or cost at that scale.</p>
+    <p>The implication is a wedge. Waive permission overhead for metered customers while leaving flat-rate subscribers under ceilings. Expect the flat-rate tier to keep getting caps and the metered tier to keep getting discounts.</p>
+    <p>One last data point gives the pricing backdrop. On September 1st, Anthropic released Claude Fable 5.1 and cut cache reads by 75 percent, to 25 cents per million tokens, while headline input pricing stayed at 10 dollars per million. Anthropic says savings could reach around 45 percent on complex coding and highly agentic tasks. That is Anthropic's own claim, with no workload defined.</p>
+    <p>That is three weeks old, so it is context, not news. But look at what moved. The cut targets cache reads, the leg an agent loop hits dozens of times as it rereads the same context. A vendor optimizing the price of exactly the workload it wants to grow is showing you where usage is concentrating.</p>
+    <p>So here is the thesis. The competition among agent products is moving off the surface and onto the invoice. The question stops being which chat window or sidebar wins, and becomes what a completed task costs. A buyer cannot rerun a vendor's private benchmark. A buyer can add up an invoice.</p>
+    <p>What would settle it is not another capability launch. It is one published metered rate for an agent run, and one customer willing to say what a month of agent consumption actually cost them.</p>
+    <p>That is the briefing for today. Thanks for listening, and I'll see you tomorrow.</p>
+  </main>
+</body>
+</html>

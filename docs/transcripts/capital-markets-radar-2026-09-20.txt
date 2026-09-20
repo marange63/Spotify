@@ -1,0 +1,59 @@
+Good morning, this is Capital Markets Radar for Sunday, September 20th, 2026.
+
+There is no new tape today, so I want to argue structure instead of chasing prints. This week's repricing happened in rates. The Fed raised its target range a quarter point on Wednesday the sixteenth, and Chair Kevin Warsh declined to give any forward guidance about what comes next. The ten-year Treasury finished the week just over 5 percent, its highest level since July 2007. Today is about the three places that absorbed that move without ever being tested: equity volatility, credit, and the AI capex story that holds up equity duration.
+
+Start with equity vol. On Friday, roughly 9.6 trillion dollars of US stock options expired. That is Citadel Securities' estimate, relayed through a Schwab note, so treat it as a quoted estimate rather than an exchange print. The prior record was 7.7 trillion, set in June.
+
+Here is why it matters. Yesterday on this desk I said a VIX near 15 was not charging for the event premium around the October meeting. A record expiry sitting across the decision week offers a second explanation. So there are two readings. The mechanical one says the expiry pinned volatility. The psychological one says traders genuinely stopped pricing the Fed.
+
+The evidence for the psychological reading is the divergence between the two markets. A newsletter called Fear Price wrote that equity options treat the hike as history. Meanwhile the ten-year closed Friday just over 5 percent, and the thirty-year near 5.34. The two-year rose again as well. Sources disagree on the level of the two-year, so take the direction and leave the number.
+
+The evidence against the psychological reading is the term structure. That same note puts October VIX futures near 18, against a spot VIX that never got out of the 15s on Friday. It is a single newsletter figure, so hold it loosely. But if it is right, the market is charging for the late-October Fed meeting, and that is less complacent than the spot print suggests.
+
+I would not push this into a gamma story. We have no dealer positioning data, so we cannot say whether dealers were long or short gamma into that expiry. The narrow claim is enough. The largest expiry on record has now rolled off, into a Fed that has withdrawn forward guidance.
+
+So what. Every scheduled print from here, starting with September payrolls on October 2nd and CPI on October 14th, arrives with less mechanical support underneath equities. My read is that rate vol, not equity vol, is where that risk is currently being charged for.
+
+If equity vol is not charging for the risk, the next place to look is credit. That is the leg that still has not had a clean test, and the post-hike high-yield print I said did not exist does in fact exist. FRED publishes the ICE BofA high-yield option-adjusted spread, and it shows 2.70 percent on the day of the decision and again the day after, against 2.76 the day before. Six basis points tighter across the hike. Friday's value is not published until Monday.
+
+So the liquid market has shown no stress at all. I have no investment-grade mark after the decision, so I will not offer one.
+
+That makes the private, non-traded channel the more interesting place to look. One caveat first. We could not retrieve the primary Fitch publication, so the sector figures come from a low-authority aggregator that says it is citing Fitch.
+
+With that flag, here is what the aggregator claims. Ten of sixteen Fitch-tracked non-traded business development companies could not pay investor redemptions in full in the second quarter. And average redemption requests ran at 10.3 percent of shares, against 9.7 percent in the first quarter. Attribute that to the aggregator, not to Fitch.
+
+There is a firmer datapoint, and it is named. HPS Corporate Lending Fund prorated its third-quarter tender for the second quarter running. According to AltsWire, requests came in around 11.5 percent of shares against a 5 percent cap, and only about 43 percent of tendered shares were accepted.
+
+Then the counterexample. BlackRock's Private Credit Fund saw about 4.58 percent of shares tendered, comfortably under its own cap. That is dispersion, not a uniform run. The pressure looks specific to sponsor, sector mix and investor base.
+
+Fitch's own commentary from July cuts against a stress reading too. It said the three non-traded BDCs it reviewed had enough liquidity and asset coverage to support several quarters of maximum tenders. And hitting a cap is the vehicle working as designed. It is a disclosed feature, not a default.
+
+Every one of these tender windows closed before the September 16th hike. So none of it is a post-decision mark. The honest claim is about investor behavior. Redemption demand was already running above the cap at some funds before the Fed moved.
+
+Here is the second-order effect, and it is my inference rather than something these sources show. A higher base rate raises coupons on floating-rate borrowers. If that strain builds, it shows up first in fund liquidity, and only much later in a spread index.
+
+So the credit picture is mixed. The liquid market is calm, the illiquid market is gating at some funds and not at others, and neither has had a clean post-hike test.
+
+Now from the part of the capital structure with no liquidity to the part of the equity market carrying all the duration. That is AI.
+
+On Monday the 14th, a narrative shock hit semiconductors. Over the weekend, Anthropic's Dario Amodei had published an essay warning that developers risk losing control of AI systems, and urging the industry to pace its advancement. Pacing is not halting, and he was explicit about that.
+
+The Philadelphia semiconductor index fell as much as 5.5 percent that day, per UPI, with memory names worst hit. Magnitudes differ by source and by time of day, so read that as a range rather than a print.
+
+The analytic hinge comes from Bernstein's Madison Rezaei, who said this is not a call for lowering capex or stopping model training. No hyperscaler cut anything. Orders did not change. And by Friday, the semiconductor index had ended the week slightly up.
+
+So what. A de-rating with no change in orders means the multiple did all the work. That also cuts against our own neat frame all week, the one where higher rates crush duration. With the ten-year over 5 percent, cap-weighted tech held up anyway. It was the Dow, per CNBC, that had its worst week since March. The rate move hit everything except the thing it should have hit hardest.
+
+I would not overclaim fragility from one round trip. A fast recovery is equally consistent with a market correctly ignoring a non-event. But it does say something about the hedge. If the AI story is what pays for equity duration at a 5 percent ten-year, then the marginal risk to the index is a policy or narrative shock to frontier training. That is a completely different hedge from another 25 basis points.
+
+The same pattern, price moved and nothing changed, showed up in the metals complex.
+
+Copper set an LME record of 14,875 dollars a tonne on September 10th. By Tuesday the 15th it was roughly 6 percent lower. A record and a 6 percent drawdown inside five sessions reads as positioning, not demand. We have no inventory figure with a source behind it, so take that as the working read: the copper move was paper, not physical.
+
+Gold is the other half. Spot gold closed the week near 4,378 dollars, up about nine tenths of a percent, per Kitco, in the same week the dollar index hit a seven-week high. Kitco quoted a market participant making the real-return case. With policy rates at 4 percent and official inflation at 3.4 percent, there is little incentive to forgo gold for a real return of half a percent.
+
+Take that as the conclusion. The carry case for holding gold is intact, and that is all it is. A half percent of real yield means the opportunity cost of the position is close to nothing, which is a reason to keep it, not a reason to add. It is an allocation point, not a price call, and sizing gold as a duration substitute in a macro book remains a specification error.
+
+So instead of a forecast, here are the dated tests. Monday brings FRED's first high-yield mark for the last day of the hike week. The next round of fund tender results will be the first post-hike redemption data, and for private credit that is the one that matters most. Then September payrolls on October 2nd, CPI on October 14th, and the Fed on October 28th.
+
+That's the radar for today. I'll be back tomorrow.

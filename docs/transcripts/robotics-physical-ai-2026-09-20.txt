@@ -1,0 +1,55 @@
+Good morning, and welcome to Cautious Optimism Briefings on robotics and physical AI, for September 20th, 2026.
+
+Session after session, this beat has asked for a number instead of a demo. Today a number arrived. For once it did not come from a vendor grading itself.
+
+The source is a research house called Smart Analytics Global. It puts global humanoid shipments in the first half of 2026 at roughly 19,100 units. That is up 272 percent from the same period a year earlier. Chinese vendors account for more than 97 percent of those shipments. And AgiBot, at a 44 percent global share, has now passed Unitree.
+
+So what does that tell us? The volume is real, and it is not American.
+
+Now the caveats, because this is one firm's estimate and not a filing. Growth of that size comes off a very small base, so read it as a small-number effect. The full-year figures that come with the report are a forecast, not a print. Smart Analytics Global expects roughly 1.6 billion dollars of humanoid revenue across all of 2026.
+
+The most interesting line in the report is that industrial and commercial applications account for more than 70 percent of shipments. That sits badly against what this beat read yesterday in Unitree's prospectus. There, research and education dominated humanoid revenue, and corporate guided tours filled much of the industrial slice. Both readings can be true. A shipment category records who signed the purchase order. It does not record what the robot does after delivery. The report never says how it defines a humanoid shipment. So treat seventy percent industrial as a taxonomy claim, not as evidence of labor displaced.
+
+There is a second point buried in the share table. The vendor with the public price is the number two. Unitree is the stock this beat looked at yesterday. AgiBot has the larger share, and AgiBot is not listed. So the sector's only market price is a read on a vendor that is losing share. Every private mark in the cohort is calibrated off that comparable. If AgiBot ever lists at a different multiple, the whole comp set moves.
+
+Next, scale the money against the units. Humanoid companies raised about 943.8 million dollars in August alone, according to The Robot Report. Set that against 1.6 billion dollars of revenue forecast for the whole year. The sector raised in one month more than half of what it expects to sell in twelve. That is capital running well ahead of revenue.
+
+The unit split matters for where value lands, too. Hardware volume and component supply sit in China. The frontier model layer stays American, so software margin sits in the United States. The FCC's addition of foreign-made humanoids to its prohibited-equipment list, reported in late July, then divides the end market by geography. Nobody has priced that bifurcation cleanly.
+
+If that is the demonstrated market, look at what is being promised into it. The chief executive of 1X told a podcast that the company is targeting the manufacture and shipment of 50,000 NEO humanoids in 2027. The trade site Humanoid.guide relayed the claim. That is about two and a half times what the entire global industry shipped in the first half of this year. One company, in one year, against an industry's half-year output.
+
+Grade the source before the number. This is a chief executive on a podcast, relayed by a trade blog. It is a target. It is not an order book, and it is not a shipment record. No count of NEO units shipped to date has been established anywhere. And 1X's own hedge is telling. The company says it plans to pass successive quality gates rather than immediately use all available factory capacity. That is a company pre-announcing that the number may not happen.
+
+The binding constraint here is not the factory. It is field reliability, service cost per unit, and how many tasks still get done by a remote human operator. That teleoperation share in 1X's home service model is unquantified.
+
+There is a data claim underneath it as well. 1X expects web video to supply about 99 percent of its training data. That is the same bet as Figure's Index pretraining, which this beat graded on the 18th. If the thesis holds, purpose-built teleoperation fleets are a stranded capital bet. If it fails, the 2027 production targets are unbuildable at any factory capacity. Field intervention rates, published by someone other than the vendor, would settle it.
+
+So far every buyer in this story is a pilot customer or a roadmap. The one buyer with a named program and a budget line is the United States Air Force. Turn to defense.
+
+At the Air and Space Forces conference on September 14th, Air Force Secretary Troy Meink said, quote, "We intend to have at least 500 of these in service by 2032, and they'll be performing many of the same missions that we do with manned fighters today." He was speaking of collaborative combat aircraft. Defense News names the first increment as General Atomics' FQ-42, which it calls Vengeance, and Anduril's FQ-44, which it calls Fury.
+
+Look at how that goal has moved. Earlier this year Meink said he expected 150 by the end of the decade. The stated goal has more than tripled in a matter of months.
+
+Then look at the money. The Air Force requested 996.5 million dollars in fiscal 2027 to start Increment 1 procurement. With research and development on top, Air and Space Forces Magazine puts the total 2027 request for the program at 2.37 billion dollars. Here is the catch. The budget documents do not state how many aircraft that money buys. Outside observers cannot audit the unit economics yet.
+
+The unit price is contested too. Officials told reporters on September 3rd that the air vehicle costs roughly 20 million dollars, without sensors or other systems. DefenseScoop repeats an older service goal of about 30 million, a third of an F-35, and says officials claim to be beating it. Those two figures use different definitions. I would not multiply either one by 500.
+
+One more point, on structure. Collins Aerospace and Shield AI are contracted to provide the program's mission autonomy, through a government-owned reference architecture. The customer has separated the robot brain from the airframe. It owns the architecture and buys the software as a swappable layer. The defense brain is being deliberately commoditized rather than captured by one vendor.
+
+The caveats are the usual ones for a budget cycle. A request is not an appropriation, and fiscal 2027 is not enacted. A fielding goal is not a contract. And cheap airframes at these quantities pull on the same actuators, motors, batteries and magnets the humanoid data shows concentrated in China. Defense autonomy volume is exposed to the same chokepoint.
+
+So the Air Force is the structural exception. It is the one buyer with named airframes and a line in a budget document. But the ambition is front-loaded and the dollars are back-loaded into out-years nobody has requested yet.
+
+Now a short beat on where money is actually changing hands today.
+
+Skild AI says it has passed 100 million dollars in annual recurring revenue. That is company-stated, and its composition is undisclosed. It could be pilots, licences or hardware pass-through. Skild also reported 98.9 percent accuracy on one task at an NVIDIA factory, with the metric undefined. And Skild's own real-world deployment of the new model is not planned until 2027. It is still one of the very few revenue datapoints anywhere at the model layer.
+
+Then there is Watney, which raised an 80 million dollar Series A this week. Its dual-arm robots do cable and server maintenance inside hyperscale data centers. Meta is reportedly trialing them, though nothing is confirmed. This is a narrow, structured environment with expensive human labor, and it ties straight to AI capex.
+
+That is the fourth straight session with the same finding. The economics we can actually read live in narrow niches. Hull derusting, mapped freight lanes, and now data-hall maintenance. Meanwhile the highest multiples are paid in the unstructured, general-purpose middle. If that persists, the returns and the valuations are being earned by different companies.
+
+Let me pull the threads together. The denominator arrived, and it is the wrong denominator. Nineteen thousand units is a supply count. The one still missing counts reliability: uptime, intervention rate, and cost per completed task. Until someone independent publishes those, the 2027 production targets are promises, not evidence.
+
+For near-term catalysts, watch Tesla's sworn response to NHTSA on the Cybercab, due September 30th. Watch the next move on Chinese rare-earth export licensing. And watch whether any Chinese vendor finally discloses its buyer mix.
+
+That is the briefing for today. Thanks for listening, and I'll see you tomorrow.

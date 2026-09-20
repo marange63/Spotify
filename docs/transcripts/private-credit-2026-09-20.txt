@@ -1,0 +1,55 @@
+Good morning, and welcome to Cautious Optimism Briefings for Sunday, September twentieth, 2026.
+
+For weeks this desk has tracked averages in private credit. This week, four windows opened onto the tail underneath them. A gated retail fund disclosed its weakest loans. Fitch's stress moved into the middle of the market. Oracle-linked data center debt went unsold. And a state regulator moved against an annuity writer. We start with the retail vehicles.
+
+We called the redemption queue escalating on Tuesday and Wednesday. The third-quarter prints say it has flattened. Morgan Stanley's North Haven Private Income Fund saw investors seek to withdraw 11.4 percent of shares, slightly down from 11.6 percent the prior quarter. It will repurchase the customary five percent. Cliffwater's Corporate Lending Fund capped at five percent after requests of about sixteen, against roughly seventeen the quarter before.
+
+Blackstone's flagship BCRED tells the same story from a primary document. In its September third tender update, Blackstone said requests were an estimated 4.3 billion dollars, about ten percent of shares. It fulfilled five percent. Inflows ran about two percent of net asset value, leaving a net outflow of about three.
+
+Now, do not read a flat number as a calmer market. At North Haven, nearly two-thirds of the latest requests came from investors who were not fully cashed out in the prior two offers. The request rate converges on the stock of gated holders, not on the flow of new fear. BCRED shows the same mechanic. In the second quarter it fulfilled about half of 4.5 billion dollars requested, leaving a 2.3 billion dollar backlog.
+
+The other side deserves full strength. Jon Gray told NZZ: there's a lot of noise, a lot of critics; the town criers are proclaiming a global crisis, and then nothing happens. And BCRED still took in new money while it gated. A tender request is not a redemption, and a binding cap is the structure working as documented. That is not a run.
+
+But here is the number that matters. In the same document, Blackstone marks the bottom five percent of its private debt portfolio at 63.4, against 95.4 for the portfolio, which it calls in line with broadly syndicated loans. Blackstone does not say whether that five percent is by count or by value. Still, a thirty-two point gap can sit under a stable headline mark. And if the tail is worth 63, the loans a manager can sell to fund a tender are the performing ones. Each gated quarter leaves the remaining holders with a worse book at an unchanged net asset value.
+
+One open item. Blue Owl's OCIC tender runs to September thirtieth. Its filings show requests of 21.9 percent in the first quarter and 18.8 in the second. No third-quarter figure exists yet.
+
+So the average mark is the wrong thing to watch. If an average hides a thirty-two point gap, what do the industry's default statistics hide?
+
+That brings us to Fitch versus Proskauer. Fitch's trailing twelve-month private credit default rate hit a record 6.3 percent in August. Proskauer's index put the second quarter at 2.51 percent, down from 2.73. Bloomberg's headline on Thursday said defaults are one percent, six percent or nineteen percent, depending on how you define them. We could not establish which measure produces the nineteen.
+
+On Tuesday we could not explain why the gauges disagreed. We can now. Fitch counts stressed maturity extensions and cash-to-PIK switches as defaults. Proskauer's cash-payment view does not. Those two categories were the bulk of Fitch's events, as we covered Wednesday. So the gap between the gauges is a measure of deferral volume.
+
+Do not assume the highest number is the honest one. On a cash-payment definition, this cycle improved last quarter. Deferral is only bearish if it gets more expensive, and it just did.
+
+The Fed raised the target range to 3.75 to 4.00 percent on September sixteenth. Every floating-rate extension and PIK toggle now costs more to carry than it did a quarter ago.
+
+And the new fact in Fitch's data is where that shows up. Fitch's largest cohort, borrowers with 26 to 50 million dollars of EBITDA, saw defaults jump to 5.2 percent from 3.9 in a single month. That revises our Tuesday view that dispersion looked sectoral rather than size-based. Size matters, and in the middle. These borrowers are too small to refinance publicly and too large to be quietly restructured.
+
+Meanwhile the healthy end of the market is leaving. Junk issuers pulled refinancings forward this week, with reporting putting the total near thirteen billion dollars sought. One issuer swapped notes due 2028 with a 2.375 percent coupon for new bonds due 2032 yielding five percent. That is a rational choice of certainty over cost. But it leaves direct-lending books with the borrowers who could not go.
+
+So if the middle market is being sorted by who can still refinance, the AI buildout is being sorted by who signed the lease.
+
+About 18 billion dollars of loans tied to an Oracle-leased data center in New Mexico, Project Jupiter, are quoted at 89 to 91 cents by syndicate banks. That is one FT report, relayed by Reuters. Syndication has stalled.
+
+In the same week, CleanSpark's debut junk bond drew orders of about ten billion dollars for a deal of almost 2.28 billion. It priced to yield 8.25 percent. The collateral is a Georgia data center fully leased to a Meta subsidiary on a twenty-year contract.
+
+Same asset class, opposite outcomes. The pricing variable is tenant credit, not collateral. S&P cut Oracle to BBB minus in July, one notch above junk, and called OpenAI a central credit risk, with about half of Oracle's 638 billion dollar contracted backlog tied to OpenAI.
+
+The tidy reading is that the market now discriminates intelligently. That is probably too flattering. Project Jupiter also lost its gas pipeline request. The state land office blocked it, and 2.2 gigawatts of turbines were planned. So the eighty-nine-to-ninety-one quote may be pricing a permitting failure, not a view on Oracle. And CleanSpark is not cheap. Its yield sits about 175 basis points over the BB average, while investment-grade-tenant deals sold below six percent earlier this year. Fortress's Jack Neumark, whom we aired Wednesday, warned credit is not paid for the AI upside.
+
+The second-order effect runs through banks. Unsold Oracle-linked paper on syndicate balance sheets consumes capacity for new AI project lending. That pushes more of the buildout toward private credit and insurance capital at wider spreads. If Oracle were cut to junk, rating triggers and investment-grade-only mandates would turn a syndication problem into a mark-to-market one.
+
+So price discrimination arrived within a week of our saying it was missing. Notice where all of this ends. The paper moves to a balance sheet that does not publish a quarterly mark.
+
+That leads to South Carolina. Its insurance director petitioned to place Atlantic Coast Life and Southern Atlantic Re, the A-Cap insurers slated for takeover by Oaktree, into rehabilitation. The filing alleges thirty percent of assets in sub-investment-grade instruments, against the insurers' own ten percent cap, and capital and surplus down 42 percent in the first half. A-Cap calls the claims false. No hearing date is set.
+
+On Friday we worried that insurer-held private credit has no quarterly mark to force discovery. This is the first case this cycle where that opacity ended with a regulator rather than a markdown. But keep the size right. A-Cap is a small, affiliated-asset outlier. The binding fact is affiliation and unrated paper, not private credit as such. Still, scrutiny of private-letter ratings and capital charges would change the economics of insurance-funded lending just as it becomes the sector's main growth engine.
+
+The same week showed the other end of the trade. Truist agreed to sell 5.5 billion dollars of near-prime auto loans to Apollo. Those loans yielded about 12 percent against roughly four percent funding cost and seven to eight percent losses. That is approximately break-even for a bank. So Apollo is either underwriting cheaper funding through insurance liabilities, or better losses. Only one of those is a real edge.
+
+Pulling the threads together. Averages are holding. The tail is being repriced in public for the first time this cycle. And deferral just got more expensive. The biggest unresolved risk is valuation and liquidity together. Marks in the tail have not been tested, the wrappers cannot pay everyone who wants out, and the stock of gated demand makes the next step a jump, not a slope.
+
+Three catalysts would confirm or refute that read. Blue Owl's OCIC tender closes September thirtieth, and a request level near last quarter's 18.8 percent would say the queue is not draining. Fitch's September print lands in mid-October, where a third straight record would mean trend rather than noise. And third-quarter BDC filings in November will show whether marks like 63 have reached the headline.
+
+That is the state of the lending machine for this Sunday. Thanks for listening.
