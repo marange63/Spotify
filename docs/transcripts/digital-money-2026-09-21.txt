@@ -1,0 +1,53 @@
+Good morning, and welcome to Cautious Optimism Briefings for Monday, September 21st, 2026. This is the digital money desk.
+
+On Saturday we told you the size of the cap in the SEC's tokenized-stock exemption was the single most important unknown in the whole trade, and that the sector had rallied without it. The picture is now clearer. It is smaller than the rally implied.
+
+Start with what the SEC has confirmed itself. Its release says tokenized stocks trading on a tokenized securities venue are, quote, subject to limits on the number of symbols and volume traded. The release says the exemptions expire five years after publication. And it says a venue must halt a tokenized stock concurrently with any stoppage of the underlying stock on the primary listing exchange.
+
+Now the numbers behind those limits. The SEC's release does not state them, and we could not open the order text itself. Secondary coverage from CryptoSlate reports a top tier limited to 75 symbols and a quarter of one percent of the prior month's average daily share volume, and a second tier limited to 250 symbols and two and a half percent. Treat those as reported, not confirmed.
+
+Even so, the direction is not in doubt. A venue capped at a quarter of one percent of a stock's daily volume cannot be where price is discovered. Add the halt rule, and the tokenized book is tied to the incumbent book's price and its trading status. So this is a distribution and trading-hours experiment. Price discovery stays where it already is.
+
+The design also decides who wins. The Block reports that synthetics are excluded, and that issuers can deny their stock from trading on a venue. Saturday's read of the SEC fact sheet and CoinDesk's coverage agree that a listed company gets written notice and a chance to object before an unaffiliated firm tokenizes its shares. They disagree on whether the reported thirty-day clock is that objection window or the venue's own pre-launch notice, so hold the number loosely. The structure is the part that matters. If these terms hold, the exemption favors regulated intermediaries that can meet the permissioning conditions. It shuts out the offshore stock tokens that carry the real volume today. And it hands listed companies a veto over who tokenizes their shares.
+
+Two things follow from that. The tokenized-stock market statistics being quoted probably overstate what this order actually touches, because they include the offshore and synthetic products the exemption excludes. And with volume capped this hard, the near-term revenue to exchanges and tokenization platforms is close to nothing, whatever the equity tape did on Thursday. What was bought was a five-year option on a rulemaking nobody has written yet.
+
+Which brings us to durability, and the Chair was candid about it. In his statement Atkins said, quote, this interim measure must be followed by durable rulemaking. That is an agency describing its own instrument as a bridge.
+
+The CFTC did something similar the same day. Its release says a staff division will not recommend enforcement against passive software providers that fail to register as introducing brokers. The CFTC says the position is similar to an earlier staff letter and is now broadly available. So that is staff-level enforcement discretion, not a Commission rule. CryptoSlate reports the letter itself states it is not binding on the Commission. We could not read the letter, so hold that one loosely too.
+
+The so-what is plain. The sector lost a statute on Tuesday, when the CLARITY Act failed forty-nine to fifty in the Senate. What it got back are instruments that can be withdrawn or allowed to lapse without a floor vote. On Saturday we said speed was being mistaken for durability. Nothing since has changed that.
+
+Now the other half of the story. While Washington was widening the perimeter, the company that owns the card rail was narrowing it.
+
+The Block reports that Visa is moving to close a loophole tied to a company called Crossmint. The mechanism is a merchant category code, the one for digital media, reportedly used to route memecoin purchases through credit cards and collect card rewards. Visa has given processors a grace period that is expected to end next week. Chase reportedly referred the matter to Visa, and the New York Attorney General is reportedly looking at it.
+
+Two cautions. This is report-based, and Crossmint says its procedures have not changed. And no dollar volume has been disclosed, so we will not guess at scale.
+
+The scale is not the point. The point is speed, and who holds the lever. A network can close an access path in a week by reclassifying a code. The SEC's exemption runs five years and still calls for a rulemaking to follow it. There is a credit angle too. Buying memecoins on revolving credit while harvesting card rewards is consumer credit risk dressed up as a payments feature.
+
+A second data point points the same way. The Wall Street Journal, relayed by The Block, reports that Checkout.com rejected more than eighty percent of the Polymarket US deposits it handled as fraudulent. That is a single source, the events date from early this year rather than this week, and it describes an attempted loss, not a realized one. But it fits.
+
+So the binding compliance authority in crypto payments this month is private. A firm can lobby a regulator. It cannot lobby a card network's risk committee the same way. That shifts access risk from a variable you can influence to one you cannot, which is a worse risk to underwrite for anything built on card-funded crypto purchases.
+
+Permission is cheap. The harder question is who is writing checks. So let's test demand.
+
+Bitcoin first. Bitcoin is near eighty-one thousand dollars, an approximate level that varies by source and timestamp. US spot bitcoin ETFs finished last week, in The Block's words, with just 6.2 million dollars in net inflows. Overhead sits the supply band we described yesterday. Glassnode data, relayed through secondary coverage, counts 1.07 million coins acquired between eighty-three and eighty-six thousand dollars, mostly by long-term holders. Nothing since has moved it.
+
+What is new is the calendar. Bitcoin.com reports that Friday's September 25th quarter-end expiry carries roughly fourteen billion dollars of open interest across Deribit and IBIT. That expiry sits directly beneath that supply band. Open interest of that size is a gamma condition. It is not a direction.
+
+And we have a blind spot to flag, because it bears on exactly that. We could not retrieve current funding rates, futures open interest or liquidation totals for the last few days. The last hard prints are from late August and are stale, so we will not use them. The positioning behind that expiry is unknown. Treat that as a gap, not a conclusion.
+
+The same discipline applies to rates. The Fed raised to three and three-quarters to four percent on Wednesday, and Bitcoin held. CoinDesk shows the short-window correlation to the dollar index flipping to slightly positive around the Senate defeat. That is one vendor's short-window calculation, with an unverified method, measured around two idiosyncratic catalysts. It cannot grade a macro relationship, and we are not going to pretend that it does.
+
+One more flow print matters. Spot ether ETFs posted a 140 million dollar weekly outflow, per The Block. That ended a four-week inflow streak. Against sixteen point seven billion dollars of net assets, the outflow is under one percent. The streak ending is the signal, not the size. Ether funds were the one flow series on this desk that had stayed positive through the Fed hike.
+
+So every demand measure we can price is flat or negative. The sector is gaining permission, not money. Whether Friday's expiry breaks that pattern is the open question of the week.
+
+Which brings us to the closing test, and the cleanest control experiment available. The SEC has just opened a permissioned lane for tokenized equities. Meanwhile the tokenization category that already had a clear use case is not visibly growing. Tokenized Treasury funds show 14.82 billion dollars of distributed value on rwa.xyz. The thirty-day change we saw is unconfirmed, so we will not quote it. And broader real-world-asset totals quoted elsewhere run higher because they measure something different, so do not compare the two.
+
+The honest claim here is narrow. With the front end near four percent, an on-chain T-bill wrapper should be pulling in assets. One headline number does not obviously show that, and we have no reliable trend behind it. So read this as not clearly compounding, rather than as shrinking.
+
+That is the thesis for the day. The constraint on tokenization was never permission. The SEC and the CFTC loosened the rules this week. Visa and a payment processor tightened access. The demand data did not move. The five-year option on durable rulemaking is real, but this week did not change the thing that is actually binding.
+
+That's the digital money briefing for September 21st. Thanks for listening, and we'll see you tomorrow.

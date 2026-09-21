@@ -1,0 +1,63 @@
+Good morning, and welcome to Capital Markets Radar for Monday, September 21st, 2026.
+
+Last week was read as a rate shock. The August inflation data says the Fed is fighting one input, and that input has been trading on a rumor.
+
+Start with the Bureau of Labor Statistics. August CPI rose 0.4 percent on the month, and 3.4 percent from a year earlier. Core CPI, stripping food and energy, rose 0.3 percent on the month, after 0.2 percent in July.
+
+Now the line that carries the argument. The energy index alone is up 16.3 percent over twelve months, against a headline rate of 3.4 percent. One component is running close to five times the all-items rate. The twelve-month core rate is widely reported near 2.4 percent. The line I can source directly from the release is the monthly move, not the annual one.
+
+So the plain reading is that the Fed raised rates into a supply shock, not a demand boom.
+
+Now the price of that input. Brent settled at 106 dollars and 47 cents on Monday, September 14th, after the Saudi East-West pipeline was shut by drone strikes. A commodities wrap from ShareTrader has Brent closing the week back below 100, at 99.71, down 4.3 percent. Hold that number loosely. CNBC's Friday wrap headlined the week as flat, which does not square with a 4.3 percent decline. So we know oil came off the highs. We do not know precisely how far.
+
+The reason for the move matters more than the level. It rests on a Bloomberg report, carried by gCaptain, that Saudi Arabia is seeking to return about half the pipeline's capacity within days. Look at the verb. The kingdom is seeking. It has not confirmed. We found no named Aramco or energy ministry statement for September. So the market may have priced a repair that nobody has verified.
+
+Which means oil is now the Fed's reaction function, whether or not Chair Kevin Warsh says so.
+
+That brings us to the committee's own forecast. Last week's hike took the target range to 3.75 to 4.00 percent, and the ten-year Treasury is still hovering around 5 percent. The new information is in the projection table, which we now have directly from the Fed's own website rather than from a secondary write-up.
+
+The committee's median has PCE inflation at 3.7 percent at the end of this year, falling to 2.3 percent at the end of 2027. That is a drop of more than a point in twelve months.
+
+Now compare that with June. In June, those same medians were 3.6 and 2.3. So the Fed raised this year's number by a tenth and left next year's untouched. A secondary write-up from BondSavvy describes a one-point markup, but that is a comparison with March, not with June. Growth the committee nudged up, to 2.3 percent this year.
+
+Here is the tension. If the hike were a response to a worse forecast, the forecast would have moved more. It did not. The hike looks like a reaction to realized prints, while the projected disinflation looks like a bet that the energy contribution fades. Part of that fade is arithmetic, because a twelve-month energy base effect that large rolls off on the calendar. Part of it is the pipeline.
+
+Now the qualifier, because the energy-only story has a hole in it. The same Fed table puts core PCE at 3.4 percent for this year, close to the headline number and well above the core CPI figure the market has been quoting. Those are different measures on different bases, and the Fed's is a fourth-quarter reading, so do not equate them. Still, a committee that projects core that high does not think core is benign. Energy drives the wedge, but it is not the whole inflation picture.
+
+That matters for how you read the dots. LPL's Jeffrey Roach said the Fed is telling us we may not see a cut until 2028. That treats a projection as a reaction function. A chair who says he is not in the forward guidance business keeps room to revise if oil resolves. He also carries an event-risk premium. One slipped pipeline headline can reprice the front end without a word from the committee.
+
+The so-what is that the Fed's 2027 disinflation is a leveraged bet on oil, and the market is treating it as settled.
+
+Now widen the lens, because the rest of the developed world is underwriting the same assumption, and that amends a framing we have used all week.
+
+The Bank of Japan hiked on Friday, and the yen still fell. MUFG's own words were that the BoJ hiked but failed to meet lofty hawkish expectations. So the market is not rewarding the hike itself. It is pricing relative hawkishness. Sterling fell to a low of 1.3336 against the dollar after the FOMC, and MUFG says the resilience of growth in Europe is encouraging both the Bank of England and the European Central Bank to make policy more restrictive.
+
+That is one bank's view, and a forecast change is not a policy change. But if it is right, the tightening cycle is broadening. I have argued all week that a strong dollar is a double tightening for everyone else. That needs amending. If the ECB and the Bank of England move too, the rate-differential leg of dollar strength narrows, while term premium rises together in every long-end market at once.
+
+There is a cleaner counterargument. These central banks may not be converging on a view at all. They may simply be reacting to the same oil print, which means they can all reverse together too.
+
+MUFG also says dollar-yen can advance further in the near term, but that further hikes and intervention risk will curtail the move. That points to the channel worth watching. The gap between Japanese and US yields decides whether Japanese money keeps flowing out. Wider means more capital exported. Narrower means repatriation risk into a Treasury market already at 5 percent.
+
+Net of all that, the dollar-funding squeeze may persist, but for a different reason than the one that started it.
+
+If the base rate is doing the tightening, credit is where it should show. Six sessions of watching high yield for stress have produced nothing, and the explanation is in how we have been looking.
+
+The Credit Weekly newsletter makes the argument well. As of August 31st, the high-yield index spread sat just 10 basis points above its 52-week low. Yet all-in yields sit at 66 percent of their 52-week range. Yields two thirds of the way up their range and spreads near the bottom of theirs are the same observation. A spread measures compensation over Treasuries. When the base rate rises, the cost of capital rises with no spread widening at all.
+
+So a calm spread index and a genuine tightening are not in conflict. The index is the last place a base-rate shock appears, not the first.
+
+The stress should show up in floating-rate borrowers and in triple-C credits instead. It should show up in the primary market too. September was expected to be a heavy issuance month. If issuers pre-funded into tight spreads, the new-issue concession widens before the index does.
+
+One caveat. A 52-week range is an arbitrary window, and all-in yields are high mostly because Treasury yields are high. That says something about the risk-free rate, not about credit risk. This is a reframing, not proof of stress.
+
+So stop waiting for the index to confirm. Watch new-issue concessions and the floating-rate names.
+
+Let me close with a correction to my own read. Yesterday on this desk the working view was that the copper move was paper rather than physical, because no inventory data supported a demand story. Now there is a physical datapoint. Copper rose 3.0 percent last week, to 6 dollars 63 a pound, the strongest gain in the complex ShareTrader covered. Shanghai Metals Market data, cited by the Rio Times, show Chinese physical demand recovering and Yangshan import premiums near a four-year high.
+
+Be careful with that. An import premium is a Chinese landed-price signal, not a global demand signal, and we are reading it two removes from the data. It fits restocking ahead of feared disruption as easily as it fits real consumption. The honest statement is that our paper-not-physical claim is now unproven rather than refuted.
+
+It still loops back to where we started. If the bid is physical, the scarcity premium is broader than crude. That raises input costs for the same power and data-centre buildout whose payoff sits furthest out in the future. That is exactly where a ten-year at 5 percent hurts most.
+
+The dated tests ahead are a confirmed pipeline capacity statement from Saudi Arabia, September PCE at month-end, payrolls on October 2nd, and the October 28th FOMC.
+
+That is Capital Markets Radar for September 21st. Stay cautious, stay optimistic, and I will see you tomorrow.

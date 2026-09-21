@@ -1,0 +1,45 @@
+Good morning, and welcome to Cautious Optimism Briefings for Monday, September 21st, 2026. This is the AI products briefing.
+
+For most of last week the argument on this beat was about surfaces, meaning which app the assistant lives in. Then it was about invoices, meaning how the assistant gets metered. Today's news points at a third variable that may matter more than either. That variable is the default toggle. The question is what arrives switched on before anyone has decided anything.
+
+Start with Google. Last week, Google announced third-party connectors for Gemini in Workspace, built on the Model Context Protocol. The seven named apps are Asana, Atlassian Rovo, HubSpot, Intuit Mailchimp, Intuit QuickBooks, Monday, and Salesforce. Gemini can now reach into those systems from the side panel in Docs, Sheets, Slides, and Chat.
+
+The detail that matters is the default. Google's own Workspace Updates post says, and I quote, "This feature will be ON by default for users with Gemini for Google Workspace access." Admins can manage it at the domain, organizational unit, or group level, under a Third-Party Connectors setting in the Admin console.
+
+So the admin console here is mostly a place to narrow something that already exists. That is the inversion worth naming. MCP started on this beat as something a developer wires up. Then Google put MCP support for smart-home devices behind a twenty-dollar-a-month Google Home plan. Now it is an object an IT administrator has to decide whether to switch off.
+
+Now the skeptical turn, because two things cut hard against a dramatic reading. The first is that these connectors are read-only. Google's help page says, quote, "Integrations currently only support read actions, such as searching for or finding information. You can't use an integration to make changes to third-party apps." So this is not an agent updating your Salesforce records. It is a better side panel that can fetch from your CRM, your accounting system, and your project boards.
+
+The second is that the default is not the whole sequence. Google's two pages describe this differently. The blog says the feature ships on by default for users with Gemini access. The help page says your Workspace administrator enables the ability to connect integrations, and it points to a step where each user links their own account. Those read to me like two layers of one switch: an organization-level setting that arrives on, and a personal connection the user still has to make. Google has not said that in one place, so take the reconciliation as my reading. What the documents do settle is the pair of facts at each end. Google shipped this switched on for eligible users, and the individual still has to link each app before Gemini can reach it.
+
+The word to watch is "currently." Read-only exposure still means over-retrieval. An assistant can surface CRM or accounting data into a document or a chat where it doesn't belong. A live shareable document link is not a file, so it slips past the tooling companies built around files. The tool-call version of that is narrower and harder to see, because a retrieval leaves no document behind at all. On logging, Google's announcement is silent. It describes on and off, and says nothing about audit trails. I would not assume either answer.
+
+There is also a competitive read. Salesforce, HubSpot, and Intuit all sell their own assistants. Now they are callable tools inside a rival's assistant. Being the default tool inside Gemini is distribution this year. It could be disintermediation later, because the system of record survives while the interface erodes. Those vendors are betting that the data layer is defensible and the front end is not.
+
+The takeaway is simple. The connector lands in the product before any governance review lands on the connector. Today the reach is read-only, which makes this an exposure question rather than an agent question.
+
+The same default is about to arrive inside Microsoft's own document. On Friday, September 18, this briefing flagged the ChatGPT add-in for Word and said the open question was whether a tenant admin has to approve it or can block it. OpenAI has now given a partial answer. The add-in is generally available, and according to OpenAI's help documentation, Word access is enabled by default from October 1st. That is a documented date, not an observed rollout, and it still does not say what a tenant admin can do about it.
+
+The more interesting detail is the meter. The same documentation says Word usage follows model-based token pricing and can draw from the same allowance used by Codex and other premium features. So a sidebar that feels free to enable consumes the budget a team bought for coding agents. That is budget contention inside a single seat, and finance tends to discover it in November, not October. Two rival assistants are now heading toward being switched on inside the same knowledge worker's tools, one in Workspace and one in Word, metered on different terms.
+
+If connectors arrive switched on, the control has to move somewhere. One place it can move is the individual action. That brings us to Codex. Version 0.155.0 added Touch ID verification for MCP requests on supported Macs. That puts a biometric human gate on the tool call itself. It also added hide, archive, and delete for tasks in the agents overview. That is a small admission that a developer now supervises many concurrent tasks rather than one.
+
+I would be careful about calling Touch ID a safety feature. It proves a human was present. It does not prove the human understood what the MCP server was about to do. A prompt on every action also fights the point of autonomous agents. The next day, version 0.155.1 turned reasoning summaries off by default in new local sessions. These defaults are being tuned in real time.
+
+There is a compounding problem here. Coding agents are acquiring memory. xAI's Grok Build now records conventions, decisions, and project facts as markdown notes. That design is honest, because a human can read and correct the notes. But an agent that remembers makes a one-time approval stretch further than anyone intended. The approval governs actions taken weeks later, on context nobody reread.
+
+So one gate is a person. The other way to gate an agent is to charge it. Perplexity moved browser control in Comet behind paid Computer credits. Per the outlet PiunikaWeb, a fresh Pro subscription gets a one-time bundle of four thousand credits, and that bundle runs out in just a few days even with light use. Perplexity published no announcement. So this is a single secondary source, and I would hold it loosely.
+
+Two readings are available. The kind one is cost discipline on expensive browser automation. The less kind one is that a feature users already paid for was pulled from their plan quietly. Either way, the implication is the same. If light use exhausts a bundle in days, agentic browsing is nowhere near flat-rate viable. Expect caps or credits on every browser-driving agent within a quarter.
+
+Notice that these are different control surfaces with different buyers. Touch ID is an individual developer's control. The credit meter is a finance control. Google's toggle is an admin control, and it is the only one of the three that sits above the individual user. Three vendors, three different answers in one week to who authorizes the action. And a fourth vendor is answering by not asking.
+
+That fourth is Amazon. Amazon Quick, AWS's business assistant, now has a desktop app generally available on macOS and Windows. AWS says it can work with local files and stay connected to your calendar, email, and business apps in the background. The point is the background. That connection stops being a session you start. It becomes a condition you are in. An always-connected agent is an always-available credential, so that is a security posture change, not a feature.
+
+And a reminder that platforms set defaults in both directions. The OpenAI Sora API is discontinued this Thursday, September 24th. That shutdown was announced months ago, so only the deadline is news. If you wrapped Sora in a product, your video features need a new home by then.
+
+One caution on all of this. Not one of today's items comes with an adoption, retention, or quality number; everything here is vendor documentation.
+
+So here is the judgment. The buyer's question is shifting. It used to be which assistant to license. Now it is which toggles are already on. The disclosure that would settle it is a vendor publishing how many tenants left the default in place.
+
+That's the briefing for today. Thanks for listening, and see you tomorrow.
