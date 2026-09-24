@@ -1,0 +1,43 @@
+Good morning, it's September 24th, and this is your AI products briefing.
+
+Yesterday this show reported the first flagship price cut we'd seen in a week of caps and meters, when Anthropic dropped the price of Opus 5.5. It turns out a competitor had already moved further, on the same day.
+
+That competitor is OpenAI. On September 22nd, the same day Anthropic shipped Opus 5.5, OpenAI released GPT-6 Sol and GPT-6 Luna, its workhorse and lightweight model tiers. Sol now costs two dollars per million input tokens and ten dollars per million output tokens. Techzine's pricing report puts the prior version, GPT-5.6 Sol, at four dollars and twenty dollars.
+
+Here's the number that matters. Four dollars and twenty dollars is exactly what Anthropic just set as Opus 5.5's new list price. So until September 22nd, OpenAI's workhorse tier was priced to match Anthropic's brand-new flagship, dollar for dollar. Then, on the same day, OpenAI cut it in half.
+
+Luna, the cheaper tier, fell further still. It now costs ten cents per million input tokens, down from twenty cents, and fifty cents per million output tokens, down from a dollar twenty. And Luna isn't just an API line item. Free and Go users get it in the ChatGPT desktop app. So the cheapest tier is now a default consumer surface, not a developer decision.
+
+One sourcing note. OpenAI's own launch post wasn't retrievable for this briefing, so every OpenAI figure here comes through Techzine and TechCrunch relaying the company.
+
+That price move breaks a read this show carried on Monday. On September 21st, the Frontier Labs desk observed that OpenAI and Anthropic list prices were identical, so price wasn't what was moving enterprise buying decisions. At list, that parity is gone. And yesterday the same desk named OpenAI's DevDay, on September 29th, as the test of whether OpenAI would answer on price. The answer had already come, a week early.
+
+Now the skeptical turn, because the headline number oversells the story. Sol and Opus 5.5 are different tiers, each pitched as near-flagship on its own lab's terms. OpenAI says Sol reaches, in its words, "Astra-level reliability." That is OpenAI grading Sol against its own top model. Anthropic makes the mirror-image claim, calling Opus 5.5 Fable-level on most work. Both labs are selling near-top capability at a cheaper tier, graded by the vendor doing the selling. Take both claims as marketing, not independent evaluation.
+
+The bigger complication is the cache. Anthropic says plainly that cache reads make up the majority of agentic and coding work costs. Opus 5.5's cache-read price is twenty cents per million tokens. A pricing comparison from Finout lists GPT-6 Sol's cached-input price at the same twenty cents. That's a single secondary pricing table, not OpenAI's own page, so hold it with some care. But if it's right, it's not a discount. It's a match.
+
+So on the token type that actually drives the cost of a coding agent grinding through a task, Sol and Opus 5.5 price identically. The "half the price" framing holds for fresh input and output tokens. It doesn't hold where agentic spending concentrates. Lower in the stack the gap is real, because Finout lists Luna's cached input at one cent per million. It just isn't where Sol competes head-on with Opus 5.5. The honest read is that list price is no longer where these products differentiate. What a buyer needs is cost per completed task on their own workload, cache included. Neither lab has published that number.
+
+One more claim to flag before we move on. OpenAI says Sol makes about half as many mistakes as its predecessor. Per TechCrunch, that comes from OpenAI's internal factuality evaluation, built from real user conversations where people flagged model mistakes. It's a vendor-run benchmark, not an independent audit.
+
+So what does all this do to products? As list prices converge and cache prices match, the fight moves to routing. It's the same layer this beat has tracked in GitHub's HydraFusion router and the Copilot cost-quality dials. Enterprises that send each task to the cheapest tier that can do it stand to capture real savings. Meanwhile, resellers whose margin came from arbitraging price gaps between labs stand to lose it.
+
+Cheaper tokens matter most to products that spend them without being asked. Anthropic's launch page for Opus 5.5 cites one tester who completed a six hundred eighty thousand line code migration in under a day. That's a single vendor anecdote, not a benchmark. But it's exactly the kind of job Cursor built its new Projects feature for. In Cursor's words, that means a feature, a migration, or a full app.
+
+Projects launched in beta on September 10th and is still rolling out. A Project hands work to a coordinator agent that doesn't write code itself. Instead, it delegates to subagents running in the cloud. Cursor says a Project "runs on its own computer, so closing your laptop doesn't stop it." It adds that the coordinator "can watch a Slack channel, run on a schedule, or follow all your PRs, fixing CI." No prompt required.
+
+Cursor also says users who primarily use Projects merge six times as many pull requests as baseline users. New users see thirty percent more merged. Take that with real caution. It's Cursor's own number, drawn from a self-selected group of heavy adopters. So it shows correlation among enthusiasts, not a proven average lift. And it counts pull requests, not their quality.
+
+Still, the mechanism is the story. When unit price falls and triggers fire automatically, consumption rises. Whether the monthly bill actually falls is an open question, and it's a hypothesis, not a finding. It echoes Microsoft's usage-billing default for Copilot channel licenses, which starts November 2nd and which this show flagged earlier in the week.
+
+At the far end of the same curve, the price to the end user goes to zero. Google announced yesterday, September 23rd, that anyone with a Google or Workspace account can now generate video free of charge inside Google Vids, using the Gemini Omni 1.1 model. That's according to Unite.AI; Google's own post wasn't retrieved for this briefing. Output runs at 1080p, with upscaling to 4K. A scene-extension feature keeps a character's appearance, lighting, and environment consistent as a clip gets longer. There's also a faster 360p draft mode.
+
+Every clip carries an invisible SynthID watermark by default. At Workspace's scale, that could make one vendor's watermark the de facto provenance marker for casual AI video, before any regulator mandates one.
+
+But look at the fine print, because free rarely means unlimited. Business and Enterprise Workspace plans get what Google calls "expanded generation pools." And the draft mode is pitched at a third of the cost of full generation. Cost isn't a concept in something that's genuinely free. The size of the free allowance hasn't been disclosed. So this is free at the door and metered underneath, the same pattern this show has flagged all week in Copilot's billing and Comet's credits.
+
+The business implication is distribution, not technology. OpenAI's Sora API shuts down today, as this show noted on Monday. In the same week, Google is folding video generation into an office suite people already have open, at no marginal cost. There's no independent quality comparison against Veo, Sora, or Runway yet, so call it good enough for office use, not a professional tool. That's precisely the tier it threatens. It squeezes entry-level video apps and freelance editors doing basic work. It pushes dedicated tools like Runway toward professional-grade work that a free office feature can't follow. The bundle keeps winning distribution.
+
+Put it together. In one day, the price of machine work fell at the API, got spent automatically by standing coding agents, and hit zero for the end user inside a mainstream app. None of those moves tells a buyer what a completed task actually costs. What would settle it is a like-for-like number: cost per finished task, cache included, on a published workload. Nobody has published that yet. Until someone does, treat every "half the price" headline as provisional.
+
+That's the briefing for September 24th. Thanks for listening, and I'll see you tomorrow.

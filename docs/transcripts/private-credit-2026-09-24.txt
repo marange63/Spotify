@@ -1,0 +1,45 @@
+Good morning, it's Thursday, September 24th, and this is Cautious Optimism Briefings.
+
+This week the lending machine is being re-plumbed from both ends at once. Private loans are moving into public structures. And risk that banks reject is being offered to private hands. We'll take the private-to-public flow first, then the bank-to-private flow, then pull the threads together.
+
+Start with the structural move. Bloomberg reported Tuesday that Blackstone is developing a hybrid CLO. It's a single vehicle that mixes broadly syndicated leveraged loans with private, direct-lending paper. In Bloomberg's framing, the pitch is pairing the higher yields of direct lending with the depth of the leveraged loan market. As the structure is described, the manager can shift the mix between the two sleeves over the life of the deal. Blackstone's own terms aren't public. There's no confirmed size, mix limit, or pricing date yet.
+
+The precedent is real, though. At the end of August, Sona Asset Management priced what it and its arranger describe as the first public European CLO built to combine private credit and syndicated loans. Goldman Sachs arranged it, and it came in at roughly 400 million euros, dual-currency. At closing, the portfolio was expected to hold 97 corporate obligors. Roughly seventy percent was broadly syndicated loans and thirty percent middle-market loans, and that split is a starting point, not a fixed allocation. A first-of-its-kind print, followed within a month by a manager of Blackstone's scale building its own version, says this is becoming a structure, not a curiosity.
+
+Here's why the mechanism matters. Syndicated loans mark to market. Direct-lending loans mark to model. Put both in one vehicle and give the manager discretion over the weighting, and you've built something that can be read two ways. Neither reading is proven yet.
+
+The bullish reading is that direct lending finally gets what it has always lacked. It gets the CLO market's funding depth. Its liabilities are match-funded and don't reprice daily. And that funding doesn't depend on gated retail redemption wrappers.
+
+The skeptical reading is that the mix-shifting option is an option to lean into whichever sleeve looks better on paper. The private sleeve is priced by the manager's own model rather than by the market. That makes it an easy lever to pull without anyone outside the deal seeing it move. Stress in either market can now surface in the same structure, and the manager decides how visible it is.
+
+There's now a number behind that incentive. LCD data, as reported by Kadenwood, puts the premium on a private loan over a syndicated one at about 162 basis points in the three months to August 31st. In the first quarter, that gap was about 123. So the spread a hybrid manager can capture by tilting toward the private sleeve has widened by roughly forty basis points this year. That sharpens the concealment-versus-diversification question. It doesn't answer it.
+
+The ratings side leaves that question open too. Moody's public commentary treats broadly syndicated CLOs and middle-market CLOs as two separate deal categories. The middle-market deals carry bigger overcollateralization cushions to offset weaker collateral. We found nothing from Moody's, S&P, or Fitch that addresses a single vehicle blending both obligor types, with a weighting that can shift after closing. For senior tranche buyers, that matters directly. They are relying on frameworks built for pure syndicated or pure middle-market collateral. Whether they are being paid for the private sleeve depends on how it gets rated and tested, and nobody has shown that yet. The market is building this ahead of any documented ratings framework.
+
+Now the backdrop these new pipes are being built into. Fitch's private credit default rate, which we covered Sunday, hit a record 6.3 percent on a trailing twelve-month basis at the end of August. Fitch tracks about 1,300 borrowers, so this is a subset of the direct-lending market, not the whole of it. The headline is dominated by stressed maturity extensions rather than hard defaults. Extensions were 45 percent of August's default events, the largest category for the third straight month.
+
+The dispersion underneath is extreme. Healthcare defaults run at 9.9 percent. Software sits at 0.6. That dispersion is exactly the selection lever a hybrid-CLO manager holds when choosing which private loans go into the blended sleeve. Loans that were extended rather than resolved are the ones whose marks are least tested. So the pipe into the public CLO market is being built just as those least-tested loans are the ones most likely to need a new home.
+
+That's private credit reaching toward the syndicated market. And it inverts what we saw Sunday, when unsold Oracle-linked data center paper sat on syndicate bank balance sheets and pushed AI lending toward private capital. Now the reverse flow on the bank side. Bank credit is reaching toward private capital, for risk the bank itself won't hold. JPMorgan is this week's case.
+
+First, what's being floated. A second-look program would let an outside, private-credit-funded entity approve co-branded card applicants that JPMorgan's own underwriting turns down. That outside entity, not the bank, would carry the credit risk on those accounts.
+
+Second, who asked whom. According to the Wall Street Journal, as relayed by PYMNTS, JPMorgan Chase sent requests to several outside firms, reportedly private-credit lenders. The requests asked whether those firms would take on the risk of approving applicants the bank denies.
+
+Third, where the push came from. The same reporting says the impetus behind those requests came from JPMorgan's co-brand partners, including United Airlines, Marriott, and Amazon. Those partners want more of their customers approved. So the pressure may not be JPMorgan trying to offload risk it doesn't want. It may be partners trying to grow their card base. That changes who the marginal risk-taker is actually serving.
+
+Then the denial. A JPMorgan spokesperson told the Journal the bank has no plans for a second-look program. So this is a trial balloon, not a term sheet. There are no disclosed economics, no loss-share structure, and no funding cost.
+
+Still, it extends a pattern we flagged Sunday. Truist agreed to sell five and a half billion dollars of near-prime auto loans to Apollo. That was secured consumer credit moving from a bank balance sheet to a private lender. The JPMorgan idea is the same shape one rung down. It is unsecured card risk, already rejected by the bank's own standards, tested for the same kind of transfer. Two weeks running, marginal consumer risk that banks won't hold is finding its way toward private balance sheets.
+
+The second-order effect runs through the bank-nonbank linkage. If second-look arrangements spread, the bank keeps the prime book and the customer relationship. The tail sits off its balance sheet. That is the same regulatory-arbitrage shape supervisors have criticized in corporate direct lending, now applied to consumers.
+
+And the risk itself is a different animal. Unsecured card debt carries no collateral and moves with the labor market. Sponsor-backed, senior-secured corporate loans are the core of direct lending today, and they behave differently. So "private credit" is increasingly a label covering exposures that don't belong in one bucket. Remember that every time a headline cites a single blended yield for the whole asset class.
+
+Pulling it together. On the data we have, the credit cycle hasn't moved since Sunday. Reported averages are holding, and the tail of stress is still being deferred through extensions rather than resolved. What's new this week is the plumbing. Private loans are being engineered into public, rated structures. Bank-rejected risk is being tested against private capital's appetite. The migration of lending from banks to non-banks is becoming a set of pipes running both ways.
+
+The biggest unresolved risk is what happens when stress travels through those pipes. In neither direction has anyone shown how the risk gets marked, rated, or capitalized once it crosses.
+
+Sunday's catalysts are still open. OCIC, Blue Owl's retail credit fund, closes its tender on September 30th. Requests near last quarter's 18.8 percent would say the redemption queue isn't draining. Fitch's September default print is due in mid-October. Third-quarter BDC filings start landing in November. Add one new item to that list, which is Blackstone's hybrid CLO pricing. Whatever cap or floor it puts on the private-credit sleeve will be the first real evidence of whether this new pipe has limits.
+
+That's the state of the lending machine. Thanks for listening, and I'll see you next time.
