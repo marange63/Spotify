@@ -1,0 +1,51 @@
+Good morning, it's Friday, September 25th, 2026, and this is your space and orbital economy briefing.
+
+Two gates stand between the capacity this sector has announced and capacity that actually works. Both come up in the next five days. One is launch, and one is spectrum. Neither one tests the cost case. Let's start with launch.
+
+On Wednesday, we told you Super Heavy Booster 21 was on the pad at Starbase, but Ship 41 had not yet joined it. That gap closed the same day. SpaceX stacked the full vehicle on September 23rd. The company is targeting liftoff at 7:15 a.m. Central on Monday, September 28th. SpaceX and the FAA are treating it as Starship's first true orbital flight.
+
+To be clear, September 28th is not a new slip. That date has been on this show's calendar for more than a week. What changed is the hardware. The last physical milestone before the window has now been met.
+
+This flight matters because it is the first time Starship carries a real payload. According to Spaceflight Now's reporting on the stacking, that payload is 26 next-generation Version 3 Starlink satellites. If that deployment succeeds, Starship becomes an orbital delivery platform with revenue-bearing cargo, not a test article.
+
+What it will not prove is the cost case. This flight does not test the tower-catch recovery loop that Starship's reusability economics depend on. So a clean flight answers whether Starship can reach orbit with a payload. It does not answer whether it can do that cheaply and repeatedly.
+
+That distinction matters for SPCX, the listed SpaceX. Flight 14 is the first Starship flight whose outcome bears directly on the Starlink capacity roadmap inside the public company. It is a binary catalyst for the capacity story. It is not yet a catalyst for the unit-cost story, and investors should keep those two apart.
+
+There is also a gate still open ahead of Monday, and it has nothing to do with hardware. On Monday, Spaceflight Now put it plainly. Liftoff, quote, "can only proceed once the FAA approves the license modification needed for SpaceX's orbital flight plan." On Thursday, after the stack was complete, an AIAA report said the same thing. SpaceX, quote, "first" needs "to receive regulatory approval from the Federal Aviation Administration."
+
+So the license was still pending as of Thursday. Neither source says whether approval is close or stuck. That means a slip past Monday for regulatory rather than hardware reasons is a live risk. I won't guess which way it breaks. The bottom line on Starship: the vehicle is ready to try. Whether the regulator is ready to let it try is still open as of this recording.
+
+Getting Version 3 capacity to orbit is one gate. The right to transmit with it is the other, and that gate has a date just two days later.
+
+The Federal Communications Commission has a draft order up for a vote at its September 30th open meeting. It would expand satellite access in two bands, 12.7 to 13.25 gigahertz and 42 to 42.5 gigahertz. Related proposals touch D-band and inter-satellite links.
+
+Taken together, the package would, quote, "make more than 1,000 megahertz of spectrum available for expanded satellite use." That's per a summary of the draft by the law firm HWG. On its face, that is a step change for every low-Earth-orbit broadband operator short of capacity.
+
+Now read the fine print. Under the draft, incumbent terrestrial operations, quote, "would retain primary status for ten years after Federal Register publication." That one clause turns a headline spectrum grant into a decade-long option. It is not an immediate unlock.
+
+Here is this desk's inference, not a sourced fact. In the bands incumbents already occupy, the near-term capacity benefit is small. The value accrues to operators with the balance sheet to wait and build against it. Spectrum becomes a slow-release asset, not a step change. It is one more case of rights arriving well before anyone can use them.
+
+And none of this has happened yet. The vote is scheduled, not held. Draft terms, including that ten-year window, can still change before September 30th. A separate direct-to-device proceeding on unlicensed spectrum is also still open, and it is a different docket. So the plain read is this. Starship tests whether capacity can physically reach orbit. The FCC vote tests how much new spectrum that capacity gets. Both are catalysts to watch this week, not results to report.
+
+While the U.S. sets spectrum rules on a ten-year glide path, China is contesting the same scarce resource by launching more. Look at its two megaconstellations, Guowang and Qianfan. Analysis published by China in Space says the two programs, quote, "consumed an estimated 45 launches in 2025 and are projected to consume 70 or more in 2026."
+
+That is an outside projection, not a confirmed tally. It also counts launches, not working satellites on orbit. But the direction is clear. China is scaling its megaconstellation buildout by more than half year over year. It is doing that while the American path to more usable spectrum runs on a decade-long clock. So this is a contest over the same limited resource, fought with two different instruments: American rulemaking against Chinese launch cadence.
+
+That same split, between what's deployed and what's still a plan, runs through defense space. There it's sharper still.
+
+The Space Development Agency's proliferated architecture is the sensing backbone for the Golden Dome missile-defense concept. It now has 63 Tranche 1 satellites on orbit. The latest batch was 21 York Space Systems-built data-transport satellites, launched on a Falcon 9 in mid-September. That count isn't new to this show, so treat it as background. The agency has also opened a competition for more ground entry points for a later tranche. That is a reminder that the sensors still need terrestrial plumbing to be useful.
+
+What is new here is how the shooting layer compares. According to Air and Space Forces Magazine, the Space Force has awarded, quote, "12 companies $3.2 billion to develop prototypes of orbital interceptors." The reporting doesn't date that award, so don't read it as this week's money. Spread across a dozen firms, it works out to roughly 270 million dollars each on average. That's this desk's arithmetic. At that scale, it is prototype-pool money, an option on future production, not recognized production revenue.
+
+Now the schedule. Army Recognition, paraphrasing the Defense Department, reports that the Pentagon has, quote, "scheduled initial testing for the Golden Dome space-based missile defense system before December 31, 2026, followed by orbital flight demonstrations in 2027." Those are targets reported secondhand, not milestones met.
+
+Set that against a callback. On September 20th, we reported Air Force Secretary Troy Meink's podium claim. He said the interceptor program went from initial contract to flight-ready hardware inside a year. Yet on the Pentagon's own targets, nothing flies an orbital demonstration until 2027. "Flight-ready" and "flying" are not the same milestone, and the gap between them is where the risk sits.
+
+So the asymmetry inside Golden Dome is stark. The sensing layer is deployed hardware, adding satellites on a defined cadence. The shooting layer is still a portfolio of options that has not flown in orbit. For investors, near-term Golden Dome revenue sits with the sensor and bus builders already shipping satellites, not with the interceptor prototype pool.
+
+So where does that leave the sector heading into next week? What's real is a fully stacked Starship and 63 deployed sensing satellites. What's still a demo is spectrum that depends on a vote not yet held and a ten-year incumbent clock. So is an interceptor layer that won't fly an orbital demonstration before 2027.
+
+The catalysts are dated and close together. First, Starship's launch window Monday morning, and whether the FAA license clears in time. Second, the FCC vote next Wednesday. Third, a Golden Dome interceptor test the Pentagon targets before year-end. Even if all three go right, none of them changes the cost-per-kilogram story yet. That is still the thing to watch for after they land.
+
+That's your briefing for September 25th. Have a great weekend, and I'll talk to you next time.
