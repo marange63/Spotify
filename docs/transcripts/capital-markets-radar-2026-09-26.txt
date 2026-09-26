@@ -1,0 +1,45 @@
+Good morning, it's Saturday, September 26th, and this is the capital markets radar.
+
+Yesterday this desk left you with Hormuz headline risk running in both directions. Friday showed you which way oil broke. The bond market's response to that break is the story worth your attention today.
+
+Start with oil, because it sets up everything else. West Texas Intermediate fell to $93 a barrel on Friday, snapping a two-day rally, per Fortune. The trigger was reporting that US and Iranian negotiators in New York are exploring a phased deal. Tehran would reopen the Strait of Hormuz, and Washington would lift its economic blockade, with Qatar mediating.
+
+The new detail is a concession. Regional sources say Iran is willing to move its demand for Hormuz transit fees out of the main agreement and into a side attachment. The stated reason is that ending the blockade has become the more urgent priority for Tehran. You can read that two ways. It may be a genuine signal of urgency. Or it may be a sticking point deferred rather than resolved.
+
+Either way, treat it exactly as reported. These are unnamed sources, there is no signed deal, and neither government has confirmed it on the record. We've been here before this month. Tuesday brought a conditional Iranian offer that knocked about two percent off crude. That move unwound within forty-eight hours, when Houthi fire aimed at Yanbu sent Brent back above $106. So the peace leg got more concrete on Friday, but it is still unconfirmed, and a reversal by Monday would not be a surprise.
+
+Here is why Friday mattered more than Tuesday. If oil were still the variable driving the rate path, the bond market should have rallied on that drop to $93. It didn't. The ten-year Treasury yield closed Friday at five-point-one-seven percent, per Advisor Perspectives. And Friday's intraday high was the highest ten-year yield since June 2007.
+
+Track the escalation. This desk had the ten-year near four-point-nine-six percent on Tuesday. It jumped to five-point-one-oh-four on Wednesday. It finished the week at five-point-one-seven, with a fresh nineteen-year intraday high on an oil-down day.
+
+That's the second time in a week yields have ignored a falling oil price. On Tuesday, when crude fell about two percent, the ten-year gave back less than a basis point. Two instances in one week is a pattern worth naming, though it is not yet a regime change. We also don't know the intraday sequencing, whether yields peaked before or after the oil move. But the working read is that the long end is no longer trading as a pure derivative of the oil shock.
+
+We finally have a read on the front end to go with it. On Thursday this desk told you it couldn't see the two-year. The two-year note closed Friday at four-point-eight-one percent. Against the ten-year's five-point-one-seven, that's a spread of roughly thirty-six basis points. That's my own arithmetic from two closes, not a quoted figure. And with no prior two-year level, I can't tell you whether the curve steepened or flattened.
+
+What the level does tell you is plain. The ten-year sits more than a full point above a fed funds range that tops out at four percent. That's a lot of premium baked into duration, for a Fed that just hiked and where sixteen of eighteen participants still project another increase this year.
+
+So what's driving the long end? It's genuinely contested, and the honest move is to lay out the menu rather than pick a winner.
+
+The first story is hawkish-Fed persistence. After Governor Barr said further policy adjustments are likely needed, CME FedWatch odds of an October hike jumped to seventy-three percent, per CNBC. That's a Wednesday snapshot, taken before Friday's oil drop, so it may already have moved in either direction. But it tells you where the market leaned going into Friday.
+
+The second story is duration supply and term premium. Wednesday's five-year auction tailed badly, as this desk reported Thursday, with indirect bidders well below their average. Thursday's seven-year was the chance for a second data point, and it didn't deliver one. It cleared at a five-point-oh-eight-five percent high yield with a seven-tenths of a basis point tail. Indirect participation was fifty-seven percent, against a sixty-five percent average. Those numbers lean soft, but the auction's own read was in-line demand, with no directional signal for bonds. So resist calling it a weak auction driving a term-premium blowout. It can't carry that argument on its own.
+
+The third story is benign. Long yields rising alongside stocks is also what a strong nominal-growth repricing looks like, echoing the hot flash PMI this desk flagged all week.
+
+And note what's missing. There was no scheduled data release Friday morning to hang the move on. August PCE isn't due until September 30th, so it can't be the driver. Without a catalyst, term premium remains a hypothesis, not a finding.
+
+Here's the so-what for portfolios. If the ten-year no longer falls when oil falls, long duration has stopped hedging a geopolitical oil shock in the direction you need. A successful Hormuz deal may bring less bond relief than consensus assumes.
+
+Stocks, meanwhile, took the other side of that argument. The S&P 500 rose about half a percent Friday to close near seven-thousand-seven-hundred-forty-three, per CNBC. The Dow gained just under one percent, nearly double the Nasdaq's half-percent. That's the mirror image of Wednesday, when the Nasdaq fell hardest in a classic discount-rate shock. On Friday, the day of a new nineteen-year intraday yield high, cyclicals led and equities rallied.
+
+Keep that in proportion. It's one session, and the S&P is still inside the seven-six to seven-eight-hundred range it has held since August. The Dow's lead may simply be cyclicals cheering cheaper oil. But for one day, equities traded the peace leg while bonds traded the persistence leg.
+
+You see a similar split inside crypto. Spot Ethereum ETFs drew four-hundred-thirty-two million dollars across the Monday and Tuesday sessions, per crypto.news, and have extended their inflow streak to five sessions. Over the same stretch, ether was rejected near twenty-eight-hundred dollars and fell back below twenty-seven hundred. Those flow figures come from secondary aggregators, and another outlet's larger tally doesn't reconcile with them. Bitcoin, meanwhile, recovered to about eighty-five-thousand-two-hundred dollars by Friday morning, after Wednesday's drop below eighty-four thousand.
+
+Don't read the ether gap as conviction. Money flowing into the wrapper while the price stays capped is at least as consistent with a hedged carry trade, long the ETF against a futures short. There's no positioning data this week to tell the two apart. The flows are real; the conviction behind them is not established.
+
+Put it together, and here's where the market may be over-reading the good news. Risk assets are leaning on the peace leg. Bonds are pricing persistence. Those can coexist, but only if the deal holds. If the Hormuz talks stall the way Tuesday's offer did, oil has room to re-spike. The ten-year is already at its highest since 2007, so there's little rate cushion left. Equities and crypto would absorb a fresh oil shock and a tight rate structure at the same time.
+
+Meanwhile, the disinflation case for the Fed needs cheaper oil to show up in actual prints, not just in the barrel price. That keeps the October meeting live either way. The dated tests are payrolls on October 2nd, CPI on October 14th, PPI on October 15th, and the Fed's decision on October 28th. None of those has printed yet. Watch whether Friday's decoupling between oil and duration survives the first of them.
+
+That's the radar for this week; have a good weekend, and I'll see you at the next dated test.
