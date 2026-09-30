@@ -1634,6 +1634,36 @@
       "duration": 494,
       "transcript_txt": "forward-curve-2026-09-30.txt",
       "transcript_html": "forward-curve-2026-09-30.html"
+    },
+    {
+      "guid": "capital-markets-radar-2026-09-30",
+      "prompt_id": "capital-markets-radar",
+      "title": "Capital Markets Cross-Asset Radar — September 30, 2026",
+      "summary": "Last week this desk tracked the ten-year Treasury from about four-point-nine-six percent to a five-point-one-seven close. We called term premium a hypothesis, not a finding. On Tuesday, the thirty-year yield touched above five-point-six percent intraday, per Bloomberg. That's its highest level since June of 2002.",
+      "date": "2026-09-30",
+      "seq": 10,
+      "published_at": "2026-09-30T08:21:06-04:00",
+      "audio_file": "capital-markets-radar-2026-09-30.mp3",
+      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/capital-markets-radar-2026-09-30.mp3",
+      "length": 3420144,
+      "duration": 570,
+      "transcript_txt": "capital-markets-radar-2026-09-30.txt",
+      "transcript_html": "capital-markets-radar-2026-09-30.html"
+    },
+    {
+      "guid": "strategic-power-2026-09-30",
+      "prompt_id": "strategic-power",
+      "title": "Strategic Power, Energy, and Institutional Change — September 30, 2026",
+      "summary": "The theme today: the chokepoints are reopening on volume, but not on control. Gulf oil is flowing again at close to pre-war scale, and Nvidia chips are about to move into China. In both cases, the flow is moving on terms set by whoever holds the gate.",
+      "date": "2026-09-30",
+      "seq": 11,
+      "published_at": "2026-09-30T08:22:19-04:00",
+      "audio_file": "strategic-power-2026-09-30.mp3",
+      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/strategic-power-2026-09-30.mp3",
+      "length": 3600576,
+      "duration": 600,
+      "transcript_txt": "strategic-power-2026-09-30.txt",
+      "transcript_html": "strategic-power-2026-09-30.html"
     }
   ]
 }
