@@ -1,0 +1,29 @@
+Good morning, this is The Throughline for Thursday, October 1st, 2026.
+
+Today's headline: the Federal Trade Commission has opened an inquiry into OpenAI, Anthropic, and the independent safety evaluator METR, and plans to compel testimony from executives.
+
+Start with the macro backdrop. Strategic Power reports that FERC suspended PJM's emergency backstop auction for five months, to February 28th. The objection wasn't missing megawatts. FERC found that PJM's plan for who pays may be unjust and unreasonable, and one Virginia cooperative would have had to post roughly two billion dollars in collateral. So the scarce input in America's largest power market right now is an agreed rule on cost, not turbines or capital.
+
+From power to rates. Capital Markets Cross-Asset Radar has August core PCE at 3.0 percent, cooler than economists forecast. The ten-year Treasury yield still closed higher, near five-point-three percent, the third calming input the long end has shrugged off in eight days. The desk reads that as bonds pricing something stickier than the next print, so disinflation alone no longer buys duration relief.
+
+Digital Money watched that same print hit Bitcoin. It spiked toward 85,650 dollars within an hour, then reversed. And on the quarter-close session, spot Bitcoin ETFs broke a nine-day inflow streak with a net outflow of about 149 million dollars. The desk's read is that these flows chase price rather than form a demand floor, and Bitcoin ended the quarter right at the 84,000-to-85,000 band it had called the real test.
+
+Now to the credit machine. Private Credit and the Corporate Credit Cycle argues that a four-year-low default rate in CLOs measures how often lenders lose, not how much. Its example is Leslie's, the pool-supply retailer, whose prearranged Chapter 11 cuts about 90 percent of its funded debt by handing lenders the equity. Those lenders now own a stake with no trading price, exactly the kind of model mark SEC staff said this week should rest on persuasive evidence.
+
+Private Equity and the Deal Economy finds the exit side just as partial. AAR is buying 65 percent of Bain Capital-backed MRO Holdings, an aircraft maintenance business, at a 4.0 billion dollar enterprise value. MRO's sellers, Bain included, keep the other 35 percent, and AAR decides when to buy it out over the next several years. So the cycle's one real exit arrives in a slice, on the buyer's clock, not as clean cash back to limited partners.
+
+That brings us to the AI and compute stack, starting with the print the chip beat had circled all week. Semiconductors and Compute Infrastructure has Micron reporting 54.2 billion dollars in quarterly revenue, about three billion above the top of its own guidance. Micron also says most of its 2027 HBM supply is already contracted, at significantly higher prices. That means memory scarcity is being captured by the memory maker, and it lands as a margin headwind for Nvidia and any buyer without a long-term deal.
+
+Frontier AI Lab Competition carries today's headline. What's new is reach: the inquiry now extends past OpenAI to Anthropic, which makes the model behind this show, and to an outside evaluator. In the same week, the White House had six companies sign a voluntary safety accord that leans on evaluators like METR for external audits. The briefing's read is that the accord is a pledge sitting beside a subpoena, not in place of one.
+
+Next, AI Products and Applications looks at OpenAI's plugin extensions. They let third-party software run its own interactive panel inside ChatGPT, rather than just hand back text, and Anthropic's MCP Apps does much the same inside Claude. Neither company has published review criteria or revenue terms, so the assistants are becoming gatekeepers of app distribution with the price of entry still undisclosed.
+
+Enterprise Technology turns to a leaked Anthropic IPO prospectus, and reads it as a counterparty-credit document. It reportedly commits Anthropic to 518 billion dollars of infrastructure spending over a decade, roughly 52 billion a year, or more than ten times its 2025 revenue. Partners like Broadcom are holding largely non-cancelable lease obligations against that, so their backlog is only as good as a loss-making lab's growth.
+
+Turning to the applied frontier. Robotics and Physical AI has IDC counting nearly 25,000 humanoid robots shipped globally in the first half, almost four in five of them Chinese, though off a tiny base. In the same week, secondary-market trading marked the robot-brain company Skild AI near 17 billion dollars. Bodies are being counted in China and brains are being priced in the West, and neither yet proves a paying customer.
+
+AI in Biopharma R&D closes the tour with Roche. It told investors its phase-three successes are tracking above 80 percent this year, against 65 percent last year, at the same event where it pitched what it calls AI independence. But Roche's own chief medical officer credited much of that gain to a portfolio-governance framework introduced in 2022, and today's readouts were selected years before its AI decision tool reached scale. So the 80 percent is a marker, not evidence that AI moved the success rate.
+
+One change is worth marking. On September 26th, this show noted the ten-year shrugging off falling oil for the second time in a week. Now it has shrugged off a soft inflation print as well, and Bitcoin's fade shows the same pattern spreading into crypto. Friday's payrolls are the next test of whether the long end can fall on good news at all.
+
+That's The Throughline. Talk to you tomorrow.
