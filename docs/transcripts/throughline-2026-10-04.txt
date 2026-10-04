@@ -1,0 +1,29 @@
+Good morning, this is The Throughline for Sunday, October 4th, 2026.
+
+Today's headline: Google's Gemini 4 Argon lifts the output ceiling of a single agent run to one million tokens, and Google has already said its introductory price will double.
+
+A note on scope first. Only one briefing shipped today, AI Products and Applications, so this front page is a single-desk tour. Rather than one line per episode, I'll walk that briefing's three stories and why each matters, so you can decide whether to play the full episode.
+
+Start with the lead. Google says it is expanding Argon's output limit to an industry-leading one million tokens. Reporting puts the prior limit at 64,000, so that is roughly a sixteen-fold jump in what one run can hand back. The briefing's read is that this matters most for code migration and document generation. Those products today chunk the work into pieces and stitch the results back together. A run that finishes the job in one pass changes that architecture. It also weakens the case for orchestration tools whose main job is managing the chunks.
+
+There is one capability number, and it comes with a warning. AI Weekly relays a Google figure of 77.9 percent on DeepSWE version 1.1, a long-horizon software engineering benchmark. Nobody has tested that independently, so treat it as a direction, not a verdict.
+
+The rollout order matters as much as the spec. Argon goes first to trusted cyber defenders, through what Google calls its Fairwind Program. Paid API customers and Google AI Ultra subscribers come after that, with no date for either group. The briefing ties this to a pattern on the beat. On October 2, it covered OpenAI's Codex Security Cloud, an unattended security reviewer. Security keeps turning up as the first commercial home for agent products. The practical upshot is that most developers cannot use Argon yet.
+
+Then the price. Google's introductory rate is two dollars per million input tokens and ten dollars per million output tokens. After the introductory period it rises to four and twenty, and Google gives no end date for the cheaper window. On the briefing's own arithmetic, a run that fills the full million output tokens costs about ten dollars now, and about twenty after the step-up. That two-and-ten sticker also matches the list price of OpenAI's GPT-6.1 Sol, which the beat covered on September 30.
+
+The briefing's bigger point is that launch terms keep moving. On September 30, the beat covered OpenAI halving the included usage on its two-hundred-dollar Pro plan. On October 2, it was GitHub putting Sol straight onto usage-based billing. Now Google has set a launch price it has already said will double. So anyone modeling margins on Argon's introductory rate is pricing against a number with an undisclosed expiry date.
+
+Argon also tightens a constraint this beat named on October 2. Unattended coding tasks move the bottleneck from generation to review capacity. A million-token output is cheap to generate and expensive to check. So that review constraint now extends from code to every long-form agent deliverable, from reports to migrations.
+
+From what a run produces to where it is allowed to run. The briefing's second story is IBM's self-hosted version of Bob, its AI development platform, introduced on October 1. Enterprises can run the full coding and modernization system on-premises, or fully air-gapped. According to Startup Fortune, the target is banks, governments, and other regulated buyers that have refused to send proprietary source code to a third-party AI cloud. This is a change in deployment, not a new capability.
+
+IBM's supporting numbers deserve a discount. More than 80,000 IBM employees use Bob, but those are IBM staff, not paying customers. The 45 percent average productivity gain comes from a self-reported survey, not measured output. IBM has not disclosed a price for the self-hosted tier, and it has not named an external bank or government customer. The customer also now carries the inference hardware and the operating cost, which the briefing suspects may erase part of the appeal for smaller buyers. The takeaway is that regulated code can now stay inside the building, but no outside buyer has been named yet.
+
+The third story is about the format the work lands in. Anthropic, which makes the model behind this show, announced on September 16 that Claude Cowork and Claude chat are merging into one experience. There is no mode to choose. Claude decides whether a request needs a quick answer or finished work, such as a report, a spreadsheet, or a presentation. Claude Docs and Claude Slides launch in beta, with Pro and Max users getting the update first over the coming weeks. Anthropic describes spreadsheets with working formulas and presentations that open in PowerPoint. The briefing's caution is that opening in PowerPoint is a compatibility claim, and fidelity and collaboration are the real test. So competition with the office suites shifts from generating files to editing them well.
+
+The briefing ties its three stories together as delivery and placement, not raw capability. Argon sets the size of what an agent returns. IBM sets where that agent may run. Claude sets the format the work lands in. Its watch list has three items: when Argon opens to paid API users and the introductory rate ends, whether IBM names an outside customer, and whether anyone independently tests a single-run output of this length.
+
+One change is worth marking. On September 29, this show said agent brakes were shipping only as blueprints and promises. IBM's air-gapped Bob is a shipped option, and it contains code by physical location rather than by monitoring. That makes it the first form of containment on this beat that a regulated buyer can actually deploy.
+
+That's The Throughline. Talk to you tomorrow.
