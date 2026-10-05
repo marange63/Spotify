@@ -1,0 +1,33 @@
+Good morning, and welcome to The Throughline for Monday, October 5th, 2026.
+
+Today's headline: investors in Blue Owl's technology-focused credit vehicle reportedly asked to redeem 39 percent of its shares against a 5 percent cap, even as requests at the firm's flagship fund eased.
+
+Only five briefings shipped today, so each gets a little more room than usual. We'll start with the macro backdrop, then the AI stack, then the applied frontier.
+
+From Capital Markets Cross-Asset Radar, the September jobs report was a clear miss. Payrolls rose 29,000, about a third of FactSet's median forecast. The desk's read is that the soft print pushed the next Fed hike later without taking it off the table. The two-year Treasury still sits well above effective fed funds, and it rose rather than fell on payroll day. So a deferred hike buys stocks time, not a lower discount rate.
+
+Higher funding costs for longer are a credit story too, which takes us to Private Credit and the Corporate Credit Cycle, home of today's headline.
+
+Blue Owl again capped withdrawals at two vehicles, but the two moved in opposite directions. At the flagship, Blue Owl Credit Income Corp., requests eased to 16.8 percent of shares. It is still gated, but it is not getting worse. At the tech-focused sibling, Blue Owl Technology Income Corp., requests climbed further, and roughly one in eight requested shares can get out this period. Those figures come from secondary reports. They also include resubmissions from earlier periods, so they overstate fresh exit demand. Even so, the desk calls this a queue sorting by sector, not one draining. The worry is that software-heavy retail vehicles carry marks their own holders no longer seem to trust.
+
+The desk's second warning comes from Australia. According to press reports, KPMG, as auditor, made different valuation calls at Metrics Credit Partners. That cut net tangible asset values across three listed trusts, with the deepest cut just over 12 percent. The assets marked down were property investments, not loans, but the mechanism carries. Marks can move before defaults do.
+
+Now the AI and compute stack, where AI Products and Applications is today's only briefing. Its theme is the agent stack splitting into narrow, priced parts: a call that decides, a tool that acts, and a layer that speaks.
+
+The call that decides is OpenAI's Decisions API, in limited preview with no published price. The model picks from a fixed set of answers you supply. The briefing calls that a third product shape, separate from autonomous agents and from connectors. A probabilistic pick is not an auditable reason, so its likeliest first casualty is the small classifier a team maintains by hand, not the compliance-grade rules engine.
+
+The tool that acts is GitHub Copilot, which added computer use in public preview. A diff can be reviewed and rolled back. A run of clicks and file moves on a live desktop is harder to inspect and harder to undo. The reporting says nothing about permissioning or sandboxing, and that absence is the open question.
+
+The layer that speaks comes with an expiry date. Mercury Voice launched at a 50 percent discount, so its long-run price is about double the headline. Microsoft's MAI-Transcribe-2-Streaming holds its promotional rate only through year-end. The briefing sets these beside Google's Argon introductory rate, which Google says will double, and OpenAI's cut to included usage on its Pro plan. Anyone building on launch prices needs a plan for when they end.
+
+One more from that briefing. Claude for Government is now generally available to federal and state agencies, on a single newsletter report. Anthropic makes the model behind this show, so weigh that accordingly. No agency customer or contract value has been reported, and general availability is not adoption.
+
+Now the applied frontier, starting with Robotics and Physical AI, where the theme is claims that are not yet deliveries. Galbot's ET1 humanoid is reportedly priced from 79,000 yuan. But it is an interaction robot for store greetings, theme parks and stage shows, not a factory benchmark. UBTech's chief executive says monthly output can reach about 1,500 units, while the company's first-half sales pace annualizes to roughly 1,800 a year. So the monthly claim is potential throughput, not output.
+
+The desk also marks a shift in the constraint. On Friday, the bottleneck for Tesla's Optimus was chip memory. Today it is the building, with the Texas plant's steel only partly up, according to one secondary source. Boston Dynamics claims its robots pay back in under two years, but its evidence is Spot, a quadruped inspection robot, not Atlas. The so-what is that every capacity figure needs a utilization number beside it before anyone prices it.
+
+Space and the Orbital Economy finishes the tour. On Thursday, NROL-97 flew on a Falcon Heavy, the first National Reconnaissance Office payload ever to fly on that rocket. It was bought in 2025 through a competitive launch contract, so the desk reads it as concentration through competition, not by default. The contest still open sits one layer down, in a Space Development Agency solicitation for missile-tracking ground stations valued at 369 million dollars. It is a request for proposals, not an award, and it is under a twentieth of SpaceX's reported Golden Dome-related awards. So the plumbing is still contestable, even where the ride to orbit is not.
+
+One change is worth marking. On Thursday, this show called Friday's payrolls the next test of whether the long end could fall on good news at all. It could not. Payrolls missed, and the ten-year yield still rose five basis points on the day, which the Radar desk reads as term premium at work rather than the policy path.
+
+That's The Throughline. Talk to you tomorrow.

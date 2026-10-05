@@ -1,0 +1,39 @@
+Good morning. This is Capital Markets Radar for Monday, October 5, 2026.
+
+Friday's jobs report is three days old, and the argument over what it did to the Fed path is still running. That argument matters less than it looks. The reason why is today's story.
+
+First, one correction to our own prior read. The Bureau of Labor Statistics reported that September payrolls rose 29,000, with unemployment at 4.2 percent. On Saturday we said there was no verified consensus to grade that against. Now there is one. FactSet's published median had called for 90,000 jobs. So the print was a clear miss, coming in at about a third of the median.
+
+The Fed backdrop takes one sentence. The Fed raised rates a quarter point last month, and its statement said inflation "remains elevated." So a soft labor print landed less than three weeks into a hiking cycle.
+
+Now the repricing, and here the gauges disagree. Prediction markets, via CNBC, put an October hike near 17 percent. But CME-based readings have run much higher, so treat the level as contested. What matters is what the gauges share. None of them has dropped tightening. At most, the soft print moved the next hike later. Call it deferral, not cancellation.
+
+The front end says the same thing with harder numbers. On the Fed's H.15 series, the two-year sat at 4.78 percent on October 1, against an effective fed funds rate of 3.88 percent. That is a gap of about 90 basis points, which is a curve still pricing a higher policy path. That spread is the one number to watch for any sign the market is abandoning the cycle. And on payroll day, Treasury's closing data had the two-year rising rather than falling. A front end that rises on a jobs miss is not pricing the end of a hiking cycle.
+
+Now the part that matters more for duration, and it holds whichever gauge you believe. The long end is not trading the October meeting at all. On Treasury's closing series, the ten-year rose five basis points on payroll day. On H.15, the ten-year sat at 5.24 percent on October 1. That is roughly 136 basis points above effective fed funds, and the thirty-year sits higher still. Other Treasury series print the level a little lower, so lean on the spreads rather than the exact decimal.
+
+This next point is my inference, not consensus. All last week, the long end failed to fall on calming news, from oil to PCE. Payrolls were the cleanest test of that pattern. Whether or not October odds really fell, the ten-year rose on a growth miss. That is the long end ignoring the next meeting. When a bond market shrugs off weaker growth and still sells off, the driver is term premium, not the policy path. Supply, inflation risk and fiscal doubt are all candidate sources of that premium, and none of them is set at the October meeting. So any relief from Friday is in timing, not in level.
+
+The competing read is that prediction-market odds were already low before Friday, so the print barely moved the path and "deferral" overstates it. A before-and-after reading from one consistent gauge would settle that, but the long-end point stands either way.
+
+So where is the market over-reading, and where is it under-reading? The over-read is the headline that October came off the table. Even on the lowest gauge, that is a timing call on one meeting, and the Fed's own statement still called inflation elevated. The under-read is the long end. A ten-year that rises on a growth miss says buyers of duration want more compensation, whatever the Fed does next.
+
+So what does this mean for risk? Start with funding. A hike pushed later keeps front-end carry and funding costs elevated for longer. It removes near-term event risk without lowering the expected terminal rate. For anyone running levered carry, the cost of the trade stays high while the payoff from a falling long end has not arrived.
+
+That combination is awkward for equities priced on the bad-news-is-good-news channel. A soft print is supposed to buy stocks a lower discount rate. This one bought them a later hike and a long end that did not budge. For long-duration equities, the ten-year is the rate that matters, and it sits more than a full point above the policy rate. So valuation support has to come from earnings, not from the denominator.
+
+There is an asymmetry here that is easy to miss. If growth keeps softening while the long end holds, equities lose the earnings leg without gaining the rate leg. That is the risk in reading Friday as a policy gift. The bond market declined to deliver one. Credit carries the same exposure, because softer growth with no relief on funding costs is the mix that tends to test weaker borrowers first. The plain takeaway is that a deferred hike buys stocks time, not a lower discount rate.
+
+If policy relief were real, the speculative end of the market should show it first. So let's look at what the crypto flows actually say.
+
+The eye-catching claim comes from 24/7 Wall St, published Sunday. It reports that spot ether ETFs have taken in about $1.5 billion this year. That beats the $985 million it says spot bitcoin ETFs have gathered. It is a single secondary source, so hold it loosely.
+
+Now the counterpoint. Crypto Times reported that ether ETFs had about $60 million of net outflows on the last day of September. That was the same quarter-end session in which bitcoin ETFs broke their inflow streak. So the most recent hard data point on ether is negative, although it is a single day.
+
+I read this as a mix shift inside crypto, not a risk-on signal. Ether's lead for the year may reflect a smaller base, or a few large allocations early on, rather than durable rotation. The tell is whether ether outflows persist into October while bitcoin flows recover. That would mark the lead as early-year money rather than rotation. Either way, the question has changed. A week ago the question was whether crypto ETF flows would hold at all. Now it is which asset gets them.
+
+Here is the second-order piece. Suppose the marginal crypto dollar is moving toward the higher-beta asset while the ten-year sits above 5 percent. That is relative value, not evidence that policy relief has reached speculative assets. It also makes the ETF channel more sensitive to a handful of allocator decisions, and to any further rise in real yields. If ether leads on the way in and then leads on the way out, the volatility of the speculative sleeve rises, even if total crypto ETF assets hold steady. So ether's lead, if it is real, raises the risk of the crypto sleeve rather than confirming appetite for it.
+
+That leaves a short list of dated tests, with no outcomes assumed. September CPI is due October 14, and the FOMC decides on October 28. Each CPI outcome reads differently. A hot print would put October back in play on every gauge, and the argument over which one to trust would end. A soft print is the more interesting test, because it would ease the policy path again. Between now and then, watch two things. First, whether the two-year keeps holding well above effective fed funds, which would confirm that tightening is deferred rather than abandoned. Second, whether the ten-year can fall on a day the policy path eases. If it cannot, once again, the market is telling you that term premium is doing the work, not the next meeting.
+
+That's the briefing. Thanks for listening, and see you next market day.
