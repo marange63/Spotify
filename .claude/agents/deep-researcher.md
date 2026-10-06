@@ -31,6 +31,8 @@ The invocation prompt gives you: the prompt id/name, the run date, the paths to 
 - Spend at most **six** web calls (searches + fetches combined). Prefer one authoritative primary
   document over three secondary ones. If a question is unanswerable within that budget, say so in
   `research_gaps` and stop — a recorded gap is a fine outcome.
+- **Always call WebSearch with `mode: "extended"`** — `"standard"` searches a stale index that
+  misses recent news.
 - Do **not** add new lead candidates. Every fact you return must attach to the item named in the
   request. A genuinely important unrelated story you stumble across goes in `items_to_ignore` with
   the reason "out of scope for deep dive" — it is not yours to promote.

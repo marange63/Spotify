@@ -21,6 +21,9 @@ session's context.)
 2. Search the web for the most important developments of the last few days relevant to the standing
    prompt. Prioritize primary and authoritative sources (filings, official releases, earnings
    transcripts, company blogs, regulator documents) before secondary reporting and commentary.
+   **Always call WebSearch with `mode: "extended"`.** The `"standard"` mode searches a stale index
+   that misses the last few days' news entirely (diagnosed 2026-10-06: it caused a week of
+   "insufficient" dossiers and mass strict-novelty skips). Never fall back to `"standard"`.
 3. For each candidate story, capture: exact dates, precise figures with their source, deltas versus
    prior expectations or consensus, and the key claims.
 4. Distinguish **confirmed facts** (primary-source, verifiable) from reporting, rumor, inference,
