@@ -238,6 +238,9 @@ def add_episode(prompt_id: str, name: str, summary: str, mp3_path: str,
         "published_at": published_at.isoformat(timespec="seconds"),
         "audio_file": audio_name,
         "audio_url": audio_url,   # set for release-hosted episodes; None for Pages-hosted
+        # Real upload instant, for the enclosure cache-bust. Not published_at: day-last prompts
+        # backdate that to a deterministic slot, so a same-day republish would reuse the old URL.
+        "audio_rev": int(_dt.datetime.now().timestamp()),
         "length": length,
         "duration": duration,
         "transcript_txt": txt_name,
@@ -330,7 +333,7 @@ def build_feed() -> str:
         # only re-downloads when the URL changes. Both GitHub Pages and Release downloads ignore the
         # ?v query string, so it is a safe cache-bust on either host.
         base_audio = e.get("audio_url") or f"{base}/audio/{e['audio_file']}"
-        audio_url = f"{base_audio}?v={int(dt.timestamp())}"
+        audio_url = f"{base_audio}?v={e.get('audio_rev') or int(dt.timestamp())}"
         item = f"""    <item>
       <title>{escape(e['title'])}</title>
       <description>{escape(desc)}</description>

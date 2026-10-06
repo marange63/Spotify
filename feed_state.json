@@ -1423,7 +1423,8 @@
       "length": 2167344,
       "duration": 361,
       "transcript_txt": "throughline-2026-10-06.txt",
-      "transcript_html": "throughline-2026-10-06.html"
+      "transcript_html": "throughline-2026-10-06.html",
+      "audio_rev": 1791304842
     },
     {
       "guid": "forward-curve-2026-10-06",
@@ -1438,7 +1439,8 @@
       "length": 2823120,
       "duration": 471,
       "transcript_txt": "forward-curve-2026-10-06.txt",
-      "transcript_html": "forward-curve-2026-10-06.html"
+      "transcript_html": "forward-curve-2026-10-06.html",
+      "audio_rev": 1791304842
     }
   ]
 }
