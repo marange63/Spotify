@@ -1291,36 +1291,6 @@
       "transcript_html": "enterprise-tech-2026-10-06.html"
     },
     {
-      "guid": "throughline-2026-10-06",
-      "prompt_id": "throughline",
-      "title": "The Throughline (daily synthesis) — October 6, 2026",
-      "summary": "Today's headline: the ten-year Treasury closed Monday at 5.31 percent, the highest close the Radar desk has tracked in this selloff, and the front end rose right alongside it.",
-      "date": "2026-10-06",
-      "seq": 2,
-      "published_at": "2026-10-06T03:41:13-04:00",
-      "audio_file": "throughline-2026-10-06.mp3",
-      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/throughline-2026-10-06.mp3",
-      "length": 2327760,
-      "duration": 388,
-      "transcript_txt": "throughline-2026-10-06.txt",
-      "transcript_html": "throughline-2026-10-06.html"
-    },
-    {
-      "guid": "forward-curve-2026-10-06",
-      "prompt_id": "forward-curve",
-      "title": "The Forward Curve (daily forecast) (Experimental) — October 6, 2026",
-      "summary": "Start with the scorecard, and with a correction that touches my own record. Today's Capital Markets Radar briefing corrects its own October 3rd episode, which misread Treasury's yield table. Friday's ten-year close was five point two eight percent, not five point one seven.",
-      "date": "2026-10-06",
-      "seq": 3,
-      "published_at": "2026-10-06T03:40:13-04:00",
-      "audio_file": "forward-curve-2026-10-06.mp3",
-      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/forward-curve-2026-10-06.mp3",
-      "length": 2867328,
-      "duration": 478,
-      "transcript_txt": "forward-curve-2026-10-06.txt",
-      "transcript_html": "forward-curve-2026-10-06.html"
-    },
-    {
       "guid": "frontier-ai-labs-2026-10-06",
       "prompt_id": "frontier-ai-labs",
       "title": "Frontier AI Lab Competition — October 6, 2026",
@@ -1439,6 +1409,36 @@
       "duration": 580,
       "transcript_txt": "private-equity-2026-10-06.txt",
       "transcript_html": "private-equity-2026-10-06.html"
+    },
+    {
+      "guid": "throughline-2026-10-06",
+      "prompt_id": "throughline",
+      "title": "The Throughline (daily synthesis) — October 6, 2026",
+      "summary": "Today's headline: the ten-year Treasury closed Monday at 5.31 percent, and the two-year rose right along with it, which Capital Markets Radar reads as the market pricing a tighter Fed rather than just heavier bond supply.",
+      "date": "2026-10-06",
+      "seq": 11,
+      "published_at": "2026-10-06T03:41:13-04:00",
+      "audio_file": "throughline-2026-10-06.mp3",
+      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/throughline-2026-10-06.mp3",
+      "length": 2167344,
+      "duration": 361,
+      "transcript_txt": "throughline-2026-10-06.txt",
+      "transcript_html": "throughline-2026-10-06.html"
+    },
+    {
+      "guid": "forward-curve-2026-10-06",
+      "prompt_id": "forward-curve",
+      "title": "The Forward Curve (daily forecast) (Experimental) — October 6, 2026",
+      "summary": "Start with the scorecard, and with a call going against me. On Saturday I said Bitcoin records no daily close above eighty-five thousand dollars before September CPI on October 14th, at fifty-five percent. Today's digital money read has Bitcoin near eighty-six thousand two hundred on October 5th.",
+      "date": "2026-10-06",
+      "seq": 11,
+      "published_at": "2026-10-06T03:40:13-04:00",
+      "audio_file": "forward-curve-2026-10-06.mp3",
+      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/forward-curve-2026-10-06.mp3",
+      "length": 2823120,
+      "duration": 471,
+      "transcript_txt": "forward-curve-2026-10-06.txt",
+      "transcript_html": "forward-curve-2026-10-06.html"
     }
   ]
 }
