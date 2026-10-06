@@ -1,0 +1,45 @@
+Good morning, and welcome to Strategic Power for Tuesday, October 6th, 2026.
+
+Today's thesis is simple. The oil chain is being fought over by force again, at the Strait of Hormuz and inside Russia's refineries. And that shock is landing where American buffers are thinnest: a long end of the Treasury curve already under strain, a market pricing more Fed tightening, and electricity rate cases, where the cost of AI power is starting to be argued over.
+
+Start with Hormuz. A third tanker in two days was struck near the strait, according to Iran International on Monday. Brent traded above 105 dollars on Monday morning, per Fortune. That is roughly 40 dollars above where it stood a year earlier. And the move since Friday is up.
+
+That cuts against this briefing's own recent read. On September 30, we reported tanker traffic through the strait recovering. On Friday, we used that recovery to explain why Brent's premium over American crude had narrowed, with Brent near 97 dollars. The strikes since then put that read in doubt.
+
+Now the other side of the strait, which gets less attention. The attacks on tankers are one restriction on flow. The American blockade is another. US Central Command said Monday that it has redirected 130 commercial vessels since resuming the blockade on July 14. It also says it has destroyed 13 commercial vessels. Those are barrels kept off the market by policy.
+
+Treasury Secretary Scott Bessent claimed Monday, without independent verification, that Iran loaded no crude onto tankers last month, and that the rial has fallen to record lows. He offered that as proof the campaign is working.
+
+But notice the logic. The evidence that the pressure campaign works, and the reason oil is expensive, are the same thing. Two forces are now squeezing the strait. Washington restricts Iranian barrels. Attacks on tankers threaten everyone else's. The market gets the squeeze from both directions.
+
+The harder question is how much oil is actually moving. Kpler's provisional data, reported by OilPrice on Monday, put Hormuz flows at roughly 20 million barrels a day between September 27 and 29. That is about double the flows of a month earlier. Other trackers put the number far lower. The sources may simply not be measuring the same thing: crude alone or crude plus products, loadings or transits.
+
+So here is what I can defend. In the Kpler data, the recovery was real through at least September 29. That was before this latest run of tanker strikes. I have found no flow reading taken after them. So any claim that the recovery has stalled is an inference from attacks and price. It is not a measurement. The risk premium is therefore pricing uncertainty about the flow as much as any confirmed loss of barrels.
+
+The takeaway is this. Oil above a hundred dollars reflects a contested chokepoint with no reliable meter on it. The next hard flow reading will matter more than the next headline.
+
+The same oil chain is under attack at its other end, in refining. Ukraine's Defense Ministry claims, unverified, that over 51 percent of Russia's oil refining capacity has been disabled by Ukrainian attacks, as of October 4. Disabled is not destroyed. Drone damage to a refinery can often be repaired, so the share offline at one moment can overstate the lasting loss.
+
+Still, the economics here differ from Hormuz, and that is the point worth holding on to. Trouble at a strait removes crude from the market. Knocking out refineries mainly removes the ability to turn crude into diesel and gasoline. A Russia that cannot refine at home may push more unrefined crude into export markets. That would partly offset any crude shortfall from the Gulf, while leaving products tight.
+
+So the two fronts compound in refined products more than in crude. If that is right, diesel and gasoline are where consumers would feel the squeeze first. And it leaves Washington in an awkward spot. Its own blockade tightens crude. Kyiv's campaign tightens products. Both push toward the pump prices an American administration answers for, and Washington controls only one of the two levers.
+
+Expensive energy is arriving at a bad moment for the cost of money. On Monday the ten-year Treasury yield was 5.341 percent, up six basis points on the day, according to FXStreet. Money markets mostly expect the Fed to hold at its October meeting. But they put the odds of a December hike at 88 percent, per Prime Terminal data.
+
+Those are market prices, not forecasts. Still, they show the setup. The September consumer price report is due October 14, and it has not been released. The Fed's next decision comes October 28. My read is that with Brent above a hundred dollars, energy is now a reason for the long end to stay high. It is no longer just one input among many. One side note on hard money. Gold slipped as yields rose, while bitcoin rose on the back of 2.65 billion dollars of September ETF inflows, a reminder that the two answer to different drivers.
+
+And energy costs are surfacing in another arena: electricity for AI. Hyperscalers have been signing direct deals with existing nuclear plants, Amazon's at Calvert Cliffs in Maryland among them. Those private contracts partly sidestep a federal fight over who pays for the new capacity data centers need. The newest deal shows that question arriving in a state rate case instead.
+
+Oracle has agreed to subscribe to 10 to 20 percent of the output of the Point Beach nuclear plant in Wisconsin. That amounts to 125 to 250 megawatts, according to Forkast. The power is earmarked for the Lighthouse campus in Port Washington. That is a 15 billion dollar AI data center project, co-developed by Oracle, OpenAI, and Vantage Data Centers.
+
+Forkast, a secondary outlet, also reports that the deal is a primary driver of a proposed 176 million dollar electric rate hike for We Energies customers in 2027. The reporting does not show how the subscription produces the increase, or how much of the 176 million it explains. The subscription also needs approval from the Wisconsin Public Service Commission, so it is not final.
+
+Here is the structural point. Like most of Amazon's Calvert Cliffs deal, the Oracle subscription contracts output that already exists. A subscription to a running nuclear plant reallocates megawatts. It does not add them. So the grid gains no new supply unless the deal underwrites an uprate or a relicensing, and nothing in the reporting says it does. That makes the commission's job sharper. It has to decide whether a deal that adds no supply should carry any cost to other customers at all.
+
+The so what is political. If the Wisconsin commission accepts that link to the rate hike, data center economics become a household affordability issue. That would raise regulatory risk for the subscription structures hyperscalers are leaning on. My read is that, with the midterms approaching, state regulators will face pressure to show they are protecting ratepayers before they protect data center timelines.
+
+Pulling the threads together. Supply is contested at sea and at the refinery. The long end is already under pressure, and oil is giving it one more reason to stay there. And state rate cases are becoming the place where AI's energy demand meets ordinary voters.
+
+Three things to watch. First, any independent flow reading from Hormuz taken after this latest run of strikes. Second, the Wisconsin commission's decision on the Oracle subscription, and whether it accepts the link to the rate hike. Third, the September inflation report on October 14, which will show how much of the oil shock had already reached prices before this latest leg.
+
+That is Strategic Power for October 6th. Thanks for listening, and see you next time.

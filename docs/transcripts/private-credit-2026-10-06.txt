@@ -1,0 +1,47 @@
+Good morning, and welcome to Private Credit and the Corporate Credit Cycle for Tuesday, October 6th, 2026.
+
+The headline today is a small number with a large implication. Bloomberg reports that KKR's retail credit fund, K-FITS, received repurchase requests for 5.06 percent of its shares in the tender that expired September 29th. The fund said it would buy back every share tendered. So instead of prorating at its 5 percent limit, it is paying through it.
+
+Start with the size, because the size is trivial. K-FITS has a net asset value of about 996 million dollars. On my arithmetic, the overage is six hundredths of a percentage point, roughly 600 thousand dollars. The news is not the amount. It is that the cap bent, and that the manager chose to bend it.
+
+KKR's stated reason is worth reading closely. The fund said requests only modestly exceeded the offer amount, and in light of its available liquidity, it would buy back all shares properly tendered. That is a choice, not an obligation.
+
+Is this new for K-FITS? Here is what is confirmed. This quarter, requests ran at 5.06 percent, and the fund is paying all of them. A full repurchase in the first quarter has also been reported, but the request rate behind it is not confirmed. So we cannot say whether that one breached the cap. Either way, what makes this quarter news is the contrast with the fund's peers. Apollo Debt Solutions, a roughly twenty-six billion dollar vehicle, saw requests for about 14.7 percent of shares this quarter. That is down from the prior quarter, yet Apollo still honors only 5 percent. Ares eased too, to 13.1 percent, and it also honors only 5. Those two are rationing against queues two to three times the cap. KKR is paying out against a queue barely above it.
+
+So what does that tell us? I see two readings. The strength reading says a small fund with ample liquidity pays everyone and avoids proration. That matters, because proration is what inflates queues. Holders who are cut back resubmit the next quarter, and the line grows. The precedent reading says the opposite. Once a manager pays above the cap to dodge a gated headline, holders learn that the cap bends. That invites larger requests next quarter, and it draws down the liquidity sleeve, which leaves the remaining holders in a less liquid book. And in a fund under a billion dollars, a few large holders can move the percentage, so one quarter's reading is weak evidence of a trend.
+
+The takeaway is this. The 5 percent gate is a manager's choice, not a wall. That discretion is cheapest for the funds that need it least. Paying through at 5.06 percent is easy. Blue Owl's tech-focused vehicle, OTIC, reported requests for 39 percent of its shares this quarter, and it held the cap. If paying through becomes the norm wherever queues are modest, the gated label sticks only to the weakest vehicles. That could steer wealth-channel money toward the managers who can afford to pay out.
+
+The regulator is now reaching for the same lever. Last week, the SEC voted to propose rule amendments to widen retail access to private markets. Per Alternative Credit Investor, the proposals modernize the interval fund framework so vehicles can schedule repurchases at times that better match the liquidity profile of their portfolios. They would also let registered investment advisers charge performance fees of up to 20 percent. That fee stacks on the fund manager's own, and it comes straight out of the holder's net return. A knowledge-based accredited investor test is part of the package too.
+
+Notice the tension. On September 29th, SEC staff issued a statement on fair value for private assets. It told funds to calibrate their models and check private-credit marks against market evidence. Within days, the Commission proposed loosening access and repurchase timing. The agency is getting stricter on valuation and looser on liquidity in the same fortnight.
+
+Read the interval fund change both ways. The sympathetic reading is that matching repurchase timing to portfolio liquidity reduces forced selling, and makes the liquidity promise more honest. The skeptical reading is that it lets a vehicle promise less liquidity up front. Gating stops being an embarrassing event and becomes a design feature. It is the same kind of discretion we just saw at KKR, now written into the rulebook.
+
+Two limits on that read. This is a proposal, not a final rule. And its repurchase change covers interval funds, not tender-offer BDCs like K-FITS.
+
+The so-what is a risk transfer. If repurchase timing becomes contractual, liquidity mismatch shifts from a risk managers manage to one holders absorb, just as the pool of buyers widens.
+
+Liquidity is one comfort number. Defaults are the other, and they have the same problem. The freshest default data comes from Morningstar LSTA, as reported by PitchBook, for the trailing twelve months through September 30th. The payment default rate on the leveraged loan index is 1.47 percent. The dual-track rate, which includes distressed liability management exercises, is 4.32 percent by issuer count. A lower dual-track reading also circulated, so treat that level as approximate.
+
+The ratio is the robust part. PitchBook says liability management exercises now make up 66 percent of default activity by count, versus 34 percent for conventional payment defaults. So the headline rate captures only about a third of what is happening. A low default count was already known to say little about severity. This split shows it understates frequency too.
+
+Here is the counter-argument. Not every liability management exercise is a loss equal to a payment default. Some preserve value. Counting them all can overstate economic loss, just as the headline understates the event count. The binding question is what holders recover after the exercise, and how often those companies default again. That is the number to demand.
+
+One more caveat. These are broadly syndicated loan statistics. They are not direct-lending default rates, and I would not transpose them onto private books.
+
+For a concrete case of the conventional third, take Leslie's, the pool retailer. It filed a prearranged Chapter 11 on September 30th, and its term lenders are taking control through a debt-for-equity swap. Wolters Kluwer reports its adjusted EBITDA fell from 292 million dollars to 61 million in three years, against a 757 million dollar term loan. That is an operating failure, not a maturity wall.
+
+The takeaway is that a benign default rate is partly a definition. Loss models keyed to the headline rate may understate stress, and that matters for CLO and loan-fund assumptions.
+
+Meanwhile, the new money is going where the ratings are kind. One secondary report says Lambda, the GPU cloud provider, has taken out a GPU-backed term loan rated Baa1 by Moody's and A low by Morningstar DBRS. It was oversubscribed as investment-grade paper.
+
+Set that against Carlyle's white paper from October 1st, which warned that AI lending is a correlated, procyclical concentration. Either the structures carry the credit, or the ratings are early. GPUs depreciate fast, so my suspicion is that contracted cash flows are doing the work, not the chips. The next downturn will tell us which.
+
+The implication is migration. If AI collateral clears as investment grade, the buildout gets funded by buyer bases that think of themselves as low risk. That is how a concentration can spread into balance sheets that do not see it as one.
+
+So where does the cycle stand? Realized credit stress is still a slow grind on the headline. But both of the comfort numbers are increasingly discretionary. A gate that bends, and a default count that leaves out two-thirds of the action. The biggest unresolved risk is liquidity promises in retail wrappers being loosened by design, just as access widens.
+
+For catalysts, the new ones come first. Watch the next LSTA month-end default print, and whether the LME share holds. Watch K-FITS's next quarterly tender, and whether paying through becomes a pattern or fades. Watch the SEC comment period. Third-quarter alternative manager earnings begin in late October, and third-quarter BDC filings follow in November. That will be the first fresh non-accrual read since the second quarter.
+
+That is the lending machine for today. Thanks for listening, and we will see you tomorrow.
