@@ -52,7 +52,7 @@ def _is_success(status: str) -> bool:
     return _is_new_episode(status) or status == ALREADY_PUBLISHED
 
 
-def _notify_ntfy(results: list[tuple[str, str]], date: str) -> None:
+def _notify_ntfy(results: list[tuple[str, str]], date: str, recovered: int = 0) -> None:
     """Best-effort 'briefings published' push to the owner's phone via ntfy.sh.
 
     Fires only when at least one episode actually published. Never raises — a
@@ -64,12 +64,17 @@ def _notify_ntfy(results: list[tuple[str, str]], date: str) -> None:
         log.info("ntfy: no topic configured — skipping push")
         return
     published = [(n, g) for n, g in results if _is_new_episode(g)]
-    if not published:
+    if recovered:
+        live = [n for n, g in results if _is_success(g)]
+        body = (f"Recovered {recovered} unpushed publish commit(s): {len(live)} episode(s) now live "
+                f"in the feed: {', '.join(live)}. Spotify will show them on its next re-ingest.")
+    elif not published:
         log.info("ntfy: nothing newly published — skipping push")
         return
-    names = ", ".join(n for n, _ in published)
-    body = (f"{len(published)} episode(s) live in the feed: {names}. "
-            "Spotify will show them on its next re-ingest (minutes to a few hours).")
+    else:
+        names = ", ".join(n for n, _ in published)
+        body = (f"{len(published)} episode(s) live in the feed: {names}. "
+                "Spotify will show them on its next re-ingest (minutes to a few hours).")
     url = f"{config.NTFY_SERVER.rstrip('/')}/{topic}"
     req = urllib.request.Request(
         url, data=body.encode("utf-8"), method="POST",
@@ -125,6 +130,38 @@ def _fresh_for_run(text_path: str, date: str, now: datetime.datetime | None = No
 
 def _git(*args: str) -> None:
     subprocess.run(["git", "-C", config.HERE, *args], check=True)
+
+
+def _commits_ahead_of_origin() -> int:
+    """How many local ``main`` commits origin/main does not have. Uses the local tracking ref
+    only (no fetch), so it works offline and is exactly what a failed push leaves behind."""
+    r = subprocess.run(["git", "-C", config.HERE, "rev-list", "--count", "origin/main..main"],
+                       capture_output=True, text=True)
+    if r.returncode != 0:
+        log.warning("git rev-list failed (%s) — assuming nothing to push", r.stderr.strip())
+        return 0
+    return int(r.stdout.strip() or 0)
+
+
+def _push_with_retry(attempts: int = 4, delays: tuple[int, ...] = (15, 45, 120)) -> None:
+    """``git push origin main`` with backoff for transient network failures (a reset connection
+    at 04:35 on 2026-10-07 left a fully built publish commit unpushed all morning). Raises
+    CalledProcessError after the final attempt so the scheduler still logs a failure."""
+    import time
+    for i in range(attempts):
+        r = subprocess.run(["git", "-C", config.HERE, "push", "origin", "main"],
+                           capture_output=True, text=True)
+        if r.returncode == 0:
+            log.info("pushed to origin/main%s", f" (attempt {i + 1})" if i else "")
+            return
+        err = (r.stderr or r.stdout).strip().splitlines()[-1:] or ["?"]
+        if i + 1 < attempts:
+            wait = delays[min(i, len(delays) - 1)]
+            log.warning("git push failed (%s) — retrying in %ds (%d/%d)", err[0], wait, i + 1, attempts)
+            time.sleep(wait)
+        else:
+            log.error("git push failed after %d attempts: %s", attempts, err[0])
+            raise subprocess.CalledProcessError(r.returncode, r.args, r.stdout, r.stderr)
 
 
 def _prune_local(date: str, keep_days: int) -> None:
@@ -204,12 +241,20 @@ def publish(date: str, summaries: dict, push: bool = True,
         # commit may be a no-op if nothing changed; tolerate that
         r = subprocess.run(["git", "-C", config.HERE, "commit", "-m", msg])
         if r.returncode == 0:
-            _git("push", "origin", "main")
-            log.info("pushed to origin/main")
+            _push_with_retry()
             if notify:
                 _notify_ntfy(results, date)
         else:
             log.info("nothing to commit")
+            # A previous pass may have committed but failed to push (network blip): the feed
+            # state says "already published" while GitHub Pages still serves the old feed.
+            # Recover it here so the completion pass is a real safety net for the publish.
+            ahead = _commits_ahead_of_origin()
+            if ahead:
+                log.warning("local main is %d commit(s) ahead of origin/main — pushing now", ahead)
+                _push_with_retry()
+                if notify:
+                    _notify_ntfy(results, date, recovered=ahead)
 
     # NOTE: confirmation email temporarily disabled — no working delivery path yet
     # (Gmail integration token expired; SMTP app-password env vars not set). See the

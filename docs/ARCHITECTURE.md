@@ -131,7 +131,12 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
 - **`publish_feed.py`** — the daily batch: synth → `add_episode` per enabled prompt →
   `feed.prune_old` + `_prune_local` (rolling 10-day retention: prune old episodes/audio/transcripts
   from the feed + `docs/`, and sweep `runs/`/`logs` older than the window; analyses exempt) →
-  `build_feed` → git commit + push (the commit note records a prune count when any). Publishes the
+  `build_feed` → git commit + push (the commit note records a prune count when any). The push is
+  `_push_with_retry` (4 attempts, 15/45/120 s backoff). On the **nothing-to-commit** path it
+  checks `_commits_ahead_of_origin` and pushes any stranded local commit — a previous pass that
+  committed but lost the network (2026-10-07: `Recv failure: Connection was reset` at 04:35 left
+  the whole day unpublished until noon while the 08:20 completion pass reported success). A
+  recovered push fires its own ntfy line (`recovered=N`). Publishes the
   synthesis family (`orchestrator.SYNTHESIS_KINDS` — synthesis + forecast) LAST (ordering shared with
   `orchestrator.ordered_enabled`) — they need the day's other briefings as input. Their feed
   position is decoupled from that: each prompt id in `config.FEED_DAY_LAST_PROMPTS` (listed in feed
