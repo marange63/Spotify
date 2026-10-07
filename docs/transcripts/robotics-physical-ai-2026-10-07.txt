@@ -1,0 +1,45 @@
+Good morning, and welcome to Cautious Optimism Briefings for Wednesday, October 7, 2026.
+
+Today's thesis is simple. This week, the human behind the robot stopped being an engineering choice and became a priced input. California now mandates that human as a regulated operating cost for robotaxis. And a new humanoid startup is selling that same human as the product.
+
+Let's start with a correction. Yesterday we treated California's robotaxi incident-response bill as unconfirmed. It is not. The author's office says the bill was signed at the end of September, and it is now law. We should have caught that sooner. But the more important point is what the law actually requires.
+
+The bill is SB 1246, authored by state senator Dave Cortese. Three mechanics are on the record. First, remote drivers must be based in the United States and hold a U.S. driver's license. Second, operators must guarantee first responders an on-site contact, known as local incident technicians, who can assist with autonomous vehicle accidents and obstructions. Third, TechCrunch reports that companies can be fined if an autonomous vehicle blocks first responders during an emergency for more than 30 minutes. The requirements take effect by July 1, 2028. The California DMV will set the guidelines, including the required response times.
+
+Now the unit economics. An on-site response obligation is no longer a discretionary choice. It is a line item. Our reading, not the statute's language, is that it scales with the territory a fleet covers rather than with each ride. That makes it closer to a fixed cost per service area than a variable cost per trip. If that reading holds, it points in one direction. Operators with enough vehicle density can spread a technician across many rides. Thin, early fleets cannot. So the law may favor the largest fleets in the largest market.
+
+Here is the honest limit. We do not know what this line costs. The response times are delegated to the DMV, and the start date gives operators nearly two years. We could not verify any penalty amounts, so we are not stating a dollar figure. The number that would size this obligation does not exist yet.
+
+Two readings compete, and today's evidence cannot separate them. The first reads this as a crackdown on robotaxis. The second reads it as codification. On that view, an operator at scale already does this to keep its permit, so the law costs an incumbent little at the margin. It also raises the entry bar for smaller fleets, which makes it a moat. A third possibility may matter most. With a 2028 start and response times left to rulemaking, near-term operator behavior may not change at all. In that case, the real fight happens inside the DMV, not in the statute.
+
+There are two second-order effects worth watching. The first is utilization. Liability for blocking responders could push operators toward more conservative pullovers. That would lower utilization, which is the metric that ultimately decides whether a robotaxi fleet pays. That is inference, not a finding.
+
+The second is where the remote human sits. The U.S.-based requirement is on the record for remote drivers. We could not confirm whether it also reaches remote assistance staff, so hold it to drivers for now. Still, it is a precedent. Offshore remote labor is one obvious way to cut the cost of a human in the loop. California has now taken that lever away from robotaxi remote driving. If other states or other machine categories copy the rule, offshore teleoperation economics get worse well beyond cars. That is also desk inference.
+
+So what? The remote and on-site human is now a line item in California, and the DMV will set its size. For remote drivers, the law has already decided which country that human works in.
+
+California makes the human behind the robot a mandated cost. One startup this week makes that human the product.
+
+Minerva Humanoids emerged from stealth on Tuesday with approximately 10 million dollars in pre-seed funding, led by General Catalyst. The company targets oil and gas work, onshore and offshore, along with public-safety work. Its robot, Roger, is designed to let trained specialists perform hazardous work remotely through VR control, while keeping their physical bodies safe from danger.
+
+On Monday we argued that an autonomy claim means nothing without an intervention rate. Minerva sidesteps that test entirely. It does not claim autonomy at all. It sells supervised teleoperation as the product.
+
+That makes the skeptic's question unavoidable. Why a humanoid body? Remote tools for hazardous work already exist, and purpose-built machines may beat a humanoid on cost and reliability. The humanoid form earns its keep only where the work is built for human bodies, such as ladders, valves, and cramped spaces. Against that, the form adds cost and fragility. And teleoperation needs no general-purpose robot brain at all. The open question is whether the body is the product, or simply the packaging.
+
+There is also a data angle, and it is speculation. Teleoperated work could generate demonstration data for later autonomy. If that works, the business becomes a data-collection fleet that pays for itself while it collects. Minerva has not said this. We are flagging it as a possibility only.
+
+The caveats are real. The announcement discloses no customers, no unit counts, no prices, and no deployment dates. The round is small, and it is reported through a single secondary source. So it signals investor appetite, not deployment.
+
+So what? The first humanoid revenue may come from relocated workers, not replaced ones. The robot moves the person out of the danger zone, but the person still does the job.
+
+That also reframes the labor question for both stories. In California, the human is kept in the loop by law. At Minerva, the human is kept in the loop by design, and sold. Neither story removes the worker. The near-term labor that physical AI actually displaces looks smaller than the autonomy narrative implies. The near-term jobs it creates look like remote operation and field response. That is our synthesis, not a finding.
+
+Meanwhile, the physical AI that already runs at scale looks nothing like either of these. On Monday, local press in Wilmington, North Carolina, reported that Amazon had opened a robotics fulfillment center there. That is structured, task-specific automation, inside a building designed around the machines. It carries none of the human-in-the-loop overhead that the robotaxi rule and the teleoperated humanoid both price in. The takeaway is that the scaled version of physical AI is still the least glamorous one.
+
+Now let's pull the threads together. Where is embodied AI inflecting? In structured warehouse automation. It is also visible in regulators pricing robotaxi operations, which is a sign the service is real enough to regulate. Where is it still a demo? In autonomous general-purpose humanoids, where the near-term money funds teleoperation.
+
+We also need to flag a gap, as we did on Monday. We found no fresh primary evidence this window from the robot-brain labs on vision-language-action models, world models, or robot foundation models. That is a gap in our coverage, not a verdict on the field.
+
+The biggest open questions are two. First, what response times will the California DMV set? Second, will teleoperation revenue convert into autonomy data, or will it stay a labor business? The likely catalysts are the DMV rulemaking, and Tesla's October earnings call, which should offer primary numbers on Optimus and Cybercab that we do not have today.
+
+That is the robotics and physical AI briefing for today. Thanks for listening, and we will see you tomorrow.

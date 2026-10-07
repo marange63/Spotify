@@ -1,0 +1,53 @@
+Good morning, and welcome to Cautious Optimism Briefings for Wednesday, October 7, 2026. This morning the semiconductor story is about price. Two of the scarcest physical layers in the AI buildout are repricing. And custom silicon, the main alternative to NVIDIA, just got a timeline that does nothing to ease either cost.
+
+Let's start with memory, because this week it got a number. Korean press reports say Samsung is seeking more than three times its current HBM3E price for next-generation HBM4. Samsung reportedly proposed a price in the mid-to-high four dollar range per gigabit for 2027. HBM3E sits at roughly one and a half dollars.
+
+That headline multiple flatters the move, because it compares a new generation with an old one. Seoul Economic Daily reports industry estimates that an HBM4 stack rises to around 1,300 dollars next year, from about 600 dollars this year.
+
+By our own arithmetic, that stack estimate lines up with Samsung's per-gigabit ask. No reporter reconciled the two, and both rest on secondary estimates. But together they imply a like-for-like HBM4 increase of about 2.2 times year over year, not three.
+
+TrendForce, the research firm, projects that the blended average selling price of HBM will rise 121 percent next year. Be careful with that number. It is a blend across products. TrendForce lists a growing share of higher-priced HBM4 among its drivers, alongside supply constraints and the HBM4E ramp in the second half. So part of that jump is product transition, not pure per-bit inflation. TrendForce does not split the two.
+
+Now the skeptical turn. An opening ask is not a settled price. Nothing in the reporting says any customer has accepted Samsung's proposal. No supplier has confirmed a 2027 price in a filing or a release. And Samsung's preliminary third-quarter results are due October 8. A supplier anchoring high just before its own print has every reason to talk price up.
+
+Still, Samsung is not a fringe bidder. TechTimes reports that Samsung, SK hynix, and Micron all supply HBM4 for NVIDIA's Vera Rubin platform. It also reports that Samsung began mass-producing HBM4 in February. So this ask comes from a qualified supplier to the leading accelerator platform, and it carries weight.
+
+Here is why it matters. On October 1, this show pointed out that Micron's HBM-heavy cloud unit ran an 83 percent gross margin. That sat below Micron's company-wide gross margin of 87 percent, itself an extraordinary level for a memory maker. HBM was the lower-margin product. If 2027 pricing lands anywhere near these asks, that likely flips, and HBM becomes the premium profit pool. Treat that as a conditional. The price is not settled, and the blended number mixes in product transition.
+
+The structure of the market points the same way. Most of next year's major HBM volumes are reportedly already largely negotiated. A cyclical top usually shows up as buyers walking away from contracts. That is not what this reporting describes. This looks like a seller's market, with volume locked up front. And buyers still signing at these prices tells you near-term AI demand is constrained by availability, not economics. The economic constraint arrives later, in hyperscaler capex per unit of compute.
+
+The risk runs the other way. Contracts struck at peak scarcity are exactly what turn into a margin cliff if supply catches up. Investors who treat 2027 memory earnings as a structural margin level may be extrapolating a cycle.
+
+So the takeaway: memory sellers are no longer just rationing AI compute. They are bidding to set its price.
+
+Memory is not the only layer repricing. The same logic shows up one step downstream, in packaging.
+
+TrendForce published a preview on October 5, ahead of TSMC's third-quarter call on October 15. For context, it notes TSMC already lifted its 2026 capital spending guidance to between 60 and 64 billion dollars.
+
+The more useful figures are TrendForce's price projections for next year. Advanced packaging could rise 10 to 15 percent. Leading-edge wafers could rise 5 to 10 percent.
+
+Those are analyst projections, not announced TSMC price increases. But the ordering matters. Packaging is repricing faster than leading-edge wafers. That suggests advanced packaging, not wafer fabrication, is still a binding constraint. It also qualifies something this show argued on October 1. We said that if TSMC's CoWoS capacity doubled, the binding constraint would shift toward memory. On these projections, both chokepoints are repricing at once. The packaging premium could also partly reflect TSMC's pricing discipline rather than pure scarcity. The sources cannot separate the two.
+
+That squeeze hits every accelerator. An NVIDIA GPU and a hyperscaler ASIC both buy HBM and both need advanced packaging. Wherever those two inputs are a large share of the bill of materials, the cost advantage of custom silicon narrows. That is our inference, not a reported figure.
+
+The foundry race is the second thread in the TSMC preview. TrendForce says TSMC's A14 pilot production at Baoshan, in Hsinchu, could begin as early as the first quarter of 2027. That nearly matches Intel's reported 14A risk production schedule. Pilot production and risk production are different milestones. So this is timing parity, not manufacturing parity.
+
+And timing is not customer commitment. On October 2, this show noted reporting that Intel needs a 14A anchor customer by late 2026 or early 2027. Nothing this week names one. So Intel's timing edge is narrowing before its customer question is answered. We will learn more when TSMC reports on the fifteenth. Until then, treat anything about that call as a question, not a result.
+
+So does custom silicon offer a way out? It can pressure NVIDIA's margin. But it buys the same HBM and the same packaging, so it does nothing about these input costs. Marvell put numbers on the custom-silicon case at its investor day in New York on October 6.
+
+Marvell's custom silicon business generates roughly 1.5 billion dollars a year. Per the investor-day coverage, that was close to 18 percent of its fiscal 2026 sales. Management cites three XPU design wins and nine XPU-attach programs with its hyperscaler customers.
+
+The attach programs matter for a specific reason. Marvell can win networking and connectivity content even where another vendor wins the compute die. That is a different competitive dimension from winning the accelerator itself. And it makes Marvell's exposure to the custom race broader than its XPU win count.
+
+Management expects the custom business to grow more than 20 percent in fiscal 2027, then more than double in fiscal 2028. It says the real acceleration lands in fiscal 2029, when multiple design wins ramp at once. Read that carefully. These are management targets from a sales event, relayed through secondary coverage. We did not verify a Marvell press release or presentation. Design wins are not volume. And a handful of hyperscaler programs carry the whole forecast, which concentrates both execution and customer risk.
+
+Now put Marvell next to the memory and packaging moves. Custom silicon competes with NVIDIA on the compute die. It does not escape the memory and packaging squeeze. And on Marvell's own timeline, its compute-die ramp arrives after 2027 input pricing is already being set.
+
+The takeaway: custom silicon is a real alternative to NVIDIA on the compute die, but it is a fiscal 2029 story, and it pays the same memory and packaging bill. For Marvell, attach content is the nearer-term value.
+
+Let me close with the scorecard, by competitive dimension. On memory pricing power, the suppliers hold the edge for 2027, though no contract price is confirmed. On packaging pricing power, TSMC looks like the clear beneficiary, based on projections rather than announced prices. On foundry timing, TSMC's A14 and Intel's 14A are converging, but customer commitment is still the open question for Intel. On custom silicon, Marvell's ramp is a fiscal 2029 event, and its attach business is the nearer-term exposure.
+
+Two dates to watch. Samsung's preliminary third-quarter results land October 8. TSMC holds its third-quarter call October 15. Neither has reported yet, so nothing here depends on either.
+
+Thanks for listening to Cautious Optimism Briefings. Until tomorrow.
