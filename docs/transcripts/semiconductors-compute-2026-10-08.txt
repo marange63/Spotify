@@ -1,0 +1,43 @@
+Good morning, it's Thursday, October 8th, 2026, and this is your semiconductors and compute briefing.
+
+Yesterday the memory makers were asking for higher prices. Today one of them booked the profit. In logic manufacturing, though, the leverage still sits with whoever brings the capital, not with the foundry. That split is today's spine.
+
+Start with Samsung Electronics, and with what kind of number this is. It is preliminary guidance, not final results. According to Korea Herald's reporting on the release, backed by a CNBC headline, Samsung guided to a record third-quarter operating profit of about 107.4 trillion won. That's roughly 80 billion dollars. Korea Herald puts the year-on-year increase at an estimated 782 percent. Treat that multiple carefully. It's measured against a weak third quarter of 2025, so much of it is base effect, not new information. One sourcing note as well. We could not pull the figure directly from Samsung's own release, so it rests on that press coverage.
+
+The more useful comparison is sequential. TechTimes puts Samsung's confirmed second-quarter 2026 operating profit at 89.5 trillion won. Against that, the new guidance is up roughly 20 percent in a single quarter. That's the number that carries the argument. The memory upcycle isn't just clearing an easy prior-year hurdle. It's still accelerating from one quarter to the next.
+
+Against expectations, the picture is calmer. The LSEG SmartEstimate going into the print sat around 106.1 trillion won, per the same TechTimes report. So Samsung landed at that consensus or a touch above it. Other trackers reportedly ran higher, so call it in line to a modest beat, not a surprise. The sell side had largely seen this coming.
+
+This also answers a question we posed on Tuesday. Was Micron's windfall industry-wide? At the headline level, yes. Memory pricing power now shows up in reported profit at a second major supplier, not just in Micron's book and not just in yesterday's HBM4 price ask.
+
+Here's the skeptical turn. Samsung hasn't given a divisional breakdown. That arrives with the full report in late October. So we don't know how much of this is HBM versus conventional DRAM. On October 2nd, this show flagged that Micron's conventional DRAM was riding scarcity pricing that a downturn would erode. A broad memory profit fits that cyclical leg just as well as a structural HBM story. The print also says nothing about Samsung Foundry. And it doesn't settle whether Samsung is gaining HBM4 share against SK hynix.
+
+The real corroboration test comes when SK hynix reports, expected around October 27th or 28th. SK hynix has the more HBM-weighted mix. If it outperforms, the structural story holds. If it merely tracks Samsung, the commodity cycle is doing more of the work than the AI narrative admits.
+
+There's a second-order cost here, and it's our inference rather than a reported figure. If memory profits keep compounding, more of the AI bill of materials accrues to the memory makers. That's the input squeeze we described yesterday. It hits an NVIDIA GPU and a hyperscaler ASIC alike, because both buy the same HBM.
+
+So the takeaway on memory: pricing power has moved from the ask to the income statement. The obvious next question is whether logic chipmakers can do the same.
+
+The evidence there is much thinner. On October 6th, AMD chief executive Lisa Su underscored how critical TSMC's capacity expansion is to meeting AI chip demand. She also said supply still lags demand, especially in AI segments. That comes via GuruFocus coverage, not a transcript. It's a real signal of tightness from a company living it. But it's a statement about scarcity, not proof of realized pricing power. And a chip vendor has every incentive to talk up scarcity in public. There are also supply-chain reports this week of list-price increases at AMD and Intel. Neither company has confirmed them, so I won't put weight or a number on them. The honest read is this. In memory, pricing power is asserted and now measured. In logic, it is asserted and still unmeasured.
+
+That distinction matters for where logic capacity gets built, and there the buyer holds the cards. Which brings us to Intel's foundry story, and a read this show needs to revise.
+
+Recall the arc. On October 2nd, we reported that Intel needs an anchor customer for its 14A node by late 2026 or early 2027, with Tesla among the companies evaluating it. Terafab, Elon Musk's planned captive fab in Texas, had named Intel as a partner tied to 14A, though sources describe Intel's exact role inconsistently. Then, around October 5th, reports surfaced that TSMC was in talks to join Terafab. Intel's stock fell on the news. On Tuesday, this show scored that as Intel having lost leverage.
+
+On October 7th, Musk narrowed it. Bloomberg reports he clarified that the only matter under consideration is TSMC potentially leasing part of the planned site, with no operational role. In coverage of his remarks, he's quoted as saying, "we will build and run the fab." TSMC itself has confirmed nothing, neither the talks nor a lease.
+
+So we're revising Tuesday's read. The leverage scare largely reverses. There's no evidence TSMC is stepping into Intel's process-technology position.
+
+But don't overcorrect. Score this by competitive dimension. It's a customer-relationship and leverage story, not a manufacturing-execution story. And the reversal never touches Intel's actual problem. Intel's 14A still has no named, committed anchor customer, and the clock we flagged on October 2nd is still running. A walked-back rumor restores sentiment. It doesn't create a customer.
+
+Two more layers are worth sitting with. First, a TSMC lease, if it happens, would still put TSMC capacity on the same site. That would be a cheap way for TSMC to add US footprint without building a new shell. Second, Musk proposing to build and run a leading-edge fab is its own execution risk. His organization has no track record operating one. The company says total spending across all phases could reach as much as 119 billion dollars, but that's a ceiling, not committed capital. And there's no confirmed groundbreaking date.
+
+What this week really shows is that a captive buyer with its own capital can move sentiment about two foundries in opposite directions within days, just by floating who it's talking to. Intel's stock reacting to unconfirmed chatter says much of its foundry valuation rests on customer optionality, not booked revenue. That's a fragile place for a turnaround thesis to live.
+
+Scarcity cuts one more way, which takes us to export controls. Bloomberg reports that federal prosecutors arrested a California man last Thursday on charges of smuggling servers containing 300 million dollars' worth of NVIDIA AI chips to China. The alleged conduct dates to 2023 and 2024. So this is enforcement catching up with old leakage, not a policy shift. And a charge isn't a conviction. Still, as long as AI accelerators command scarcity premiums, the incentive to route chips around the rules doesn't go away. That keeps compliance and customer-vetting risk live for NVIDIA, whatever happens to export policy itself.
+
+Here's the scorecard by dimension. Memory pricing power sits with the suppliers, and it's now in reported profit, not just in asks. Logic pricing power remains unproven, resting on a capacity comment rather than a confirmed price. Foundry customer leverage sits with the captive buyer who brings the capital, not with either foundry. And export-control enforcement is running behind the flows it's meant to stop.
+
+Three dates to watch. TSMC reports on October 15th. SK hynix reports around October 27th or 28th, the real test of whether the memory story is structural or cyclical. And Samsung's full report lands in late October, which will finally show how much of this record quarter is HBM. None of those has happened yet, so treat them as a watch list, not results.
+
+That's today's briefing. I'm cautiously optimistic, and I'll talk to you tomorrow.
