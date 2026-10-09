@@ -1,0 +1,43 @@
+Good morning, it's October 9th, and this is the AI products briefing.
+
+Yesterday's story on this beat was about an answer changing shape inside a chat window. Today it's about AI moving into other people's software, and getting priced like a component rather than a product.
+
+Start with Anthropic, which this week opened a public beta of Claude for Google Workspace. A quick disclosure first: Anthropic makes the model behind this show, so weigh what follows accordingly. This isn't a sidebar that summarizes a file from the outside. Claude sees the open document and your current selection, and it edits in place, inside Google Docs, Sheets, and Slides. One installation through the Google Workspace Marketplace covers all three apps. It's available on every paid Claude plan: Pro, Max, Team, and Enterprise.
+
+What it actually does is fairly concrete, according to Anthropic's own support documentation. In Sheets, it builds spreadsheet models, writes and fixes formulas, and cleans up data. Anthropic's own example is adding a sensitivity table for price and volume, plus a chart of revenue by quarter. Some press coverage also describes pivot tables and pulling ranges into Python. Anthropic's own text doesn't confirm those two, so treat them as reported, not verified. In Docs, larger rewrites show up as cards you accept or reject one at a time, which Anthropic likens to native Google Docs suggestions. In Slides, the confirmed example is restyling a deck to match the fonts and colors on the title slide.
+
+Two guardrails matter here. The first is a time limit. Anthropic's documentation says a single long operation can run for up to six minutes before Google stops it. That caps how agentic this tool can be in one go. Big jobs get broken into stages, not handed off and walked away from. So this is a bounded editor, not an autonomous analyst.
+
+The second guardrail is the default. The add-on starts in a mode called "ask before edits," with "accept all edits" available as an alternative. Anthropic chose friction as the starting point. Contrast that with Claude Code's Mods feature, which we covered on Wednesday. Mods shipped about a week earlier, and they're on by default. So one vendor picked opposite defaults for two surfaces. Autonomy comes first for a developer tool. Approval comes first for a document that might be a board deck or a client contract. Whoever sets the default decides who carries the risk of a bad edit, and Anthropic is clearly making that choice surface by surface.
+
+Now, who actually benefits from this. The obvious framing is Claude versus Gemini inside Workspace. The more useful framing is that Google is the landlord either way. Anthropic's support article says Workspace super administrators can install Claude for everyone. Uninstalling it from the Admin console removes it for everyone. Secondary coverage adds that admins can scope it to specific groups or organizational units. So enterprise IT, not the individual user, holds the master switch. Google also still owns the file, the storage, the sharing permissions, and the Marketplace terms Claude operates under.
+
+One more wrinkle for regulated buyers. Zero Data Retention is explicitly not available during this beta, and standard retention applies. That's a plausible blocker for healthcare, finance, or legal teams. Those teams may well prefer whatever data-handling terms they already have with Gemini inside the same suite, though that comparison is my inference.
+
+And keep the status in view. This is a public beta. The launch date rests on press reports, most of which say October 6th. There are no adoption figures and no named enterprise deployments. Nothing yet shows how reliable these in-file edits are on messy, real-world spreadsheets.
+
+There's also a real tension underneath all this. On October 4th, we covered Anthropic building its own document surfaces, Claude Docs and Claude Slides. Now it's embedding Claude directly inside a competitor's suite. One reading is a hedge across two bets. The other is that real usage lives inside the incumbent tools people already have open, and a standalone Claude Docs is the side project. The evidence doesn't settle it yet. Watch which surface gets the faster iteration.
+
+It's also the mirror image of what we covered yesterday. Salesforce, the incumbent, was pushing its product outward into Claude. Today an AI vendor is pushing Claude into Google's suite. In both cases the platform owner keeps the permissions layer.
+
+So the lead story isn't really "Claude learns to edit spreadsheets." It's that a frontier AI vendor just became a tenant inside Google's platform, on Google's terms, with Google's admins holding the switch. My inference is that Google gains whichever assistant wins. Its Marketplace becomes a distribution channel for rival assistants, which strengthens Google as the platform owner. The cost is that Gemini's position as the default assistant inside Google's own suite gets weaker.
+
+If Workspace is AI embedded inside a document, the next product this week is AI embedded as a single function call. On Monday this beat flagged OpenAI's Decisions API, then in limited preview with no published price. It has since moved to public beta, running on a dedicated model called gpt-6-luna. Instead of free text, it returns typed, structured answers. That's what a fraud-triage system or a support-ticket router needs, not a paragraph.
+
+A sourcing note: OpenAI's own pages weren't retrievable, so these details come from secondary reporting that cites OpenAI's docs. Per that reporting, OpenAI's release note says the API turns text and images into typed answers "10x faster than the Responses API." Pricing lands at ten cents per million input tokens. There's no charge at all for output, for cache reads, or for cache writes.
+
+Don't over-read the free-output part. A typed decision is a handful of tokens. Waiving that charge saves very little against the standard Luna endpoint's fifty-cent output rate. What actually moves the economics is the input-only metering, and above all the free cache operations. A decision endpoint replays the same instructions and the same answer schema on nearly every call. That repeated context is exactly where cost normally accumulates. That's structural inference, not a computed saving.
+
+Two cautions. The ten-times latency claim is OpenAI's own, with no disclosed benchmark or workload definition, so hold it as a vendor claim. And the audit question we raised on Monday is still open. Nothing OpenAI has published explains how you audit a model-driven decision the way you would a rules engine.
+
+There's a wider implication too. A decision endpoint metered on input only is a task-shaped price, not a generic chat-completion price. My inference is that more vendors will unbundle pricing into per-pattern SKUs like this. That makes cross-vendor cost comparisons harder for buyers.
+
+And the cache line is exactly where Anthropic moved the same week. Separately from the Workspace launch, Anthropic halved the price of prompt-cache reads on Claude Sonnet 5.5. It fell from twenty cents to ten cents per million tokens, effective October 7th. Cache writes and every other price are unchanged, per Anthropic's platform release notes.
+
+Here's the pattern worth naming. Yesterday, the price story was the headline rate, with Haiku 5.5 and GPT-6 Luna converging on the same floor. This week, both OpenAI and Anthropic moved on the line item underneath it. That's the cost of replaying context you've already sent once. It's the cost that coding agents, retrieval pipelines, and long-running customer bots incur on every turn. One-shot requests see none of this saving. And because cache writes are unchanged, short-lived caches benefit less. For AI-native software built on Claude, the margin gain goes mostly to products with high cache-hit rates.
+
+So if you're comparing vendors on cost, the sticker rate is no longer enough. The number that matters is the cache-hit-weighted bill for your actual workload.
+
+Pull back, and the through-line is this: AI is moving inside other people's software, and it's being priced on the line items that embedded work actually burns. Three things to watch. First, whether Claude for Workspace produces adoption numbers or a general-availability date, and whether Google answers through Marketplace terms or Gemini pricing. Second, whether OpenAI publishes the Decisions API's price and latency benchmark on its own site. Third, whether other vendors follow Anthropic by cutting cache prices rather than headline rates.
+
+That's the AI products briefing for October 9th. Thanks for listening, and I'll catch you tomorrow.

@@ -1,0 +1,33 @@
+Good morning, this is The Throughline for Friday, October 9th, 2026.
+
+Today's headline: a Financial Times report put OpenAI's annualized revenue near fifty billion dollars, about twenty billion below the figure that circulated last month, and the AI trade got marked to that number. The Nasdaq 100 had its worst day in about seven weeks, with chip stocks and OpenAI's suppliers taking the hit.
+
+Ten briefings shipped today. Strategic Power and Space and the Orbital Economy did not publish. We'll start with the macro backdrop, move into the AI and compute stack, then close with the applied frontier.
+
+Capital Markets Radar calls Thursday a capex-complex selloff, not a broad risk-off day, with chip stocks losing nearly seven times what the S&P lost. The desk's key caution is comparability: OpenAI's fifty billion excludes revenue booked through cloud partners, so it doesn't measure the same thing as the higher press figure. Its read is a narrative reset, not a demand miss, but one that exposed how much of Oracle's and Broadcom's forward revenue and financing now rests on a single lab.
+
+Digital Money reports the bitcoin ETF bid turning to net selling for a second straight day, with BlackRock's flagship fund leading the first day's outflows rather than marginal vehicles. This year's ETF inflows are only about one percent of cumulative inflows since 2024, so most of the holder base is legacy capital, not fresh demand. Underneath, USDC is growing its float six times faster than Tether, even with total stablecoin supply still below its spring peak.
+
+Private Credit and the Corporate Credit Cycle leads with Ardian and SMBC launching a platform that lends against the net asset value of mid-market fund portfolios. It arrives three days after reports that Fed examiners were questioning four large banks about their lending to private credit, so leverage on untested, model-based marks is growing while that review is live. Meanwhile, redemption requests are easing in aggregate but concentrating in AI-exposed corners, and the desk reads rising short interest in listed BDC proxies as the earlier tell.
+
+Private Equity and the Deal Economy finds two genuinely arm's-length exits signed this week: Sycamore's Boots, to the Weston family's holding company, and Blackstone's Clarion Events, to Informa, at a price last year's auction couldn't reach. The catch is that both needed a strategic or permanent-capital buyer, and Informa is partly funding its purchase by diluting its own shareholders. Assets with no natural owner, like the Gigamon sale Elliott and Siris are reportedly exploring, remain the real test.
+
+Now the AI and compute stack, where pricing power meets unverified claims.
+
+Semiconductors and Compute Infrastructure reports TSMC's preliminary quarter beating the top of its own guidance range, not just consensus, though nobody can yet split price hikes from volume. In memory, Micron's CEO sees supply balancing in 2028 and Acer's CEO says late 2027, and each is talking his own book. Meanwhile PC makers are passing memory costs through, so ordinary PC buyers are paying part of the AI buildout's bill.
+
+Frontier AI Lab Competition finds OpenAI claiming a research lead nobody can audit: hundreds of math results from an unreleased model, three manuscripts withdrawn within a day, and mathematicians asking for receipts. On compute, SpaceX is reportedly in early talks to raise forty billion dollars, mostly investment-grade debt, to buy Nvidia chips for xAI. That puts lenders underwriting SpaceX's cash flows, not xAI's own revenue, in charge of xAI's compute pace.
+
+AI Products and Applications leads with Anthropic opening a public beta of Claude inside Google Workspace, and since Anthropic makes the model behind this show, weigh that accordingly. The desk's read is that Claude becomes a tenant on Google's platform, with Google's admins holding the switch. On pricing, OpenAI's Decisions API and Anthropic's cache-price cut point the same way: the cost that matters now is replaying context, not the headline token rate.
+
+Enterprise Technology finds OpenAI's new Marketplace letting enterprises burn down committed OpenAI spend through partners like Salesforce and Adobe, while Salesforce builds a rival interface layer of its own. Nobody has won that layer yet: Atlassian's Rovo routes across models, and nearly half of Salesforce customers trying Agentforce are still testing or piloting.
+
+Finally, the applied frontier, where conviction is outrunning proof.
+
+Robotics and Physical AI reports Boston Dynamics handing its CEO job to Rohit Prasad, a large-model executive from Amazon rather than a roboticist. The desk reads that as a concession that the bottleneck on its Atlas humanoid is the model, not the hardware. Capital is making the same bet: FieldAI reportedly signed a term sheet at ten billion dollars, five times its valuation fourteen months ago, before anyone has published an intervention rate on a paying deployment.
+
+AI in Biopharma R&D closes the tour with the same gap in drug discovery. Isomorphic Labs is reportedly in early talks at a forty-to-fifty-billion-dollar valuation, with no named drug candidate and no announced trial start. And Xaira's first pipeline disclosure shows real preclinical work but no hit-rate or functional data, so private capital is still paying frontier prices for models the clinic hasn't tested.
+
+So here's the thread: for a second straight day, the AI buildout's bill is landing on someone else's balance sheet. Yesterday it was private credit behind Broadcom's chips for OpenAI. Today it's SpaceX's credit behind xAI's compute. And Thursday showed the other side of that wiring, when one lab's revenue headline moved Oracle and Broadcom together.
+
+That's The Throughline. Talk to you tomorrow.

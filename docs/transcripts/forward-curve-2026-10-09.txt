@@ -1,0 +1,39 @@
+Good morning, and welcome to The Forward Curve for Friday, October 9th, 2026. Everything here is a probabilistic read built from this show's own recent briefings, informed guesses rather than certainties, and the position ideas are illustrative ways to express a view, not investment advice.
+
+Start with the scorecard. Nothing resolved cleanly overnight. One call is all but settled, and one I have to own.
+
+The near-settled call is Bitcoin ETF flows. I said net inflows for the week ending today would come in below 600 million dollars. Today's digital money read has two straight outflow days. October 7th lost about 487 million dollars, and October 8th lost another 244 million. On my arithmetic, the rest of the week would need more than 1.3 billion dollars of inflows for me to miss. Today's flows are not in yet, so I will not grade it until they are. I raise it from three-in-four to about nineteen-in-twenty.
+
+The same selling moves my downside call. Bitcoin sat near 82,600 dollars on Thursday, just under the 83,000 floor the digital money read is watching. I raise my call for a Bitcoin close below 81,000 before October ends from one-in-four to about one-in-three.
+
+One older Bitcoin call looks odd next to that drop. I said Bitcoin never closes above 85,000 before CPI on October 14th. I still give that call only one-in-five. Price traded above 85,000 on several mornings earlier this week, so a close above the line has probably already happened. No read gives a verified close, so the call stays ungraded.
+
+Now the one I have to own. On October 2nd I said Intel names no external 14A customer with committed volume before December 31st. My premise was that no customer had signed. Today's semiconductor read corrects the show's own line. Tom's Hardware reports that Tesla was already a publicly confirmed external 14A customer as of Intel's August offering. That was before I made the call. The call survives on its wording, because no reporting says how much Tesla has agreed to buy. But Intel now only has to put a volume on a customer it already has. I cut the call from two-in-three to about one-in-two.
+
+An OpenAI call moved the other way. I said OpenAI announces no closed round at or above 1.4 trillion dollars before November 30th. On October 2nd I eased that to a coin flip, partly on a reported 70 billion dollar revenue run-rate. Today's capital markets read has the Financial Times putting OpenAI's annualized revenue near 50 billion as of September. That figure excludes partner revenue, so the two numbers are not like for like. Still, the number that weakened my call is now in question. I raise it back to about three-in-five.
+
+Three smaller moves, starting with credit. My call that high-yield spreads print above 3.24 percent before the Fed's October 28th decision drops from two-in-five to about one-in-three. Wednesday printed 3.09, further from the line. That print predates Thursday's selloff, so the trim is modest. Thursday's oil jump eases my breakeven call slightly, to about two-in-three. And easing BDC redemption requests firm my no-gate call, to about four-in-five.
+
+Google's Gemini free-tier change was due today, and no read yet confirms it took effect. That call stays open. So do the rare-earth truce, Mistral's weights, Agility's investor day and the rest, unscored rather than dropped.
+
+Now today's four forecasts. On Thursday the AI trade got marked against a revenue number. Each call asks what gets measured next.
+
+Start with volatility, the most consequential. Here are the facts from today's capital markets read. The Nasdaq 100 fell 1.4 percent on Thursday, its worst day in about seven weeks. The VIX still closed at just 15.41. My call is that the VIX closes above 20 at least once before the Fed decides on October 28th. About one-in-three. The radar says low implied vol leaves room for a sharper repricing if oil or AI news escalates. And the calendar is crowded. Bank earnings start October 13th, CPI lands the next day, and the Fed's minutes leaned toward another hike. Our files hold no base rate for a jump that size, so I keep it well under even.
+
+What would most make me wrong is containment. Thursday's shock barely touched the S&P 500, which slipped only half a percent. If the AI repricing stays inside the chip complex, the index-level gauge stays quiet. To bet for the call, buy VIX call options. To fade it, sell front-month VIX futures. This call rides with my high-yield spread call, so treat the two as one bet on contagion.
+
+From the fear gauge to the money behind the build-out. Today's capital markets read has Broadcom arranging roughly 50 billion dollars of financing so OpenAI can buy its chips. Nothing is signed. Apollo and Blackstone are only said to be considering participation. Thursday's private credit read says the target is to close by year-end, and no outlet names the borrower. My call is that no signing of that facility, at any size, is reported before December 31st. About 55 percent, a slim lean. Whoever signs the note, the cash that services it runs back to OpenAI's compute bill. And lenders now have to underwrite a revenue base the market just marked down.
+
+What would most make me wrong is lender appetite. This week Waymo upsized its private loan from about three billion dollars to five. And SpaceX is in early talks to raise 40 billion to buy Nvidia chips. To bet for the call, buy put options on Broadcom, ticker AVGO. To fade it, own Broadcom shares. Broadcom moves on far more than one facility, so treat either side as a loose expression.
+
+From who funds the chips to who prices them. TSMC reported preliminary third-quarter revenue on October 8th. On the semiconductor read's arithmetic, that converts to about 46.6 billion dollars, above the top of TSMC's own guide. Full results land October 15th, and July's guidance put gross margin at 65 to 67 percent.
+
+My call is that TSMC's reported gross margin comes in at the top of that band or higher. About three-in-five. TrendForce reports TSMC raising 3-nanometer prices in the second half. And TSMC's chief executive says packaging capacity is limiting customers' growth. There is no clean base rate in our files. The one cautionary note is that I underrated Micron's last beat.
+
+What would most make me wrong is ramp cost. The semiconductor read warns that if ramp costs eat the pricing gains, margin will not reach the top of the band. Nobody can yet split TSMC's revenue beat between price and volume. To bet for the call, buy call options on TSMC's US-listed shares, ticker TSM. To fade it, buy TSM puts. One caution. TSM drifted lower from its record before the revenue print, so the market may already be paying for this.
+
+Last, a claim nobody can check yet. Today's frontier labs read has OpenAI posting more than seven hundred math manuscripts from a model it has not released. Within a day it withdrew three, after a single sign error broke an argument two of them depended on. Depending on whose count you use, only about a fifth to two-fifths of the results are machine-checked. My call is that OpenAI withdraws or retracts at least one more manuscript before October 31st. About three-in-five. Most of the release has not been formally verified. One error took down three papers in a day. And mathematicians, including MIT's Andrew Sutherland and Terence Tao, are openly pressing OpenAI for receipts.
+
+What would most make me wrong is the model staying private. Nobody can replicate the results without it. So errors surface only when someone checks a proof by hand, and that is slow. OpenAI could also post corrections rather than withdraw. I skip the trade, because OpenAI is private.
+
+So that is the curve. A fear gauge that may wake up, a financing that may not sign, a foundry margin that tests the top of its band, and a proof dump that sheds more papers. Have a good weekend.
