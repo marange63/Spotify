@@ -1,0 +1,29 @@
+Good morning, this is The Throughline for Saturday, October 10th, 2026.
+
+Today's headline: the oil shock has turned from a priced risk into measurably missing barrels, just days before a CPI print that could validate the Fed's hawks.
+
+Eight briefings shipped today. We'll start with the macro backdrop, move into the AI and compute stack, then close with the applied frontier.
+
+Strategic Power finds both capitals holding their hardest levers in reserve, from a fourteen-billion-dollar Taiwan arms package sitting "in abeyance" to Russia-sanctions tariff authority that goes live October 18th with no target named. The US-China tariff truce now runs to January 10th, but the separate rare-earth suspension still appears to lapse in November, and dysprosium prices are up nearly tenfold since China's controls began. And megawatts don't move by announcement: new demand on the PJM grid is almost entirely data centers, new procured supply is almost entirely existing plant, and Constellation's 890-megawatt uprate for Google won't be complete until 2032.
+
+From levers held in reserve to a market that just took a real test. Capital Markets Radar says Thursday's thirty-year Treasury reopening cleared at 5.618 percent, the highest thirty-year auction yield since 2000, but on above-average demand, so the long end is repricing rather than failing. The bigger update is oil: about 9.5 million barrels a day exited Hormuz in the week ended Tuesday, roughly 30 percent below pre-war levels, which makes this a quantity shock rather than a fear premium. Equities barely blinked, but CCC-rated credit widened to about 12.5 percent, which the desk treats as a tell, not yet a verdict.
+
+Digital Money finds the stress the equity tape is missing. Bitcoin broke the eighty-three-thousand-dollar floor it had held since late September, printing just above eighty thousand on about $1.09 billion of crypto liquidations, roughly ninety-six percent of them longs. That flush cleared out the forced sellers, but the dollar cushion for the next seller isn't growing, because total stablecoin supply still sits about sixteen billion dollars below its spring peak.
+
+Now the AI and compute stack, where the pressure on the frontier labs is coming from outside the capability race.
+
+Frontier AI Lab Competition leads with TypeSafe raising $870 million at a $7.5 billion valuation for Jev, a narrow model that only returns structured outputs. Its claim of being up to two hundred times faster is measured against frontier models, when the real competitor is the small-model tier now priced at ten cents per million input tokens. Separately, Elon Musk says the coming Grok Bot will route some tasks to rival models, including Anthropic's Claude Opus 5.5, a hint that value may migrate to whoever owns the router rather than whoever trained the best model.
+
+AI Products and Applications leads with an Anthropic launch, and since Anthropic makes the model behind this show, weigh that accordingly. Claude's new Dashboards and Motion betas show the query or code behind every output, the opposite bet from OpenAI's less auditable Intelligent UI earlier in the week. The limit is that a visible query isn't necessarily a correct one, and the governed definition of a metric like revenue still sits outside these tools.
+
+That gap between switched on and proven carries into Enterprise Technology, which finds software stocks re-rating on an "AI as enabler" narrative even as software lenders mark some of the same exposure as risk. Salesforce is auto-enabling Agentforce at no cost for eligible orgs, which swells the enabled count without telling you how many customers actually activate an agent. And Oracle is reportedly weighing trucked natural gas for a stalled New Mexico data-center site, a tangible sign that power, not capital, is now the binding constraint.
+
+Finally, the applied frontier, where the new numbers arrive with their limits attached.
+
+Space and the Orbital Economy leads with the Congressional Budget Office pricing an illustrative Golden Dome architecture at about $1.2 trillion over twenty years. That's roughly six times the administration's $185 billion figure, though the two cover different scopes and timeframes, and CBO says even its version could easily be overwhelmed by a larger attack. Separately, the Pentagon put its first funded price on satellite disposal, though still at seed-money, design-phase scale.
+
+AI in Biopharma R&D closes the tour with GSK testing Chai Discovery's protein-design models in its own lab before signing, a real step up from logo deals. But GSK disclosed no hit rate or panel size, so the result shows the tool is worth renting, not that it makes better drugs. Insilico Medicine's tenth preclinical nomination this year is a company record, but like Chai's binders, it measures the front of the funnel, not the conversion that moves pharma economics.
+
+So here's the thread: from Salesforce's enabled-but-unactivated agents to GSK's undisclosed panel to CBO's unfunded trillion, today's announced numbers keep running ahead of the proven ones. Next week's job, across nearly every desk, is turning announcements into receipts.
+
+That's The Throughline. Talk to you tomorrow.
