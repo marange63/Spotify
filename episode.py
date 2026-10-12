@@ -53,6 +53,8 @@ _PRONUNCIATION = [
     (re.compile(r"\bcapex\b", re.IGNORECASE), "cap-ex"),  # else mis-stressed
     (re.compile(r"\bHormuz\b"), "Hor-mooz"),       # Strait of Hormuz: "hor-MOOZ", not "HOR-muzz"
     (re.compile(r"\bRobotaxi", re.IGNORECASE), "Roh-bo-taxi"),  # prefix match keeps the plural -s; else mis-stressed
+    (re.compile(r"\breshor", re.IGNORECASE), "ree-shor"),  # reshore/reshoring/reshored: "ree-shore", not "reh-shore"
+    (re.compile(r"\bcyclical", re.IGNORECASE), "sick-lical"),  # cyclical(s): short-i "SIK-li-kal", not "SY-kli-kal"
 ]
 
 
