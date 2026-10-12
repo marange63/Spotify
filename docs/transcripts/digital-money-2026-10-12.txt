@@ -1,0 +1,45 @@
+Good morning, it's Monday, October 12th, and this is your digital money briefing.
+
+Last week's institutional retreat from crypto turned out to be broader than it first looked. But a good chunk of what broadened it is plumbing, not conviction. Separating the two is today's job.
+
+First, a quick close on the arc we've been tracking. Friday's small inflow stopped bitcoin's ETF outflow streak at two days. Taken as a full week, spot bitcoin ETFs lost $681.1 million. That's their worst week since late June, and it ends three straight weeks of inflows. As for price, on Friday bitcoin was trading around $82,500. That's after it briefly broke the $83,000 floor that had held since late September. One note on timing before we go further. All the flow data today runs through Friday, October 9th. We have no weekend or Monday prints, so the picture may already have moved. We've aired the bitcoin numbers piece by piece all week. What's new is what happened everywhere else in the spot-ETF complex at the same time.
+
+Start with ether. Spot ether ETFs just posted nine consecutive days of outflows. The run is worth $697.2 million in total. Last week alone accounted for $542.1 million of that, their worst week since January.
+
+Here's the sequencing that matters. That ether streak began on September 29th. That was right as bitcoin's nine-day, $3.1 billion inflow run was ending. So ether rolled over a full week before bitcoin's October 7th flush. It wasn't contagion running downhill from bitcoin's bad day. It was already underway on its own timeline. The so-what: the ether retreat is its own signal, not an echo of bitcoin's.
+
+Now the concentration wrinkle inside that ether number. BlackRock's ETHA is the dominant ether ETF. Of last week's $542 million category outflow, ETHA alone lost $477 million. That's about 88 percent of the total.
+
+And there's a timing detail. ETHA's single biggest redemption day came on Tuesday. That was the same day its one-for-three reverse share split took effect. I want to be precise about what that is and isn't. A reverse split changes the share count. It does not change anyone's dollar exposure. Nothing in the reporting shows a mechanism by which a split would force a redemption. So treat the overlap as a coincidence worth flagging, not as an explanation.
+
+What the ETHA number does tell you is this. One issuer's flagship fund can make a whole category look like it's in full flight, when the real story may be narrower. We've seen this before. On Friday the 9th, we noted that BlackRock's bitcoin fund, IBIT, led the October 7th outflow, the biggest single day since June. Now BlackRock's ETHA is leading ether's. Flagship concentration is becoming the recurring signature of these outflow weeks. The practical lesson is to stop reading category totals at face value. A product-level event can masquerade as a category signal.
+
+Then Solana, the last wrapper standing. Spot Solana ETFs had been on a record fourteen-week inflow streak. Last week it ended, with a $24.8 million weekly outflow. That's the largest since the products launched a year ago. In dollar terms, it's small, and I won't inflate it. The significance is that the streak broke at all. All three spot-ETF categories, bitcoin, ether, and Solana, rolled over inside the same two-week window.
+
+So which reading does the evidence favor: broad risk-off, or concentrated noise? On balance, I'd lean toward a genuine but modest repricing of crypto beta. Three wrappers turning in one fortnight is hard to wave away. But the ETHA concentration argues that the ether leg, at least, is overstated by one product's holder base. There's a clean test for next week. Watch whether ether outflows spread to the non-BlackRock funds, or stay bottled up in ETHA. Spreading means rotation. Staying concentrated means noise.
+
+One honest limit on that call. The rest of the digital-money stack gave us nothing new to test it against. The freshest stablecoin and tokenized-Treasury figures we have either predate last week's selling or have already aired. And we have no verified derivatives data since Saturday's briefing. So the repricing read rests on the ETF wrappers alone. That's exactly why I'd keep the word modest attached to it.
+
+Now the other institutional channel. The ETF wrapper is one way big money buys bitcoin. The corporate treasury is the other, and the largest of those is Strategy, formerly MicroStrategy.
+
+Between October 1st and 4th, Strategy bought 334 bitcoin for $28.7 million. The average price was about $85,840 per coin. That's worth a callback. All last week we tracked $86,000, roughly where the analytics firm Glassnode had put the spot bitcoin ETF complex's breakeven. On October 7th, bitcoin fell back below it. So the largest corporate buyer was accumulating just under the level that didn't hold. Total holdings are now 848,000 bitcoin. The position is still growing, just slowly.
+
+The buy was also small by Strategy's own standards. A third-party purchase tracker shows every other disclosed 2026 purchase was larger. That's corroboration, not a confirmed record, so hold it loosely.
+
+The funding detail matters too. Strategy's own disclosure says part of that bitcoin was paid for with proceeds from selling MSTR common stock. That's common-share dilution paying for coins, rather than a preferred issue.
+
+Now look at where Strategy's cash actually went. Its 8-K covering September 28th through October 4th states that $154.1 million of existing cash went to repurchasing STRC, its preferred stock. Set that against the $28.7 million it spent on bitcoin in the same filing. On our arithmetic, the preferred buyback was more than five times the bitcoin buy. And that buyback money was cash on hand, not money raised from new stock sales.
+
+The same filing answers a second question: is the financing engine out of room? It isn't. Remaining at-the-market capacity for MSTR common is about $18.8 billion. STRC alone has another $17.5 billion. That is not a channel that's been mechanically shut.
+
+What the filing does not say, anywhere, is why Strategy is buying back STRC. It also doesn't say where STRC trades relative to par. The widely repeated explanation is that STRC has slipped below par, and the buyback is defending it. That remains press reporting only. Strategy hasn't confirmed it.
+
+So resist the easy headline that the largest corporate buyer is tapping out. The buyback was cash-funded, not forced by a closed financing window. If STRC is in fact below par, buying it back is arguably accretive to common shareholders, not a sign of distress. The deep read is that this looks like a capital-allocation choice. Strategy chose to retire preferred and buy less bitcoin. That's a different thing from being unable to buy.
+
+But the bear point survives too. If preferred issuance stays on hold, future bitcoin buys lean harder on MSTR common. That shifts the cost of accumulation onto common-share dilution. And that only works as long as the market keeps rewarding the stock. The takeaway: the engine has room, but its owner is currently spending more on its own securities than on the asset.
+
+Here's the synthesis. Two separate institutional channels, the ETF wrapper and Strategy's capital-markets machine, both slowed in the same fortnight. Neither slowdown is confirmed as structural. But suppose both keep softening while bitcoin sits below the $83,000 floor it lost last week. Then the market loses two of the price-insensitive buyers that underwrote the late-summer rally. The next leg of selling would have to clear with fewer of them behind the bid. That's an implication worth watching, not a fact on the ground yet.
+
+A few things to watch this week. First, whether ether ETF outflows spread past BlackRock's ETHA into the rest of the category. That settles the breadth-versus-concentration question. Second, Strategy's next 8-K. Look at the size of the bitcoin buy, and whether funding leans further on common stock. Third, September CPI lands Wednesday, and the FOMC decides on October 28th. Neither has happened yet. So treat any talk of rate-driven selling as positioning ahead of those events, not a reaction to them. And the SEC's comment deadline on its crypto-assets proposal is October 20th.
+
+That's digital money for October 12th. Thanks for listening, and I'll catch you next time.
