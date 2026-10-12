@@ -18,10 +18,20 @@ import time
 
 import aiohttp
 import edge_tts
+import edge_tts.communicate
+import edge_tts.constants
 
 import config
 
 log = logging.getLogger(__name__)
+
+# Since Oct 2026 Microsoft 403s synthesis on the legacy speech.platform.bing.com host; Edge now
+# synthesizes via api.msedgeservices.com (same token, as Ocp-Apim-Subscription-Key). edge-tts 7.2.8
+# still points at the old host — override until upstream ships rany2/edge-tts#491, then drop this.
+if "speech.platform.bing.com" in edge_tts.communicate.WSS_URL:
+    edge_tts.communicate.WSS_URL = (
+        "wss://api.msedgeservices.com/tts/cognitiveservices/websocket/v1"
+        f"?Ocp-Apim-Subscription-Key={edge_tts.constants.TRUSTED_CLIENT_TOKEN}")
 
 # Convenience re-export so `from episode import SHOW_ID` keeps working.
 SHOW_ID = config.SHOW_ID
