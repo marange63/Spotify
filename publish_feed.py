@@ -25,6 +25,7 @@ import sys
 import urllib.request
 
 import config
+import github_auth
 import library
 from episode import synthesize
 from feed import add_episode, build_feed, has_episode, prune_old
@@ -75,18 +76,30 @@ def _notify_ntfy(results: list[tuple[str, str]], date: str, recovered: int = 0) 
         names = ", ".join(n for n, _ in published)
         body = (f"{len(published)} episode(s) live in the feed: {names}. "
                 "Spotify will show them on its next re-ingest (minutes to a few hours).")
+    _ntfy_post(f"Briefings published ({date})", body, "microphone,rocket")
+
+
+def _alert_ntfy(date: str, reason: str) -> None:
+    """Best-effort 'publish FAILED' push, so a broken publish reaches the phone in minutes instead
+    of being discovered on Spotify a day later (the 2026-10-14 auth hang went unnoticed ~30h)."""
+    _ntfy_post(f"Briefings publish FAILED ({date})", reason, "warning")
+
+
+def _ntfy_post(title: str, body: str, tags: str) -> None:
+    """POST one ntfy message. Never raises (mirrors notify.py)."""
+    topic = (config.NTFY_TOPIC or "").strip()
+    if not topic:
+        log.info("ntfy: no topic configured — skipping push")
+        return
     url = f"{config.NTFY_SERVER.rstrip('/')}/{topic}"
-    req = urllib.request.Request(
-        url, data=body.encode("utf-8"), method="POST",
-        headers={"Title": f"Briefings published ({date})",
-                 "Tags": "microphone,rocket"},
-    )
+    req = urllib.request.Request(url, data=body.encode("utf-8"), method="POST",
+                                 headers={"Title": title, "Tags": tags})
     try:
         with urllib.request.urlopen(req, timeout=15) as r:
             r.read()
-        log.info("ntfy: pushed publish summary to %s", topic)
-    except Exception as e:  # best-effort; publishing already succeeded
-        log.warning("ntfy: notification failed (%s) — publish unaffected", e)
+        log.info("ntfy: pushed '%s' to %s", title, topic)
+    except Exception as e:  # best-effort; never affects the publish itself
+        log.warning("ntfy: notification failed (%s)", e)
 
 _GREETING = re.compile(r"^(good\s+(morning|afternoon|evening)|welcome|hello|hi\b)", re.I)
 
@@ -148,9 +161,14 @@ def _push_with_retry(attempts: int = 4, delays: tuple[int, ...] = (15, 45, 120))
     at 04:35 on 2026-10-07 left a fully built publish commit unpushed all morning). Raises
     CalledProcessError after the final attempt so the scheduler still logs a failure."""
     import time
+    cmd = ["git", "-C", config.HERE, "push", "origin", "main"]
     for i in range(attempts):
-        r = subprocess.run(["git", "-C", config.HERE, "push", "origin", "main"],
-                           capture_output=True, text=True)
+        # Never prompts (a missing credential fails in seconds) and can't hang: on timeout the whole
+        # git/credential-helper tree is killed. See github_auth.
+        try:
+            r = github_auth.run(cmd, timeout=300, env=github_auth.git_env())
+        except subprocess.TimeoutExpired:
+            r = subprocess.CompletedProcess(cmd, 124, "", "git push timed out after 300s (killed)")
         if r.returncode == 0:
             log.info("pushed to origin/main%s", f" (attempt {i + 1})" if i else "")
             return
@@ -162,6 +180,18 @@ def _push_with_retry(attempts: int = 4, delays: tuple[int, ...] = (15, 45, 120))
         else:
             log.error("git push failed after %d attempts: %s", attempts, err[0])
             raise subprocess.CalledProcessError(r.returncode, r.args, r.stdout, r.stderr)
+
+
+def _push_or_alert(date: str, notify: bool) -> None:
+    """``_push_with_retry``, plus an ntfy failure alert before the error propagates."""
+    try:
+        _push_with_retry()
+    except subprocess.CalledProcessError as e:
+        if notify:
+            last = ((e.stderr or e.stdout or "").strip().splitlines() or ["?"])[-1]
+            _alert_ntfy(date, f"Episodes were built and committed locally but git push failed: "
+                              f"{last}. The next completion pass re-pushes once this is fixed.")
+        raise
 
 
 def _prune_local(date: str, keep_days: int) -> None:
@@ -192,6 +222,18 @@ def _prune_local(date: str, keep_days: int) -> None:
 def publish(date: str, summaries: dict, push: bool = True,
             require_fresh: bool = False, email: bool = False,
             notify: bool = True, skip_published: bool = False) -> list[tuple[str, str]]:
+    if push:
+        # Pre-flight: with GitHub auth broken, every release upload would fall back to committing
+        # mp3s into docs/audio (bloating .git) and the push would fail anyway. Abort before any TTS
+        # and alert — the completion pass retries once auth is fixed.
+        reason = github_auth.check()
+        if reason:
+            log.error("GitHub auth pre-flight failed: %s — aborting publish", reason)
+            if notify:
+                _alert_ntfy(date, f"GitHub auth is broken, nothing was published: {reason}. Fix: "
+                                  f"refresh the token file at {config.GITHUB_TOKEN_FILE}.")
+            return [("GitHub auth", f"FAILED: {reason}")]
+
     data = library.load()
     results = []
     for p in _ordered_enabled(data):
@@ -241,7 +283,7 @@ def publish(date: str, summaries: dict, push: bool = True,
         # commit may be a no-op if nothing changed; tolerate that
         r = subprocess.run(["git", "-C", config.HERE, "commit", "-m", msg])
         if r.returncode == 0:
-            _push_with_retry()
+            _push_or_alert(date, notify)
             if notify:
                 _notify_ntfy(results, date)
         else:
@@ -252,7 +294,7 @@ def publish(date: str, summaries: dict, push: bool = True,
             ahead = _commits_ahead_of_origin()
             if ahead:
                 log.warning("local main is %d commit(s) ahead of origin/main — pushing now", ahead)
-                _push_with_retry()
+                _push_or_alert(date, notify)
                 if notify:
                     _notify_ntfy(results, date, recovered=ahead)
 

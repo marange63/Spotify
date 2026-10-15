@@ -60,6 +60,11 @@ FEED_BASE_URL = "https://marange63.github.io/Spotify"
 AUDIO_HOST = "release"
 GITHUB_REPO = "marange63/Spotify"          # owner/repo that holds the releases
 GITHUB_RELEASE_TAG = "audio"               # single permanent release that holds the rolling audio window
+# Dedicated GitHub token for the unattended publish (fine-grained PAT, this repo only, Contents
+# read/write). Outside the repo, readable by the S4U scheduled tasks regardless of login state;
+# github_auth.py falls back to Git Credential Manager (non-interactively) when it's absent.
+GITHUB_TOKEN_FILE = os.environ.get("BRIEFING_GITHUB_TOKEN_FILE", os.path.join(
+    os.environ.get("USERPROFILE", HERE), ".config", "cautious-optimism", "github_token"))
 DOCS_DIR = os.path.join(HERE, "docs")
 DOCS_AUDIO_DIR = os.path.join(DOCS_DIR, "audio")
 DOCS_TRANSCRIPTS_DIR = os.path.join(DOCS_DIR, "transcripts")

@@ -122,9 +122,21 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
 - **`github_release.py`** — hosts episode audio as GitHub **Release assets** (outside the git object
   store, so `.git` stays flat and pruning truly frees space). `upload_asset` / `delete_asset` /
   `ensure_release` (one permanent release, tag `config.GITHUB_RELEASE_TAG`); public download URLs serve
-  unauthenticated with range-request support. Reuses the token `git push` already uses (via
-  `git credential fill`, non-interactive, never stored). stdlib `urllib` only; HTTP isolated in
-  `_token`/`_api` for tests. Verify live + non-destructively with `python tools/verify_release.py`.
+  unauthenticated with range-request support. Token comes from `github_auth.token()`. stdlib
+  `urllib` only; HTTP isolated in `_token`/`_api` for tests. Verify live + non-destructively with
+  `python tools/verify_release.py`.
+- **`github_auth.py`** — GitHub credentials for the unattended publish; **never prompts, never
+  hangs** (added after the 2026-10-14 outage: post-Windows-update restart, GCM lost its credential,
+  waited forever on an invisible sign-in prompt under the S4U task, and the hung publish held
+  `run.lock` ~19h, blocking the next three jobs). Prefers a dedicated fine-grained PAT in
+  `config.GITHUB_TOKEN_FILE` (`%USERPROFILE%\.config\cautious-optimism\github_token`; this repo
+  only, Contents read/write) — a plain file the S4U tasks can read whatever the login state. Falls
+  back to GCM with `GCM_INTERACTIVE=never`. `git_env()` hands `git push` the token as an
+  `http.extraheader` via `GIT_CONFIG_*` env vars (never on a command line); `run()` is a timeout
+  that kills the whole process tree. `publish_feed.publish` runs `check()` first: broken auth →
+  abort before any TTS (no Pages-fallback mp3s committed into `.git`) + ntfy "publish FAILED"
+  alert; a failed push also alerts. **When the PAT expires**, the alert says so — regenerate it and
+  overwrite the file.
   **Enclosure URLs carry a `?v=<publish-epoch>` cache-bust token** so replacing an already-ingested
   episode's audio in place forces Spotify to re-download it (see the `spotify-audio-url-cache-busting`
   memory); untouched episodes keep a stable URL.

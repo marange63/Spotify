@@ -2,9 +2,9 @@
 
 Release assets live OUTSIDE the git object store — they don't count toward repo size and deleting
 one truly frees the space — so hosting audio here keeps ``.git`` flat and lets the rolling-retention
-prune (feed.prune_old) hold audio at a flat ~10-day footprint. Everything reuses the GitHub token
-that ``git push`` already uses (retrieved non-interactively via Git Credential Manager); nothing new
-to install or configure, and the token is never stored or logged.
+prune (feed.prune_old) hold audio at a flat ~10-day footprint. The GitHub token comes from
+``github_auth.token()`` (the dedicated token file, else Git Credential Manager non-interactively —
+it fails fast, never hangs); the token is never stored or logged.
 
 All episode audio lives on one permanent release (``config.GITHUB_RELEASE_TAG``); assets are named
 ``<guid>.mp3``. Public download URL:
@@ -16,23 +16,18 @@ extension are what podcast clients key off.)
 HTTP lives in ``_token`` and ``_api`` so callers/tests can isolate it.
 """
 import json
-import subprocess
 import urllib.error
 import urllib.request
 
 import config
+import github_auth
 
 _API = "https://api.github.com"
 
 
 def _token() -> str:
-    """The GitHub token ``git push`` uses, from Git Credential Manager (non-interactive)."""
-    out = subprocess.run(["git", "credential", "fill"], input="protocol=https\nhost=github.com\n\n",
-                         capture_output=True, text=True, timeout=30, cwd=config.HERE)
-    for line in out.stdout.splitlines():
-        if line.startswith("password="):
-            return line.split("=", 1)[1]
-    raise RuntimeError("no GitHub credential returned by Git Credential Manager")
+    """The GitHub token for API calls (see github_auth.token — fails fast, never prompts)."""
+    return github_auth.token()
 
 
 def _api(method: str, url: str, token: str, data=None, ctype="application/json"):
