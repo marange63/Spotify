@@ -1717,6 +1717,54 @@
       "duration": 527,
       "transcript_txt": "forward-curve-2026-10-15.txt",
       "transcript_html": "forward-curve-2026-10-15.html"
+    },
+    {
+      "guid": "robotics-physical-ai-2026-10-15",
+      "prompt_id": "robotics-physical-ai",
+      "title": "Robotics & Physical AI — October 15, 2026",
+      "summary": "The theme today is a mismatch. Western physical AI is building capital structures faster than it is shipping units. The clearest evidence landed this week in a single SEC filing.",
+      "date": "2026-10-15",
+      "seq": 11,
+      "published_at": "2026-10-15T12:36:36-04:00",
+      "audio_file": "robotics-physical-ai-2026-10-15.mp3",
+      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/robotics-physical-ai-2026-10-15.mp3",
+      "audio_rev": 1792082196,
+      "length": 3494304,
+      "duration": 582,
+      "transcript_txt": "robotics-physical-ai-2026-10-15.txt",
+      "transcript_html": "robotics-physical-ai-2026-10-15.html"
+    },
+    {
+      "guid": "private-credit-2026-10-15",
+      "prompt_id": "private-credit",
+      "title": "Private Credit & the Corporate Credit Cycle — October 15, 2026",
+      "summary": "Here's the thesis. The official sector has started pricing private credit's AI-concentration risk before the market has. Regulators now want capital charges on the bank lending that funds private credit, while lenders are charging almost nothing extra for the risk and recoveries are hitting record lows.",
+      "date": "2026-10-15",
+      "seq": 12,
+      "published_at": "2026-10-15T12:37:21-04:00",
+      "audio_file": "private-credit-2026-10-15.mp3",
+      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/private-credit-2026-10-15.mp3",
+      "audio_rev": 1792082241,
+      "length": 3335904,
+      "duration": 556,
+      "transcript_txt": "private-credit-2026-10-15.txt",
+      "transcript_html": "private-credit-2026-10-15.html"
+    },
+    {
+      "guid": "private-equity-2026-10-15",
+      "prompt_id": "private-equity",
+      "title": "Private Equity & the Deal Economy — October 15, 2026",
+      "summary": "Start with the lead. GTCR and Elliott Investment Management are taking CCC Intelligent Solutions private at an enterprise value of roughly six point one billion dollars. CCC is a vertical-software provider to the auto insurance and claims industry. Shareholders get seven dollars seventy-five cents a share in cash.",
+      "date": "2026-10-15",
+      "seq": 13,
+      "published_at": "2026-10-15T12:38:27-04:00",
+      "audio_file": "private-equity-2026-10-15.mp3",
+      "audio_url": "https://github.com/marange63/Spotify/releases/download/audio/private-equity-2026-10-15.mp3",
+      "audio_rev": 1792082307,
+      "length": 3063456,
+      "duration": 511,
+      "transcript_txt": "private-equity-2026-10-15.txt",
+      "transcript_html": "private-equity-2026-10-15.html"
     }
   ]
 }
