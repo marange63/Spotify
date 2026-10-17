@@ -1,0 +1,41 @@
+Good morning. It's Saturday, October 17th, and this is your strategic power briefing.
+
+This week, the balance of power showed up as physical facts, not policy text. A grid ran short of working plants, and Taiwan answered a rehearsed blockade with a record defense budget. Start with the grid.
+
+On Tuesday, the Western Hub spot price on the PJM grid hit $1,021 per megawatt hour. That's per Bloomberg reporting carried by OilPrice. PJM declared a Maximum Generation Alert. Its own operations updates, published on its Inside Lines site, give the reason plainly. In PJM's words, "unseasonable weather patterns are providing fewer days to perform important maintenance or construction." Generation outages ran to about 62,000 megawatts through the affected period.
+
+Now set that against demand. PJM forecast Tuesday's load at about 112,400 megawatts. That's roughly two-thirds of the grid's all-time peak of 165,563 megawatts, set back in 2006. So this was not a demand record. It was a supply-side event. Off-season heat collided with the fall maintenance calendar while a huge slice of the fleet sat offline.
+
+Here's the skeptical turn. It would be easy to say AI broke the grid. PJM's own statement does not say that. It called on paid demand response through what it calls a Pre-Emergency Load Management Action. And it stated that it "has not had to make use of Large Load backup generation to date." That matters, because the Department of Energy had already authorized PJM to direct data centers and other large loads onto backup generation. PJM never pulled that lever. Data centers entered this episode as a standby tool, not as the stated cause.
+
+The spot print also overstates the move. A $1,021 spike lasts hours. The better gauge of the sustained move is the day-ahead market. Wednesday's day-ahead price rose 28 percent to $295.83 per megawatt hour, the highest daily average since mid-July. That's elevated. It is not a new price regime.
+
+So two readings compete. The first says this was a coincidence of weather and maintenance scheduling. On that view, PJM simply had a bad week to have plants down. The second says the reserve margin has thinned so far that routine maintenance plus a warm October is now enough to trigger an emergency alert. PJM's own stated cause fits the first reading for this particular week. But the pricing record points toward the second as the trend. And here's what would settle it. If 62,000 megawatts of October outages is normal for PJM, then the thin margin is the new variable. I haven't seen that outage level benchmarked against prior Octobers, so that's the open question.
+
+The structural evidence sits in the capacity market, not in Tuesday's spike. According to IEEFA, PJM's last three capacity auctions cleared at or near the price cap. That's $329.17 per megawatt-day for the year that began this June, and roughly $325 to $333 for the two years after. Three delivery years running at the ceiling is scarcity that has been priced in, not a one-day event.
+
+And there is now a cleaner read on how much of that is data centers. PJM's independent market monitor, Monitoring Analytics, reported via Utility Dive, puts the data-center share at 9 percent of PJM's wholesale power price this year through July. Over a longer window, the monitor says data-center load growth across the last four capacity auctions added a combined $29.4 billion to capacity market revenues. The direction is the point. Data centers did not cause Tuesday's alert. They are steadily making the margin that failed on Tuesday more expensive to hold.
+
+Those costs land somewhere. Capacity charges flow through to retail bills across the PJM states. That makes data-center siting a ratepayer fight, state by state. I don't have a confirmed bill figure yet, but that's the mechanism.
+
+Now connect this to the arc this desk has tracked. On Tuesday, we covered FERC rejecting most of PJM's data-center fast lane, a shortcut that closed without a single physical megawatt added. Yesterday, we covered the Energy Department's conditional loan to preserve about 4 gigawatts of existing Vistra nuclear. This week the grid showed why that preservation matters. In a supply-side event, the margin is set by what is available to run. Our inference is that firm, already-built capacity collects the scarcity rent. That means incumbent nuclear and the independent power producers. The so-what for AI capex is blunt. Power is not an input you can assume away in a spreadsheet. In PJM, it is the binding constraint, and it belongs to whoever already owns working megawatts.
+
+Power is one physical chokepoint under the AI stack. The other is the island that makes the chips.
+
+On October 10th, Taiwan's president, Lai Ching-te, used his National Day speech to announce a record 2027 defense budget. It comes to 1.1 trillion New Taiwan dollars, about $34.5 billion, per Al Jazeera. That's more than 3 percent of GDP. Lai framed it as deterrence. In his words, "Our aim by increasing investment in national defence is not to provoke; rather, it is to deter war." Hold the standing caveat, though. A speech is not a budget law. This is an announced number. It still has to be appropriated, and then turned into delivered capability. Still, crossing 3 percent of GDP is a real structural commitment if it survives the legislature.
+
+Read it alongside yesterday's story. This desk reported that Taipei is considering making AI chip and server exports to China a criminal offense, in alignment with Washington. Neither is enacted yet. But in one week, Taiwan has moved to put US alignment into both law and money.
+
+Beijing's answer came in the water. China began a series of live-fire drills on October 12th, reportedly running through the 20th. Officials in Taiwan say they believe China is practicing for a possible maritime blockade. That's Taipei's reading, not an independently confirmed exercise plan, so hold the specifics loosely. Here's the calibrating fact. According to Hong Kong Free Press, China has not held full war games around Taiwan since late December of last year. These live-fire drills stop short of that scale. That tells you this is calibrated grey-zone pressure, not a lunge toward a kinetic threshold.
+
+And the blockade framing is the more consequential signal. A blockade, unlike an invasion, could squeeze the chip supply chain without crossing an obvious line into open conflict. That's our inference, and no market reaction has been reported. But the so-what is clear. The scenario being rehearsed is chokepoint pressure on semiconductors, not an amphibious assault. That raises the strategic case for reshoring fabrication and server assembly away from one island.
+
+And on the other side of that chokepoint, Beijing is building around it. Meituan said in June that it trained a 1.6-trillion-parameter AI model entirely on domestic chips. That's real evidence at the training margin. But Rakesh Kumar, quoted by Fortune, offered the harder counterpoint. In his words, Chinese models "get developed in China, but then they're getting served on American chips, in America." Training and serving are different layers. On this evidence, China has shown progress on only one of them.
+
+Nvidia's position belongs in that frame. Per IDC data cited by Reuters, Nvidia's share of China's data-center chip market fell in the first half of this year. Part of that drop is US export controls limiting which Nvidia chips can be sold into China. It is not simply Chinese buyers walking away from the product. Either way, Chinese buyers are being pushed toward domestic silicon.
+
+Here is the uncomfortable asymmetry. Every step toward a domestic training stack lowers, at the margin, Beijing's own exposure to a Taiwan chip shock. Washington's exposure to that same island does not shrink at the same pace. That gap will shape how much a blockade would cost each side.
+
+So, one thesis across both stories. Megawatts already built and fabs on one island set the terms of this competition, not press releases and not speeches. Watch two things. First, whether Taiwan's defense budget is appropriated as proposed. Second, whether PJM's capacity scarcity persists once the fall maintenance season ends.
+
+That's the briefing for October 17th. Stay cautiously optimistic, and I'll talk to you tomorrow.

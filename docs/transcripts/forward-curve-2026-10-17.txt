@@ -1,0 +1,41 @@
+Good morning, and welcome to The Forward Curve for Saturday, October 17th, 2026. Everything here is a probabilistic read built from this show's own recent briefings, informed guesses rather than certainties, and the position ideas are illustrative ways to express a view, not investment advice.
+
+Start with the scorecard. Nothing resolved cleanly today. One call expired without a grade, and several moved.
+
+The expired call is ether. I said spot ether funds other than BlackRock's ETHA would post net outflows for the week ending Friday, October 16th. The one day I could measure, Wednesday, leaned my way. But today's digital money read covers the end of that week and gives no ether fund figures. So I mark it unresolvable rather than claim it.
+
+Now the moves, starting with inflation. My call is that October's core CPI rises at least 0.3 percent on the month. The risk I named was oil fading. It didn't. Today's capital markets read has Brent near 108 and a half dollars early Friday, higher than when the radar first flagged the fade. I raise the call from three-in-five to about two-in-three.
+
+The Fed call moves the other way. Today's radar has the two-year yield falling three times as far as the ten-year on Friday. The dollar index fell almost half a percent on Thursday as hike bets eased. I trim my October hike call from three-in-ten to about one-in-four.
+
+My ten-year call holds at one-in-three. The Fed's own data has the ten-year at 5.075 percent on Friday, still above my 5 percent line.
+
+Oracle's swap call gets trimmed. No read gives a new level. But today's radar shows the broad investment-grade index widening just 6 basis points in four weeks. The stress sits in the lowest-rated tier. I cut my call for Oracle's five-year swap above 300 basis points, before October 28th, from 55 percent to about 45.
+
+Bitcoin funds moved toward me. Over Wednesday, Thursday and Friday, spot bitcoin ETFs lost roughly 340 million dollars on my arithmetic. I raise my call for net outflows over the two weeks ending October 23rd to about two-in-three. My call for a bitcoin close below 81,000 dollars holds at two-in-three. Thursday's break to about 79,800 lasted two hours, and it was intraday, not a close.
+
+One old call moved toward me in direction only. Broad high-yield spreads widened about 53 basis points in four weeks, but no read gives a level to set against my line. It stays ungraded. Rocket Lab still names no Neutron quarter. Vistra, Taiwan, Volta, Starship, the Graham Act and the rest stay open, unscored rather than dropped.
+
+Now today's five forecasts. Today's reads kept drawing one line. On one side sits what is disclosed. On the other sits what is verified. Each call tests where that line breaks next.
+
+Start with the most consequential, credit. Today's radar has the lowest-rated junk tier widening about 200 basis points in four weeks. Over the same stretch, investment grade moved just 6. My call is that the broad investment-grade index widens by less than 25 basis points from its October 15th level by November 15th, on the same Fed data series. About three-in-four. If no read reports that level, I mark the call unresolvable.
+
+Strategist Lance Roberts calls credit flashing yellow, not red. And the radar reads CoreWeave's distress as one levered issuer, not a contagion wave. What would most make me wrong is Oracle. Its rating has sat one notch above junk since July, and a fall below that line could push selling into the investment-grade universe. To bet for the call, own the iShares investment-grade corporate bond ETF, ticker LQD, paired against a short in the high-yield fund HYG. That pair rides on stress staying at the bottom, though it carries rate risk too, so treat it loosely. To fade it, reverse the pair. Note that this call is the mirror image of my trimmed Oracle call. If Oracle's swap blows through 300, this one is in trouble too.
+
+From who lends to who builds. Today's semiconductor read has chip stocks shedding roughly 10 percent over six sessions. Yet no supplier has cut a forecast. My call is that none of TSMC, ASML, Samsung, SK hynix or Micron cuts a revenue, capex or demand forecast before November 10th. About three-in-four.
+
+TSMC just raised its 2026 growth target to about 44 percent. ASML guided its fourth quarter roughly a quarter above its third, and says 2027 supply still falls short. What would most make me wrong is SK hynix's report on October 28th. Samsung's HBM4 push is aimed squarely at it. To bet for the call, own the VanEck Semiconductor ETF, ticker SMH. To fade it, buy SMH puts. The call is about guidance, not price, so SMH can fall while the call hits.
+
+The same gap between claim and check runs through robotaxis. Today's robotics read has Tesla's registered Cybercabs jumping from 169 to 319 in one batch. Nobody has confirmed how many run without a safety monitor. My call is that Tesla's October 21st results give no fleet-wide figure for unsupervised miles, or for the share of its robotaxis running with no monitor. About two-in-three.
+
+Tesla has framed its scale as vehicle counts, and the last outside tracking is months old. What would most make me wrong is Waymo. With about 1,185 registered vehicles in Texas to Tesla's roughly 739, Tesla has a reason to change the subject to miles. To bet for the call, buy put options on Tesla, ticker TSLA. To fade it, buy TSLA calls. Treat both loosely, because earnings options already price a move.
+
+From robotaxis to satellites. SpaceX reports on October 20th. Today's space read has Starlink revenue per user at 66 dollars a month in the second quarter, down from 85 a year earlier. My call is that third-quarter revenue per user lands below 66 dollars. About three-in-five. If SpaceX reports no such figure, I mark it unresolvable.
+
+The stated drivers were international expansion and cheaper plans. Both are strategies, not one-offs. What would most make me wrong is a trough. If the cheaper-plan push was a single repricing, the line could flatten. I skip the trade. That figure is one line in a much bigger print.
+
+Last, a rocket that is building for cadence before it flies. Today's space read has Blue Origin asking to raise its Florida launch cap from twelve to fifty a year. New Glenn hasn't flown since May. My call is that New Glenn does not launch before December 31st. About four-in-five.
+
+A May hotfire explosion destroyed a vehicle and damaged the pad. Blue Origin names no date, and Reuters now expects a return in early 2027. What would most make me wrong is Jeff Bezos's own December target. The FAA has already cleared the April flight failure, so the remaining gate is the pad and the vehicle. Blue Origin is private, and no listed name in our files hangs cleanly on one New Glenn flight date. So I skip the trade.
+
+So that is the curve. Investment grade holds while junk cracks. Chip guidance holds through the rout. Tesla counts cars, not miles. Starlink keeps trading price for subscribers. And New Glenn waits for 2027. Have a good weekend.
