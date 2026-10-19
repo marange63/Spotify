@@ -1,0 +1,41 @@
+Good morning, it's Monday, October 19th, and this is your Capital Markets Radar.
+
+Yesterday this desk read Friday's tech slide as de-risking out of leveraged AI exposure. We had no flow data behind that read. Now we do, and it confirms the de-risking while complicating what it means.
+
+Start with Goldman Sachs' prime brokerage desk. Vincent Lin, who heads that business, reports that hedge funds net-sold a global AI stock basket for five straight sessions, October 8th through the 14th. Long sales outpaced short sales by three and a half to one. That ratio is the whole story. Funds were selling stocks they already owned, not putting on fresh short bets. This was de-grossing, not conviction shorting.
+
+The scale is striking. Per Goldman's prime book, as relayed by Seeking Alpha, all the cumulative global AI net buying by hedge funds since the start of 2025 has been reversed. That happened in a single week. The same account puts the pace as the second-fastest in a year, though other outlets call it the second-largest, so treat the ranking loosely. One caution on sourcing: these figures come through secondary outlets relaying Goldman and the Financial Times. We haven't seen the Goldman note itself.
+
+The trigger was a revenue number. OpenAI told backers its annualized run-rate was near 50 billion dollars, about 20 billion short of a figure that had been circulating. That gap looks more like a definitional dispute than a confirmed miss. The question is whether gross revenue booked through cloud partners counts. But in a crowded trade, a soft data point was enough to force a hard unwind. That says more about the crowding than about OpenAI.
+
+This also completes an arc. On Thursday, this desk reported Goldman's model showing systematic CTA equity length cut from about 125 billion dollars to roughly 43 and a half billion. We said then that the next leg was a fundamental judgment, not a flow event. Now the discretionary funds have sold too. Both positioning cohorts have taken risk off.
+
+Here's the complication, and it matters. Goldman's own commentary says its prime book leverage is still close to five-year extremes. It also says long-term AI positioning still sits in the 83rd percentile over three years. So don't read last week as hedge funds getting clean. They trimmed the winners. The book in aggregate is still heavily levered, and still crowded in this trade. It's lighter at the margin, not light.
+
+The unwind didn't stop on the 14th either. Hedgeweek, relaying Goldman data, says all three broad hedge-fund strategies fell sharply together on October 15th. From COVID through the end of last year, those three never fell more than 80 basis points on the same day. That threshold has now been breached more than once this year. Fundamental long-short equity funds lost money every day that week, down 2.9 percent in the period to October 15th. So the damage ran longer and wider than the five-day AI-basket headline suggests.
+
+Crypto flushed on the same day the AI selling began. On October 8th, exchanges liquidated 974 million dollars of positions as bitcoin dipped below 81,000 dollars. Spot bitcoin ETF cumulative net inflows fell from about 57.6 billion dollars on October 1st to 56.96 billion by the 15th. The timing fits a single leverage-and-liquidity impulse crossing wrappers. But crypto liquidation cascades are mechanical and price-triggered, so same-day timing is suggestive, not proof of a common cause.
+
+So what does the lead leave us with? Because the selling was de-grossing rather than shorting, there's little conviction short interest sitting there to cover. That cuts against the consensus "AI unwind" story. A clean AI-infrastructure print could pull de-grossed capital back in fast, with CTAs already light as well. Yet the aggregate book is still levered near five-year extremes, so the downside path is live too. The market may be under-pricing the squeeze risk while it prices the crash risk.
+
+Lighter books should mean a calmer tape. Friday said otherwise. The VIX spiked roughly 30 percent to its highest level in more than four months. The trigger was an unconfirmed rumor that an AI-focused hedge fund had blown up. For context, this desk had the VIX at 14.84 on October 9th, and at 16.87 on October 14th. On Thursday we said equity volatility was catching up to bond volatility. Friday was that catch-up arriving all at once.
+
+Now the caveat, and it's a hard one. No prime broker, no regulator, and not the fund itself has confirmed anything. One report says the fund is solvent. I'm not naming it, because there's nothing to confirm. And a VIX spike that fades without a confirmed event may be over-reading a rumor.
+
+Still, the reaction itself is information. Volatility moved that much on a whisper, even after a week of real de-grossing. Here's our inference, labeled as such. The binding constraint may not be how much leverage is left in the system. It may be how tight dealer and prime-broker risk limits have become around anything AI-adjacent. Repeated same-day drawdowns across all three hedge-fund strategies this year point the same way. The so-what: a single-name solvency rumor can now act as a systemic trigger, and that fragility doesn't fall as fast as gross exposure does.
+
+The same instinct, selling the headline win, showed up in the banks. On October 13th, this desk set a test for bank earnings. We said a clean beat paired with cautious provision language would be a worse signal than it looked. Citigroup supplied the first half of that test. It beat its earnings estimate and still had its worst trading day since April of last year.
+
+Wells Fargo shows why. Its net interest margin fell to 2.43 percent, from 2.61 percent a year earlier. That's an 18 basis point drop, even as the Fed resumed hiking in September. The tell is that funding costs are eating the benefit of higher short rates. So higher for longer isn't uniformly good for bank earnings, and the market is pricing that margin trajectory, not the beat.
+
+Now the counterpoint. Regions Financial beat too, with 73 cents a share against a 66-cent estimate. Its credit quality held up. So don't let "banks got sold" become "credit is cracking." What we have so far is margin and funding pressure at a couple of large banks, not a credit event. Most regionals haven't reported yet, so the provision half of our test is still open. The so-what: across AI and banks alike, the market is paying for margin and credit trajectory, not for beating a number.
+
+And what's squeezing those margins is a Fed that hasn't finished. After September's hot inflation print, market-implied odds of a hold at the October 28th meeting sit between 84 and 86 and a half percent. That's per futures pricing, Kalshi, and Polymarket. The meeting hasn't happened, so treat this as priced expectation, not outcome. We still lack a reliable December probability, so we can't yet tell a deferred hike from an abandoned one.
+
+That rate backdrop also explains last week's behavior. With a hiking bias intact, carrying levered long-duration exposure stays expensive. In that setting, trimming winners was the rational response to a soft data point. Buying the dip was not. Discount rates didn't cause the selloff, but they shaped how funds responded to it.
+
+Pulling it together. Last week's AI unwind was real de-grossing, not a fundamental verdict. But Goldman's own leverage reading says the book is still crowded, not clean. That keeps both the downside and the squeeze-back live. Fragility now looks like a risk-limit problem more than a raw-leverage problem, which is why an unconfirmed rumor could lift the VIX 30 percent. And in banks as in AI, the market is paying for trajectory over beats.
+
+Two things to watch this week. First, does prime-broker data show funds re-grossing, or still selling? Second, do the remaining regional bank prints turn margin pressure into provision pressure?
+
+That's the radar for today. Trade carefully out there, and I'll see you tomorrow.
