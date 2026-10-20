@@ -1,0 +1,29 @@
+Good morning, this is The Throughline for Tuesday, October 20th, 2026.
+
+Today's headline: Monday's stock rebound got no confirmation from bonds, with the ten-year Treasury yield climbing back toward inflation risk while AI-linked credit stayed stuck at distressed levels.
+
+Ten briefings shipped today. Semiconductors and Compute, and AI in Biopharma R&D, have no new episodes. We'll start with the macro backdrop, move into the AI and compute stack, and finish with the applied frontier.
+
+Strategic Power argues that two big deals are stated in public but not yet written into the instruments that bind them. Washington quotes a January date for the rare-earth truce, but Beijing hasn't published a notice extending its legal order, so on the record the suspension of China's export controls still lapses November 10th. On the grid, PJM's backstop for a nearly seven-gigawatt capacity shortfall never opened, because FERC suspended it to February 2027, and deep-pocketed buyers like Google, with a 2,700-megawatt Constellation deal, are going around it.
+
+From missing paperwork to missing confirmation in markets. Capital Markets Radar has the ten-year yield back at 5.15 percent on Monday, giving back part of last week's credit-scare rally. Meanwhile CoreWeave's 2032 bonds still yield about 14.9 percent, so bond buyers didn't join the AI-stock rebound. And Citadel says Micron and Nvidia alone account for 36 percent of expected S&P 500 earnings growth, so Monday's buyers re-bought the same concentration whose customers' financing costs just rose.
+
+Digital Money has bitcoin's statistics drifting toward gold. Its 90-day correlation with gold hit 51 percent, while its link to US stocks has faded to roughly 40 percent. But the money hasn't followed: spot bitcoin ETFs are net sellers for October, so no new owner has shown up to buy the hedge story.
+
+Private Credit takes the credit stress into the banking system. The Bank of England's regulator is examining a complaint that Barclays booked private-credit swaps in its trading book, which could lower the capital held against them; Barclays defends the treatment and no finding has been made. Separately, leveraged loans priced at or below eighty cents are up nearly ninety percent on a year ago, and technology makes up 54.4 billion dollars of that distress. That's the software concentration lenders now warn AI credit not to repeat.
+
+Private Equity shows sponsors manufacturing cash rather than earning it through sales. Moody's estimates roughly 41 billion euros of dividend-recap headroom across Europe, the Middle East and Africa, though that's capacity, not issuance, and US recap volume is actually down 39 percent this year. On marks, sponsor-led continuation vehicles price near full NAV, while arm's-length secondary sales of buyout stakes clear about nine percent under it: marks run somewhat rich, not fictional.
+
+Now from engineered financing to the models themselves. Frontier AI Lab Competition has Google undercutting the four-dollar, twenty-dollar frontier price tier with a half-price introductory offer on Gemini 4 Argon, which reverts November 30th. Open-weight releases from DeepSeek and Reflection AI keep pressing on the floor from below. That leaves agent reliability as the closed labs' premium argument, and OpenAI's own incident page now lists nineteen reports, so nobody has proven that moat yet.
+
+That question of control carries into AI Products and Applications. Meta released open weights for a coding model that runs, heavily compressed, on two Mac Studios, with no benchmark figures attached. Google's Deep Review checks documents but has no published error rate, and xAI's Grok Voice 3.0 was silently swapped under every app pointed at its "latest" alias. The takeaway: control moves to whoever holds the weights or runs the check, and stays with the vendor wherever the default is an alias.
+
+Enterprise Technology has four vendors racing to own a permission gate for enterprise agents. Microsoft pitched Guardian Agents to police what it calls "agentic insiders," Palantir and Knox offered a FedRAMP on-ramp Knox claims takes 90 days, and Salesforce committed a billion dollars over five years to Spain. Anthropic, which makes the model behind this show, took its Code Review tool to general availability. In every case the evidence sits a notch below the headline: no price, no contract, or no metrics yet.
+
+Now the applied frontier. Robotics and Physical AI has Sam Altman saying OpenAI will build a humanoid robot, with a demo in 2027 at best. Last week's venture money went the other way, to data capture and robots already deployed, including Mecka AI's 60-million-dollar round. The read: the robot brain may be commoditizing, and value is shifting to whoever owns the deployment and the field data.
+
+Space and the Orbital Economy closes the tour with a Russian satellite, Cosmos 2612, that spent more than two weeks running down a commercial radar satellite from Finland's ICEYE. Public estimates of the closest approach differ by about twenty-five times, which means the open tracking data can't settle the distance. Add four European carriers exploring a joint spectrum bid with AST SpaceMobile as an alternative to SpaceX, and SpaceX's third-quarter results due after the close tonight, and commercial space is being contested physically, commercially and financially.
+
+Here's the thread worth carrying out. Across several of today's briefings, the announcement runs ahead of the document that would prove it: Beijing's unpublished rare-earth notice, PJM's suspended backstop, Microsoft's unpriced Guardian Agents, and Meta's benchmark-free model. Today, the gap between the headline and the binding instrument is the story.
+
+That's The Throughline. Have a good Tuesday.
