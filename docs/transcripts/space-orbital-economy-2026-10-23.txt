@@ -1,0 +1,47 @@
+Good morning, and welcome to Cautious Optimism Briefings for Friday, October 23rd, 2026, on the space and orbital economy.
+
+The theme today is that procurement choices and deployment reality are moving this sector, not spectacle. The Pentagon is buying from more vendors in one corner of space. Commercial constellations are still waiting on rockets. And the public pure-plays are trading on a story that is not theirs.
+
+Start with the freshest hard news. On October 22nd, the Space Force made its first operational awards under the Commercial Space Augmentation Reserve, known as CASR. These are surge contracts for space domain awareness, meaning tracking and characterizing objects in orbit.
+
+Here is the structure. According to Defense Daily, citing the Space Systems Command release, six companies received CASR purchase agreements under what the release calls the ACCESS contract. Reporting describes that as a GSA-based framework vehicle, not a one-off buy. The release says the awards establish CASR's initial surge capability in support of Joint Commercial Operations. Providers furnish agreed-upon capabilities when demand is higher. Inside Defense puts it more plainly. The arrangement lets the service, in its words, turn on surge capacity from commercial providers in times of need.
+
+Now the roster, with a caveat on sourcing. Space Systems Command's own announcement left the firms unnamed, per Defense Daily. The names come from press reporting. Inside Defense lists four U.S. companies: InTrack Radar, Anduril, formerly ExoAnalytic, Slingshot Aerospace, and LeoLabs. It adds two allied firms, EOS Space Systems from Australia and NorthStar from Canada. Air & Space Forces Magazine also reports six companies.
+
+One more attribution point. Only Inside Defense says the awards came through the Golden Dome Marketplace. The official release, as relayed by Defense Daily, describes the ACCESS contract. So treat the Golden Dome link as one outlet's framing, not a settled fact.
+
+Now the part that matters for anyone modeling this. There are no disclosed dollar values. Air & Space Forces reports that an official declined to give the initial values, but called them fairly low. The same outlet notes that an earlier pilot phase was 90-day contracts worth a combined 1.1 million dollars. That is the scale of the money this program has handled so far. It is a small number against a defense space budget.
+
+Also, the sources say terms will vary by company and by mission. It is not established whether these agreements carry obligated funds or minimums. So this is a framework and a roster, not a sized revenue line.
+
+So what is the signal? It is qualification, not cash. Six vendors are now on a standing pool, and Air & Space Forces calls the program a living program that will add companies. For LeoLabs, Slingshot, and Anduril's ExoAnalytic business, that is a foothold with the buyer. The near-term revenue is small. The option value is the story, and it depends on whether surge turns into recurring tasking.
+
+One observation on the roster. SpaceX and Starshield are not on it. No source says they were excluded, and none mentions them at all. It is an absence, not a decision we can read into. But it does mean that in sensing, the government is spreading work across several vendors and two allies. That is worth holding up against everything else this week.
+
+Because that diversification does not extend to launch. Which brings us from who the government buys from to who can actually put hardware in orbit. AST SpaceMobile is the cleanest case.
+
+AST needs about 90 satellites on orbit to begin global service, per Advanced Television's summary of the company schedule. The stated target is 243 satellites by the end of 2028. The fleet today is in the low double digits. The company's own filing puts the count a bit above that, but I would treat the precise number as unconfirmed.
+
+The near-term schedule is the problem. The next batch of BlueBirds depends on the availability of Blue Origin's New Glenn. That rocket has been grounded since a catastrophic test fire explosion in May. Blue Origin says it is still pushing to fly again before year-end, though other reporting points to early 2027. The trade press also reports that BlueBirds 17, 18, and 19 will launch later in November on a Falcon 9.
+
+Notice what that does. When a Western alternative slips, the manifest moves to Falcon 9. The reporting also describes the 46-satellite milestone slipping into the first half of 2027, though the article gives two different dates for it, so hold that loosely. These are trade-press paraphrases of company schedules, not confirmed launch manifests.
+
+The so-what is this. For direct-to-cell, the binding constraint is not demand. Carriers and subscribers exist. The constraint is getting from a dozen-odd satellites to ninety, and continuous coverage cannot start until then. Until it does, revenue stays a promise. The second-order effect is dilution risk if the timeline slips again, and deeper reliance on SpaceX, which is also a competitor in direct-to-cell.
+
+That reliance leads to the gravity well this whole sector orbits. SpaceX reported its first public quarter on October 20th, and you heard the headline figures earlier this week, so I will not repeat them. Two details matter for today's point.
+
+First, capital spending. SpaceX said capex totaled 19.6 billion dollars in the third quarter, primarily for compute infrastructure for its AI segment. So the biggest dollar commitment at the company is not rockets or satellites. It is AI compute.
+
+Second, the tape. On October 21st, per 24/7 Wall St, Intuitive Machines rose about 5 percent to 11.08. Redwire and Planet Labs each rose about 4 percent. Neither has meaningful exposure to SpaceX's compute buildout.
+
+So here is the inference. These small caps are trading as SpaceX beta. They are inheriting a sentiment about AI infrastructure, but not the cash flows behind it. That is one session of movement, not a revaluation of their fundamentals. But it carries a risk. If AI capex sentiment turns, these names could fall further than their own business results justify.
+
+Let me pull the threads together. Where is the orbital economy genuinely inflecting? In national security procurement. The Space Force is building a standing commercial layer for domain awareness, with allied participation and room to add vendors. That is a structural change, even if the dollars are tiny today.
+
+Where is it still a demo or a promise? In deployment pace. AST has a fraction of the satellites it needs. Western heavy-lift competition to SpaceX is stuck. And the diversification we see in sensing has not reached launch.
+
+The open questions are these. What are the CASR dollar values, and do they convert into funded recurring tasking? And when does New Glenn actually return, given a year-end claim against early 2027 reporting?
+
+On catalysts, a few dates. The FAA public comment period on raising New Glenn's pad cadence closes October 30th. Amazon Leo's next Vulcan launch is targeted for October 29th, per launch trackers, so treat that date as soft. Rocket Lab reports third-quarter results November 9th, and its Electron has two iQPS launches scheduled no earlier than November 4th and November 10th, bringing it closer to its 100th flight. And the AST Falcon 9 launch in November is the one to watch for deployment pace.
+
+That is the briefing for October 23rd. Thanks for listening, and see you next time.

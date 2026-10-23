@@ -1,0 +1,37 @@
+Good morning, and welcome to The Throughline for Friday, October 23rd, 2026.
+
+The headline of the day: a Meta earnings scare turned the cost of financing the AI buildout into the question every desk was asking, from bond markets to bitcoin to chip suppliers.
+
+Let's start with the macro backdrop.
+
+From Strategic Power, the oil market is pricing risk, not missing barrels. Kpler's preliminary data show Middle East flows back at about their pre-war level, yet Brent sits near 112 dollars. The desk also notes that gold and bitcoin sold off with equities, and that FERC approved a registry of large grid loads but rejected the tools to ration them.
+
+Capital Markets Radar has the biggest one-day Treasury rally since March 2023. The ten-year fell 19.3 basis points to 4.953 percent, and the desk reads that as flight to quality, which overturned its own term-premium frame from a day earlier. Meta's first negative free cash flow in over a decade, alongside higher capex guidance, is what started the equity leg.
+
+Digital Money says bitcoin failed its first real macro test as a hedge. It fell 3.4 percent and traded with tech, despite three days of ETF inflows, and it now sits right at the cost-basis line where the average spot-ETF buyer breaks even. Meanwhile JPMorgan put its tokenized money-market funds on Solana, though the desk says usage has not visibly moved.
+
+Private Credit and the Corporate Credit Cycle covers Blackstone's print. Inflows were strong, but private credit returned only 1.8 percent net for the quarter. Flagship retail vehicle BCRED saw repurchase requests of 10 percent of net asset value against a 5 percent limit, and that exit queue is not clearing.
+
+Private Equity and the Deal Economy has the same Blackstone quarter from the other side. Fee-related earnings rose 6 percent, while net realizations fell 20 percent from the prior quarter. Marks keep rising, the cash is not coming back yet, and the fourth quarter is the test.
+
+Now to the AI and compute stack, where the financing theme gets concrete.
+
+Semiconductors and Compute leads with NVIDIA's capacity commitments with six manufacturing partners, covering substrates, interposers, test, and optics. The desk's point is that vendor balance sheets are becoming the buildout's financing layer, with Amkor alone disclosing a new 1.3 billion dollar agreement. A sharp jump in ASML's customer prepayments points the same way.
+
+Frontier AI Lab Competition says this was a week about who funds the race, not who is winning it. OpenAI is reportedly raising up to 30 billion dollars at a 1.25 trillion dollar pre-money valuation, down from 1.4 trillion in earlier reporting. Anthropic is reportedly weighing a 1.5 trillion dollar valuation for a planned November listing. The desk flags that Anthropic makes the model behind this show.
+
+AI Products and Applications finds three layers of the agent stack standardizing at once. Walmart opened an Agent Gateway to outside shopping agents, Anthropic donated Agent Skills to the Linux Foundation's Agentic AI Foundation, and Cursor shipped an Environments API. In each case the spending caps, security reviews, or final release are still to come.
+
+Enterprise Technology looks at bundled AI at ServiceNow and SAP. ServiceNow's Arc agent ships at no extra cost, and the desk calls it seat defense, not monetization. It also corrects itself on SAP, where nine out of ten of the fifty largest deals included AI, not nine out of fifty. ServiceNow reports October 28th.
+
+Last, the applied frontier.
+
+Robotics and Physical AI has Elon Musk saying on the record that Optimus is "mostly the hand." The desk reads that as evidence the robot brain is commoditizing faster than the body. It also notes that Unitree's 16 percent jump on Monday traded on Beijing policy, not output.
+
+Space and the Orbital Economy leads with the Space Force's first operational awards under its commercial surge reserve, to six vendors, with no disclosed dollar values. Launch is the constraint elsewhere, with AST SpaceMobile waiting on rockets while Blue Origin's New Glenn stays grounded.
+
+And AI in Biopharma R&D says the cash is real but the scorecard isn't. Insilico hit a milestone with Servier, but the payment is undisclosed against an 888 million dollar headline. Claims like a 100 percent binder hit rate and four of five compounds arrive with no denominators.
+
+If there is one thread today, it is the cost of capital. It surfaced in oil and Treasury yields, in Meta's cash flow, in bitcoin's selloff, and in the retail exit queues at private credit funds. It ran through NVIDIA prepaying its suppliers and the lab valuations ahead of a possible listing. And it shows up in enterprise software, where AI is given away to defend renewals, not sold for new revenue. The desks differ on whether the demand is real, but they agree that who pays for it is now the open question.
+
+That's The Throughline for October 23rd. Have a good weekend.

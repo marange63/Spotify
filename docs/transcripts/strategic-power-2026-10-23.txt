@@ -1,0 +1,53 @@
+Good morning, and welcome to Strategic Power for Friday, October 23rd, 2026.
+
+Here is the thesis for today. The oil market is pricing risk, not missing barrels. That risk is landing on a financing cycle for AI whose supposed hedges did not hedge this week. And underneath both sits a physical grid that still has no tool to manage the load it is being asked to carry.
+
+Start with oil, because the data cut against the easy story. Iran has controlled the Strait of Hormuz since the war began in late February. Over the weekend, the Revolutionary Guard said naval mines had set two tankers on fire, each carrying about two million barrels. Those are Iranian claims. Casualty counts conflict across sources, and none of it is independently verified.
+
+Now the number that matters more. Kpler's preliminary data, reported by The National on October 21st, show Middle East oil flows averaging more than 24.5 million barrels per day for the week ended October 18th. The pre-war week ended February 22nd was 24.4 million. So flows are back at or slightly above where they were before the war.
+
+Two caveats on that. The data are preliminary, and they exclude Iranian exports. The total also counts the alternative routes, not just the strait. So the claim is not that Hormuz is normal. The claim is that the region is getting its crude to market again, through a mix of routes.
+
+That is a reversal of what this desk and others were saying ten days ago. Kpler had Hormuz flow falling from about 20.8 million barrels on October 8th to 2.9 million on October 11th. That was real at the time. It is now stale. Anyone still describing a collapse is working from last week's data.
+
+So why is Brent near a five-month high? Data providers put the October 22nd close at about 111.8 dollars. Nexo's market note put it near 112. For comparison, Brent closed at 109.86 on October 16th, and WTI was up 10.4 percent on that week alone. I would treat the October 22nd figure as approximate, because I could not find an official settlement price.
+
+The reading that fits the evidence is a risk premium. Barrels are moving, but the price is paying for what could stop them. That means mines, war-risk insurance, and attack escalation.
+
+The escalation worth watching is the Saudi Red Sea route. If Hormuz is constrained, the pipeline to Yanbu and the Red Sea loading terminals matter more than they did before the war. The Houthis have claimed attacks on Aramco facilities at Yanbu. But the Saudi government did not clarify whether any of those attacks caused damage or casualties. I found no confirmation from the tanker-incident monitor, from Aramco, or from Riyadh that Yanbu is physically disrupted. So this is a threat to the bypass, not an outage of it.
+
+That distinction is the whole trade. If the bypass holds and a deal arrives, this premium can deflate quickly. Trump has said he expects a deal after the November 3rd midterms. That is an expectation, not an agreement. The United States also runs its own naval counter-blockade on Iranian oil exports, so neither side is simply waiting. And if Yanbu is confirmed down, that is a genuine step change, because the last big slack route would be gone.
+
+One callback. Last week Washington loosened Russia energy sanctions through a sixty-day waiver. Brent dipped to about 108 on that news and then climbed back above 111. The sanctions waiver bought headlines. The chokepoint is still setting the price.
+
+So the so-what is simple. The market is not short of barrels today. It is short of confidence that the barrels keep moving.
+
+That brings us to why this matters beyond oil. A risk premium in crude feeds headline inflation just as the Federal Reserve meets on October 28th. That decision has not happened, and I will not guess at it. But the prices going into it matter, and they matter most for anything that depends on cheap long-term money.
+
+Which is exactly what the AI buildout depends on. On Thursday, a global tech selloff centered on a simple question. Who pays for all this capacity? Meta had beaten revenue estimates, but the market's attention went to the funding of the buildout, not the quarter.
+
+I am going to skip the specific capex figure, because I could not tie it to a clean source and the reports conflict. The market moves tell the story well enough. The ten-year Treasury yield was near 5.08 percent, according to Nexo. That is the financing cost the whole buildout is sitting on.
+
+Here is the part that deserves attention. Gold fell 1.2 percent to 4,090 dollars. Bitcoin slid about 3 percent to near 82,000, its largest one-day drop in two weeks. The dollar index slipped to 101.58, its weakest since October 1st.
+
+Think about that combination. Oil is rising, inflation risk is rising, and the two assets this audience treats as inflation hedges fell with equities. For one day, gold and Bitcoin traded as risk assets that were being sold to meet other needs, not as refuge.
+
+One day is not a regime. But it is a useful stress test of the hard-money narrative. When the pressure is a funding squeeze rather than a debasement fear, those assets do not behave like havens. The haven case works when the market fears the currency. It fails when the market fears the cost of capital.
+
+The second-order effect is on the AI buildout itself. If financing gets tighter, the winners are not decided by who has chip access. They are decided by balance sheet. Companies funding capex from cash flow keep building. Developers relying on debt, private credit, or utility financing become more sensitive to every basis point. So the sorting that matters over the next year is cost of capital, not just compute.
+
+Now the one piece of real new supply in this story, which is nuclear fuel. Westinghouse announced a one billion dollar investment in what it calls the first new fleet-scale nuclear fuel factory. It aims to begin operations in 2030. Separately, the company is pursuing a 5 gigawatt increase in US nuclear capacity from the existing fleet by 2029. And the Navy has reportedly picked Radiant's microreactor for a weapons station, which tells you the Pentagon is treating this fuel-and-reactor push as strategic, not experimental.
+
+This is the clearest counter-example to the announcement problem this desk keeps flagging. A billion dollars of committed plant is not a press release. But the clock is 2030. It does not answer a power and inflation crunch in 2026 and 2027. The honest summary is a real build, in the wrong decade for the current squeeze.
+
+That leaves the grid, which is where financing and physics meet. On October 9th, FERC issued an order, 197 FERC 61,019, in docket ER26-3515-000, on PJM's plan for data centers. PJM is the largest US grid operator.
+
+FERC approved the first piece. That is a registry of large loads, defined as sites of at least 50 megawatts, with affiliated sites within one mile aggregated. FERC rejected the harder pieces. Those were the Interim Resource Adequacy Service and Bring Your Own New Capacity. In practice, that was the mechanism that would have let the grid manage data centers during stress.
+
+The scale of the problem is not small. PJM forecast 32 gigawatts of peak-load growth by 2030, with about 30 gigawatts of it from data centers. So the grid now has a list of who is coming, but not a rulebook for how to ration or fast-track them. Consumer advocates call the outcome dangerous. That is advocacy, and I would not adopt it as fact. What is factual is the gap.
+
+The implication is that the fight moves to the states. Large-load tariffs and cost allocation get decided in state commissions and the capacity auction, with ratepayer politics attached. Developers will keep drifting toward behind-the-meter gas, nuclear power agreements, and sites outside PJM. And owners of existing firm generation hold a scarcity asset that regulators have just declined to dilute.
+
+Pull the thread together. Barrels, electrons, and fuel are the base layer. This week the barrels were moving, but priced for danger. The electrons have no allocation rule for the biggest new buyer. The fuel is real but arrives at the end of the decade. And the financial hedges that were supposed to cushion all of it sold off with everything else.
+
+That is the briefing for today. Thanks for listening, and I will see you Monday.
