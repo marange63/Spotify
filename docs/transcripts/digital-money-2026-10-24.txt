@@ -1,0 +1,43 @@
+Good morning. It's Saturday, October 24th, and this is your digital money briefing.
+
+Yesterday we told you trackers disagreed on Thursday's bitcoin ETF flow, so we wouldn't give you a number. Now the number has settled. Per Decrypt, US spot bitcoin ETFs shed 635.6 million dollars on Thursday. That was the largest single-day outflow since June 25th. Decrypt adds that it wiped out nearly 60 percent of the roughly 1.07 billion dollars the funds took in over the three sessions before it. So one bad day gave back most of a good week. One caveat on all of these: they are tracker figures relayed by the press, not issuer disclosures.
+
+The composition is what matters to this desk. The standard objection to an inflow run is concentration, the worry that the demand is really one fund's doing. Wednesday's buying answered that, because it came through at least three issuers, including Grayscale's GBTC. Thursday's selling had the same shape. BlackRock's IBIT led with 254 million dollars of withdrawals. Fidelity's FBTC was close behind at 217 million. ARK's fund added another sizable redemption. Morgan Stanley's fund was the lone buyer, with a token inflow too small to read anything into.
+
+So breadth came in, and breadth went out. That tells you something Wednesday's numbers alone couldn't. Breadth was a property of fast money moving in both directions. It was never proof of durable ownership. Concentration isn't the problem here. The real question is who the buyer is, and Thursday made it sharper.
+
+Here's why. A fast in-and-out through the same funds fits two stories equally well. One is directional holders cutting risk on the equity scare. The other is a basis trade unwinding, where someone long the ETF and short CME futures closes both legs. Those look identical in daily flow data. No dated CME basis or open-interest print is available to separate them, so we can't tell you which one Thursday was. What we can say is that neither story describes a patient allocator.
+
+Now price, the other half of the lead. Per CryptoSlate, bitcoin fell as low as 80,841 dollars during Thursday's reporting window. That is under Glassnode's estimate of about 81,500 dollars for the average ETF holder's cost basis, the line this desk has tracked since mid-October. Two limits apply. Glassnode's estimate uses data through October 19th, before this week's flows reshuffled the holder base. And 80,841 is an intraday low, not a daily close. Price trackers show bitcoin trading near the line, but no authoritative source states a confirmed close below it. So this is a pierce, not a breach, and the test Glassnode framed is still unresolved.
+
+The strongest bull reading starts right there. On our arithmetic, the low came within about one percent of the cost basis. And this isn't the first time. The line has already bent intraday more than once in recent weeks, and price climbed back each time. A floor that bends repeatedly without a confirmed break is still a floor.
+
+If a daily close does confirm below it, the average ETF holder is underwater. That makes cost-basis-sensitive de-risking by advisers and risk committees possible. It doesn't make it forced. Nothing in today's data shows any mandate acting on that line. Treat it as a conditional, and our inference.
+
+So why no cascade when the owners left? The derivatives book answers that. The source is a single one, Nexo's Friday markets note. It says open interest in both bitcoin and ether rose about 1 percent while prices sat flat. Bitcoin liquidations fell by about two-thirds from the prior flush. Nexo also says about 440 million dollars of leveraged positions, mostly longs, were reset over the twenty-four hours on Thursday. That's an orderly unwind, not a forced-selling spiral.
+
+Funding tells you where positioning went next. Per Nexo, bitcoin funding edged up to 0.0067 percent, from 0.0041 percent before. That's positive and rising. A different tracker, TokenPost, showed funding negative on Thursday. Those are almost certainly different series and intervals, so don't splice them into a trend. The direction is what counts. Funding is positive again right after the flush.
+
+Put plainly, the ETF owners left, and the leveraged renters came back in behind them. That continues the arc of this whole month. After every washout in October, leverage has rebuilt long within days. Thursday's flush was lighter, and the rebuild started immediately. One honest gap: rising open interest into a flat tape could be new longs re-levering, or new shorts leaning on the cost-basis break. Today's data doesn't show which side, so we won't claim it.
+
+Lighter leverage cuts both ways. There's less fuel for a forced-selling cascade on the next shock. But there's also less fuel for a sharp short-covering rally if sentiment turns. Either way, with ETF owners stepping back, price-setting stays with derivatives positioning. Expect the range to keep behaving like rented risk into the next macro catalyst. That's the Fed's decision on Wednesday, October 28th, which hasn't happened yet.
+
+The bull case deserves its plain statement. Bitcoin has been trading with the Nasdaq on the AI-capex scare, not like a hedge. Yet that same market just absorbed its largest ETF outflow since June without a liquidation spike. Liquidations fell rather than rose, and new positioning came in. That is a sturdier setup than the long-heavy washouts earlier this month.
+
+That resilience sits on a thinning base, though. The retreat of committed money shows up in the dollar float too. Per the tracker Stablecoin Beat, total stablecoin market cap stood at 300.9 billion dollars as of Thursday. On Monday we cited a float near 303 billion, so that's roughly 2 billion lower. The more telling detail is the two majors. USDT is down 1.4 billion dollars versus ninety days earlier. USDC is down 0.7 billion over the same window.
+
+Both majors shrinking at once changes the recent debate about which issuer was taking share from the other. This isn't rotation between them. It's the two dominant dollar tokens contracting together. The same tracker's summary shows the total roughly flat over ninety days, so the leakage sits in the majors specifically, not the whole market.
+
+Keep the size honest. On our arithmetic, both declines are about one percent or less. Aggregator snapshots also differ by one to two billion dollars, which is as big as the moves themselves. So read the direction as suggestive, not conclusive, and don't call it an exodus.
+
+There's one interpretive layer worth adding. Coin Metrics has found that USDT issuance tends to pick up after rallies, as traders re-lever. Applying that to a falling USDT float is our inference, not something Coin Metrics measured. But it fits a market where leverage rebuilds quickly in derivatives without much new dollar coming on-chain to fund it. On the other side, Circle's emerging-markets push and Tether's relaunch on the Bitcoin network both target payments rather than trading. Neither has yet shown up in supply.
+
+That sharpens the Treasury read. A flat float meant stablecoins weren't a growing source of Treasury-bill demand. Now the two issuers holding most of those reserves are shrinking. At the margin, that's a small subtraction from short-dated bill demand, not just a missing addition.
+
+All of this feeds into the one public equity where exchange economics get marked. Coinbase reports third-quarter results after the close on Thursday, October 29th, so its numbers are still pending. The quarter itself ended in September, before this week's outflow. What we do know comes from Coinbase's own second-quarter filing. The company posted a net loss of 359.5 million dollars on 1.2 billion dollars of net revenue. That is a weak base for a stock priced on an institutional-adoption story. The guidance and commentary will land into a tape where ETF owners are retreating and the dollar float is contracting.
+
+So here's the thesis in one line. The ETF bid that spread across issuers on the way in left through the same issuers on the way out, and bitcoin's marginal holder still looks like fast money, though nothing shows a forced-selling cascade.
+
+Four things to watch, all still pending. First, whether a daily close settles below Glassnode's ETF cost-basis line, rather than just an intraday pierce. Second, whether Thursday's outflow repeats or proves to be one session. Third, whether the stablecoin majors keep drifting lower. And fourth, the Fed on Wednesday, then Coinbase on Thursday.
+
+That's digital money for October 24th. Have a good weekend.

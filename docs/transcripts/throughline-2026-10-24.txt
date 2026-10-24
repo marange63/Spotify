@@ -1,0 +1,29 @@
+Good morning, this is The Throughline for Saturday, October 24th, 2026.
+
+Today's headline: the price of protecting Meta against default hit a record, and protection on Oracle, Microsoft, and Broadcom rose with it, so the AI financing worry has now reached the sector's biggest balance sheets.
+
+Ten briefings shipped today. Robotics and Physical AI, and Private Equity and the Deal Economy, did not publish. We'll start with the macro backdrop, move into the AI and compute stack, and close on the applied frontier.
+
+Strategic Power has chokepoints tightening from two directions at once, one physical and one legal. Brent traded around 116 dollars on Friday, its highest since May, yet the newest flow data is a week old, so the market is pricing the Hormuz conflict faster than anyone can measure it. On the legal side, Taiwan plans to make unauthorized shipments of advanced chips and AI servers to China a criminal offense, but with no effective date set, that is direction, not law.
+
+From physical chokepoints to financial ones. Capital Markets Radar has Meta's five-year default swap rising as much as 8.9 basis points on Thursday, to about 119.3, the highest intraday level since the contract began trading. The desk reads that as the market pricing Meta's financing path rather than default, driven by spending commitments that jumped to 825 billion dollars from 700 billion in July. And with hedge funds now shorting at about five times the pace of long buying, the next relief rally may be a short squeeze, not a verdict that the worry was wrong.
+
+Digital Money has bitcoin's ETF owners stepping back. US spot bitcoin ETFs shed 635.6 million dollars on Thursday, the largest one-day outflow since June, and bitcoin briefly pierced the roughly 81,500-dollar line where the average ETF holder breaks even. Yet liquidations fell rather than spiked, and leverage started rebuilding almost at once, extending this month's pattern of renters replacing owners.
+
+Private Credit and the Corporate Credit Cycle completes the macro tour with a tension inside a single release. The Alternative Credit Council sized global private credit at 4.1 trillion dollars, up 17 percent, yet one in six surveyed funds reports non-accruals above 5 percent. Only the better borrowers can refinance out into the syndicated market, and the weakest are paying more, so the desk infers that direct-lending books are keeping the credits public markets won't take.
+
+That's the macro backdrop. Now the AI and compute stack, where the bottleneck keeps migrating up the supply chain. Semiconductors and Compute has Lam Research holding back part of its December guide because of its own cleanroom and component constraints, the first guide this cycle to name the toolmakers themselves as a bottleneck. Lam still put next year's equipment spending above 200 billion dollars, and TSMC is guiding capex sharply higher into the same squeeze, which argues for a supply-capped cycle rather than a slowing one.
+
+Frontier AI Lab Competition leads with Moonshot AI's Kimi K3.1 Pro, listed permanently at half the price US labs had converged on, with open weights due November 4th and capability claims that so far are Moonshot's own. That lands just before Anthropic, which makes the model behind this show, could start IPO marketing, possibly the week of November 9th, with some investors floating a valuation of 1.8 to 2 trillion dollars. The open question is how much of Anthropic's revenue sits in commoditizable coding work, exactly where Moonshot just undercut the market.
+
+AI Products and Applications found three answers to where an agent actually runs. It can run fully on a user's own Mac with Perplexity, under a persistent enterprise identity Microsoft is previewing in Copilot Studio, or inside a rival's tool, as Claude now does in Google's Antigravity. None of the three comes with usage data yet.
+
+Enterprise Technology finds AI redistributing money inside incumbents rather than adding new money on top. IBM's AI work is growing inside a flat consulting line, and SAP's cloud gross margin dipped seven-tenths of a point, which management ties to its AI investment. Oracle, meanwhile, keeps pooling its AI demand into a few giant counterparties, now including a single-source report that TikTok is targeting about four gigawatts of capacity, with no contract signed.
+
+Now the applied frontier. Space and the Orbital Economy has Starlink's direct-to-cell service passing 22 million monthly users, up 37 percent in a quarter, though that is reach, not disclosed revenue. Its nearest Western rival, Amazon's Leo constellation, the former Kuiper, hasn't launched since July, and the FCC has temporarily stripped spectrum priority from first-generation satellites it launches after its missed deadline.
+
+AI in Biopharma R&D closes the tour with OpenAI buying Orchestra Bio, a small operations-workflow startup, to support its life-sciences model, GPT-Rosalind. The desk's point is that the first frontier lab to buy its way into pharma bought workflow, not chemistry, and no customer has published a measured outcome yet. The bigger levers, governed access to patient data and a first approved AI-discovered drug, are both still unproven.
+
+Here's the thread worth carrying out. On Wednesday and again yesterday, this show closed on the cost of capital under the AI buildout, and today that pressure climbed from CoreWeave's bonds and Oracle's swap to Meta's own. Watch whether Meta's protection stabilizes next week, or whether Oracle, Microsoft, and Broadcom keep widening alongside it.
+
+That's The Throughline. Have a good weekend.
