@@ -57,7 +57,10 @@ FEED_BASE_URL = "https://marange63.github.io/Spotify"
 # `.git` never grows from mp3s and pruning truly frees space); "pages" = commit into docs/audio and
 # serve from GitHub Pages (the legacy path — bloats git history). add_episode falls back to "pages"
 # for any single episode whose release upload fails, so a publish can never break. See github_release.py.
-AUDIO_HOST = "release"
+# 2026-10-24: switched to "pages" because Spotify's fetcher started failing on github.com release
+# redirects ("Maximum line length limit exceeded" on the 3.9 KB Content-Security-Policy header line).
+# Flip back to "release" once Spotify confirms their crawler handles those redirects again.
+AUDIO_HOST = "pages"
 GITHUB_REPO = "marange63/Spotify"          # owner/repo that holds the releases
 GITHUB_RELEASE_TAG = "audio"               # single permanent release that holds the rolling audio window
 # Dedicated GitHub token for the unattended publish (fine-grained PAT, this repo only, Contents
