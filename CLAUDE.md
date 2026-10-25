@@ -9,9 +9,12 @@ the prompt library (`prompts.json`); Claude Code does the research + writing; `e
 audio; `feed.py` builds a podcast RSS feed. The `feed.xml` + cover + per-episode transcripts are
 served publicly by GitHub Pages out of `./docs`; **episode audio is hosted as GitHub Release assets**
 (`config.AUDIO_HOST="release"`, via `github_release.py`) — stored outside the git repo so `.git`
-never grows from mp3s. Spotify for Creators ingests the feed URL. Publishing is a `git push` (for the
-feed/transcripts) plus a release-asset upload per episode — Pages serves the feed and Spotify
-re-ingests on its refresh schedule.
+never grows from mp3s. The Pages site is deployed by the `.github/workflows/pages.yml` Actions
+workflow on every push, which mirrors the release's mp3s into `/audio/`, so every enclosure URL is a
+Pages URL (`config.AUDIO_SERVE="pages"`) — Spotify's fetcher rejects github.com release redirects
+(2026-10-24). Spotify for Creators ingests the feed URL. Publishing is a `git push` (for the
+feed/transcripts) plus a release-asset upload per episode — the workflow redeploys Pages in ~1–2 min
+and Spotify re-ingests on its refresh schedule.
 
 **Retention model (rolling 10-day window):** each publish is a **new episode** with a unique per-day
 GUID (`<prompt_id>-<YYYY-MM-DD>`), so followers get normal new-episode notifications. The show keeps

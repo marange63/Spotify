@@ -103,3 +103,21 @@ class GithubReleaseTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class PagesBuildTypeTest(unittest.TestCase):
+    def test_reports_build_type(self):
+        from unittest import mock
+        import github_release as gr
+        with mock.patch.object(gr, "_token", return_value="t"), \
+             mock.patch.object(gr, "_api", return_value=(200, {"build_type": "workflow"})):
+            self.assertEqual(gr.pages_build_type(), "workflow")
+        with mock.patch.object(gr, "_token", return_value="t"), \
+             mock.patch.object(gr, "_api", return_value=(200, {"build_type": "legacy"})):
+            self.assertEqual(gr.pages_build_type(), "legacy")
+
+    def test_unknown_on_error(self):
+        from unittest import mock
+        import github_release as gr
+        with mock.patch.object(gr, "_token", side_effect=RuntimeError("no token")):
+            self.assertIsNone(gr.pages_build_type())

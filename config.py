@@ -34,8 +34,9 @@ SHOW_ID = "spotify:show:033LxzC8UHlbiJmWLw3n2K"
 SHOW_NAME = "Daily Briefings"
 
 # --- Public podcast (self-hosted RSS -> Spotify for Creators) ---
-# Audio + cover + feed.xml are served by GitHub Pages out of ./docs on the repo's
-# default branch. Enable once: repo Settings -> Pages -> Source: main / docs.
+# Cover + feed.xml + transcripts live in ./docs; the GitHub Pages site is deployed from it by the
+# .github/workflows/pages.yml Actions workflow on every push to main, which also mirrors the episode
+# audio from the GitHub Release into /audio/. Enable once: repo Settings -> Pages -> Source: GitHub Actions.
 PODCAST_TITLE = "Cautious Optimism Briefings"
 PODCAST_AUTHOR = "Cautious Optimism"
 PODCAST_OWNER_NAME = "Cautious Optimism"
@@ -53,14 +54,21 @@ PODCAST_SUBCATEGORY = "Investing"
 
 # GitHub Pages hosting
 FEED_BASE_URL = "https://marange63.github.io/Spotify"
-# Where episode audio is hosted. "release" = GitHub Release assets (stored OUTSIDE the git repo, so
-# `.git` never grows from mp3s and pruning truly frees space); "pages" = commit into docs/audio and
-# serve from GitHub Pages (the legacy path — bloats git history). add_episode falls back to "pages"
-# for any single episode whose release upload fails, so a publish can never break. See github_release.py.
-# 2026-10-24: switched to "pages" because Spotify's fetcher started failing on github.com release
-# redirects ("Maximum line length limit exceeded" on the 3.9 KB Content-Security-Policy header line).
-# Flip back to "release" once Spotify confirms their crawler handles those redirects again.
-AUDIO_HOST = "pages"
+# Where episode audio is STORED. "release" = GitHub Release assets (OUTSIDE the git repo, so `.git`
+# never grows from mp3s and pruning truly frees space); "pages" = commit into docs/audio (the legacy
+# path — every mp3 bloats git history forever). add_episode falls back to "pages" for any single
+# episode whose release upload fails, so a publish can never break. See github_release.py.
+AUDIO_HOST = "release"
+# Where the feed tells Spotify to FETCH release-hosted audio from. "pages" = the Pages URL
+# <FEED_BASE_URL>/audio/<guid>.mp3: the pages.yml workflow pulls the release's mp3s into the site on
+# every push, so Pages serves them directly (plain 200, short headers). "release" = the github.com
+# release-download URL — REJECTED by Spotify's fetcher since 2026-10-24 ("Maximum line length limit
+# exceeded" on the 3.9 KB Content-Security-Policy header of its 302 redirect), which stalled a whole
+# day's episodes; keep "pages" unless Spotify fixes that. Pages-hosted (fallback) episodes always
+# use the Pages URL regardless. publish_feed self-heals: if the repo's Pages source is still the
+# legacy main:/docs build (github_release.pages_build_type), that run commits audio into docs/audio
+# and advertises legacy-safe URLs, with an ntfy warning, so nothing 404s.
+AUDIO_SERVE = "pages"
 GITHUB_REPO = "marange63/Spotify"          # owner/repo that holds the releases
 GITHUB_RELEASE_TAG = "audio"               # single permanent release that holds the rolling audio window
 # Dedicated GitHub token for the unattended publish (fine-grained PAT, this repo only, Contents

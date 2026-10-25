@@ -85,6 +85,18 @@ def upload_asset(mp3_path: str, asset_name: str) -> str:
     return asset["browser_download_url"]
 
 
+def pages_build_type() -> str | None:
+    """How the repo's GitHub Pages site is built: ``"workflow"`` (the .github/workflows/pages.yml
+    Actions deploy, which mirrors this release's audio into the site) or ``"legacy"`` (GitHub's own
+    build of main:/docs, which cannot carry release assets). ``None`` when it cannot be determined
+    (no token, network error, Pages disabled) — callers then trust the configured mode."""
+    try:
+        _, pages = _api("GET", f"{_repo_api()}/pages", _token())
+        return pages.get("build_type") if isinstance(pages, dict) else None
+    except Exception:
+        return None
+
+
 def delete_asset(asset_name: str) -> bool:
     """Delete the release asset named ``asset_name`` (real reclamation on prune). Best-effort:
     returns True if deleted, False if it wasn't there or the call failed."""

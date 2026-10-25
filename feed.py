@@ -7,6 +7,9 @@ Self-hosted publishing path (replaces the private "Save to Spotify" flow for the
 truly frees space. Each episode is recorded in ``feed_state.json`` with its release download URL in
 ``audio_url``. If a release upload fails, that one episode falls back to committing into
 ``docs/audio/`` and serving from Pages (``audio_url`` stays None), so a publish can never break.
+**The feed advertises the Pages URL for every episode** (``config.AUDIO_SERVE == "pages"``): the
+``.github/workflows/pages.yml`` deploy mirrors the release's mp3s into the site's ``/audio/``, because
+Spotify's fetcher rejects the github.com release-download redirect (2026-10-24).
 
 Retention model (podcast-native, rolling window): every publish is a new episode with a unique GUID,
 so followers get a normal new-episode notification. The show keeps a rolling
@@ -275,11 +278,12 @@ def prune_old(keep_days: int = config.RETENTION_DAYS, today: str | None = None) 
     if not prune:
         return []
     for e in prune:
-        # audio: delete the release asset, or the Pages docs/audio file
+        # audio: delete the release asset, and any docs/audio copy (Pages-hosted episodes, or a
+        # release-hosted one that was committed while Pages hosting was the stopgap)
         if e.get("audio_url"):
             import github_release
             github_release.delete_asset(e["audio_file"])  # best-effort
-        elif e.get("audio_file"):
+        if e.get("audio_file"):
             try:
                 os.remove(os.path.join(config.DOCS_AUDIO_DIR, e["audio_file"]))
             except FileNotFoundError:
@@ -326,13 +330,20 @@ def build_feed() -> str:
         if e.get("transcript_txt"):
             txt_url = f"{base}/transcripts/{e['transcript_txt']}"
             transcript_tags += f'\n      <podcast:transcript url="{escape(txt_url)}" type="text/plain" language="en"/>'
-        # Enclosure URL: the GitHub Release download URL for release-hosted episodes, else the
-        # legacy GitHub Pages URL (docs/audio) for older/fallback episodes. Cache-bust with the
-        # publish instant: the filename is stable (<guid>.mp3), so replacing an already-ingested
-        # episode's media would otherwise leave Spotify serving the copy it cached at that URL — it
-        # only re-downloads when the URL changes. Both GitHub Pages and Release downloads ignore the
-        # ?v query string, so it is a safe cache-bust on either host.
-        base_audio = e.get("audio_url") or f"{base}/audio/{e['audio_file']}"
+        # Enclosure URL: the GitHub Pages URL <base>/audio/<guid>.mp3 — for release-hosted episodes
+        # too (config.AUDIO_SERVE == "pages"; the Pages deploy workflow mirrors the release's mp3s
+        # into the site), because Spotify's fetcher rejects the github.com release-download
+        # redirect. The release download URL (audio_url) is advertised only when AUDIO_SERVE is
+        # "release". Cache-bust with the publish instant: the filename is stable (<guid>.mp3), so
+        # replacing an already-ingested episode's media would otherwise leave Spotify serving the
+        # copy it cached at that URL — it only re-downloads when the URL changes. Both GitHub Pages
+        # and Release downloads ignore the ?v query string, so it is a safe cache-bust on either host.
+        # A docs/audio copy is on the Pages site under either build, so its Pages URL is always right.
+        if (e.get("audio_url") and config.AUDIO_SERVE == "release"
+                and not os.path.exists(os.path.join(config.DOCS_AUDIO_DIR, e["audio_file"]))):
+            base_audio = e["audio_url"]
+        else:
+            base_audio = f"{base}/audio/{e['audio_file']}"
         audio_url = f"{base_audio}?v={e.get('audio_rev') or int(dt.timestamp())}"
         item = f"""    <item>
       <title>{escape(e['title'])}</title>

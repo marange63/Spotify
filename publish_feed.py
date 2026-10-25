@@ -26,6 +26,7 @@ import urllib.request
 
 import config
 import github_auth
+import github_release
 import library
 from episode import synthesize
 from feed import add_episode, build_feed, has_episode, prune_old
@@ -233,6 +234,21 @@ def publish(date: str, summaries: dict, push: bool = True,
                 _alert_ntfy(date, f"GitHub auth is broken, nothing was published: {reason}. Fix: "
                                   f"refresh the token file at {config.GITHUB_TOKEN_FILE}.")
             return [("GitHub auth", f"FAILED: {reason}")]
+        # Self-heal for audio hosting: release-hosted audio reaches the Pages site only through the
+        # pages.yml deploy workflow. If the repo's Pages source is still GitHub's legacy main:/docs
+        # build (Actions source not yet enabled, or reset), that site cannot carry release assets —
+        # so for this run commit audio into docs/audio the legacy way and advertise the URLs that
+        # resolve under that build, and alert, instead of publishing enclosures that 404.
+        if config.AUDIO_HOST == "release" and config.AUDIO_SERVE == "pages":
+            if github_release.pages_build_type() == "legacy":
+                log.warning("Pages source is the legacy main:/docs build (deploy workflow not "
+                            "enabled) — committing today's audio into docs/audio instead")
+                config.AUDIO_HOST, config.AUDIO_SERVE = "pages", "release"
+                if notify:
+                    _ntfy_post(f"Briefings: Pages source still legacy ({date})",
+                               "Today's audio was committed into git. Switch repo Settings -> Pages "
+                               "-> Source to 'GitHub Actions' so release audio is served by the "
+                               "deploy workflow.", "warning")
 
     data = library.load()
     results = []

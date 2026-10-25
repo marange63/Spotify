@@ -1,0 +1,65 @@
+# Builds and deploys the GitHub Pages site on every push to main: docs/ (feed.xml, cover,
+# transcripts) plus the episode audio pulled from the permanent "audio" Release
+# (config.GITHUB_RELEASE_TAG). Why a workflow instead of the legacy "deploy from main:/docs" build:
+# the mp3s are stored as Release assets (outside git, so .git never grows), but Spotify's feed
+# fetcher rejects the github.com release-download redirect (2026-10-24: "Maximum line length limit
+# exceeded" on its 3.9 KB Content-Security-Policy header). Mirroring the same files into the Pages
+# site gives Spotify a direct 200 with short headers. See docs/ARCHITECTURE.md (feed.py /
+# github_release.py) and config.AUDIO_SERVE.
+name: Deploy Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never cancel a deploy in flight; a later push queues behind it.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: docs
+
+      - name: Pull episode audio from the audio Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p docs/audio
+          gh release download audio --repo "$GITHUB_REPOSITORY" --dir docs/audio \
+            --pattern '*.mp3' --clobber
+          echo "audio files on site: $(ls docs/audio/*.mp3 2>/dev/null | wc -l)"
+          du -sh docs/audio
+
+      - name: Check every enclosure in feed.xml is on the site
+        run: |
+          missing=0
+          for f in $(grep -o '/audio/[^"?<]*\.mp3' docs/feed.xml | sed 's#.*/audio/##' | sort -u); do
+            if [ ! -f "docs/audio/$f" ]; then
+              echo "::warning::feed.xml references audio that is not on the site: $f"
+              missing=$((missing + 1))
+            fi
+          done
+          echo "enclosures missing from the site: $missing"
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

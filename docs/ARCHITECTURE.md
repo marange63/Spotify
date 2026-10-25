@@ -112,12 +112,17 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   `build_feed()` renders `docs/feed.xml` (iTunes tags, newest-first, `<pubDate>` from the real
   `published_at` — except prompts in `config.FEED_DAY_LAST_PROMPTS`, whose
   timestamp `add_episode` backdates below their day), `<podcast:transcript>` tags + a "Read the full
-  transcript" link) — each enclosure
-  uses the episode's `audio_url` (release) or the legacy `docs/audio` Pages URL. Stable per-day GUIDs.
+  transcript" link) — every enclosure is the **Pages URL** `<FEED_BASE_URL>/audio/<guid>.mp3`
+  (`config.AUDIO_SERVE="pages"`), for release-hosted episodes too: the Pages deploy workflow mirrors
+  the release's mp3s into the site, because **Spotify's fetcher rejects the github.com
+  release-download redirect** (2026-10-24, "Maximum line length limit exceeded" on its 3.9 KB
+  Content-Security-Policy header — stalled a whole day's episodes until support forced a refresh).
+  The release download URL in `audio_url` is advertised only with `AUDIO_SERVE="release"`. Stable
+  per-day GUIDs.
   `prune_old(keep_days=config.RETENTION_DAYS, today)` enforces the **rolling 10-day retention window**:
   it drops episodes older than the window from `feed_state.json` and deletes their audio — the GitHub
-  Release asset (real reclamation, since assets live outside git) or the `docs/audio` file for
-  Pages-hosted ones — plus their `docs/transcripts` files (best-effort), so `build_feed()` re-renders a
+  Release asset (real reclamation, since assets live outside git) and any `docs/audio` file
+  (Pages-hosted ones) — plus their `docs/transcripts` files (best-effort), so `build_feed()` re-renders a
   feed that lists only recent history. With release hosting, `.git` no longer grows from audio at all.
 - **`github_release.py`** — hosts episode audio as GitHub **Release assets** (outside the git object
   store, so `.git` stays flat and pruning truly frees space). `upload_asset` / `delete_asset` /
@@ -125,6 +130,21 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   unauthenticated with range-request support. Token comes from `github_auth.token()`. stdlib
   `urllib` only; HTTP isolated in `_token`/`_api` for tests. Verify live + non-destructively with
   `python tools/verify_release.py`.
+- **`.github/workflows/pages.yml`** — deploys the GitHub Pages site (**Settings → Pages → Source:
+  GitHub Actions**, since 2026-10-25) on every push to `main` and on manual dispatch: sparse-checks-out
+  `docs/`, runs `gh release download audio --pattern '*.mp3'` into `docs/audio/`, warns (does not fail)
+  if `feed.xml` references an mp3 that is not on the site, then `upload-pages-artifact` + `deploy-pages`
+  (concurrency group `pages`, never cancelled mid-deploy). So the published site = `docs/` + the
+  release's rolling audio window (~10 days × ~33 MB, far under the 1 GB Pages limit), while git carries
+  no mp3s. Deploy takes ~1–2 min after the push (watch it at the repo's **Actions** tab, or
+  `GET https://api.github.com/repos/marange63/Spotify/actions/runs?per_page=1`, no auth needed). Prune
+  needs nothing extra: deleting the release asset drops the file from the next deploy. If a deploy
+  fails, the previous site stays live; the next push (or a manual "Run workflow") redeploys.
+  **Self-heal:** `publish_feed.publish` asks `github_release.pages_build_type()` first; if the Pages
+  source is still GitHub's legacy `main:/docs` build (workflow source not enabled, or reset), that run
+  flips to `AUDIO_HOST="pages"` / `AUDIO_SERVE="release"` — audio is committed into `docs/audio` and
+  release-only episodes keep their github.com URL — and sends an ntfy warning, so no enclosure 404s;
+  `build_feed` always uses the Pages URL for any episode that has a `docs/audio` copy.
 - **`github_auth.py`** — GitHub credentials for the unattended publish; **never prompts, never
   hangs** (added after the 2026-10-14 outage: post-Windows-update restart, GCM lost its credential,
   waited forever on an invisible sign-in prompt under the S4U task, and the hung publish held
@@ -234,13 +254,15 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   **Currently disabled** — see the `publish-confirmation-email-blocked` memory.
 - **`feed_state.json`** — the episode archive the feed is built from (source of truth), held to a
   rolling `config.RETENTION_DAYS` (10)-day window by `feed.prune_old` after each publish. Each record
-  carries `audio_url` (the GitHub Release download URL; `null` for legacy/fallback Pages-hosted
-  episodes, which age out of the window).
+  carries `audio_url` (the GitHub Release download URL — a hosting marker, since the feed advertises
+  the Pages URL; `null` for fallback Pages-hosted episodes, which age out of the window).
 - **`feed_state_test.json`** / **`docs/test/`** — the staging feed's state + hosted files (see
   Staging feed below). Hand-seeded; not yet wired into any code.
-- **`docs/`** — the GitHub Pages site: `cover.jpg` (1500×1500), `index.html`, `.nojekyll`, `feed.xml`,
-  `audio/<id>-<date>.mp3`, `transcripts/<id>-<date>.txt` + `.html`. Served at
-  `https://marange63.github.io/Spotify/` from `main` `/docs`. (Transcripts: Apple Podcasts and
+- **`docs/`** — the GitHub Pages site source: `cover.jpg` (1500×1500), `index.html`, `.nojekyll`,
+  `feed.xml`, `transcripts/<id>-<date>.txt` + `.html`; `audio/<id>-<date>.mp3` holds only fallback
+  (upload-failed) episodes — the deploy workflow adds the release's mp3s at build time. Served at
+  `https://marange63.github.io/Spotify/` by the `pages.yml` workflow (not the legacy `main` `/docs`
+  build). (Transcripts: Apple Podcasts and
   Podcasting 2.0 apps read the `<podcast:transcript>` tag; Spotify ignores RSS transcripts, so the
   description link is how Spotify listeners reach the hosted page.)
 - **`tools/`** — `daily_run.ps1` (the unattended Task Scheduler entry point: phase 1 headless
@@ -385,7 +407,7 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
 - `episode.py` — **used only for TTS now**: `synthesize` + resilient chunked `_synthesize`. The
   `publish_replacing`/`upload_episode`/`wait_ready`/`delete_episode` helpers are the retired private path.
 - `briefings/<id>.txt` / `.mp3` — per-prompt scripts and working audio (the `.mp3` is git-ignored; the
-  published copy lives under `docs/audio/`).
+  published copy is the GitHub Release asset `<id>-<date>.mp3`).
 - Dependencies (in the **`Spotify`** conda env): `edge-tts`, `aiohttp`, `Pillow`, `mutagen` —
   declared in `environment.yml` (conda) / `requirements.txt` (pip); both files are the same list.
 - Legacy private path: binary `%USERPROFILE%\bin\save-to-spotify.exe`; private show **Daily Briefings**

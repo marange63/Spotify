@@ -71,6 +71,7 @@ class ReleaseHostingTest(unittest.TestCase):
             mock.patch.object(config, "DOCS_TRANSCRIPTS_DIR", self.tx),
             mock.patch.object(config, "BRIEFINGS_DIR", self.brief),
             mock.patch.object(config, "AUDIO_HOST", "release"),
+            mock.patch.object(config, "AUDIO_SERVE", "pages"),
         ]
         for c in self._ctx:
             c.start()
@@ -89,10 +90,30 @@ class ReleaseHostingTest(unittest.TestCase):
         self.assertEqual(rec["audio_url"], url)
         # release hosting must NOT write a docs/audio copy
         self.assertFalse(os.path.exists(os.path.join(self.audio, "a-2026-07-25.mp3")))
-        # feed enclosure uses the release URL (with cache-bust)
+        # feed enclosure is the Pages URL (the deploy workflow mirrors the release mp3 into the
+        # site) with cache-bust — never the github.com redirect Spotify's fetcher rejects
         feed.build_feed()
         xml = open(self.feed_file, encoding="utf-8").read()
+        self.assertIn("/audio/a-2026-07-25.mp3?v=", xml)
+        self.assertNotIn("github.com", xml)
+
+    def test_release_url_advertised_only_when_serving_from_release(self):
+        import github_release
+        url = "https://github.com/o/r/releases/download/audio/a-2026-07-25.mp3"
+        with mock.patch.object(github_release, "upload_asset", return_value=url):
+            feed.add_episode("a", "A", "summary", self.mp3, "2026-07-25")
+        with mock.patch.object(config, "AUDIO_SERVE", "release"):
+            feed.build_feed()
+        xml = open(self.feed_file, encoding="utf-8").read()
         self.assertIn(url + "?v=", xml)
+        # ...unless a docs/audio copy exists: that file is on Pages under either build, so the
+        # Pages URL stays (keeps the legacy-build transition from re-pointing episodes at github.com)
+        open(os.path.join(self.audio, "a-2026-07-25.mp3"), "wb").close()
+        with mock.patch.object(config, "AUDIO_SERVE", "release"):
+            feed.build_feed()
+        xml = open(self.feed_file, encoding="utf-8").read()
+        self.assertIn("/audio/a-2026-07-25.mp3?v=", xml)
+        self.assertNotIn("github.com", xml)
 
     def test_upload_failure_falls_back_to_pages(self):
         import github_release
@@ -116,9 +137,12 @@ class ReleaseHostingTest(unittest.TestCase):
         open(os.path.join(self.tx, old["transcript_html"]), "w").close()
         with open(self.state_file, "w", encoding="utf-8") as f:
             json.dump({"episodes": [old]}, f)
+        # a stale docs/audio copy of a release-hosted episode is swept too
+        open(os.path.join(self.audio, old["audio_file"]), "wb").close()
         with mock.patch.object(github_release, "delete_asset", return_value=True) as dl:
             feed.prune_old(keep_days=10, today="2026-07-25")
-        dl.assert_called_once_with("a-2026-07-01.mp3")  # release asset deleted, not a local file
+        dl.assert_called_once_with("a-2026-07-01.mp3")  # release asset deleted
+        self.assertFalse(os.path.exists(os.path.join(self.audio, "a-2026-07-01.mp3")))  # copy gone
         self.assertFalse(os.path.exists(os.path.join(self.tx, "a-2026-07-01.txt")))  # transcript gone
 
 
