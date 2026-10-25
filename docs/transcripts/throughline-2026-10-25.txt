@@ -1,0 +1,27 @@
+Good morning, this is The Throughline for Sunday, October 25th, 2026.
+
+Today's headline: a leaked draft of Anthropic's IPO filing shows about 450 billion dollars of noncancelable compute commitments against 16.3 billion dollars of first-half revenue, the first hard look at what a frontier lab has actually signed up to pay.
+
+Seven briefings shipped today, and five desks, including Semiconductors and Strategic Power, are off. We'll start with the macro backdrop, move into the AI and compute stack, and close on the applied frontier.
+
+Capital Markets Radar finds the AI financing scare sorting capital by how fast it can leave. Headlines had Blackstone leaning into wider AI credit spreads, but Jon Gray's transcript limits the higher yield to new projects that don't yet have a tenant, so the slow money is staying, on tougher terms. Meanwhile, the money that can leave daily is leaving, with hedge funds cutting tech exposure by the largest proportion in Goldman's prime-brokerage records, and bitcoin ETFs logging their biggest one-day outflow since late June.
+
+Digital Money finds institutional crypto demand narrowing into the sturdiest door, not broadening. BlackRock's IBIT carried the spot bitcoin ETF complex's entire net demand for the week while every other fund combined saw net outflows, and bitcoin briefly fell below 80,000 dollars on Saturday before recovering within two hours. And the OCC's final stablecoin rule turns out looser on rewards but tighter on runs, because it drops the automatic extension of the two-day redemption deadline.
+
+That's the macro backdrop. Now the AI and compute stack, where one lab's own balance sheet just became the test case for that financing question.
+
+Frontier AI Lab Competition carries the headline, with a standing disclosure: Anthropic makes the model behind this show, and every number here comes from a leaked draft, not a confirmed filing. The so-what is operating leverage: that compute bill is fixed and Anthropic can't shed it, while pricing is under pressure from Moonshot, which has listed Kimi K3.1 Pro permanently at half the top labs' price. And Anthropic will have to disclose all of this publicly, while OpenAI raises privately at a reported 1.25 trillion dollar valuation and keeps its own commitments out of view.
+
+AI Products and Applications says the week's real contest is distribution, not capability. OpenAI disclosed more than 100,000 cumulative advertisers on ChatGPT Ads, its first adoption number in weeks, though that measures reach, not revenue. Google paired a cheap launch price for Gemini 4 Argon with a slot in GitHub Copilot's model picker, and Microsoft turned Word into a shelf that outside legal-AI vendors rent, all so far without usage data.
+
+Enterprise Technology shows what happens when the AI vendor itself sets the price. Incumbents like Okta and ServiceNow give AI away free to protect renewals, while Anthropic, selling Claude to Schwab's advisor firms, requires twenty Enterprise seats, a floor that RIABiz says sidelines the eleven thousand smaller firms. The one place channel data hints at genuinely new budget, rather than shifted budget, is AI-driven cybersecurity, and the test comes when those vendors report.
+
+Now the applied frontier, where the same forward-financing question shows up in hardware.
+
+Robotics and Physical AI has Figure AI finally disclosing output, all of it company claims: its Helix model succeeded on about 56 percent of household chores in homes it had never seen, against 9 percent without pretraining. The homes were new but the chores were familiar, so it's the cleanest evidence yet that data is doing the work, within limits. Figure's compute commitment to Nscale starts at 3.5 billion dollars against cash just above 2 billion, but that capacity isn't due to deploy until late 2027, so it's a financing question for then, not now.
+
+AI in Biopharma R&D closes the tour with protein design getting cheaper and more open. Nvidia and the University of Washington released RFD4-Proteina with open weights, and it posted an 84 percent wet-lab binder rate, though on a well-studied target. The desk's read is that design is heading toward free and the money is moving downstream, as Warp Sciences, led by OpenAI's former product chief Kevin Weil, raised 215 million dollars to build the physical synthesis and testing capacity that models can't replace.
+
+One thread worth naming before we go. On Friday and Saturday, this show closed on the cost of capital under the AI buildout, as the pressure climbed from CoreWeave's bonds to Meta's record default swaps. Today it reached a lab's own balance sheet, in the form of a compute bill Anthropic can't cancel, and the public S-1 will show whether margins can carry it.
+
+That's The Throughline. Have a good Sunday.
