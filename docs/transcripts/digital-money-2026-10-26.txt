@@ -1,0 +1,43 @@
+Good morning. It's Monday, October 26th, and this is your digital money briefing.
+
+Start with bitcoin, because the weekend pushed further into the test this desk has been tracking since mid-October. Bitcoin fell as low as $79,146 on Saturday, its weakest level in more than a month. By early Sunday it had recovered to around $80,936. That still left it below its 50-day moving average, which sits near $81,700.
+
+Walk the arc, because the direction matters more than any single print. Early last week, bitcoin was straddling the average cost basis of ETF holders. On Thursday it pierced that line intraday. On Saturday it briefly dropped under eighty thousand dollars. And now it is trading below its own trend average. Each test has gone a little deeper than the last.
+
+Be precise about what hasn't happened. No source we have shows a daily close below eighty thousand. Saturday's low was intraday, and Sunday's print is itself a recovery off that low. A break of the moving average is also a technical marker, not a flow signal. On its own, it doesn't show anyone distributing. So the "pierce, not breach" framing is weakening, but it hasn't been falsified.
+
+Now the strongest bull counterweight, which comes from the flows. Thursday's ETF outflow of about $636 million led our Saturday briefing, so take it as a callback. The useful move is to set it against the base it drains from. Since the funds launched, cumulative net inflows still run above $57 billion. On our arithmetic, Thursday's outflow was about one percent of that base. That bounds how much of the ETF holder base has actually turned over. One rough day is a wobble in the holder base, not a rotation out of it.
+
+That raises the obvious question. Is this last October again? A year ago this month, a crash liquidated almost $17 billion in long positions. That move ran on borrowed money rather than fresh buying. An analysis published at the start of this month set out a two-part test for a repeat. Part one is a break below $82,300. Part two is funding back above 8 percent annualized.
+
+The price half has now fired. Saturday's low and Sunday's recovery both sit below that line. The leverage half is a different story, and the same analysis argues against a repeat. Open interest was rebuilding at almost exactly the pre-crash pace. But funding looked nothing like it did back then. Before last year's crash, funding on Binance and Bybit topped 8 percent on 18 of 32 exchange-days. In the week the analysis studied, it cleared that bar just once in 28, and it turned negative more than once.
+
+The liquidation math is the sharpest signal in that study. In early October, forced selling ran about $248 million for every one percent drop in price. On the day of last year's crash, it was roughly $2.2 billion per one percent. That describes a market about nine times less exposed to forced selling. It is the best evidence the bulls have.
+
+Two limits on that evidence. First, it describes the start of October, nearly three weeks before this weekend's move. Second, it rests on one article's own exchange set, and we can't independently verify the methodology.
+
+So check it against Saturday. Yesterday we reported a brief burst of forced selling, about $436 million in liquidations across crypto. Almost all of it hit long positions. That came as bitcoin dipped to about $79,280 before bouncing. On our rough arithmetic, the move in that window was under two percent. That puts forced selling per one percent in the same range as the early-October benchmark. It is not an escalation. Treat it as rough, because the liquidation total covers all of crypto, not bitcoin alone. Still, the lighter-book reading held up even after price cleared the trigger level.
+
+The funding half stays genuinely unresolved. The only current funding reading we found doesn't state its units. Read as an eight-hour rate, it lands right around the trigger. Read as a daily rate, it sits far below it. So the honest statement is that the funding half of the test is untested in our data. It has not been cleared, and it has not fired.
+
+One more wrinkle is worth sitting with. Cheap funding next to rebuilding open interest isn't automatically comforting. It can mean positioning has tilted toward shorts or hedges. That trades downside cascade risk for upside squeeze risk. Leverage that's cheap to carry is not the same thing as leverage that's harmless. So the evidence we have says this is not a crowded-long blowup in the making. But it doesn't say the book is quiet.
+
+If the stress isn't coming through leverage, it's coming through dollars leaving the system. That's where stablecoins come in. USDC circulation stood at $72 billion as of last Thursday. That's down about $500 million on the week, the second straight weekly decline of roughly that size.
+
+The gross flows tell you what kind of decline it is. Circle issued about $12.8 billion over that week and redeemed about $13.3 billion. On our arithmetic, the net drain is under 4 percent of what got redeemed. Meanwhile, a single week of redemptions ran close to a fifth of the entire float. That's a heavily used settlement instrument slowly leaking dollars. It is not a run on the token. And no issuer has explained the cause, so treat the why as an open question.
+
+Zoom out to the whole market. DefiLlama puts total stablecoin supply at about $300 billion, down modestly on the week. That extends the drift we flagged through last week. Trackers differ by about as much as the weekly moves, so read the direction, not the decimal. The Treasury read carries over from Saturday. A shrinking float is a small subtraction from issuer demand for short-dated bills. It's real, but it's small.
+
+This framing also changes how to read Wednesday's Fed decision, which is still pending. If the stress is a liquidity drain rather than a leverage cascade, a hawkish surprise should show up first in continued stablecoin redemptions and ETF outflows. It would not necessarily show up as a liquidation spike. That's a conditional, and our inference.
+
+Now the counter-current, because the plumbing side of this market is still expanding while the speculative float shrinks. JPMorgan's tokenized money-market funds, MONY and JLTXX, are now live on Solana for qualified US investors. We covered the launch last week. What's new is the stated design intent. JLTXX is a registered government money fund built specifically to support stablecoin issuers under the GENIUS Act framework.
+
+That connects to the OCC rule we covered yesterday. Issuers under that rule face a two-business-day redemption deadline, with no automatic extension. That rewards holding very short, very liquid government paper. Put the two together, and regulated issuers' reserve demand looks set to be channelled into short government fund exposure. On that reading, a shrinking speculative float and growing regulated plumbing can coexist. That's our inference, not a measured flow.
+
+Keep it sized correctly. Chainalysis puts tokenized US Treasuries at roughly $15.4 billion, more than double the level a year earlier. That's real growth. But the whole category is still only about a twentieth the size of the stablecoin market it's meant to serve. And a product built for issuer reserves is not evidence of issuer demand. Our sources disclose no fund size for JLTXX. The honest frame remains that this plumbing is being built faster than it's being used.
+
+So here's where that leaves us heading into the Fed. Bitcoin has tripped the price half of the cascade test but not the leverage half. That argues the slide is a slow drain of dollar liquidity, not a crowded-long blowup. The shrinking dollar float is the better gauge to watch.
+
+Four things to watch this week, all still pending. First, a daily close below eighty thousand dollars, paired with funding confirmed above 8 percent annualized. Second, whether USDC posts a third straight week of net redemptions. Third, the Fed's decision on Wednesday, October 28th. And fourth, Coinbase's third-quarter results on Thursday, October 29th.
+
+That's today's briefing. Stay cautiously optimistic, and I'll talk to you tomorrow.

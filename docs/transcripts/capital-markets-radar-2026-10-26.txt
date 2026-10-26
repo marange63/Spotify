@@ -1,0 +1,45 @@
+Good morning, it's Monday, October 26th, and this is the Capital Markets Radar.
+
+The bond market rallied last week on fear, but the Fed is still priced to hike. That tension is the thing to carry into this week's meeting.
+
+Start with the Treasury move itself. The ten-year yield touched about 5.36 percent on October 7th, its highest level since April 2002. By Friday it was back at the 5 percent line. CNBC's tally had it at 4.999 percent, up five basis points on the day. The two-year rose by the same five basis points, to 4.686 percent.
+
+Now set that against Fed pricing going into Tuesday and Wednesday. Per CME FedWatch, as reported by FXStreet early Monday, the market puts roughly a 90 percent probability on a hold this week, with the policy range at 3.75 to 4 percent. But it also puts close to 80 percent odds on a quarter-point hike in December. The exact December number varies across trackers. All of them point the same way, toward a hike and not a cut.
+
+That's the paradox. A ten-year near 5 percent looks like the market calling the top on rates. The front end disagrees. Eighty percent odds of a December hike is not what an easing cycle looks like. So the rally was a haven trade sitting on top of a hawkish path. It was not a dovish repricing of that path.
+
+Friday is the first evidence on how durable that haven trade is. On Saturday, this desk noted that the last time the ten-year closed below 5 percent, it jumped straight back the next day. Friday delivered a partial version of that bounce. And the two-year moved just as much as the ten-year. When the front end backs up in step, that's the policy path reasserting itself, not just term premium. The so-what: the bond rally is the most fragile position on the board, not the market's conviction call.
+
+So what was the bond market hiding from? CNBC's reporting, in a syndicated copy, put it plainly. Investors ran for cover on fears around AI spending and higher oil prices. The same piece flagged continued misgivings over the massive debt tech companies are taking on.
+
+The clearest expression of that debt worry is CoreWeave. All week this desk has climbed a credit ladder, from CoreWeave up to the hyperscalers. Today the ladder didn't add a rung. The new information sits at the bottom rung, and it comes as harder numbers. CoreWeave's bonds were issued in June at a 9.675 percent yield. This past week they traded at about 15 percent.
+
+The equity told the same story, with a twist. CoreWeave stock fell just over 15 percent from Monday's open to Thursday's close. Then it bounced 6 percent on Thursday, after Nvidia publicly expressed support. Max Frumes of 9fin called CoreWeave "absolutely the canary in the coal mine," and said the sector's credit pricing is turning.
+
+Be precise about what that bounce means. A supplier backing its own customer is a statement about vendor-financing reflexivity. It is not evidence that the credit improved. The bonds are still near 15 percent. The over-read would be to treat the equity bounce as stabilization. Demand for AI compute isn't what's in question here. The cost of financing it is. The so-what: the stress feeding the haven bid is real, but it's narrow and sector-specific, not a broad credit event.
+
+Now the force pulling the other way: oil. Brent crude rose 4 percent on Thursday, per Al Jazeera's market tally. By Friday morning it was above 114 dollars and 20 cents a barrel, its highest level since May. That's what keeps the December hike priced, even as the haven bid pulls yields down. Higher oil is an inflation input the Fed can't wave away.
+
+Then came a de-escalation headline. President Trump said "there will not be a strike today" regarding Iran. Per FXStreet, that eased some of the safe-haven demand for the dollar. The dollar index was trading near 101.70 in Monday's Asian hours.
+
+Two cautions on that headline. First, "not today" is a one-day statement, not a de-escalation framework, so don't over-read it. Second, even a genuine climbdown isn't cleanly bullish for duration. In Friday's briefing we called oil both the threat to the bond rally and the likeliest trigger of its unwind. Monday's headline shows why. A real de-escalation would drain the oil-driven inflation premium, and that's dovish. It would also drain part of the haven bid holding Treasury yields down, and that's the opposite. Those two effects cut against each other.
+
+One gap we flagged on Friday is still open. We don't have a clean, sourced split of last week's move between real yields and breakevens. So we can't say how much of it ran through inflation expectations. The so-what: an Iran climbdown has an ambiguous net read on the ten-year. It is not a clean rally signal.
+
+Now look at where the haven money didn't go. Gold fell 3.4 percent over the two weeks heading into this meeting, per GoldSilver. Silver fell 9.3 percent, nearly three times as much. On Friday we said the real-yield explanation for gold's weakness had failed, because yields fell and gold fell anyway. Silver's sharper drop points the same way. Our read is de-grossing in the higher-beta metal, not a coherent view on real yields.
+
+The dollar didn't catch the bid either. It's easing on Monday, not rallying. So the flight to safety went almost entirely into Treasuries. The so-what: duration is the one crowded haven trade heading into Wednesday.
+
+The same chop shows up in crypto. One tracker, The Currency Analytics, shows a provisional net inflow of 301.2 million dollars into Bitcoin ETFs for the week of October 19th through 23rd. That net hides a sharp reversal inside the week. A little over a billion dollars came in Monday through Wednesday. Then roughly three-quarters of that went back out on Thursday and Friday, in step with the broader risk-off turn. A separate tracker reads the same week as a net outflow. That disagreement is itself the signal. Crypto ETF flows are choppy, not trending, and they're following the equity and credit stress rather than leading it.
+
+Pulling this together, there are three implications for positioning into the meeting.
+
+First, duration. On Friday we said anyone chasing duration was effectively short two catalysts. Make it three now. Long-duration holders are short a firm hawkish message from the Fed. They're short an Iran de-escalation that drains the haven bid. And they're short a calming in AI credit that removes the fear trade altogether. The case for owning duration rests on a growth scare the front end hasn't priced. That's an uncomfortable asymmetry to carry into a press conference.
+
+Second, AI financing cost. CoreWeave's bond yield is now more than five percentage points above where it was issued in June. That makes the marginal leveraged data-center build meaningfully more expensive. And it's happening while the Fed path points to higher policy rates, not lower. Both pressures raise the hurdle for leveraged AI capex at the same time. The financing side of the buildout is where the cycle gets tested first.
+
+Third, the dollar. The dollar index has eased to around 101.70 on fading haven demand. But with December hike odds near 80 percent, the rate-differential support hasn't gone anywhere. If the haven premium keeps fading, the dollar's next move depends on the Fed's language this week, not on the broader risk tone. A hawkish press conference would give the dollar a fresh leg of support just as the haven leg fades. A soft one would leave it with neither.
+
+Three things to watch through Wednesday. First, the FOMC statement and press conference. The decision hasn't happened, so this is the setup, not a call. Second, whether the ten-year holds near 5 percent, or keeps backing up at the front end the way it did on Friday. Third, whether Iran headlines or CoreWeave's bonds give the haven bid any reason to stick around. If neither does, Friday's back-up was the preview.
+
+That's the Capital Markets Radar for October 26th. Have a good week, and I'll see you back here tomorrow.
