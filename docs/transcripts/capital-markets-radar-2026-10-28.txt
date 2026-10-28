@@ -1,0 +1,43 @@
+Good morning, it's Wednesday, October 28th, and this is the Capital Markets Radar.
+
+The thesis today is simple. The tape has stopped hedging a growth scare and started pricing the hawkish path, before Kevin Warsh even takes the podium. And the credit a December hike would land on is weaker than its spreads admit.
+
+First, the frame. The Fed's decision lands at 2pm Eastern today, after this briefing is published, so I'm asserting no outcome. Per the CME FedWatch tool, futures put the odds of a hold at the current 3.75 to 4 percent range near 93 percent. And rate futures still price roughly a 75 percent chance of a quarter-point hike in December. Both numbers are essentially where this desk had them on Monday. So today's decision is largely priced. The real information will be in the dot plot and the press conference, and neither exists yet. The more interesting question is what a December hike would land on.
+
+Start with private credit, because that's where the genuinely new data sits. A Moody's draft report, dated October 14th, argues that stress in US private credit may be greater than reported default rates suggest. It puts the default rate at 5.8 percent. And it says business and consumer services and software account for half of those defaults.
+
+Two cautions on sourcing. The document is labelled a draft, and this desk worked from a digest of it, not the full text. We also could not confirm Moody's default definition, including whether it counts distressed exchanges. So treat the Moody's figure as directionally real, not precisely pinned down.
+
+What makes that number matter is the sequence it completes. On Saturday, this desk reported the Alternative Credit Council's survey, with about one in six funds showing non-accrual rates above five percent. On Monday, our Private Credit desk walked through Apollo's filing. There, a direct-lending default rate of 2.2 percent, citing KBRA, nearly doubled once loans that had stopped paying interest were included. Now Moody's has a broader measure still. These are different sources and different definitions, so this is a direction, not a time series. But each wider lens has shown a worse picture than the last. The so-what: headline default rates are the narrowest view of this market.
+
+The rating-agency data points the same way. Morningstar DBRS's October credit newsletter, in its own summary, describes one in four actively rated private credit borrowers facing some level of operating pressure. The same summary has covenant relief hitting a five-year high. In the body of the report, borrowers receiving covenant relief or capital support rose to 15 percent of active borrowers, from 10 percent a year earlier. That's the plainest measure of borrowers leaning on their lenders, and it is rising.
+
+The people who run credit books expect more of the same. A late-October survey of credit portfolio managers by the IACPM, reported by American Banker's ASReport, shows its major-markets credit spread outlook index falling to negative 65.2, from negative 42.3. A deeper negative means more managers expect wider spreads. The survey's default-expectations gauge deteriorated in parallel. One limit applies. This is a cross-market index, not a private-credit number. But practitioners are now braced for wider spreads, not tighter ones.
+
+Here's the gap that matters. Credit Benchmark's data on fund holdings has typical gross loan spreads compressed to 4 to 5 percent, about a point tighter than in 2025. Yet the same holdings imply default risk of 4.5 to 6.5 percent. The market is being paid less for risk that its own fund data rates higher.
+
+Be careful with that gap, though. Default risk is not loss. These are mostly senior secured direct loans, and recoveries matter. A default probability near the spread does not, by itself, mean negative expected returns. Covenant relief cuts both ways, too. The bearish read is lenders deferring pain through amend-and-extend. The bullish read is lenders actively working out credits before they become defaults. And the concentration in software and business services argues against a broad credit event. This looks like a vintage and sector problem, not a systemic one.
+
+So the over-read is that private credit is broken. The under-read is trusting the headline default rate at face value. The honest read is that pricing has run ahead of what the fund data says about risk.
+
+Now connect it to the Fed. Direct lending is predominantly floating-rate. So, by our inference, a December hike would raise borrower interest burden almost immediately. It would land on a book where covenant relief is already climbing. Private-credit marks move slowly, so a hike won't show up in spreads tomorrow. As this desk argued on Sunday, it shows up later, and in lumps.
+
+There's a public-market spillover, too. If thin private-credit pay finally reprices, borrowers get pushed back toward high yield. That's the market where, as we reported yesterday, Bank of America was already advising clients to avoid taking the first loss. The so-what: a hike tightens hardest on the part of credit that will admit it last.
+
+The public markets are already leaning toward that hawkish path, starting with the long end. On Tuesday, the 10-year Treasury yield ended at 4.995 percent, per CNBC. That's pinned right at the 5 percent line this desk has tracked all month. Last Thursday's haven rally pulled the 10-year below that line. Since then it has drifted back up, rather than extending lower. One gap remains open. We still don't have a clean split between real yields and breakevens, so we can't say whether this is inflation or term premium. Either way, the haven bid has stopped working in duration.
+
+Now the pattern break, and it's the dollar. On Sunday, this desk said the flight to safety had skipped the dollar, which had been sliding to recent lows. On Monday, we had the dollar index easing to about 101.70 as haven demand faded. As of Tuesday, Dealplexus showed the ICE Dollar Index at 102.22, near the top of its 52-week range.
+
+So the dollar has re-firmed straight into the decision. Our inference is that the rate-differential trade has taken over from the haven trade. This is a currency pricing December-hike odds, not fear. Keep it in proportion, though. That's a move of roughly half a percent, a re-firming rather than a breakout. And the source is a price aggregator's snapshot.
+
+Put the dollar and the 10-year together, and you get an asymmetry into the press conference. A hawkish but expected hold may add little to either. A dovish surprise would meet both of them leaning hard the other way. That's the setup, not a forecast.
+
+Oil is why the Fed gets no cover to lean dovish. Brent was at $114.35 just after midnight UTC, per the Straits Daily Brief, essentially flat since Friday. The physical squeeze hasn't eased. IMF PortWatch logged just 4 transits through the Strait of Hormuz on October 18th, against a pre-crisis baseline of 85 a day. That reading is more than a week old, and flat Brent says the market isn't adding premium. But triple-digit oil keeps the inflation input firmly under the December-hike pricing.
+
+The fastest money is positioned the same defensive way. Per the Motley Fool's crypto coverage, bitcoin whales on the Hyperliquid platform turned net short for the first time since bitcoin's rally off its June lows. Bitcoin itself briefly slipped below $80,000 on Tuesday morning before recovering. Yesterday, this desk read Monday's narrow, IBIT-only ETF inflow as the marginal buyer waiting on the Fed. The whales have gone a step further, from waiting to hedging.
+
+Caveat that hard. There's no size attached to the whale shift, and it's one venue. A short on a perpetual swap can simply hedge existing spot holdings rather than bet on direction. But the direction fits the rest of the tape. The biggest crypto holders are hedging into this decision, not buying the dip.
+
+So into this afternoon's decision, three things to watch, with no outcome assumed. First, whether the dot plot validates the December-hike pricing, or whether Warsh sounds tougher than the committee's dots. Second, whether the dollar presses toward its high or snaps back. That will tell you whether the rate-differential trade was real or just pre-positioning. Third, whether private-credit marks start catching up to what the default data already shows. That lag is where the lumpy surprise eventually comes from.
+
+That's the Capital Markets Radar for October 28th. Trade safe, and I'll see you tomorrow.

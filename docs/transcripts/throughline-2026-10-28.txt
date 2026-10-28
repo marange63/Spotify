@@ -1,0 +1,33 @@
+Good morning, this is The Throughline for Wednesday, October 28th, 2026.
+
+Today's headline: Broadcom arranged roughly 63 billion dollars to finance Anthropic's chip purchases, and it is backstopping the lenders itself, so a chip vendor is now carrying part of its own customer's credit risk. A standing disclosure, since that story runs through several desks today: Anthropic makes the model behind this show.
+
+Ten briefings shipped today. We'll start with the macro backdrop, move through the AI and compute stack, and close on the applied frontier.
+
+Strategic Power says the contest over infrastructure has moved from building capacity to allocating it. PJM has previewed a one-time backstop auction for about 6.8 gigawatts of new supply. Its costs would follow each zone's share of data-center load growth, and PJM's revised plan is due at FERC on Thursday. Hyperscalers, meanwhile, have contracted about 8.5 gigawatts of existing nuclear output, not new construction. The desk's point is that decisions which used to run through public policy now run through private contracts.
+
+From physical allocation to financial pricing. Capital Markets Radar calls today's Fed decision largely priced, with futures near 93 percent odds of a hold and about 75 percent odds of a December hike. The sharper news is private credit. A Moody's draft puts the default rate at 5.8 percent, the widest in a run of measures that each look worse as the lens gets broader. So a December hike would land on floating-rate borrowers already leaning on covenant relief.
+
+Digital Money picks up the same Fed-eve tension in crypto. Large traders on Hyperliquid have flipped net-short on Bitcoin for the first time since March. Spot ETF buyers are leaning the other way, with a 110 million dollar inflow on Monday. The desk reads that as a shift from cascade risk toward squeeze risk this afternoon, not a call on direction.
+
+Private Credit and the Corporate Credit Cycle shows where all that idle lending capital is going. Direct-lending funds raised a record 129 billion dollars in the first nine months, while third-quarter deal volume fell 28 percent. Part of the outlet is SpaceX's roughly 40 billion dollar GPU lease, led by Apollo and Goldman Sachs. Elon Musk has called it closed, but SpaceX's own release describes a binding commitment still subject to closing conditions. At the other end of the book, CCC-rated loan spreads have hit their widest since 2009. So the top of the credit market is absorbing giant AI leases while the bottom tier reprices toward crisis levels.
+
+That's the macro backdrop. Now the AI and compute stack, starting with the deal at the center of the day.
+
+Semiconductors and Compute Infrastructure supplies the mechanics behind Broadcom's Anthropic financing. Bank of America, Blackstone, Citigroup, and Morgan Stanley are funding it through a special-purpose vehicle. Broadcom is providing residual-value support that protects those lenders if Anthropic defaults. The desk reads that as lender caution more than vendor confidence, since the banks wanted the guarantee and reportedly secured higher rates too. So investors pricing Broadcom's AI revenue should start asking how much of it now carries a contingent guarantee.
+
+Frontier AI Lab Competition takes the same deal and asks who holds the risk later. Its read is that this is a financing wrapper, not 63 billion dollars of new demand. The real test is a bond leg of up to 21 billion dollars that banks plan to sell as soon as early next year, and nothing has priced yet. Meanwhile, OpenAI is reported to be renting or buying Google TPU capacity, while keeping its roughly 600 billion dollar Nvidia commitment. So in the desk's view, leverage is moving toward whoever can design the chip and get it financed.
+
+From the money behind the chips to the software running on them. AI Products and Applications has coding agents moving from writing code to running it. Cognition's Devin Oncall and Replit's Monitoring Agent both reached general availability in the past two weeks, to triage and fix live production issues. The product decision that matters isn't the model. It's where each vendor places the human approval gate, and for now a person still has to flip it.
+
+Enterprise Technology finds the model layer losing pricing power. Anthropic expanded a government discount to 40 percent, with no minimum order, days after an Anthropic executive defended a twenty-seat floor for Claude Enterprise. Separately, anecdotes from Rippling and Replit show coding work shifting toward OpenAI on cost. And cybersecurity stocks rallied 11 to 12 percent in a week with no new bookings or guidance behind it. So the market is pricing a security-spending conclusion that no quarterly report has confirmed.
+
+That's the compute stack. Now the applied frontier, where footprint keeps running ahead of proof.
+
+Robotics and Physical AI has GXO expanding Agility Robotics' humanoid, Digit, to two new warehouses. Yet GXO's own CEO told investors in August that the company hasn't achieved ROI on humanoids and is "a couple of years away." In Shanghai, Unitree's shares have surged about two-thirds in seven sessions, on a founder's forecast of a breakthrough that hasn't happened yet. The one physical-AI number with real paid volume behind it remains Waymo's, at more than 500,000 paid rides a week.
+
+AI in Biopharma R&D closes the tour with Anthropic's first field report on Claude in drug discovery. The one decision-useful number is operational: Enveda Biosciences cut manufacturing-document review time 89 percent. The biology claims from the other partners remain preclinical and self-reported. The bigger structural news is that Anthropic now owns a drug program, Mithril Medicine, which it says could reach human trials as soon as late 2028. That makes an AI lab both a supplier and a competitor to the biotechs that license its models.
+
+One change worth carrying out. Yesterday, this show described a financing ladder that climbed from CoreWeave's bonds to private lenders to public equity. Today the chip vendor itself stepped onto that ladder, and the bond leg early next year is where the market gets its first real vote.
+
+That's The Throughline. Have a good Wednesday.
