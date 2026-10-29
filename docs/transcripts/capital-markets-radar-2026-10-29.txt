@@ -1,0 +1,41 @@
+Good morning, it's Thursday, October 29th, and this is your Capital Markets Radar.
+
+Here's the thesis. Kevin Warsh's first meeting as Fed chair turned a hold everyone expected into an open fight over resuming hikes. Oil is giving the hawks their inflation alibi. And the AI buildout has started eating the free cash flow of the very companies funding it. The only part of the equity market still rising is the sliver that capex feeds directly.
+
+Start with the Fed. On Wednesday the FOMC held the funds rate at 3.75 to 4 percent, on a 10 to 2 vote. The hold itself was priced. What wasn't priced is who dissented, and why. Governor Lisa Cook and Cleveland Fed President Beth Hammack both wanted a quarter-point hike instead.
+
+Hawkish dissents from a sitting governor and a regional president are unusual. At a new chair's very first meeting, they signal real disagreement about whether policy is tight enough. The statement backs that up. It kept the line that inflation "remains elevated," and it described activity as "expanding at a strong pace." Those are not the words of a committee that thinks it's done.
+
+The futures market heard it. Per CME FedWatch, as reported by CNN, the odds of a December hike rose to 85 percent, from 78 percent the day before. Keep that in proportion. Trackers differ by snapshot, and a move of that size from an already high base is a repricing, not a shock. There was no dot plot at this meeting, so the committee's signal came through the vote instead. The so-what: "on hold" now means a live debate about hiking again, not a dovish pause.
+
+Now the competing read, because the vote alone can't settle it. Ten members still chose to hold, and the chair voted with them. A new chair may simply be letting visible dissent run, to establish the committee's independence. That is a different thing from Warsh signalling his own hawkish lean. December's data will tell those two stories apart.
+
+Two smaller items came out of the same meeting. Warsh said eight meetings a year is "the right number," with one devoted exclusively to strategy from 2027, per CNBC. Eight is today's count, so this is a communications change, not fewer meetings. And the implementation note shifts reinvestment toward Treasury bills, which reads as reserve management, not a rate signal.
+
+What gives the hawks their cover is oil. Brent settled at $115.32 a barrel on Wednesday, per CNBC, up from about $114 the day before. WTI rose faster still, up 2.9 percent to $102.78. CNBC tied the move to reports that Washington has told Gulf Arab states to be ready for a short but intense military campaign after the midterms. That campaign is reported, not confirmed. So this is a grind higher, not a spike.
+
+The physical data conflict with that price, and we can't reconcile them. US military figures relayed by Al Jazeera put Middle Eastern crude exports above their pre-war level in mid-October, while IMF PortWatch counted just a handful of Hormuz transits on one day that same week.
+
+What follows is still clear. If exports really are running above pre-war, much of $115 Brent is risk premium rather than scarcity. A premium built on unnamed-source reporting can drain on a single denial, and the hawks' case would weaken with it. Until then, it feeds the "inflation remains elevated" line the dissenters leaned on. The so-what: oil is now the swing variable for December, and one headline could erase its premium.
+
+The stock market's answer to all of that was a shrug, but a narrow one. The S&P 500 rose 0.3 percent to 7,743.98. Per Yahoo Finance, chip stocks led the gains. The equal-weighted S&P and small caps both finished in the red. That's not broad risk appetite. That's a very specific trade.
+
+And the reason chips led sits in the same afternoon's hyperscaler earnings. Per the Motley Fool's coverage, Alphabet grew revenue 25 percent, slightly short of estimates, but its free cash flow turned negative, at minus $9.1 billion. Capital spending is the reason. Alphabet held its capex guidance for this year. And it said 2027 spending will "increase significantly."
+
+Microsoft told a similar story the same day. Azure grew 48 percent, which is genuinely strong. But Microsoft's free cash flow fell 27 percent year over year. So the two largest spenders are both seeing capex compress the cash they generate.
+
+We've spent this week tracing who funds the AI buildout, from neocloud debt up to the labs. Each rung so far was someone else's balance sheet. Now we're at the sponsors themselves. At Alphabet, operating cash no longer covers what it's spending.
+
+Don't over-read that as distress. Alphabet is choosing this, from one of the strongest balance sheets in the market. And Azure's growth is the bull case that the spend is being monetized. The under-read is the financing side. A firmer hike path raises the cost of whatever ends up funding the gap. It also raises the hurdle on long-duration growth. The so-what: the spenders' cash is funding the winners' rally, and if capex patience wobbles, the narrow leadership has nothing underneath it.
+
+If internal cash doesn't cover the gap, markets have to price whatever funds it. That's credit's job. These readings predate the Fed decision, so there's no post-meeting print yet. Investment-grade spreads were 88 basis points as of Tuesday, per the ICE BofA index. A year earlier they were 76. That's real widening, but 88 is not a stress level.
+
+High yield is wider too, with one twist. The ICE BofA high-yield spread was 330 basis points on Monday, per FRED. That's 70 wider than the late-August low of 260, which was among the tightest readings since 2007. The twist is that it narrowed slightly in the days before the Fed meeting, down from 338 the Friday before. So the widening isn't accelerating, and that cuts against a "credit is cracking" story. Amundi, a euro-credit manager, attributes the September widening to geopolitics and rate volatility more than to corporate fundamentals. Treat that as one house's read.
+
+So the extra spread is pricing rate-path and geopolitical risk. It isn't yet pricing a default problem. One link here is our inference, not a reported flow. If hyperscalers start funding the capex gap with debt, investment-grade issuance is where it would show up. The so-what: credit is charging for the rate path, not for defaults, at least not yet.
+
+Briefly, where the haven bid isn't. Gold eased to around $4,037 an ounce on Wednesday, per Trading Economics. Sources disagree on the day's direction, so call it soft rather than a real move. Either way, gold is still failing to catch a stress bid. In crypto, ether ETFs saw $88.58 million of net outflows on Monday, per SoSoValue data. That predates the Fed, so it isn't a verdict on the decision. Put together, the speculative and alternative-store-of-value bids look rate-sensitive, not like stress hedges.
+
+Three things to watch from here. First, whether the Gulf campaign reporting escalates or gets walked back, since oil is now the swing variable for December's inflation case. Second, whether breadth widens beyond chips, or the chip-only rally cracks. Third, Amazon's print, due later today, as the next read on whether the hyperscaler cash squeeze is an Alphabet story or an industry one. None of that has happened yet.
+
+That's the radar for October 29th. Trade carefully, and I'll see you tomorrow.
