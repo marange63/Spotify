@@ -1,0 +1,43 @@
+Good morning, it's Monday, November 2nd, and here's the Capital Markets Radar.
+
+October ended with investors de-risking by rotating into defensives and buying index-level protection, not by selling the economy. That's the thesis for today. On Saturday this desk said rates, credit, and the dollar still had to sign off on the idea that the week's selloff was idiosyncratic rather than systemic. The month-end tape gives us the first partial answer. It's mixed, but it leans toward "not systemic."
+
+Start with the scorecard. Per CNBC, the Nasdaq Composite just logged its worst month since March of 2025, dragged down by AI-spending concerns. But the Dow Jones Industrial Average rose almost two percent over the same month, as money rotated into defensive sectors like healthcare. On the week, the gradient was already visible. The Nasdaq fell two percent, while the S&P 500 and the Dow each fell less than one percent. That's a leadership rotation, not a market-wide liquidation.
+
+One caveat on the Dow's gain. It's a narrow, price-weighted index. So almost two percent of upside there tells you defensives outperformed. It doesn't tell you breadth across the market improved, and we have no equal-weight or small-cap figure to say otherwise.
+
+Still, the broader signal holds, and it extends something this desk has tracked all week. Last week the market sorted AI names by earnings delivery and forward guidance, not by their exposure to the theme. October's tape shows that same sorting at the monthly level. Investors repriced the AI-capex payback. They didn't reprice the economy. That's also where I think the market may be over-reading the month. Calling October an AI-capex top confuses a higher hurdle rate with a broken thesis.
+
+There's a second-order cost to that rotation, though. When the whole market trades on one question, the AI-capex payback, stocks start moving together. Owning a mix of growth and defensive names then buys less diversification than it looks like on paper. So if investors weren't selling the economy, how did they de-risk? Through the options market.
+
+That brings us to positioning, and this is the mechanism behind the headline move. Late last week, index hedges were sold on Thursday and bought back on Friday. Cboe's own weekly notes show how crowded that protection had already become going in. Take the two weeks in order. In its note on the week of October 19th, Cboe has the VIX up five points week over week, to 20, as investors scrambled for downside protection ahead of mega-cap earnings. In the same week, one-month S&P 500 thirty-delta skew steepened from the fifteenth percentile to the eighty-second.
+
+Cboe's note on the week of October 26th tells the more interesting story. It has the VIX ending the week mostly unchanged, around 19.5. But S&P 500 downside convexity, the actual price of crash protection, ended that week in the 99th percentile. In plain terms, the headline fear gauge stopped climbing while the cost of insuring against a drop stayed pinned near the top of its range. My read is that the hedge is already on. Buyers aren't paying up at the margin for more protection, because they already own it.
+
+On hedge-fund positioning, I want to correct something that's been circulating. Some reports framed hedge funds' index-short exposure as a ten-year high. The best-sourced figure we have doesn't support that. It comes from Goldman Sachs prime brokerage data, as reported in the press around October 23rd. It shows hedge funds building stock short positions to a near five-year high. In October, short sales outpaced long purchases across global stocks by roughly five to one. At the same time, net leverage among fundamental long-short funds sat near a three-year low.
+
+So the extreme is real, but it's a five-year extreme, and that data predates the final week of the month. Pair high gross shorts with historically low net exposure, and it reads less like outright bearish conviction. It reads more like funds hedging their long books. That fits rotation, not capitulation.
+
+Put the two pieces of positioning together. The hedge has gone from running off to crowded in the space of a couple of weeks. That cushions further downside. But it also loads the upside with squeeze risk. If November's data comes in benign, funds may monetize that protection rather than buy more of it. That's a mechanical path to a relief rally, not a forecast of one.
+
+Equity hedges say the stress is contained. Credit is where you'd see it if it weren't. As we reported yesterday, spreads on public CCC-rated leveraged loans blew out to their widest since 2009. Private credit hasn't followed. Valuation Research's third-quarter data shows unitranche coupon spreads holding at SOFR plus 500 to 575 basis points, unchanged from the second quarter. Upward pressure on new-loan spreads actually moderated during the quarter.
+
+Two caveats. First, that's a quarter-end snapshot that mostly predates the late-October move in public prices. So "unchanged" may just mean stale rather than complacent. Second, the coupon leaves out fees, original issue discount, and leverage terms. All-in pricing could have moved even while the coupon sat still.
+
+But the pattern fits what we've been tracking. Stress showed up first in the default data, then in public prices, and private marks lag both. New private money is still pricing as though nothing happened, while the bottom of the public stack already has. That gap is where I think the market is under-reading the risk. Private net asset value marks and BDC distributions carry the lagged repricing, and it tends to arrive in lumps, not smoothly.
+
+Crypto was the other test of whether this stays contained. On Thursday, October 29th, Binance disclosed that a security incident had hit about six point three billion dollars of client assets. Per CNBC, that's the largest crypto hack on record. How the attackers got in is still disputed. Bitcoin fell more than four percent on Friday, to around seventy-seven thousand dollars.
+
+The new detail is who froze what. About three billion dollars of the stolen funds has been frozen on-chain. Per CNBC, Tether froze more than one and a half billion dollars of its stablecoin tied to the incident. Circle froze more than eight hundred million dollars of USDC. Reports that withdrawals resumed and that most of the losses were replenished remain single-sourced and unconfirmed. Treat that as pending, not settled.
+
+What's notable either way is that a record theft hit crypto prices without visible contagion into the rest of the tape. And a large part of the backstop came from two centralized issuers with the power to freeze funds. For institutional allocators, that strengthens the case for regulated custody and ETF wrappers. It also concentrates governance risk in a small number of issuers. That cuts against the asset class's own censorship-resistance pitch.
+
+The last leg of this test is the dollar, and it's the least verified. Trading Economics described the dollar softening into month-end rather than catching a haven bid, which would fit rotation over a liquidity scramble. But I don't have a verified yield or dollar close to cite, so take the direction, not a number.
+
+Zoom out for the backdrop. As we covered last week, the Fed held at three and three-quarters to four percent, with two dissents in favor of a hike rather than a cut. That matters here because it means there's no policy cushion under any of this. Payrolls land Friday, November 6th, and CPI follows on November 10th. Neither has been released, and I'm not asserting an outcome.
+
+With hedges this crowded and no rate cut to lean on, both prints are genuinely two-sided events. A benign number could force hedge monetization and a squeeze higher. A hot number meets protection that's already in place. Beyond the prints, watch whether Binance withdrawals are confirmed, and whether private marks start to follow public CCC prices.
+
+So, pulling it together. October was a rotation and a hedge, not a liquidation. Equities rotated into defensives, private credit hasn't moved yet, and crypto's record theft stayed inside crypto. Rates and the dollar are the piece still owed.
+
+That's the Capital Markets Radar for today, and I'll see you tomorrow.

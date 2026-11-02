@@ -1,0 +1,27 @@
+Good morning, this is The Throughline for Monday, November 2nd, 2026.
+
+Today's headline: Iran escalated at the Strait of Hormuz on the eve of tomorrow's US midterm vote, and Washington's next move there is effectively being timed to the election calendar rather than to conditions on the ground.
+
+Seven briefings shipped today. We'll start with the macro backdrop, move through the AI and compute stack, and close on the applied frontier.
+
+Strategic Power has Iran's Revolutionary Guard claiming three tankers hit mines near Oman last Thursday and Friday, though the UK's maritime trade agency has verified only one attack. December Brent settled at $117.64 on Friday, its highest close in six months, and the cost of shipping a barrel of Hormuz crude has roughly tripled since September even though volumes barely moved. Per the Wall Street Journal, the administration may resume military action after tomorrow's vote, even as Vice President Vance floats talks through Qatari mediators, so for now the war works less like a shutdown and more like a toll on the strait.
+
+With that shock in the background, Capital Markets Radar asks whether October's selloff was systemic, and its answer leans toward no. The Nasdaq had its worst month since March 2025 on AI-spending worries, while the Dow rose almost two percent on a rotation into defensives like healthcare. Crash protection is priced in the 99th percentile while the VIX sat flat around 19.5, which the desk reads as funds already hedged, and it flags private credit as the lagging risk, with unitranche spreads unchanged even as public CCC loan spreads sit at their widest since 2009.
+
+Private Equity picks up the same question of where the cash is really coming from. With 54 percent of limited partners in a McKinsey survey calling cash distributions critical, managers are engineering liquidity through NAV loans, longer fundraises, and insider-led deals rather than finding it in arm's-length sales. The fresh signal is that even Blue Owl's GP Stakes fund, the supposedly defensive corner of the industry, has gathered about eleven billion dollars and says its final close may slip into the first quarter of next year.
+
+That's the macro backdrop. Now the AI and compute stack, where the model is fading behind whoever controls the product.
+
+AI Products and Applications has three incumbents taking the model choice away from users. GitHub's Copilot Fusion now routes each coding task to models it picks, Apple is bringing Alibaba's Qwen into Apple Intelligence for China with a public rollout planned for December, and Google rolled out in-chat document editing across the Gemini app. A standing disclosure, since Fusion is benchmarked against an Anthropic model: Fusion's top tier runs at about half the per-task cost of Claude Code with Opus 5.5, but at a modestly lower quality score, so the honest read is cheaper, not equal.
+
+Enterprise Technology finds the market grading the forward commitment, not the quarter just delivered. Oracle set a target of positive free cash flow in the second half of fiscal 2028, the same metric that just sank Alphabet, but now with a date attached. ServiceNow said early renewals made up about half its third-quarter beat, and Fortinet's beat-and-raise still sold off on a single cut line, its service revenue guidance.
+
+Now the applied frontier, where capital is chasing the bottleneck rather than the headline product.
+
+Robotics and Physical AI has Chinese embodied-AI firms raising about 13 billion dollars in the first half of 2026, while a Spirit AI co-founder calls the robot brain the weakest link in the stack. Tesla, by contrast, says the vast majority of a million-unit Optimus line has landed in Fremont, but Musk denied a reported December reservation window. Meanwhile, Amazon's doubling of its robotic-arm fleet this year is the automation actually running at scale today.
+
+AI in Biopharma R&D closes the tour with AstraZeneca's research collaboration with Tremont AI, a startup building pathology models for preclinical safety studies, alongside a Nature paper on Pinal, a model that designs candidate proteins from plain-language descriptions. Neither has a disclosed validation metric yet, so both are throughput tools for the middle of the pipeline, not proven capabilities. And Eli Lilly's R&D spend rose 23 percent last quarter, slower than its 39 percent revenue growth, with nothing in that figure attributed to AI.
+
+One date to circle before we go: November 10th. Strategic Power flags it as the day China's rare-earth export-control pause lapses, with Bloomberg Intelligence still projecting a 36 percent global magnet shortfall by 2030 even if diversification succeeds. Robotics flags the same deadline for actuator supply. And Capital Markets Radar has CPI landing that same day, with no rate cut to lean on.
+
+That's The Throughline. Talk to you tomorrow.
