@@ -1,0 +1,37 @@
+Good morning, this is The Throughline for Friday, November 6th, 2026.
+
+Today's headline: Thursday's selloff ran from chips to software to bitcoin, yet the chip and lab desks find no hyperscaler or lab cutting a commitment.
+
+Twelve briefings shipped today. We'll start with the macro backdrop, move through the AI and compute stack, and close on the applied frontier.
+
+Strategic Power has the backlash reaching governors' mansions: Democrats flipped five governorships, including Texas and Georgia, for the party's first majority of U.S. governorships in sixteen years. Texas governor-elect Gina Hinojosa campaigned on a data-center moratorium by name. The desk's read is that the voter gatekeeper now has an executive branch from January, though nothing in permitting has changed yet.
+
+From politics to prices, Capital Markets Radar has the S&P 500 down 4.36 percent Thursday, its worst session since April 2025, with the Nasdaq closing in correction. The desk concedes its Wednesday read of a contained drawdown didn't survive, and it credits funds dumping their most crowded longs for the size of the move. Its new pressure point is private credit, not the Fed, where Morgan Stanley projects another 800 billion dollars of data-center financing over two years from lenders with no bank-style capital rules.
+
+Digital Money has bitcoin down six percent, with longs flushed for the second time in a week by a shock imported from tech stocks, not from inside crypto. It moved with the Nasdaq rather than gold, so it offered no hedge on the one day a hedge would have mattered. Price now sits in the narrow band where recent buyers' cost basis meets the average purchase price of Strategy, the largest corporate holder.
+
+Private Credit and the Corporate Credit Cycle has the stress moving from funding into the loan books themselves. KBRA's third-quarter data shows a record 121 downgrades and the first rise in median leverage in more than two years, with the worst strain among the smallest, least-observable borrowers. An unidentified holder is also auctioning about 500 million dollars of data-center loans, with bids due November 19th, an early market test of what AI-capex debt is worth.
+
+Private Equity closes the macro tour with Carlyle's realized carry up fivefold, while the cash proceeds from its exits didn't accelerate at all. The desk reads that as a selective thaw at the largest managers, not a cleared exit logjam. It also flags Wendy's board rejecting an insider-led buyout from major shareholder Trian, the first board pushback in this wave of such bids.
+
+That's the macro backdrop. Now the AI and compute stack, where Thursday's bill landed on the listed suppliers while the commitments underneath them held.
+
+Semiconductors and Compute Infrastructure reads Thursday's chip rout as a repricing of political risk, not of orders, and it sets Qualcomm's drop apart as a company-specific guidance miss. No hyperscaler has cut capex, and AMD fell double digits two days after guiding fourth-quarter revenue to about 17 billion dollars, up from 13.4 billion last quarter. The desk adds a new frame, demand constrained by permission from voters, permits and import licenses, with Nvidia's H200s reportedly stuck in Hong Kong awaiting Chinese approval.
+
+A standing disclosure for the next two desks: Anthropic makes the model behind this show. Frontier AI Lab Competition has the selloff landing just ahead of Anthropic's pending listing, with its amended filing putting committed spend near 895 billion dollars, more than double the earlier reading. The desk can't yet tell whether that reflects new deals or a reclassification. And per Bloomberg, Anthropic is the customer behind 34.5 percent of SpaceX's third-quarter revenue, even though SpaceX owns rival xAI.
+
+AI Products and Applications finds the labs narrowing the door around their riskiest tools. OpenAI's Critical-rated GPT-6 Cyber ships only to a vetted customer cohort, while Anthropic's new Personal Finance feature links bank accounts to Claude on a read-only basis. The desk's thread is that the more dangerous the capability, the narrower the access, so access policy is becoming the product spec.
+
+Enterprise Technology reads most of Thursday's software rout as beta, since Palantir, CrowdStrike and Okta each fell roughly ten percent, though only one of them had reported this week. The real signal is Atlassian's decelerating, seat-based guide set against Cloudflare's 39 percent growth, its fastest pace in nearly four years. The desk's read is that the marginal AI dollar is metered, not seated.
+
+That's the compute stack. Now the applied frontier, where permission and proof set the pace more than capability does.
+
+Robotics and Physical AI has China blocking SoftBank's 5.4 billion dollar purchase of ABB's robotics unit, a deal Brussels cleared unconditionally, though ABB says the deal is still being worked. The desk reads it as Beijing asserting a veto over who owns Western automation assets with deep Chinese operations, not a conventional antitrust call. The same week, Agility Robotics began trading as America's first listed humanoid pure-play, its order book and factory capacity untested until its first 10-Q.
+
+Space and the Orbital Economy has Blue Origin's New Glenn slipping again, to January 2027, as weather slows the rebuild of its only launch pad. By the desk's arithmetic, Amazon's Leo constellation now needs more than eighty satellites a month on rented Vulcan and Ariane 6 rockets to meet its 2029 deadline. The desk's read is that each month of delay pays SpaceX through Starlink's compounding profit, not through launch pricing.
+
+AI in Biopharma R&D closes the tour with earnings calls showing where pharma's AI actually runs, in safety, manufacturing and trial operations. Pfizer calls its manufacturing AI deployed but its R&D gains something it is still working toward, and IQVIA gave the only deployment count, 415 agents. Meanwhile capital keeps stacking at the discovery layer, with Isomorphic Labs reportedly in talks near a fifty billion dollar valuation for work its president calls preclinical.
+
+One thread ran through three desks today. Strategic Power, Semiconductors, and Robotics each named the same binding constraint, not capital or capability, but permission from voters, a governor-elect, and Beijing.
+
+That's The Throughline. Talk to you tomorrow.
