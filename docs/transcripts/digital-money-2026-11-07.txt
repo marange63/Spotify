@@ -1,0 +1,39 @@
+Good morning, it's Saturday, November 7th, 2026, and this is your digital money briefing.
+
+Yesterday we asked whether two liquidation flushes in one week had actually cleaned out crypto's leverage. We said the open-interest answer was still unmeasured, and we warned against assuming the book was clean. We now have one reading. It says the book barely got lighter.
+
+A quick re-grounding first. Thursday's AI-chip equity rout spilled into crypto, and Bitcoin fell 5.8 percent over 24 hours on CoinGecko's count, to about $75,954. We covered that selloff yesterday. Today is about what the new data shows underneath it.
+
+Here's what's new. CoinGlass data shows Bitcoin futures open interest fell just 1.88 percent over 24 hours, to $52.04 billion. Now set that against the liquidation headline. The whole crypto market saw $1.08 billion in forced liquidations. Bitcoin's own share was $280.65 million. By our arithmetic, that's only about a quarter of the headline total. It's also roughly half a percent of Bitcoin's open interest. So the billion-dollar flush mostly wasn't Bitcoin's leverage unwinding. Most of the forced selling happened outside Bitcoin.
+
+One caveat keeps that honest. This is a single 24-hour reading from one aggregator. Our ratios also mix figures that may not share a window, so treat them as approximate. And the reading can't separate leverage that was never cleared from liquidated positions that were quickly replaced. Still, the shape is clear enough to bank. The headline was loud. The book, on this first reading, was barely touched.
+
+So if the leverage didn't leave Bitcoin's own book, where did the damage land? In the listed wrappers built around it. Coinbase fell about 10.6 percent that session. Strategy, the bitcoin-treasury company, fell about 10.1 percent. Against Bitcoin's 5.8 percent, that's roughly one-point-seven to one-point-eight times the drawdown. The equity wrappers didn't dampen Bitcoin's move. They nearly doubled it.
+
+Look at what those two stocks traded alongside that day. They fell in the same range as the AI-chip names that led the selloff, harder than Nvidia and less hard than AMD. On October 31st, this desk argued that Coinbase's GAAP profit was effectively levered to crypto marks. Now the stock has sold off harder than the asset itself. The takeaway for allocators is this. Institutions holding crypto through listed equities aren't holding Bitcoin's volatility. They're holding leveraged beta on top of it, and that beta trades inside the AI-risk bucket.
+
+Strategy isn't the only bitcoin-treasury company under the lens this week. On November 5th, Trump Media moved 4,259 bitcoin, worth roughly $343.7 million, to Crypto.com. That's within two coins of the amount its June 30th quarterly filing says it pledged as collateral for its convertible notes. In other words, essentially the entire pledged stack left its labeled wallets in one move.
+
+A transfer is not a sale, and on-chain movement alone can't tell you intent. What has changed is the company's posture. After similar transfers in May and August, a Trump Media spokesperson said the firm had transferred the bitcoin, not sold it. This time, reporting says the company has not publicly explained the move. That silence is itself worth tracking.
+
+What turns this from a curiosity into a catalyst is the debt calendar. The June filing says Trump Media is restricted from withdrawing that pledged bitcoin until certain loan-indenture requirements are met. And according to reporting on the notes' terms, holders have the right to demand cash repurchase on November 30th, at full principal plus accrued interest. If every eligible holder exercises that right, the same reporting puts Trump Media's exposure at roughly $1 billion. The stack that just moved is worth about a third of that maximum. We don't have a current read on the company's cash, so we won't call that a shortfall. The bear reading is a forced seller with a known size and a known date. The bull reading is a pre-arranged custody or financing step that never touches the spot market. The data can't yet pick between them. Either way, corporate bitcoin treasuries are where leverage meets a calendar, and this one has a date circled a little over three weeks out.
+
+The regulated wrapper is telling a version of the same story through its biggest fund. BlackRock's IBIT recorded a $405.3 million outflow on November 2nd, its largest single-day redemption since June. Its outflow streak has now reached four sessions, totaling $935 million. On Thursday we called IBIT the holdout, and through the latest fund-level data it still hasn't turned.
+
+One wrinkle matters, though. On one of those four days, Fidelity's FBTC took in fresh money while IBIT bled. So this may be as much a channel or client-base story as a complex-wide institutional exit. Don't read one fund's streak as the whole market leaving. But the bellwether fund, specifically, is still a persistent seller.
+
+And the cash that would have to absorb the next flush is still shrinking. On Tuesday the 3rd, we asked whether stablecoin supply would find a floor. It hasn't. DefiLlama put total stablecoin market capitalization at about $291.6 billion as of November 6th. Tether's USDT is about 61 percent of that.
+
+A second tracker, Sumcap, cited by PANews, has the float at about $298.5 billion, its lowest level since August. That's down from a May 17th peak of $315.5 billion. More to the point, it's now $5.2 billion below where it stood on January 1st. The two trackers disagree on the level, so that January 1st crossover is Sumcap's finding specifically.
+
+On Sumcap's numbers, the on-chain dollar has given back essentially all of this year's growth. That makes it a year-long trend, not a side effect of Binance's October 29th security breach, because the drain started months before it. One qualifier applies. Market cap measures what's outstanding, not how fast it turns over, so a smaller float with steady velocity is less bearish than it looks. The plain read-through still holds. A shrinking float means less bill demand from reserve managers like Tether and Circle, at the margin.
+
+Put the two threads together, and here's our inference. A futures book that barely lightened, sitting on top of a stablecoin float that keeps shrinking, means the next shock would meet similar leverage with less on-chain cash to absorb it. It's a link we're drawing between two data series, not a reported finding. If it's right, the next flush could land harder than the last one, not softer.
+
+Now the strongest bull case, stated plainly, because the evidence supports airing it. This week's shock was imported from AI-chip equities, not generated inside crypto. Longs took the brunt of the liquidations, and open interest drifted lower rather than higher. One-sided long flushes like that tend to cool funding, and they can set up a short-covering bounce. On that reading, the week looks like the end of a washout as much as the start of a capitulation.
+
+Three things to watch into next week. First, whether IBIT's redemption streak turns or extends. Second, whether Trump Media discloses what happened to its pledged collateral before the November 30th repurchase date. Third, whether the stablecoin float finally finds its floor. That one gets a test on Thursday the 12th, when the European Banking Authority's direct supervision of USDC begins.
+
+The thesis for today. Two flushes in a week haven't cleared crypto's leverage. They've relocated the visible damage into the equities, funds, and corporate balance sheets built around Bitcoin, while the cash base that would cushion the next one keeps thinning.
+
+That's the digital money briefing for Saturday, November 7th. Have a good weekend, and stay cautiously optimistic.

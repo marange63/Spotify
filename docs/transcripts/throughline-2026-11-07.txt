@@ -1,0 +1,35 @@
+Good morning, this is The Throughline for Saturday, November 7th, 2026.
+
+Today's headline: Friday's strong jobs report took a Fed rescue off the table, so Thursday's AI-trade rout now has to clear through positioning alone.
+
+We'll start with the macro backdrop, move through the AI and compute stack, and close on the applied frontier.
+
+Strategic Power finds oil pricing an Iran peace that nobody has signed, with Brent down more than 16 percent on the week. The desk's bigger story got almost no attention: Treasury dropped its open-ended promise of flat coupon auction sizes, making debt supply a live variable again. The first test is next week's 125 billion dollars of three-, ten-, and thirty-year auctions.
+
+From diplomacy to the tape, Capital Markets Radar has October payrolls up 165,000, against a forecast of about 65,000. That pushed December hike odds back up and took away the policy cushion Thursday's rout had started to price. The desk's read is that the unwind must now clear through positioning, with Goldman warning that systematic funds are poised to generate fresh short signals.
+
+Digital Money finds that Bitcoin's own leverage barely moved, with futures open interest down less than 2 percent despite about a billion dollars of crypto-wide liquidations. Instead, the damage landed in the listed wrappers, as Coinbase and Strategy fell nearly twice as far as Bitcoin itself. And Trump Media moved almost all its pledged bitcoin collateral about three weeks before noteholders can demand repurchase, which raises the prospect of a forced seller on a known date.
+
+Private Credit and the Corporate Credit Cycle has Goldman Sachs BDC's net asset value falling 3 percent, as non-accruals jumped to 4.2 percent of the portfolio at fair value. But those marks moved only in the quarter the loans stopped paying, so they gave no early warning. The desk reads NAV as a lagging signal, which matters because a proposed Labor Department rule opening these vehicles to 401(k)s just reached White House review.
+
+Private Equity closes the macro tour with Partners Group's flagship evergreen fund hitting its 5 percent quarterly redemption cap for a second straight quarter. Its restructuring cuts fees to keep money in, rather than widening the exit. With Blackstone's retail credit fund also drawing requests at double its cap, the desk asks whether fees are really the steady leg of alternative managers' earnings.
+
+That's the macro backdrop. Now the AI and compute stack, where suppliers are being financed from strength while part of the demand leans on credit that's closing.
+
+Semiconductors and Compute Infrastructure has a single-sourced Reuters report of Nvidia financing a multi-billion-dollar packaging expansion at SPIL, the ASE unit where AMD is also investing. The weak link is on the demand side, at the heavily indebted neocloud CoreWeave. On one aggregator's figures, CoreWeave carries roughly 52 billion dollars of debt, leases included, against an equity value near 30 billion. The desk's inference is that if neocloud credit stays shut, it shows up first as fewer GPU and HBM orders from those buyers.
+
+AI Products and Applications has agents moving from per-action approval to standing permission. Perplexity's Teammates reached paying users as a research preview, and GitHub's Copilot can now merge a pull request once the repository's required checks clear. The desk's takeaway is that your CI configuration, not a human clicking merge, is becoming the reviewer of record.
+
+Enterprise Technology put its claim that investor doubt centers on seat-priced software to a harder test with two earnings prints. Figma beat and raised but sold off on a guide slowing ten points, to 33 percent, while Cloudflare rallied on compounding usage growth. The desk's verdict is that the market is grading the forward guide, not the pricing model.
+
+That's the compute stack. Now the applied frontier, where money keeps moving ahead of the proof.
+
+Robotics and Physical AI has Tesla and Agility Robotics converging on renting humanoids rather than selling them, though Musk was only handicapping the idea. Agility's first public filing shows who has been paying, with about 64 percent of its 2025 revenue coming from related parties. Its headline order book of more than 300 million dollars turns out to be a single related-party contract, with deliveries not starting until 2027.
+
+Space and the Orbital Economy has satellite operator AST SpaceMobile announcing its own reusable rocket, Blacklift, while the non-SpaceX launch bench sits grounded or delayed. The certain money runs to engine supplier Firefly Aerospace, in a deal worth more than 1.3 billion dollars that AST pays partly in its own stock. The engines remain unflown, and AST's filing calls Blacklift a long-held integration strategy, without blaming any rival's launch failures.
+
+AI in Biopharma R&D closes the tour by asking whether drug-design models are becoming shared infrastructure, as Chai Discovery adds Roche to its partner list. The week's firmer evidence came from data instead, as a small specialist, Inductive, beat Nvidia and Recursion in a blind chemistry benchmark. The desk's read is that model access alone is looking like a thin moat, with the edge shifting toward whoever has the better data.
+
+One thread ran through three of the macro desks: stress isn't clearing, it's relocating. In crypto, it moved from Bitcoin's own book into the listed wrappers. In private credit, it reached Goldman's NAV only once the loans stopped paying. And at Partners Group, it moved from the exit door into the fee line.
+
+That's The Throughline. Talk to you tomorrow.
