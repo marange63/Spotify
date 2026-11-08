@@ -1,0 +1,33 @@
+Good morning, this is The Throughline for Sunday, November 8th, 2026.
+
+Today's headline: the AI trade's stress didn't clear after Thursday's rout, it moved into credit, where protection on even Nvidia, the strongest balance sheet in the complex, got sharply more expensive.
+
+Ten briefings shipped today. We'll start with the macro backdrop, move through the AI and compute stack, and close on the applied frontier.
+
+Strategic Power finds two constraints getting re-measured against the actual paper trail. On rare earths, China's suspension lapses Tuesday with nothing published from Beijing, while Washington has now written its own pause down a second time, out to January, so one side has a document and the other has only a word. On power, Jefferies estimates PJM's near-term data-center procurement could be as little as 630 megawatts, roughly a tenth of the original shortfall, though a separate analysis inside PJM still projects an 11.5-gigawatt gap by 2030.
+
+From power to the price of money. Capital Markets Radar has the week's stress moving down the capital structure, out of equities and into rates and credit. Nvidia's credit-default-swap spread rose 76 percent in a month, and one CoreWeave bond now yields above 16 percent, more than six points over its own coupon. Broad high-yield and investment-grade spreads barely moved through Thursday, so this is single-name AI stress so far, not a systemic credit event, and the lending window is still open even as the toll on it rises.
+
+Digital Money finds the cash itself leaving, not just the price falling. Stablecoin supply posted its steepest weekly drop of the year, nearly 6.7 billion dollars, while the spot Bitcoin ETFs were net sellers two sessions running. Tether and Circle shrank at almost identical rates and both pegs held, so the desk reads an orderly, uniform de-grossing rather than a flight to quality or a run, with crypto's two institutional cash doors open at the same time.
+
+That's the macro backdrop. Now the AI and compute stack, where the bill for scarcity keeps landing on somebody's balance sheet.
+
+Semiconductors and Compute Infrastructure has memory stocks and memory fundamentals pointing in opposite directions, with Micron selling off even as TrendForce still forecasts another 10 to 15 percent rise in DRAM contract prices this quarter. The squeeze is real enough that Qualcomm's executives named memory pricing as one cause of a 26 percent drop in handset revenue. And a Broadcom filing shows up to 29 billion dollars of exposure backstopping a customer's AI-accelerator lease, so a slowdown would travel along financing links, not just cancelled orders.
+
+A standing disclosure for the next two desks: Anthropic makes the model behind this show. Frontier AI Lab Competition has Anthropic's amended S-1 answering what flipped its third quarter to a 567 million dollar operating loss: 5 billion dollars of short-term compute that costs significantly more than its long-term capacity. The desk reads that as evidence against this week's slowdown narrative, since a lab paying a premium for capacity is a lab short of it, not one cutting back.
+
+AI Products and Applications has the metering escalation this desk has tracked all week landing on four fronts at once. Google cut video-generation prices 30 percent, Microsoft's Copilot fair-use limits reach larger organizations tomorrow, Anthropic shipped cost-code tagging for enterprise Claude spend, and Adobe put its marketing agent inside at least five AI assistants from day one. The thread is that the vendor's calendar, not the customer's, now decides when a price or an allowance moves.
+
+Enterprise Technology grades this week's three forward signals by how checkable they are. Datadog sold off on a guide pulled down by one customer stepping to its contracted minimum, Palantir's GAAP backlog went flat on the quarter, and OpenAI's Greg Brockman claimed 70 percent quarterly growth in annualized revenue with no dollar base attached. The desk's read is that verification itself is becoming a valuation input.
+
+That's the compute stack. Now the applied frontier, where the money keeps rewarding what's already fielded over what's still promised.
+
+Robotics and Physical AI finds the biggest physical-AI money financing proven operations rather than upside. Shield AI agreed to pay 5.3 billion dollars, roughly 42 percent of its own valuation, for Echodyne's fielded counter-drone radar, and Waymo's first-ever debt raise, a 5 billion dollar term loan, is scaling a robotaxi fleet that already carries paying passengers. Meanwhile a home-cleaning humanoid still needed a remote human to finish the job, so general-purpose autonomy stays a promise.
+
+Space and the Orbital Economy has SpaceX escalating from renting network access to Elon Musk talking about buying a carrier outright, after Verizon, AT&T and T-Mobile all turned it down. On the other side, AST SpaceMobile and AT&T completed a handoff between AT&T's ground network and AST's satellites, a demo rather than a service. The desk frames it as two opposite bets on who keeps the subscriber, the satellite owner or the carrier.
+
+AI in Biopharma R&D closes the tour with new human data again favoring AI as a selector rather than a designer. In Evaxion's melanoma vaccine trial, 89 percent of the AI-predicted targets triggered an immune response, though there's no published baseline to say how much the AI added. The desk also corrects itself, pulling back three earlier descriptions of Insilico's rentosertib, the field's most-cited AI-designed drug, as being in Phase 3, after this week's research couldn't confirm it.
+
+One change since yesterday. On Saturday, this show said stress was relocating rather than clearing, into crypto's listed wrappers, fund NAVs and fees. Today it moved again, into credit spreads at the top of the AI complex and out through crypto's cash doors.
+
+That's The Throughline. Talk to you tomorrow.
