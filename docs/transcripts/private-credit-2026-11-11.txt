@@ -1,0 +1,41 @@
+Good morning, it's Wednesday, November 11th, and this is your private credit briefing.
+
+All week this desk has said private credit's back book has no price. On Monday, in my read, the regulators effectively conceded they don't have the data either.
+
+The Federal Reserve Banks of Dallas and New York opened a pilot survey of the private credit direct lending market on Monday. In the Fed's own words, it "explores lending trends in the U.S. private credit direct lending market." That's the lead, and it deserves scrutiny rather than applause. Three design choices limit what it can tell us. First, participation "is voluntary." Second, the Fed says "the findings of the survey will not be used for supervisory purposes." So this round carries no regulatory teeth. Third, "Aggregate level findings will be published in Q1 2027." Until then, nothing is known about the results.
+
+What follows is my read, not the Fed's claim. A voluntary survey selects for lenders comfortable enough with their book to answer. The funds carrying the most amended and extended paper have the least incentive to show up. So the sample is likely to skew toward the healthier end of the market, not the stressed end. The eligibility criteria and the eventual coverage aren't yet known.
+
+The deeper limit is scope. A survey built to read lending trends is a survey of the front door. It sees new originations, new terms, and new standards. The stress in this quarter's BDC filings isn't at the front door. It's in the back room, where loans already on the books get amended, switched to PIK, and extended rather than written down. As designed, this survey isn't built to see that.
+
+There is a fair counterpoint. A voluntary, non-supervisory pilot looks like a plausible first step toward broader data collection on non-bank lenders. If so, the response rate will itself be a signal, whenever it's disclosed. So bank this: the Fed is measuring the front door, and the stress is in the back room.
+
+So what would a regulator see if they looked in the back room? This quarter's BDC filings give a partial answer, and Barings BDC gave the clearest one.
+
+On Barings' third-quarter call, an analyst put its PIK at about ten percent of revenue, up from a little over seven percent last quarter. Management didn't confirm or dispute that, so treat it as the analyst's number. What management did do was split its PIK line item into design and distress. In management's words, "Roughly 60% of the PIK in that line item is that which was structured at origination." That's the benign kind, PIK that was always part of the deal. Then came the rest. "I would say 40% of that line item will be things we've had to do." Management described that share as "working with some of our investments that have had credit issues."
+
+One case came up on the call. It's a nonstandard auto insurer that Barings let defer cash interest. In management's words, "we made the decision to allow them to PIK interest for that third quarter." The 10-Q adds a separate example. It discloses one position on non-accrual for its PIK interest. That position "had a fair value of $9.4 million, or 0.4% of the total fair value of our portfolio." That's small on its own. But it's the same mechanism, showing up in a filing. Two caveats apply. The sixty-forty split is management's own characterization. And it covers the line item under discussion, which may not be every dollar of PIK company-wide.
+
+Now set Barings against Blue Owl. In yesterday's briefing, Blue Owl's management said the vast majority of its PIK was structured at inception. Barings is the first lender this desk has seen put a number on the stress share. At four dollars in ten, it isn't small.
+
+Here's the second-order point. Barings reported net investment income of twenty-six cents a share, and said it "fully covered our dividend." The board declared a cash dividend of the same twenty-six cents. So the coverage is exact, with no cushion. The PIK disclosure goes to its quality. PIK counts in net investment income, but it isn't cash. If a meaningful share of that income is accrued PIK from credit-challenged borrowers, the coverage is weaker than "fully covered" suggests. And if that PIK turns into a hard non-accrual, there's no cushion left to absorb it. So at Barings, the PIK mix is flagging stress that the non-accrual line will only register later.
+
+That raises a question about the other prints. Does a clean non-accrual line mean a clean book? Crescent Capital BDC is the counterweight here. In the company's words, "credit was more stable, with no new non-accruals during the quarter." Non-accruals declined "from 4.8% to 4.7% of debt investments at cost." Ten basis points in one quarter is stability, not a turn. But it's real, and it keeps today's read from being a blanket bear case.
+
+Kayne Anderson BDC, by contrast, shows PIK creeping up. Its PIK income was 4.9 percent of total interest income, up from 4.5 percent last quarter. That's low in absolute terms, so read it as direction only.
+
+Here's the narrower point, and these are different lenders, so it isn't a proven pattern. Crescent's numbers tell you about non-accruals. They don't tell you how much income is being kept current through PIK. Barings is the warning. Four in ten dollars of its PIK line item is stress-driven. Yet the one PIK position it has put on non-accrual is just 0.4 percent of the portfolio. So a flat non-accrual line is necessary for a clean book, but not sufficient.
+
+That measurement gap is exactly the definitional problem any dataset has to solve, including the Fed's. Moody's put numbers on it in an October study of middle-market CLO borrowers. It covers the twelve months to June, so this is framing, not news. In Moody's words, "The default rate among 607 private credit borrowers assessed by Moody's stood at 4% in the 12 months to June. That figure rose to 5.8% when payment-in-kind amendments and maturity extensions among distressed issuers were taken into account." Same borrowers, same period. The rate rises by nearly half just by changing what counts as a default. Fitch's separate monitor covers a different universe. It found that "the private credit default rate has reached a record high." Different method, same direction, and the two figures shouldn't be stacked.
+
+This is why NAV is a lagging signal. Soft restructurings defer recognition. So the forward-looking information sits in PIK mix and amendment disclosure, not the headline non-accrual rate. Whatever the Fed's pilot ends up counting, that definitional choice will shape what the market believes about stress in this asset class.
+
+So where does that leave the cycle? Stress is being deferred inside private books through PIK and amendment, not cleared through hard default. And new risk keeps flowing into those same books. Bloomberg reported on Monday that private lenders are in talks to finance L Catterton's purchase of Fullscript. That came after demand in the syndicated loan market was weak. These are talks, not a closed deal, and no terms are reported. Still, a deal the syndicated market reportedly balked at is moving into a book with no external price.
+
+The same migration is running out of the banks, and here a price may finally show up. ING is reportedly seeking bids for about five hundred million dollars across twelve data-center loans. The likely buyers, according to a banker at SMBC, range from private credit investors to insurers. No buyer and no clearing price exist yet. Where those bids clear will be the first real price on AI-linked loans headed into private books.
+
+The biggest unresolved risk, in my read, is that stress-driven PIK is flattering both income statements and NAV marks. There's no external price to check it against. And as of this week, there's no supervisory dataset either.
+
+Watch three things. First, the ING data-center bids, due next week, as a real-price test of AI-linked credit. Second, the remaining BDC prints, for PIK-mix disclosure rather than headline non-accruals. Third, and much further out, the Fed's aggregate survey results in the first quarter of next year.
+
+That's the lending machine for November 11th. Stay cautiously optimistic, and I'll talk to you tomorrow.

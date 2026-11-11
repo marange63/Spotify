@@ -1,0 +1,33 @@
+Good morning, this is The Throughline for Wednesday, November 11th, 2026.
+
+Today's headline: Jensen Huang's admitted affair with a woman that anonymously sourced reports call a Chinese intelligence asset is now a political deadline, with a House subpoena threat expiring today and a congressional briefing requested for the day after Nvidia's earnings.
+
+Ten briefings shipped today. We'll start with the macro backdrop, move through the AI and compute stack, and close on the applied frontier.
+
+Strategic Power has the Nvidia story colliding with Washington's export-control fight, where none of the defense bill's three chip measures is law yet. A security scandal hands chip hawks political cover, whether or not the spying allegation is ever substantiated. Beijing needs no vote at all, because its April 2025 licensing regime on heavy rare earths for magnets was never suspended.
+
+From Washington's levers to the market's. Capital Markets Radar has October's core CPI coming in hot against consensus, enough for CME to fully price a December quarter-point hike. The 2-year yield jumped nearly 19 basis points, a bear flattener, yet the S&P 500 fell just 0.38 percent. So the hawkish repricing is landing narrowly, and the desk notes the print was hot against forecasts, not against September's pace.
+
+Digital Money finds crypto leverage still hasn't cleared: perpetual futures open interest hit a two-year high in coin terms even as Bitcoin slid to about $73,500. Bitcoin's 30-day correlation with the Nasdaq reached 0.75, a 99th-percentile reading, which undercuts the uncorrelated-sleeve pitch behind spot-ETF buying. And Strategy played defense, spending most of its latest raise retiring preferred stock rather than buying Bitcoin.
+
+Private Credit and the Corporate Credit Cycle reads the Dallas and New York Fed's new direct-lending survey as regulators effectively conceding they lack the data. It's voluntary and non-supervisory, and it reads new lending, not the back book where the stress sits. Barings BDC showed that stress: management says roughly 40 percent of its payment-in-kind line item is distress-driven rather than structured at origination.
+
+That's the macro backdrop. Now the AI and compute stack, where Nvidia's scandal sets this week's calendar.
+
+Semiconductors and Compute Infrastructure has Nvidia down another 5.5 percent Tuesday as AMD and Broadcom rose, a second straight session of rivals gaining while the leader fell. House Foreign Affairs Chairman Brian Mast set today as Jensen Huang's deadline to respond or face a subpoena, ahead of a briefing requested for the day after earnings. The desk's read is that next Tuesday's earnings call doubles as a compliance statement, though Nvidia still holds its supply edge in prepaid packaging capacity.
+
+A standing disclosure for the next two desks: Anthropic makes the model behind this show. Frontier AI Lab Competition has Anthropic's IPO roadshow breaking a pattern this desk tracked on Monday and Tuesday: labs pricing below their own early narratives. The filed range implies a fully diluted value of up to 1.4 trillion dollars, and CNBC's unnamed sources say the book is already covered. Meanwhile OpenAI published a community compact after forty of forty-one local ballot measures went against data-center development, but so far it concedes disclosure, not dollars.
+
+AI Products and Applications has Anthropic and OpenAI both pushing back on being the interchangeable front end, and neither has disclosed pricing or adoption. Anthropic is pulling the work in, with Sheets and Whiteboards inside Claude's window, while OpenAI is pulling the customer in, letting businesses sell inside ChatGPT. Underneath both, Google made Gemini 4 Carbon generally available at an introductory API price that later doubles, with no end date given.
+
+Enterprise Technology has CoreWeave's revenue up about 168 percent, but an 846 million dollar quarterly interest bill explains most of the swing to a GAAP loss. Management says it won't tap unsecured debt at current yields, and will fund most remaining capex through delayed-draw term loans. At EPAM Systems, total revenue grew just 2.3 percent and management conceded some services shrank, so AI-native work looks like it's replacing headcount billing, not adding to it.
+
+That's the compute stack. Now the applied frontier, where the demos and the money keep running ahead of delivery at scale.
+
+Robotics and Physical AI has Nvidia's own unreplicated numbers for GR00T 2: 95 percent average success with five demonstrations, on fifty tasks new to the target robot. Shield AI's autonomy software guided two Anduril aircraft through beyond-visual-range maneuvers, the first flight-line evidence behind a week of capital news, though not yet an operational sortie. The desk's read is that robot brains are getting portable, but reliability at volume is unproven: thirteen of the fifty tasks failed at least once.
+
+Space and the Orbital Economy finds AST SpaceMobile financed, with about 3.2 billion dollars in cash, but its third-quarter revenue came from hardware and government milestones, not subscribers. AST's AT&T demo won a date only for intermittent coverage by year-end, not for commercial service. And on one tracker's math, China's Qianfan constellation runs nearly three years behind plan, which widens Starlink's window.
+
+One change across this week's mornings. The Huang story led this show on Monday as a reported intelligence link, had a market price by Tuesday, and today it carries a congressional deadline.
+
+That's The Throughline. Talk to you tomorrow.
