@@ -1,0 +1,45 @@
+Good morning, it's Thursday, November 12th, and this is your private equity briefing.
+
+On Tuesday we read KKR's guide to return a record of more than 40 billion dollars to clients this year as a real thaw, but one concentrated at the top of the industry. Today we have the first industry-wide exit data to test that read. It complicates the story more than it confirms it.
+
+Start with the flow. Mergermarket's DealSpeak data, current to November 2nd, counts 853 North American private equity exits so far this year. Mergermarket says that puts 2026 on pace to finish above 1,000.
+
+That would top last year's count of 962. And Mergermarket calls that the best year North America has seen, once you exclude the cheap-capital frenzy of 2021. So by headcount, exits are heading for a real record, if an asterisked one. Notice what the piece doesn't give you, though. There's no year-to-date dollar value for this year's exits. This is a count, not a value.
+
+Now the stock underneath that flow. Mergermarket puts the average hold period at exit at 6.25 years. That's more than two years longer than in 2020.
+
+Bain's research finds the same thing in a different sample. Bain puts holds at exit around seven years. That compares with five to six years on average from 2010 through 2021. These are two providers with different methodologies, so don't blend the numbers. But they point the same direction.
+
+Bain also sizes the pile those holds are building. It estimates roughly 32,000 unrealized buyout companies, worth about 3.8 trillion dollars. And Mergermarket cites industry estimates that current portfolios could take nine years to clear. The order of magnitude is the point. Even a sustained pickup in exit counts works a stock that size down only slowly.
+
+Here's the tension, and it genuinely cuts two ways. A rising average hold at exit is what you'd see if the book is simply ageing while sponsors wait for better prices. But it's also what you'd see if sponsors are finally selling their oldest, most stuck assets. That second reading would be good news, because those sales are exactly what old-vintage LPs need. So which is it? The evidence we have tilts toward the ageing book. Bain finds that almost 40 percent of buyout companies are now held more than five years. That compares with 29 percent in 2019, before the slowdown. So the share of long-held companies sits far above its pre-slowdown level. If the recovery were clearing the old stuff, you'd expect that share to be coming down. Nothing in the data yet shows that.
+
+The distribution data points the same way. Mergermarket cites a Bain report showing that the 2020 and 2021 vintages entered this year with DPI far below historical norms. In plain terms, those LPs had received little actual cash back. Bain's broader finding is that GPs underdelivered against historical distribution performance in every vintage from 2017 through 2021. So the count recovery is real, but nothing yet shows it clearing the aged book. Keep three measures separate here: exit count, exit value, and cash in an LP's account. A count recovery led by smaller sales can coexist with a stuck large-cap book. The industry's marketing tends to blur all three.
+
+There's a valuation cost to those long holds, too. Every extra year of hold is another year a mark goes without an arm's-length price. And that untested-mark problem should be worst in the 2020 and 2021 vintages. Those were bought at peak prices, and they have the least cash back. So the vintages LPs most need to see liquidity from are likely the ones whose paper values deserve the most scepticism.
+
+So who is capturing the exits that are happening? The managers told us themselves. On its third-quarter call on Monday, KKR set its record capital return this year against the rest of the field. In its words, the record stands "in sharp contrast to the muted monetization activity that we are seeing across our industry."
+
+KKR says it has already returned 31 billion dollars to clients so far this year. That figure spans private equity, real assets and credit, so it is not a pure buyout number. It also counts activity after September 30th, including deals not yet closed. That makes it management's own framing, not an audited distribution figure. And KKR is a competitor marketing its relative performance. Still, a top-tier manager is now saying, on its own call, what we inferred on Tuesday. The cash that is moving is not moving evenly.
+
+Now notice what exits do to the other side of a manager's income statement. On its call last week, Apollo said sequential management-fee growth was "partially offset by realization activity in equity." Here's the mechanism, and the reading is ours. When an equity fund sells a portfolio company, that capital stops paying fees. So the distributions LPs are starving for and the fee growth public shareholders pay for pull against each other inside the same funds. Apollo is still guiding to more than 20 percent growth in fee-related earnings in 2027. But that guide comes from a franchise led by credit and insurance, not classic buyout. Don't read it as a signal that buyout fundraising is turning.
+
+Step back from Apollo, and the pattern generalizes. The managers' equity story is increasingly a fee story. And it runs somewhat decoupled from the pace at which LPs actually get cash back. That's why the stocks can look healthy while the exit market they depend on stays clogged.
+
+That decoupling has a mechanical consequence on the LP side of the ledger. If 2020 and 2021 vintage LPs haven't gotten much cash back, they have less to recommit to the next fund. That link is our inference, not something the data measures directly. But the fundraising numbers fit it. PitchBook data show U.S. private equity firms raised roughly 222 billion dollars through September 30th.
+
+Run that rate for the full year and you get about 296 billion, down from roughly 330 billion in 2025. That's a straight-line annualization, not a forecast. A strong fourth quarter of final closes could narrow the decline. But the direction is a smaller pool.
+
+Who raises inside that shrinking pool? Tuesday's read applies here. Concentrated cash returns should mean concentrated recommitments. The firms with the strongest realization stories, like KKR, are best placed to keep raising. The squeeze falls on the mid-market sponsors below them. So the fundraising machine is shrinking underneath the platforms that are still growing.
+
+Money to deploy, though, isn't the constraint. On Monday, a CVC-led consortium was reported to have lined up a 7.58 billion euro financing package, about 8.5 billion dollars. It funds the take-private of the Italian drugmaker Recordati. The trade press describes it as the largest leveraged buyout announced in Europe so far this year. The deal itself was announced earlier, and the tender offer's first settlement came earlier this month. What's new is that the financing package is lined up, at record size.
+
+Be careful how far you push that. We don't know the premium, the equity cheque or the leverage multiple, so read nothing into the structure. And one jumbo financing doesn't prove the whole market is open. But it does show lenders will still back a jumbo take-private at today's rates. So the bottleneck in this cycle isn't capital for new deals. It's getting capital back out of the old ones.
+
+Pull it together. The private equity cycle right now is a backlog problem, not a flow problem. Exit counts are genuinely improving. Financing for new megadeals is genuinely available. And fee-related earnings at the largest managers keep compounding almost on their own schedule. None of that has yet worked its way down into the 2020 and 2021 vintages. Those sit inside a 3.8 trillion dollar pile of unsold companies, carried at marks that haven't met a buyer.
+
+Where's the market complacent? In reading record exit counts and record fee income as cycle health. Where might it be over-discounting? In dismissing the count recovery altogether. A sustained acceleration does eventually work the backlog down, just slowly. The biggest unresolved risk is still the exit-and-distribution logjam, and it bites hardest below the top tier.
+
+Watch two things. First, Blackstone's and KKR's fourth-quarter prints, due in January and February, as the real cash test. Second, Bain's next reading of the share of companies held more than five years. If that share finally falls from around 40 percent, the old book is clearing. If it stays there alongside record exit counts, the logjam is still in place.
+
+That's the state of the machine. Thanks for listening, and I'll catch you next time.

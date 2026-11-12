@@ -1,0 +1,35 @@
+Good morning, this is The Throughline for Thursday, November 12th, 2026.
+
+Today's headline: all seven reported buyers in Anthropic's 26-billion-dollar IPO placement are chipmakers or clouds, including Broadcom and Google, its two largest compute counterparties.
+
+A standing disclosure, since that headline and two of today's desks concern Anthropic: Anthropic makes the model behind this show.
+
+Ten briefings shipped today. We'll start with the macro backdrop, move through the AI and compute stack, and close on the applied frontier.
+
+Strategic Power has the White House adding provisions to the AI Overwatch Act, part of a defense-bill push to tighten export controls on Nvidia's advanced chips sold to China. Yet trade press says not a single H200 has shipped to China since last December's authorization, so Washington is hardening a door that has barely opened. In Ukraine, Russia struck substations during US-backed talks, but President Zelensky says generation is still adequate, so the binding problem is wire, not watts.
+
+From Washington's levers to the market's own stress test, Capital Markets Radar finds the index calm while the tails crack. Vanguard puts CCC-rated spreads at roughly 1,000 basis points over Treasuries, more than 500 wider than this year's lows, even as the broad high-yield index tightened. With the VIX already back below 20, the desk sees Nvidia's November 17th earnings opening a four-session window where options mechanics, not fundamentals, may move the index most.
+
+Digital Money has major stablecoin supply down 14.2 billion dollars in 30 days, per Glassnode, the biggest drop since the 2022 bear market. At the same time, 21 financial institutions including Goldman Sachs and Citigroup have reportedly committed about 270 million dollars to a joint dollar stablecoin aimed at early 2027. The desk's read is that the cycle is draining today's on-chain dollars while the banks build the rail for the next ones.
+
+Private Credit and the Corporate Credit Cycle has redemption pressure easing but not clearing, with sponsors meeting only about 40 percent of 13.8 billion dollars in third-quarter requests. On the other side of the balance sheet, Morgan Stanley says private credit could fund over half the data-center build-out. The desk's worry is the mismatch: long-dated construction risk aimed at a funding base that already rations exits.
+
+Private Equity has the first industry-wide exit data complicating, not confirming, Tuesday's thaw narrative. Mergermarket has North American exit counts on pace for their best year outside 2021, yet the average hold at exit now tops six years. With Bain counting almost 40 percent of buyout companies held over five years, up from 29 percent in 2019, the desk calls this a backlog problem, not a flow problem.
+
+That's the macro backdrop. Now the AI and compute stack, where Nvidia shows up as both a risk story and a buyer.
+
+Semiconductors and Compute Infrastructure starts with CoreWeave, whose backlog rose roughly 27 percent in a quarter, to 132.5 billion dollars, and Nvidia bounced on that print. But per Bloomberg's anonymous sources, Nvidia's general counsel called a senior Commerce official in 2025 about the probe into suspected chip smuggling by Megaspeed, a Singapore-based reseller. Nothing here is a finding of wrongdoing, but the desk sees the probe becoming a governance overhang for Nvidia ahead of earnings.
+
+Frontier AI Lab Competition leads with that placement, Nvidia included: 26 billion dollars of nonvoting shares at the IPO price, with buyers reportedly free of the standard six-month lockup. Those terms rest on secondhand readings of the filing, but the desk calls the supplier overlap the clearest evidence yet for the circularity critique. And OpenAI's leaked third-quarter revenue topped 10 billion dollars for the first time, yet on the desk's arithmetic its absolute loss widened even as its margin improved.
+
+Enterprise Technology reads the same deal from the buyer's side, where Microsoft is reportedly buying Anthropic equity while winding down a deal to rent AI capacity from Oracle. Meanwhile, OpenAI's CFO says its enterprise business doubled quarter over quarter, with no dollar base given, and admits OpenAI was really stuck on its Azure contract. The desk's takeaway is that cross-holdings are displacing exclusive contracts, so no cloud can differentiate on model access alone.
+
+That's the compute stack. Now the applied frontier, where headline counts keep running ahead of delivery.
+
+Robotics and Physical AI has Tesla's Texas robotaxi registrations edging past Waymo's, with 573 purpose-built Cybercabs in the count, but a registration is a permit, not a paid ride. Nvidia's GR00T 2 robot model is reportedly due as open weights in December, yet its 48-for-48 run on one popcorn-serving demo still only bounds the failure rate near 6 percent. And the desk stresses that Beijing's two-month rare-earth renewal never touched the heavy rare-earth licensing that governs actuator magnets.
+
+Space and the Orbital Economy reads NASA's ten-billion-dollar CLPS 2 lunar-delivery contract as a ceiling shared across every awardee, not booked revenue for Intuitive Machines. Breakwater's Jen Ross says investors likewise aren't counting Golden Dome funding as solid in company projections. The most cash-like money is AST SpaceMobile's roughly one-billion-dollar Japanese funding deal, but its next three satellites still await launch dates from SpaceX, which is building a rival network.
+
+One change versus earlier this week. On Tuesday, this show flagged ING's data-center loan bids and Anthropic's IPO as the first public prices on AI risk. Since then the calendar has firmed up, and Nvidia has joined it. Nvidia reports on the 17th, Anthropic prices on the 18th, and ING's loan bids are due on the 19th. So inside three days, the market puts prices on Nvidia, a frontier lab, and AI data-center debt.
+
+That's The Throughline. Talk to you tomorrow.

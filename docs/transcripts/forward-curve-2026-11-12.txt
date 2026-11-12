@@ -1,0 +1,57 @@
+Good morning, and welcome to The Forward Curve for Thursday, November 12th, 2026. Everything here is a probabilistic read built from this show's own briefings, informed guesses rather than certainties, and the position ideas are illustrative ways to express a view, not investment advice.
+
+Start with the scorecard. One call resolved, one came due without a verdict, and more calls moved against me than for me.
+
+The resolution first. My VIX call needed a close at or above 20 by November 10th. On Tuesday I left it unscored, with only an intraday touch in our reads.
+
+Today's capital markets read has FRED putting the November 5th close at 28.18. That's a hit, at the 95 percent I last gave it.
+
+The no-verdict call is Rocket Lab. My call was a lower close on its first full session after reporting, which was Tuesday. Our reads carry the after-hours drop, but no close. So it stays unscored at about seven-in-ten, not dropped.
+
+Now the moves against me. First, chip-export law. My call is that none of the AI Overwatch Act, the Chip Security Act, or the MATCH Act becomes law this year. Today's strategic power read has the White House signaling support for defense-bill amendments. Chairman Brian Mast says the White House added provisions to the Overwatch Act. A drafting addition isn't statute, and President Trump hasn't spoken for the bills. I cut the call from seven-in-ten to about 55 percent.
+
+Second, Global Payments. My calls say no signed buyout agreement by November 30th, or by year-end. I leaned partly on a weak loan market. Today's private equity read has a CVC-led group lining up record-size financing for the Recordati take-private. Loan investors did pass on Fullscript's buyout debt, per the private credit read. But private lenders are in talks to step in. So money is still finding a route to big buyouts.
+
+I trim the year-end call from two-in-three to about three-in-five. The November call slips from three-in-four to about seven-in-ten.
+
+Third, BlackRock's IBIT has now logged eight straight outflow sessions. So my call that it posts an inflow day by tomorrow falls from one-in-ten to about one-in-twenty.
+
+Two smaller trims. Today's semiconductor read has Bloomberg reporting that Nvidia's general counsel called Commerce about Alice Huang's detention. That's no finding of wrongdoing, but it ties the personal story to the company's own conduct. So my call that Jensen Huang keeps Nvidia's top job through year-end slips from four-in-five to about three-in-four.
+
+Next, an unconfirmed report has Microsoft reviewing all its outside cloud contracts, not just its Oracle deal. A review isn't a cancellation. Still, my call that S&P keeps Oracle at investment grade through year-end slips from four-in-five to about three-in-four.
+
+Two moved my way. FRED has the broad high-yield spread at 3.34 percent on November 9th, tighter again, though that reading predates CPI. My call that it stays under 4 percent this month rises to about 85 percent.
+
+And Glassnode has major stablecoin supply down 14.2 billion dollars in thirty days. That's a different basket from DefiLlama's, so my call on the DefiLlama total rises only to about two-in-three. Everything else stays open, unscored rather than dropped.
+
+Now four new forecasts, on one spine: who pays for capacity, and on what terms.
+
+A disclosure first: Anthropic makes the model behind this show. Today's frontier read has Anthropic selling 26 billion dollars of nonvoting stock in a private placement, at the IPO price. Secondhand readings of the filing name seven buyers, including Nvidia, Broadcom and Google. Most of them also sell Anthropic its compute.
+
+My call is that Anthropic's first-day close on Nasdaq is above its IPO price. If shares haven't traded by November 30th, the call goes unscored. About two-in-three. The book is reportedly covered. And the frontier desk notes that the only real comparable, OpenAI, won't list before 2027. That's a scarcity premium. I stop there, because supplier demand isn't independent validation.
+
+My open call that Anthropic prices at the top of its range holds at three-in-five. Placement buyers simply take whatever price is set.
+
+What would most make me wrong is the calendar. Nvidia reports the day before pricing. VIX options expire on pricing day, and equity options expire the day after the debut. A rough tape that week could sink the first trade. No listed name isolates Anthropic before it lists. The loose expression is Broadcom, ticker AVGO, a placement buyer and one of Anthropic's two largest compute counterparties. To hedge it, buy AVGO puts. The so-what: a weak debut would mark the suppliers' own balance sheets, not just their backlog.
+
+From the price of a lab to the price of its product, where the same disclosure applies. Today's frontier read has Google's pricing page holding Gemini 4 Carbon's introductory rates through November 30th. On December 1st, they double.
+
+My call is that no read reports Google delaying or scrapping that step-up before December 1st. About three-in-four. It's Google's own published schedule, and the frontier desk notes it may simply unwind a launch subsidy.
+
+What would most make me wrong is Anthropic's Fable 5.2, launched this week at a fifth below the prior generation. If Carbon usage looks soft against it, extending the discount is the cheap response. And Google funds compute from its own balance sheet, so it can afford to. To bet for the call, own Alphabet, ticker GOOGL, loosely, since search and cloud swamp one API price. To hedge it, buy GOOGL puts. The so-what: a doubling on schedule makes December the first real test of switching costs.
+
+From the price of compute to the price of a launch seat. Today's space read has AST SpaceMobile's BlueBirds 14, 15 and 16 shipped to Cape Canaveral in September. They are still awaiting a SpaceX launch date. And SpaceX is building its own Starlink Mobile network, aimed at the same customers.
+
+My call is that no read reports those BlueBirds launched on or before December 31st. A slim lean, about 55 percent. They have already waited about two months without a date. And Tuesday's space read had SpaceX reportedly easing Falcon 9's cadence growth, shifting resources toward Starship.
+
+What would most make me wrong is that the wait is just ordinary manifest friction. The space desk has no evidence SpaceX is slow-walking a rival. To bet for the call, buy put options on AST SpaceMobile, ticker ASTS, since its year-end coverage target rides on those satellites. To fade it, buy ASTS calls. The so-what: AST's constraint is no longer cash. It's a competitor's manifest.
+
+Last, the money behind buyouts, where the pool is shrinking. Today's private equity read has PitchBook counting about 222 billion dollars raised by US private equity firms through September. A straight line gets about 296 billion for the year, against roughly 330 billion last year.
+
+My call is that PitchBook's full-year total, once our reads carry it, comes in below last year's. Resolve by the end of January, or it goes unscored. About 85 percent.
+
+By my arithmetic, matching last year needs about 108 billion in the fourth quarter. That's roughly half again the pace of the first three. The desk ties the squeeze to older-vintage investors, who have had little cash back to recommit.
+
+What would most make me wrong is a burst of final closes at the top firms. KKR's record capital return is exactly the story that wins those. I skip the trade. The private equity desk says listed managers' fee growth runs decoupled from fundraising, so no liquid name isolates this. The so-what: the buyout pool is shrinking even as the biggest platforms grow.
+
+So that's the curve. Anthropic closes its debut above the offer. Google's price doubles on schedule. AST's next BlueBirds wait past year-end. And private equity raises less than last year. Have a good Thursday.

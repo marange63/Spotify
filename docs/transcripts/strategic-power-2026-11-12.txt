@@ -1,0 +1,39 @@
+Good morning. It's Thursday, November 12th, 2026, and this is your Strategic Power briefing.
+
+Two levers are being pressed on two chokepoints this week, and they bite very differently. Washington is moving to harden a chip-export channel to China that has carried almost nothing. Moscow is hitting the wires that actually keep Ukraine's lights on. Neither campaign has produced a settlement, so let's take them in turn.
+
+Start with the Nvidia story. CNBC reports that on November 10th, the White House signaled it would back defense-bill amendments tightening export controls on Nvidia's advanced chips sold to China. That qualifies yesterday's reporting here that the curbs were unlikely to make the final bill. Look underneath the headline, though, and the signal is narrower than it sounds.
+
+The administration's posture differs bill by bill. The firmest move is on the AI Overwatch Act. House Foreign Affairs Chairman Brian Mast says that "the White House has added provisions to the AI Overwatch Act." That's concrete legislative text, not just talk. Two related bills got far less. On one, administration officials gave only technical feedback, which Punchbowl News calls "short of an endorsement." On the other, no White House engagement has been reported at all. And President Trump himself "has yet to speak out in favor of the bills."
+
+The push from Capitol Hill is firmer than the push from the White House. House Democratic Leader Hakeem Jeffries put it plainly. "We're going to work hard to make sure that those provisions make it into the final version of the NDAA." So the executive branch has picked a side on one bill, and Democrats are pushing from across the aisle. But a drafting addition is not a conference outcome, and it is certainly not statute. The odds of tightening went up this week. The law did not change.
+
+Now look at what is actually being tightened. About ten Chinese firms, including Alibaba, Tencent, ByteDance, JD.com and Lenovo, were each cleared to buy up to 75,000 H200 chips. Trump first authorized those sales in December 2025. Trade press says not a single H200 has shipped to China since. Nvidia, via CNBC, says H200 shipments to China were under 1 percent of data center revenue in the quarter that ended in July. Either way, the channel has barely moved.
+
+Here's the so what. Washington is hardening a door that has barely opened. By Nvidia's own numbers, the direct revenue at stake is small. The real cost to Nvidia is a governance and compliance overhang heading into its next earnings report. It is not a dent in the P and L.
+
+Which brings us to where the demand actually goes. Reuters reports that a major Chinese cloud provider, which it doesn't name, "has discussed internally whether to lock in overseas Nvidia chip capacity." Smaller Chinese AI labs are reportedly "approaching major providers of rented computing power in Southeast Asia." Keep this in proportion. It's a single Reuters report. It names no firms, no host country beyond the region, and no volumes. So read it as a behavioral signal, not a measured flow.
+
+The motive is the telling part, and it needs one line of background. Nvidia's chief executive, Jensen Huang, has been linked to an affair with a woman whom US officials reportedly suspect of spying for China. CNBC and The Hill describe that intelligence link as alleged, and it has not been established. Per Reuters, Chinese firms fear the controversy around Huang could add political momentum to one specific bill. That bill is the Remote Access Security Act. It would give the Commerce Department authority to regulate remote, cloud-based access to restricted technology. According to the same reporting, it has already passed the House and is waiting on the Senate. So the workaround Chinese firms are chasing already has a legislative countermove in motion. It isn't hypothetical.
+
+Now a refinement to our own arc. On Tuesday this desk said that if America holds the stronger lever over China, it looks like chips rather than power. That still holds. But the lever's bite is migrating away from the license book. It's moving toward remote access and the rules of host countries. That's our inference. It has a clear consequence. Third-country data-center hosts in Southeast Asia become part of the export-control perimeter, whether they want to or not. The chip lever only works if Washington can reach the rented rack, not just the shipped chip.
+
+Washington is pressing its lever through legislation. Moscow pressed its own in the middle of a negotiation.
+
+Turn to Ukraine. On the night into Tuesday, Russia targeted four electrical substations in the Kyiv, Dnipropetrovsk, Cherkasy and Vinnytsia regions. Strikes came again the following night. Ukraine's grid operator, Ukrenergo, then reported partial outages affecting consumers in eight regions. Kyiv is temporarily switching off municipal streetlights to save electricity. All of this landed while US-backed talks were underway in Abu Dhabi. Those were the first direct negotiations between Russia, Ukraine and the United States since February.
+
+President Zelensky's own framing is the load-bearing fact here. Ukraine, he says, still has enough generating capacity. The damage is to substations and power lines. Put that next to the outage map. Consumers in eight regions saw partial outages, yet the generating fleet is still adequate. In other words, Ukraine's problem isn't watts. It's wire.
+
+That's the same constraint this desk flagged yesterday in a very different system. Norway's grid operator, Statnett, paused new data-center capacity reservations, in a hydro-rich and power-abundant grid. A peaceful system and a bombarded one are telling us the same thing. The connection points bind, not the power plants.
+
+There's a practical inference for Western support. If Ukraine's constraint sits in distribution, the most useful aid is substation repair, transformers, and air defense for grid nodes. New generation capacity matters less. The market read follows from that, and it is our inference. The beneficiaries of wire, not watts, are the makers of transformers and substation equipment, and the suppliers of interceptors that protect grid sites. Demand for both stays elevated for as long as the strikes continue. Russia has found the chokepoint, and the response has to be built around it.
+
+Now the table itself. Kyiv Post reports that the second day of the Abu Dhabi talks ended with key territorial disputes remaining. That's the outcome as reported, and we won't dress it up.
+
+Was the timing of the strikes deliberate? Reading them as negotiating leverage is our inference, not a confirmed Russian objective. But the coincidence is hard to ignore. It also fits a pattern. On Saturday, and again on Monday, this desk tracked Kyiv's long-range strike campaign against Russian refineries. Now Moscow is striking Ukrainian substations. Each side is using the other's energy infrastructure as a bargaining chip.
+
+Before the talks opened, this desk called Abu Dhabi choreography until somebody moves on territory. This round confirmed that call. So nothing contingent on a settlement moves yet. The war-risk premium in European energy stays where it was. So does the sanctions posture on Russian energy.
+
+A short watch list. First, whether the White House's Overwatch provisions survive into the final defense-bill conference text, where Jeffries says he'll work to keep them. Second, a primary-source record of H200 shipments to China, since trade press and Nvidia still don't quite agree. Third, the Senate's handling of the Remote Access Security Act. That bill, not a new license rule, is the instrument actually aimed at the offshore-compute workaround. And fourth, whether a next round follows Abu Dhabi. Nothing on that track moves until territory does.
+
+That's the briefing. Stay cautiously optimistic, and I'll talk to you tomorrow.
