@@ -1,0 +1,43 @@
+Good morning, and welcome to Cautious Optimism Briefings. It's Friday, November 13th, 2026.
+
+This desk has spent the week on launch scarcity, asking who can get a payload into orbit and when. Today's question is different. While the queue stays tight, who is actually earning money, and who is still selling a rendering?
+
+Start with BlackSky, the earth-observation operator. It reported its third quarter last week, and this desk hasn't covered it yet. It is the cleanest example in this cycle of revenue coming off hardware that is already in orbit. BlackSky's earnings release, filed with the SEC, puts quarterly revenue at 42.8 million dollars. Financial-press coverage of the results puts that at 118 percent above a year earlier.
+
+The company also raised its full-year guidance, to a range of 140 to 150 million dollars in revenue. The release calls it the second raise this year. So BlackSky has now lifted its own plan twice in one year, on a fleet that is already flying.
+
+Profitability moved with it. Adjusted EBITDA, a non-GAAP measure, came in at a record 12.8 million dollars. That is a margin of just under 30 percent. So a working fleet is producing adjusted profit, not a promise on a slide.
+
+Now the part that needs more care. During the quarter, BlackSky was named the exclusive provider of very-high-resolution electro-optical satellites for a new fifty-satellite constellation. Its Gen-3 satellites will be part of that constellation. The program sits inside a billion-dollar investment led by a consortium that includes Marlan Space, Loft Orbital, and Mistral AI. The release pitches it as the world's largest AI infrastructure in space, aimed at France and the UAE.
+
+Here is the distinction that matters. The billion dollars is the size of that outside investment. It is not a contract value paid to BlackSky. Nothing in BlackSky's own disclosures states a dollar figure flowing to the company. Nor do they give a launch date, or say whether BlackSky will operate the finished constellation rather than simply supply the satellites. The company says only that further details are coming later this year.
+
+This is the same test this desk applied yesterday to NASA's lunar-delivery ceiling and to Golden Dome money. A headline commitment dwarfs anything actually booked as revenue. And the role itself changes the model. Selling imagery off its own fleet lets BlackSky monetize satellites it has already paid for. Supplying satellites for someone else's constellation looks more like a manufacturing contract. That means a different margin, a build schedule to hit, and one concentrated buyer.
+
+Two questions follow, and the disclosures answer neither. First, those fifty satellites need factory slots and launch slots in the same tight market that has slowed everyone this week. Second, very-high-resolution imaging hardware for a foreign-backed program may invite export-control scrutiny. Treat that as an open question, not a finding. So BlackSky is earning today on its own fleet, while the AI-in-space story next to it is a call option, not a sale.
+
+Building constellations like that is the next link in the chain, and Redwire's quarter shows what that layer looks like right now. Redwire, the in-space infrastructure and components maker, reported third-quarter revenue of about 109 million dollars. That is up roughly 5 percent from a year earlier, slow growth for a supplier in a sector raising this much capital.
+
+It was also a miss. Analysts had expected about 126.6 million dollars. By this desk's arithmetic, Redwire came in roughly 17 million dollars short of consensus.
+
+Gross margin tells a different story. It hit a record 32.3 percent, double the 16 percent of a year earlier, even as revenue barely moved. The coverage does not say why. It could be a richer program mix. It could be a one-off accounting adjustment. Or it could be a genuine structural shift. We don't know, so treat it as an open question rather than a conclusion.
+
+What we can say is that the two numbers point in opposite directions, and the top line is the scorecard analysts grade this layer on. A supplier can get more profitable per dollar of revenue and still miss. That happens when its revenue lands on customers' program and launch timing rather than its own. Until delivery timing firms up, expect revenue in this layer to stay lumpy, whatever margins do.
+
+After building comes launch, which is where this desk owes you a revision. AST SpaceMobile, the direct-to-cell operator, reported its third quarter earlier this week, with BlueBirds 11 through 13 now operating. We covered those numbers on Wednesday, so we won't re-run them.
+
+The new detail comes from NewSpace Economy's summary of AST's filing. BlueBirds 14 through 16 shipped to Cape Canaveral in September. They are still awaiting confirmation of a SpaceX launch date. The next batch, BlueBirds 17 through 19, was expected to ship by the end of November for a Blue Origin flight in the first quarter of 2027. That is an expectation in the filing coverage, not a confirmed manifest.
+
+On Wednesday, and again yesterday, this desk said AST looked less hostage to Blue Origin's recovery. That read was broader than the near term supports, and we're narrowing it today. AST's next two deployment steps run through two providers it does not control. One is SpaceX, a direct-to-cell rival. The other is Blue Origin's New Glenn, which has not flown since a hot-fire test explosion in May badly damaged the company's Florida launchpad.
+
+In an internal memo reported by CNBC, Blue Origin chief executive Dave Limp attributed the slip to delays in rebuilding that pad, including bad weather over the summer. He called it, quote, a small adjustment. No firm day has been set for New Glenn's return. So the revision stands. Splitting batches across two launch providers does not de-risk AST if both providers are constrained. A delay at either one pushes back the next deployment step. AST has money. Its delivery runs on someone else's schedule, twice over.
+
+Which brings us to tonight. SpaceX's fifteenth Starship flight is targeted for this evening, Eastern time. The plan is to catch both the Super Heavy booster and the ship at the Starbase tower, the first attempt to catch both stages on one flight. Before that, the ship is meant to deploy twenty-six Starlink V3 satellites.
+
+This is strictly a target, and the window could still slip. Nothing about tonight's outcome is known as this briefing goes out. Here's why it matters to everything above. SpaceX is the yardstick for every other launch provider. It is also the queue that AST, Amazon, and the constellation operators buying Neutron seats are trying to get into or around. A clean double catch would widen the gap between the incumbent and everyone chasing it. But one flight is not a cadence, and it is not a cost-per-kilogram figure either way. It is the next data point, and we'll bring you the result tomorrow.
+
+Pulling the threads together. The orbital economy is genuinely inflecting wherever revenue already comes off hardware in orbit, and BlackSky's quarter is the clearest case. It is still a demo, or at best a plan, wherever the headline number is an investment size rather than a contract. The same goes for a launch slot rather than a satellite on orbit. BlackSky's fifty-satellite program and AST's next two BlueBird batches share one binding constraint: somebody else's launch queue. Redwire's lumpy top line may be the supplier-side echo of that constraint, though its quarter alone doesn't prove it.
+
+The biggest open question is who controls the queue, and what they can charge for a seat. For catalysts, start with tonight's Starship result. Then watch whether BlackSky discloses an actual dollar flow or timeline on the fifty-satellite build. Watch whether Redwire's margin holds next quarter or reverts. And watch for a confirmed SpaceX date for AST's BlueBirds 14 through 16, and a firm return date from Blue Origin.
+
+That's today's briefing. Stay cautiously optimistic, and I'll talk to you tomorrow.

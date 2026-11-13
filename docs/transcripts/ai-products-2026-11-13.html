@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Products &amp; Applications — Transcript</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { margin:0; font:1.125rem/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+  main { max-width:44rem; margin:0 auto; padding:2.5rem 1.25rem 4rem; }
+  .show a { text-transform:uppercase; letter-spacing:.08em; font-size:.75rem; text-decoration:none; opacity:.7; }
+  h1 { font-size:1.6rem; line-height:1.25; margin:.4rem 0 .25rem; }
+  .date { opacity:.6; font-size:.95rem; margin:0 0 2rem; }
+  p { margin:0 0 1.15rem; }
+</style>
+</head>
+<body>
+  <main>
+    <p class="show"><a href="https://marange63.github.io/Spotify/">Cautious Optimism Briefings</a></p>
+    <h1>AI Products &amp; Applications</h1>
+    <p class="date">Transcript · November 13, 2026</p>
+    <p>Good morning. It's Friday, November 13th, 2026, and this is your AI products briefing.</p>
+    <p>One standing disclosure before we start. Anthropic makes the model that powers this show, and Anthropic's pricing is part of today's comparison. The lead itself is an OpenAI product.</p>
+    <p>Since November 6th, this beat has tracked labs putting their riskiest models behind vetted gates, instead of shipping them to everyone. OpenAI gated its cyber model first. Anthropic gated Mythos 5.2 a few days later, which we covered on the 10th. On the 11th, Google's Carbon showed that a gate can also be a staging step toward general availability. Today the gate gets a price tag. The three labs' prices sit far apart, and they are not moving in the same direction.</p>
+    <p>Start with a correction to our own record. A week ago today, we told you that OpenAI's vulnerability-research model, GPT-6 Cyber, had no published pricing. That's no longer true. VentureBeat and DataStudios both report the rate from OpenAI's model page. It's 20 dollars per million input tokens, and 100 dollars per million output tokens. We could not retrieve OpenAI's page directly. DataStudios also notes that OpenAI's general pricing page had no row for the model as of that same date. So treat the number as well reported, not primary-confirmed.</p>
+    <p>Anchor that output rate to the model it succeeds. GPT-5.6 Cyber charged 75 dollars per million output tokens. So OpenAI raised its output price by a third, generation over generation. Its most capable cyber model costs more than the last one, not less.</p>
+    <p>The rivals sit well below that. Google's cyber variant, which VentureBeat names Gemini 4 Argon Cyber Permissive, charges 20 dollars per million output tokens. That's a fifth of OpenAI's rate.</p>
+    <p>Anthropic is the more telling comparison. VentureBeat benchmarked against Mythos 5.1, which Anthropic has already replaced. Anthropic's current platform documentation settles the newer number. It says the newer Mythos "has the same specifications and pricing as Claude Fable 5.2." That works out to 40 dollars per million output tokens, down from 50 a generation ago.</p>
+    <p>Sit with what that matching price means. Fable and Mythos are the same underlying model, and Anthropic now charges the same for both. So clearing Anthropic's gate costs nothing extra. OpenAI does the opposite. It sells a specialized model behind its gate, and charges a premium for it. Our read is that OpenAI treats the gate as a product tier worth paying for. Anthropic treats it as a compliance step. Google simply undercuts both. One lab is betting buyers will pay up for capability. The other two are competing on price.</p>
+    <p>There's a second price gap, and it's wider than the headline. OpenAI lists cached input for GPT-6 Cyber at 2 dollars per million tokens. Anthropic and Google both list 20 cents. That's a tenfold difference. Our inference is that this matters more for security work than it looks. Security agents loop over the same large codebase again and again. In long agentic runs, the cached-input rate can drive the bill as much as the output rate does.</p>
+    <p>So what is the premium supposedly buying? OpenAI's headline evidence is the Linux kernel. According to VentureBeat, researchers using GPT-6 Cyber reproduced 1,724 Linux kernel vulnerabilities. They built working exploits for 948 of them.</p>
+    <p>That second number needs care. VentureBeat says that under the same research setup, GPT-5.6 Sol produced exploits for 166. Sol is OpenAI's general-purpose model, not the prior cyber model. So that jump compares a specialist against a generalist. It doesn't tell you how much the cyber line itself improved. And it's OpenAI's own test, relayed through the press, not an independent measurement.</p>
+    <p>Here's the deeper problem, and VentureBeat names it directly. These are, quote, "token-price comparisons, not measurements of cost per completed investigation." A security team gets billed by the token. But it budgets per validated vulnerability, per working exploit, per engagement. None of the reporting gives that number for any of the three labs. Until someone publishes it, a buyer can't tell whether OpenAI's premium model is more expensive per useful result, or cheaper. A pricier model that lands the exploit on the first attempt can beat a cheaper one that keeps retrying.</p>
+    <p>Price may also reflect scarcity. Access is still narrow. According to DataStudios, OpenAI's model page requires Daybreak Red access plus a separate approval for GPT-6 Cyber itself. VentureBeat reports that OpenAI plans to extend access across that tier, but no source reports that it has yet. A rate set for a small vetted cohort may be scarcity pricing, not a stable market price.</p>
+    <p>Two second-order effects follow, and both are our inference. First, security teams may stop treating these models as interchangeable. They could reserve the premium model for the hardest exploit-development work. Routine scanning and triage would go to the cheaper gated rivals. That turns the gated cyber tier into a multi-vendor routing decision. It's the same per-request logic this beat described around Anthropic's fast mode on the 10th.</p>
+    <p>Second, the bottleneck moves downstream. OpenAI disclosed 304 critical Linux findings to maintainers. Add the 81 high-severity Firefox flaws we covered on the 6th. Every one of those lands on someone who has to write and ship a patch. Discovery scales with compute. Patching scales with people. So the binding constraint shifts from finding bugs to fixing them.</p>
+    <p>Now the other end of the access spectrum, where there's no gate at all, and still no published price.</p>
+    <p>OpenAI's Images 2.6 needs its own update. On the 6th, we described its two developer models, Flare and Sunburst, as coming to the API. TestingCatalog's summary of OpenAI's announcement now describes both as available through the API. Flare is tuned for speed. Sunburst is tuned for detail and consistent edits at medium or high quality. One sourcing caveat: OpenAI's own page blocked our retrieval, so all of this comes through TestingCatalog.</p>
+    <p>The more important change is image markup. In ChatGPT, markup lets a user point at a region of an image and ask for a change there. That control is now in the API, for identifying precise areas to change. That turns image generation from a consumer feature into a programmable editing primitive. A design tool or a marketing-ops platform can specify the edit region in code, instead of waiting for a person to draw it. Our inference is that this is the piece most likely to surface inside third-party software, because it removes the one manual step those tools couldn't automate.</p>
+    <p>But there's still no verified price for Flare or Sunburst. A week after this beat flagged that gap, it's still open. So builders can integrate the capability today, but they can't model what it costs at scale. And any vendor who wants to embed it can't set its own margins until OpenAI publishes a rate.</p>
+    <p>Put the two stories together and the contrast is sharp. The most restricted model on this beat, one that few organizations can even reach, now has an itemized price sheet. The most open one, sitting in the public API, still has no price at all. It rhymes with the 11th, when neither Anthropic's office tools nor OpenAI's Businesses in ChatGPT had disclosed pricing or adoption. And none of these products publishes a cost per outcome, whether per exploit or per edited image. That's the number the people paying for them actually need.</p>
+    <p>Three things to watch. First, whether OpenAI adds GPT-6 Cyber to its general pricing page, which would put the rate on the primary record. Second, whether access widens beyond the Daybreak Red approval group, and whether any lab publishes a cost-per-finding figure instead of a token rate. Third, whether Flare and Sunburst finally get a published price.</p>
+    <p>That's the briefing for November 13th. Thanks for listening, and I'll catch you next time.</p>
+  </main>
+</body>
+</html>

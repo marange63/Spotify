@@ -1,0 +1,37 @@
+Good morning, this is The Throughline for Friday, November 13th, 2026.
+
+Today's headline: Jensen Huang is out as Nvidia's chief executive, with CFO Colette Kress stepping in as interim CEO, and the S&P 500 barely blinked.
+
+Twelve briefings shipped today. We'll start with the macro backdrop, move through the AI and compute stack, and close on the applied frontier.
+
+Strategic Power reads Thursday's Treasury selloff as the market pricing a hiking Fed, not a fiscal panic: the two-year led, and the ten-year rose to about 5.1 percent. Brent jumped 3.3 percent on an unconfirmed Houthi claim against Saudi Arabia's Hormuz bypass pipeline, though no credible report shows a single barrel lost. And Axios reports Commerce Secretary Lutnick resisted curbing Nvidia chip diversion to China, as Democrats Wyden and Neal opened a formal probe of the administration's chip-export deal.
+
+From rates to the tape, Capital Markets Radar notes that Nvidia pared an opening loss of thirteen percent to about four, while the broad index barely moved. The desk's read is that a de-risked market absorbed a governance shock, while the shock actually spreading is the discount rate, with the Dollar Index at a nineteen-month high. Even gold fell on a risk-off day, which the desk reads as capital running to the dollar rather than to a haven.
+
+Digital Money has bitcoin's leverage split: Binance's open interest fell 17 percent, but K33's market-wide measure, counted in coins, rose 12 percent into the decline. Falling prices alone could explain more than half of Binance's drop, so the deleveraging is partial and venue-specific. Meanwhile, spot bitcoin ETFs logged five straight sessions of outflows, about 1.44 billion dollars in total, so the wrapper meant to be a permanent bid is still a net seller.
+
+Private Credit and the Corporate Credit Cycle has the masking critique gaining a sector-wide number: PitchBook's tally of BDC debt tied to troubled borrowers nearly doubled, to 18.8 billion dollars. Amended lawsuits now allege some advisers swapped non-accrual loans for new paper carried near full value, though those are allegations, not findings. Yet direct-lending funds raised about 129 billion dollars in nine months, up 35 percent, so record capital is flowing into the same market where that stress measure just turned.
+
+Private Equity has GFL Environmental's special committee rejecting a 52-dollar-a-share take-private offer, only to watch the stock fall 7.6 percent, to well below that bid. The desk reads that drop as evidence, not proof, that some holders wanted the cash. And since nothing pointed to financing as the obstacle, the bottleneck in this deal market looks like price, not money.
+
+That's the macro backdrop. Now the AI and compute stack, starting with the company at the center of the headline.
+
+Semiconductors and Compute Infrastructure adds the dispute over how Huang left: Nvidia says he resigned, while a single CNBC source says the board decided to oust him. The desk's read is that the people problem was resolved by removal, but the permission problem, Nvidia's China channel, survives the CEO change intact. Underneath both, TSMC's October revenue hit a monthly record, up roughly 60 percent year over year, so physical AI demand held through October.
+
+A standing disclosure for the next three desks: Anthropic makes the model behind this show.
+
+Frontier AI Lab Competition has TSMC's own filing capping its stakes at up to 500 million dollars each in Anthropic and OpenAI, a hedge across both labs. On a secondary summary of Anthropic's filing, Nvidia and Google each committed about 10 billion dollars to its placement, so the circularity risk concentrates in those two single-lab bets. Anthropic is expected to price next Wednesday and trade under the ticker A-N-T, giving every supplier on both cap tables a public mark.
+
+AI Products and Applications finds the gated cyber models finally carrying prices, and moving in opposite directions. OpenAI's GPT-6 Cyber charges 100 dollars per million output tokens, a third more than its predecessor, while Anthropic cut its gated rate to 40 dollars, matching its public model. No lab publishes a cost per validated exploit, so buyers still can't tell which price is actually cheaper.
+
+Enterprise Technology ranks AI revenue by how easy it is to verify. Cisco sits at the checkable end, raising its hyperscaler AI infrastructure forecast to 9 billion dollars, up from seven and a half just a quarter ago. On a secondary account of Anthropic's amended filing, 79 percent of its 33.2 billion dollars in nine-month revenue is usage-billed, so customers can dial it down without cancelling a contract.
+
+That's the compute stack. Now the applied frontier, where forecasts and investment headlines still run ahead of booked revenue.
+
+Robotics and Physical AI has the first sell-side unit forecast the desk has covered: J.P. Morgan sees US humanoid production reaching 300,000 to 400,000 units by 2030. With most makers outside Tesla only targeting 10,000 to 30,000 a year, the desk reads the top of that range as effectively a Tesla execution bet. And the bank's bottleneck list is all supply side, with nothing on who buys or at what payback.
+
+Space and the Orbital Economy calls BlackSky the cleanest case of revenue off satellites already flying, with sales up 118 percent and a second guidance raise this year. The billion dollars attached to its new fifty-satellite constellation role is an outside investment figure, not a contract paid to BlackSky. And SpaceX is targeting its first catch of both Starship stages tonight, a result the desk will bring you tomorrow.
+
+AI in Biopharma R&D closes the tour with Vertex's executive chairman offering a concrete, if secondhand, zero: fifty AI vendors, ten thousand compounds, no working drug produced on its own. The desk notes this tests AI designing alone, which no serious deal assumes, not AI selecting targets inside a human loop. Meanwhile, Twist Bioscience's AI-discovery revenue grew 175 percent, yet the stock fell on a guide implying slower growth, which management presents as a floor, not a ceiling.
+
+That's The Throughline. Talk to you tomorrow.
