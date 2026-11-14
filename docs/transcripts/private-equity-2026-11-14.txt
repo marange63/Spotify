@@ -1,0 +1,43 @@
+Good morning. It's Saturday, November 14th, and this is your private equity briefing.
+
+A callback first, because today's news forces a revision. On Tuesday, this desk named the Global Payments take-private talks as the live test of whether dry powder converts into deployment at megadeal scale. On Thursday and again on Friday, the read here was that financing isn't the binding constraint in this cycle. Price and terms are. Then, on Thursday afternoon, the Global Payments talks ended. That read now needs a serious asterisk.
+
+Here's the news. Clayton, Dubilier & Rice and GTCR have walked away from their pursuit of Global Payments. Get the size right first. When the talks surfaced, the Financial Times put Global Payments' enterprise value at about forty billion dollars. That's the basis that matters for a take-private, because a buyer inherits the debt. On the day the walk-away was reported, Global Payments shares fell about eleven percent, to around eighty-nine dollars. The market had assigned real odds to a deal.
+
+Why did it fall apart? Be careful here, because the sourcing is thin. The reason comes from unnamed people familiar with the talks, not from the firms. CD&R declined to comment. The most specific language in the reporting is that the talks ended, quote, due to the complex nature of working out such a deal. That is not the same as saying lenders refused to fund it.
+
+One sell-side analyst, Andrew Jeffrey at William Blair, was more pointed. He flagged Global Payments' balance sheet, which carries roughly twenty-two billion dollars of net debt. In his telling, that load was swollen by the twenty-four-billion-dollar Worldpay acquisition Global Payments agreed last year.
+
+So there are two live explanations. The first is a genuine size ceiling. On that reading, a forty-billion-dollar deal simply outgrew what two sponsors could finance together at today's cost of capital. The second is a target-specific credit problem. On that reading, lenders looked hard at a company already carrying heavy debt from its last deal, and the price stopped working. "Complex" would then be the polite word for a valuation gap. Which does the evidence favor? Modestly, the second. The only specific reason anyone has put on the record is this company's debt load, not a broad retreat by lenders. What's missing is any report of the debt package's size, or whether banks or private credit sat on the other side.
+
+So here is the honest revision. Financing isn't absent in this market. But at this size, on a target this levered, it can bind. The constraint tiers by deal size and balance sheet. It hasn't gone away.
+
+Set that against the rest of the week, because together the three cases sharpen the read. On Thursday we covered Recordati, where a CVC-led consortium lined up a seven-point-five-eight-billion-euro financing package. On Friday we covered GFL Environmental, where a consortium bid valuing the company above twenty-two billion dollars was rejected by the board on price. Now Global Payments, at roughly forty billion of enterprise value, has been abandoned without a confirmed reason. Three take-private tests in one week produced three different outcomes. The pattern is that the bigger the ticket, the more ways a deal finds to fail.
+
+Now the exit angle, because one of the bidders is also a big holder. GTCR isn't just a disappointed buyer here. Its own press release on the Worldpay sale is explicit. GTCR took fifty-nine percent of its consideration in cash and forty-one percent in Global Payments stock. On closing, that left GTCR owning fifteen percent of the company's shares. Our sourcing doesn't show whether GTCR has sold any of that since, or whether a lockup applies.
+
+There's an irony in that. The debt load the analyst flagged was swollen by the very Worldpay deal GTCR sold into. On the analyst's reading, GTCR's own exit helped make the target harder to take private again.
+
+For GTCR's limited partners, that matters. Stock received in a sale isn't cash until somebody sells it. A take-private would have put a control premium under that stake, whether GTCR rolled it or cashed out. With the bid gone, GTCR's route to cash runs through the public market. That's a stock that just fell eleven percent in a session.
+
+That rhymes with Friday's story. BC Partners owns thirteen percent of GFL, and it was waiting on that take-private to exit. The roles differ. GTCR sat on both sides, as bidder and holder. BC Partners was only a holder. The result is the same. Two sponsors with large public stakes saw a take-private route close in the same week. So the exit logjam now has a new address: sponsors' public stub stakes.
+
+So what does still clear at scale? Look at a megadeal that did sign. In late October, Thrive Holdings, the permanent-capital vehicle tied to Thrive Capital, agreed to acquire ADT. ADT's own announcement values the deal at about seven-point-six billion dollars of equity and fifteen-point-three billion of enterprise value. That's well under half the size of Global Payments. The financing is the real story. Funds managed by Apollo affiliates are providing all of the financing commitments. One platform is writing the whole package.
+
+Three caveats before you read too much into that. First, it hasn't closed. A go-shop period is running, and shareholder and antitrust approvals are still pending. Second, the buyer isn't a classic closed-end buyout fund. Permanent capital has no fund-life clock, so its hold horizon differs from CD&R's. Third, Apollo previously owned ADT and later re-listed it. So Apollo is financing the take-private of a company it knows from the inside. That's an information edge. It isn't a market test of the price, because no syndicate had to agree to it up front.
+
+Here's our inference, and treat it as ours. If megadeals clear mainly when one private-credit platform will write the entire package, that lender becomes the gatekeeper of maximum deal size. Large-cap sponsors get pushed toward targets sized to one lender's appetite, or toward affiliated-capital structures like ADT. A forty-billion-dollar public company with heavy existing debt falls outside that box. And a megadeal that doesn't sign is dry powder that doesn't deploy. That leaves large-cap capital chasing a narrower set of financeable targets. It's the deployment-side mirror of the exit logjam.
+
+Both of those deals were priced against a public tape, and that's the last thread. Private books rarely face that test. Global Payments showed how fast a public price moves when a buyer disappears: eleven percent in an afternoon. Now look at how the largest private books marked the third quarter, weeks before this deal broke. Blackstone says its corporate private equity funds appreciated two-point-eight percent in the quarter, and fifteen percent over twelve months. That came in the same quarter Blackstone's net realizations fell twenty percent from the second quarter. KKR said that against all of this volatility, its private equity portfolio was flat.
+
+Don't over-read the gap between those two. Flat versus up two-point-eight can reflect portfolio mix, sector exposure or method. It doesn't mean one manager marks more honestly than the other. And we have no public-market comparator here, so we can't say these marks run ahead of public comps.
+
+The defensible claim is narrower. At the largest manager, paper values rose while cash realizations fell. Marks move on a manager's model. Distributions move only when something sells. And the event that would test those marks, a sale at scale, is exactly what just failed at Global Payments. So the gap between paper and cash isn't closing yet.
+
+Pulling it together. The private equity deal machine is now tiered by size and financing structure. Deals one credit platform will underwrite, around ADT's fifteen billion of enterprise value, can still sign. A forty-billion-dollar target with a heavy debt load could not. Underneath both, the exit-and-distribution logjam is still the biggest unresolved risk. It now includes sponsors holding public stakes they can't sell at a premium.
+
+Where's the market complacent? In reading Recordati and ADT as proof the megadeal window is fully open. Where might it be over-discounting? In reading one collapse, with an anonymously sourced reason, as a hard ceiling on deal size.
+
+Watch three things. First, whether a new bidder revives Global Payments, or GTCR sells down its stake, and at what price. Second, whether ADT's go-shop draws a competing offer, and whether the deal closes. Third, Blackstone's guided fourth-quarter step-up in realizations, which will show whether this quarter's drought was timing or something more structural.
+
+That's the briefing. Have a good weekend.

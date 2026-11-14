@@ -1,0 +1,33 @@
+Good morning, this is The Throughline for Saturday, November 14th, 2026.
+
+Today's headline: Nvidia just closed its sixth straight losing week, the longest such streak since 2012. It's the week Jensen Huang resigned as chief executive, days after telling staff of an affair with a woman reporting calls an alleged Chinese spy. And Congress and the FBI are now reportedly probing the export licenses that let Nvidia's H200 chips into China.
+
+Ten briefings shipped today. We'll start with the macro backdrop, move through the AI and compute stack, and close on the applied frontier.
+
+Strategic Power argues that this week's loudest headlines pointed away from the real constraint. On Nvidia, the desk says Washington's leverage runs through Congress rather than through Jensen Huang personally, and no defense-bill chip provision is law yet. On oil, Iran has all but closed the Strait of Hormuz, yet Brent held near 96 dollars, a calm the desk calls borrowed against a record 426-million-barrel emergency stock release.
+
+Now to the tape. Capital Markets Radar says Friday's producer-price report ratified the bond selloff rather than starting it, since the real move came Thursday, when the ten-year broke above 5 percent. With a December hike fully priced, the desk sees the bill landing on bitcoin, gold, and Nvidia, where HSBC downgraded the stock and cut its target by more than half, to 170 dollars. The S&P 500 posted its best week since August, but the desk notes that gain was one session of oil relief.
+
+Digital Money says that same rate shock is crypto's story, with bitcoin near 69,000 dollars in what the desk counts as the fourth long-heavy liquidation flush in roughly two weeks. Spot bitcoin ETFs booked a seventh straight day of outflows, so the buyer that's supposed to put a floor under this market is still absent. The one piece of plumbing that worked: Tether and Circle froze 2.7 billion dollars tied to what reporting calls a record Binance hack, and the Justice Department has obtained court authority to seize or restrain 1.2 billion of it.
+
+Private Credit and the Corporate Credit Cycle finally has an external price on a stressed book: a 10 percent discount to adjusted net asset value, paid in stock, as BC Partners' BDC agreed to buy Investcorp's. It's the second BDC takeout in about two weeks, after Ares agreed to buy MidCap Financial, and both acquirers are absorbing weaker books while their own non-accrual ratios rise on a cost basis. And the Bank of England's Andrew Bailey asked how connected private credit must become before it poses a financial stability risk.
+
+Private Equity has the inverse story, with the week's biggest deployment test failing as Clayton, Dubilier and Rice and GTCR walked away from the roughly 40-billion-dollar Global Payments take-private. By contrast, October's 15-billion-dollar ADT deal signed with Apollo-managed funds writing all the financing. The desk's inference is that megadeals now clear mainly when one credit platform will underwrite the whole package.
+
+That's the macro backdrop. Now the AI and compute stack, starting back at Nvidia.
+
+Semiconductors and Compute Infrastructure has Nvidia closing at a fresh 52-week low of 162.85 dollars, with AMD falling even harder, which the desk notes a governance scandal can't explain. Against that tape, TSMC's October revenue still grew nearly 60 percent year over year, and Tuesday's Nvidia earnings are the first hard test of whether demand has turned. On policy, the desk says the reported probe of those H200 licenses pulls scrutiny from Huang's conduct into the administration's own decisions, a structural question for Nvidia's China channel.
+
+AI Products and Applications finds agents crossing from advising to acting, led by OpenAI's ChatGPT Wallet, which completes purchases on a single biometric approval. Cursor and Google both shipped tools for coordinating multiple coding agents at once, while Anthropic, which makes the model behind this show, shipped a manufacturing product that deliberately stops short of writing to systems of record. Every one of these ships with a mandatory human checkpoint, and launch coverage says OpenAI already wants users to pre-approve spending, so the contest is who loosens that checkpoint first.
+
+Enterprise Technology ties concentration risk to Thursday's Microsoft 365 outage, which hit Exchange, Teams, SharePoint, Copilot, and the Defender security console together, because they share one integrated plane. The desk is skeptical that this favors independent security vendors, since moving security to another vendor relocates the risk rather than removing it. On the supplier side, Cisco expects hyperscale AI to double its share of revenue, to 12 percent this fiscal year, while its product gross margin fell 350 basis points. The desk's own inference is that lower-margin AI mix is doing the squeezing.
+
+That's the compute stack. Now the applied frontier.
+
+Space and the Orbital Economy has Starship's fifteenth test flight inverting the week's setup: the ship deployed its Starlink payload, but the booster, the half SpaceX had already caught three times, aborted its catch and splashed down offshore. Rocket Lab's Neutron backlog hit 16 missions at a raised price, with the next open launch slots in the 2030s, on a rocket that has never flown. And AST SpaceMobile's stock fell 8.7 percent after a revenue miss, as UBS cut its price target nearly in half.
+
+AI in Biopharma R&D closes the tour with the first efficiency numbers an AI-discovery platform has given this show: Recursion says it synthesizes 80 to 90 percent fewer compounds, and enrolls trials 30 to 60 percent faster, than industry benchmarks it doesn't name. But the clock that decides when a drug reaches patients hasn't moved. Insilico's AI-designed pulmonary fibrosis drug isn't expected to complete its Phase 3 trial until October 2029, roughly three years out.
+
+One change versus yesterday. Friday's Throughline led with the S&P 500 barely blinking at Huang's exit. Today Capital Markets Radar says that read held for the index but not for the stock, because Nvidia's discount is compounding as rates and governance reset its multiple at once.
+
+That's The Throughline. Have a good weekend.
