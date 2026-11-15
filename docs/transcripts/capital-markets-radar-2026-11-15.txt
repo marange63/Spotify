@@ -1,0 +1,49 @@
+Good morning, it's Sunday, November 15th, and this is your Capital Markets Radar.
+
+Here's the thesis for today. Bitcoin, the only major market open this weekend, marked risk down another leg. It did so while the US spot Bitcoin ETFs, the main institutional channel all week, were shut. Monday's equity open and Tuesday's Nvidia print inherit that markdown. They also inherit the first fundamental crack in the AI-infrastructure trade, and a Fed chair who is reportedly out of step with his own committee.
+
+Start with the price. Fortune had Bitcoin near $69,100 on Friday morning. This weekend it touched a low around $62,080, per crypto dot news. That's a three-month low. We had it near $74,200 last Monday, so every briefing this week has had it lower. The slide hasn't paused. Over the weekend it sped up.
+
+Now the harder question: who sold. US spot Bitcoin ETFs don't trade on weekends. Bitcoin had already slipped below $70,000 on Friday, which was still a trading day for the funds. But the break below $64,000, and the slide toward the low, came over the weekend with the channel shut. So the decisive leg of this move happened without the ETF holder able to take part.
+
+The last print from that channel came on Friday. Farside data, via crypto dot news, shows $185 million out that day. That closed a seven-session outflow streak of about $1.91 billion.
+
+The detail worth noticing is the pace. Wednesday's outflow was close to $300 million. Friday's was the smallest of the last three sessions. So the streak kept lengthening while its daily size kept shrinking. That cuts two ways. Either institutional selling was genuinely fading into the weekend. Or the sellers simply paused while their market was closed, and Monday's print resumes the bleed. The daily figures alone don't settle which. Monday's flow print is the tiebreaker.
+
+So if not the ETF channel, who? The evidence points to leverage. TokenPost counted $691 million in crypto liquidations within a single hour, as Bitcoin broke below $64,000. About 97 percent of that hit long positions.
+
+The rolling twenty-four-hour count tells the same story. Crypto dot news put Bitcoin long liquidations near $600 million, nearly 80 percent of all Bitcoin liquidations in that window. No named seller or hack has been tied to the move. Our read is that this weekend's seller was forced leverage, not a fund.
+
+The harder question is whether that leverage actually cleared. We can't yet confirm that open interest and funding reset over the weekend. If they didn't, the flush is incomplete, and the weekend low isn't a clean base.
+
+Stablecoins argue for caution too. Coinbase Institutional, as cited by Coinpaper, counts a record $11.5 billion drop in the combined supply of Tether, USDC, and DAI over thirty days. That extends the stablecoin leak this desk flagged on Thursday, on Glassnode's separate count. The baskets and windows differ, but the direction matches. This is dollar liquidity leaving the crypto system, not just Bitcoin derivatives unwinding. If that contraction continues this week, it argues against treating the weekend low as a completed flush.
+
+Was this broad digital-asset risk-off? Through Friday, yes. Spot Ether ETFs lost about $399 million over the five sessions ending November 13th, per TokenPost. That same day, Ether was down 12.4 percent from a week earlier. But we have no confirmed Ether figures for the weekend itself. So the pre-weekend weakness was broad, while the weekend leg is confirmed only for Bitcoin.
+
+Now the over-read versus under-read question. A low set in thin, twenty-four-seven weekend liquidity is a weaker signal than a weekday break. Treating it as a leading indicator for Monday's equity open risks over-reading it. But it's also the only real-time risk price anyone has into Tuesday's Nvidia print, so ignoring it risks under-reading it. Crypto-linked equities, from miners to exchanges to treasury companies, open Monday against a markdown they couldn't trade. That's our inference from market hours, not a reported move. Our lean is to treat the weekend as real pricing for crypto-linked stocks, but not as a verdict on the broader tape.
+
+That weekend markdown is what Monday's equity open inherits. And the AI-infrastructure trade sitting next to it was already cracking on fundamentals, not just governance.
+
+Briefly on governance, since we've covered it all week. Jensen Huang resigned as Nvidia's CEO after a board investigation into his relationship with a woman alleged to be a Chinese spy. That's an allegation, not a charge. CFO Colette Kress is interim CEO. Yesterday this desk said the blame for Nvidia's drawdown was split between the CEO exit and AI-capex worry. What we hadn't put on air is the evidence on the demand side.
+
+That evidence starts with Nebius. On Thursday, Nebius fell 20 percent after saying its 2026 revenue would come in at the low end of its previous forecast, per Kitco. That's the first company-reported data point for the capex-worry side of this selloff. It comes from a customer layer of the AI-compute stack, not from Nvidia's boardroom. But it's one company. For a capacity-constrained neocloud, a low-end guide can reflect delivery or power timing rather than weaker end demand. The guidance doesn't tell us which. So treat it as a data point, not a trend.
+
+CoreWeave is a different kind of signal. In the same session, CoreWeave fell 13.6 percent. That came after it surged more than 27 percent the session before on its earnings. That round trip reads as positioning and volatility in a crowded trade. It's not a second demand signal, so don't stack it with Nebius as corroboration.
+
+There's a credit angle here too. Neocloud financing leans on GPU collateral and customer contracts. So a neocloud trimming its own revenue view is exactly the kind of fact lenders would eventually price. As this desk said on Friday, broad credit hasn't repriced that risk yet.
+
+The first real test comes this week. As our Private Credit desk reported, citing Bloomberg, ING is auctioning about $500 million of data-center loans to non-bank buyers such as private credit funds and insurers. Bids are due Thursday the 19th. Where those bids clear will be the first market price on AI-infrastructure loans since the Nebius guide. A clear discount to par would say credit is starting to price neocloud risk. A clean print near par would say lenders still trust the underwriting. And that price lands just two days after Nvidia reports on Tuesday the 17th.
+
+That brings us back to Nvidia. As of Friday, Nvidia was on track for its longest weekly losing streak since 2012, per YourNews. Tuesday's results are Colette Kress's first as interim CEO. That's where governance risk and demand risk finally get separated. A clean guide isolates the discount as key-person risk. A soft one validates the Nebius read across the stack. So Tuesday decides whether this is a governance discount or a demand verdict.
+
+Both of those trades sit on the same discount rate, and the Fed's internal debate just got more interesting. First the backdrop, briefly. CME's FedWatch tool, via CNBC, prices a December 9th hike as a certainty, with about 14 percent odds on a half point.
+
+The long end is doing the tightening too. The ten-year Treasury yield stood at 5.143 percent on Friday, per CNBC. That came after a jump of more than 13 basis points on Thursday alone, which took it back above 5 percent. The dollar hit a nineteen-month high the same day. So in two sessions, capital got more expensive across the curve and across currencies. That is the discount rate the AI trade is being de-rated against.
+
+Now the new wrinkle. The Washington Post reported that more top Fed officials say AI investment is fueling inflation. It reported that Chair Kevin Warsh is increasingly the outlier in doubting that. Here's a loop worth naming, and it's our inference, not the Fed's stated reasoning. The AI buildout the market is de-rating this week may be exactly what the committee majority cites for keeping rates high. In other words, the capex may be helping hold up the discount rate that is de-rating the capex.
+
+What that split doesn't do is change December. The hike is fully priced either way. It matters more for the path after December. A chair at odds with his committee also raises the odds of noisier Fed communication heading into the October PCE report. That means volatility in the front end, not necessarily a different decision. So watch the dispersion in Fed speakers, not the December odds.
+
+Here's what to watch. On Monday, the spot Bitcoin ETF flow print tells you whether institutions rejoin the selling or sit it out. Also on Monday, Warsh gives remarks, and we won't guess at their content. Nvidia reports on Tuesday the 17th. ING's data-center loan bids land on Thursday the 19th. And the October PCE report is due November 25th.
+
+That's the Radar for November 15th. Trade carefully out there, and I'll see you tomorrow.
