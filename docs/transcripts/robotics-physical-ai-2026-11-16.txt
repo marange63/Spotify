@@ -1,0 +1,49 @@
+Good morning. It's Monday, November 16th, 2026, and this is your robotics and physical AI briefing.
+
+Yesterday we closed on one line. If the brain thesis holds, value migrates toward the body, and nobody has priced the body yet. Today we can at least start counting the bodies. These are the first shipment tallies this desk has had, and they show where the bodies are built.
+
+Start with the headline count. Smart Analytics Global, a research firm publishing on November 8th, puts global humanoid shipments in the third quarter of 2026 at sixteen thousand five hundred units. That's up 347 percent year on year.
+
+A second firm, Counterpoint Research, says more than twenty-two thousand humanoids shipped globally in the first half of 2026. That's up 300 percent year on year. One sourcing note. Counterpoint's figure reaches us through a trade-show preview in Robotics and Automation News, not through Counterpoint's own release.
+
+Don't add those two numbers together. They come from different firms, with different methods. And there is no standard definition of what counts as a humanoid shipment. So there's no tidy year-to-date total, and no quarter-on-quarter growth rate across the two trackers. Read each one only against its own prior year. On that basis, they agree on the shape. Volume is roughly quadrupling, off a small base. A single quarter of global shipments is still in the tens of thousands of units.
+
+Here's where that sits on the ladder of counts. All last week this desk graded weaker numbers: store-trial pass rates, tasks completed at least once, robotaxi registrations, and production forecasts. A shipment sits one rung above all of those, because a unit actually left a factory for a buyer. It still sits below a deployment. And a deployment sits below reliable paid work. So bank this: it's the first real count of bodies, not yet a count of labor.
+
+Now, who is shipping those units. Smart Analytics Global's vendor breakdown is explicit, and it shows a reshuffle. AGIBOT ranks first, with about 4,900 units, or 30 percent of the global quarter.
+
+UBTech is second, with 27 percent share. A year earlier, its share was just 7 percent. Unitree has slipped to third. Its share fell from 37 percent a year ago to 27 percent now.
+
+Two takeaways from that table. First, the volume is Chinese. By the firm's estimate, Chinese vendors took about 97 percent of the quarter's global shipments. Second, the churn inside China is intense. On our arithmetic, Unitree gave up about ten points of share in a year, to two domestic rivals. So this isn't only China against the West. The domestic field is consolidating around AGIBOT and UBTech.
+
+AGIBOT is the same company whose Shanghai convenience-store trial we covered last Tuesday. Not every robot in that trial passed its performance assessment. AGIBOT named its reliability metrics then, but published no values. So volume leadership has arrived before any published reliability number. The vendor gaining the most share hasn't yet shown what its robots do the ten-thousandth time.
+
+Volume also doesn't tell you what the robots are doing. Smart Analytics Global's application breakdown covers only about a third of the quarter. Research and education were 31 percent of shipments. Consumer units, mostly so-called ultra-bionic humanoids, were another 4 percent. That leaves roughly two-thirds of shipments with no stated application. They aren't confirmed as industrial, or as anything else.
+
+So there are two readings. The inflection reading says humanoid labor is starting to scale. The skeptical reading says a meaningful share of this volume is research kits, classroom robots, and novelty units. Those say little about labor displaced or payback. The missing application mix is a gap, not a finding. If non-industrial units dominate, sell-side unit forecasts like the J.P. Morgan path we covered Friday overstate the labor and capex story. The investable signal then becomes application mix and price, not the headline unit count.
+
+The nearest thing to a hard number comes not from a tracker but from a company. Unitree has disclosed its own 2025 figures ahead of a planned Shanghai listing. That listing's status is still unconfirmed, so don't treat Unitree as public. Per a KraneShares guide to the IPO, Unitree shipped 5,511 humanoid robots in 2025, and recognized 5,215 of them as sales.
+
+That gap is small, a few hundred units on our arithmetic. But it makes the ladder concrete. Even inside one company's books, a shipment and a recognized sale are different numbers. These are company disclosures, not an independent audit.
+
+The money behind them looks real. According to BigGo Finance, Unitree booked company-wide revenue of about 248 million dollars in 2025. It reports about 87 million dollars of profit, after stripping out non-recurring items. Other coverage reports a different profit figure, which our research couldn't reconcile. Still, a profitable humanoid maker with recognized sales is rare in this sector.
+
+Unitree also claims its 2025 shipments ranked first globally. That's a full-year 2025 claim. By the third quarter of 2026, Smart Analytics Global has Unitree in third and losing share. Both can be true, but only one is current.
+
+The most telling disclosure is price. Unitree's average selling price for a humanoid was about 86,100 dollars in 2023. In the first three quarters of 2025, it was about 24,300 dollars.
+
+By our arithmetic, that's a drop of roughly 72 percent in about two years. The bull read is a cost curve in action. Prices falling that fast are what volume manufacturing looks like. The bear read is that price competition among Chinese vendors is already severe. In that case, rising unit counts need not mean rising revenue or margins for the sector. And we don't know what those robots were bought to do. So the first hard price point in humanoids looks more like a price war than a payback calculation.
+
+Now set those counts against the one Western company promising automotive-style volume. That's Tesla, and this is October data. It comes from Tesla's October 21st earnings call and shareholder letter, with no update since. Elon Musk reiterated a target of 20,000 Optimus robots a week by the end of 2027. On the call, he said reaching that rate will take at least a year, maybe longer.
+
+Tesla's own capacity table lists the Fremont Optimus line as an early ramp, with no capacity figure disclosed. Outside deliveries aren't expected until around the end of 2027. On our arithmetic, which crosses different sources, Tesla's target for a single week exceeds Smart Analytics Global's estimate for the entire world's third quarter. On Friday we said the top of J.P. Morgan's US forecast is effectively a Tesla execution bet. Today's comparison shows how big that bet is, with no unit count to anchor it. So the only Western volume plan at that scale is still a target, not a tally.
+
+Which brings us back to where the bodies are built. Here's our inference. Whoever ships the most units moves down the actuator, motor, and assembly cost curve first. Right now, that's overwhelmingly Chinese vendors. Unitree's price collapse is what riding that curve looks like.
+
+The magnet layer sits underneath all of it. As we reported last Thursday, Beijing renewed its suspension of the broad rare-earth export package only until January 10th. The separate licensing regime on heavy rare earths was never suspended at all. Those are the dopants in actuator-grade magnets. So Western humanoid makers face a choice. They can buy into a cost curve China sets, exposed to that licensing regime and the January cliff. Or they can pay a reshoring premium. If the body is the scarce layer, China is building most of the bodies.
+
+The same asymmetry shows up in valuation, and this is our read. Chinese vendors are reporting unit shipments and recognized sales. Western names, including the newly listed Agility, are still marked on order books and design capacity. The burden now shifts to Western makers to disclose units.
+
+Pulling it together. What's genuinely inflecting is unit volume. It's concentrated in China, and it's growing roughly fourfold year on year, off a small base. What's still a demo, in economic terms, is reliable paid work at a known price. No uptime or intervention data sits behind these shipments. And about two-thirds of the latest quarter's units carry no stated application. The biggest open question is what share of shipments do industrial work, and at what payback. Watch four catalysts. First, the next round of shipment tallies, and whether they break out industrial use. Second, Unitree's listing disclosures. Third, Agility's first quarterly filing, and any Tesla Optimus unit count. Fourth, the calendar: Nvidia's GR00T 2 weights, reportedly due in December, and then the January 10th rare-earth cliff.
+
+That's the briefing. Stay cautiously optimistic, and I'll talk to you tomorrow.
