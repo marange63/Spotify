@@ -1,0 +1,49 @@
+Good morning. It's Tuesday, November 17th, 2026, and this is Strategic Power.
+
+Today's through-line is that economic statecraft is moving its perimeter outward. Washington and Brussels are both reaching past the adversary to the middlemen who move chips and oil. Beijing is answering with a lever that needs no middleman at all.
+
+Start with the Commerce Department. On November 16th, its Bureau of Industry and Security issued an interim final rule on remote access to advanced AI chips. One sourcing note: we're working from law-firm and trade-press summaries, not the Federal Register text.
+
+The rule requires export licenses for advanced AI chips headed to data centers in five countries: Singapore, Malaysia, Thailand, Indonesia and Brazil. It targets one kind of tenant. It covers data centers that give companies headquartered in Macau, or in China-linked destinations, access to more than twelve million aggregate TPP of compute. BIS's stated rationale is that these countries, quote, present a higher-than-normal risk of diversion.
+
+What does twelve million TPP actually buy? TechCrunch calculates it at roughly the computing power of 750 Nvidia H100 or H200 chips. By frontier standards, that's a modest cluster, nowhere near a training-scale campus. So the threshold sits low enough to catch ordinary rented capacity, not just the giant deals.
+
+Existing operators get a clock. Per TechCrunch, those already serving covered tenants above the threshold must obtain licenses within 90 days of the rule taking effect. That effective date is still unsettled across sources. And as an interim final rule, it carries a 60-day comment period, so the text can still change.
+
+Two things cut against the simple "Washington tightens again" read. First, the rule formally rescinds the 2025 AI Diffusion Rule. It swaps a global tiering framework for a targeted license requirement on five named countries. So in scope it's narrower, even where it bites harder. CBS framed the rule as a response to the Nvidia scandal. That's Jensen Huang's November 12th resignation as chief executive, amid a reported espionage link that remains an allegation. But the rescission suggests the rule is also the long-pending replacement framework. So the scandal isn't established as the cause.
+
+Second, look at who's exempt. US-headquartered customers in those markets are exempt, as long as the exporter files monthly reports. That gives American cloud providers a cleaner path than local or China-linked operators. That's our inference, not a stated BIS goal. Export control is doubling as industrial policy for American clouds.
+
+Then there's enforcement, which runs on that monthly self-reporting. On November 13th, this desk relayed an Axios report about Commerce Secretary Howard Lutnick. It said he resisted acting on Megaspeed, a Singapore-based firm suspected of funneling Nvidia chips into China. Now his own department names Singapore a higher-than-normal diversion risk. That's a test of whether the posture changed. It isn't proof that it did.
+
+This also closes an arc. On November 12th, this desk said the chip lever only works if Washington can reach the rented rack, not just the shipped chip. We named the Senate's Remote Access Security Act as the instrument aimed at that workaround. Commerce moved first, by rule, before the Senate acted. On this front, the executive branch outran Congress.
+
+Taiwan is working the supply side of the same problem. Its economy minister, Kung Ming-hsin, told Bloomberg that Taipei plans to add AI servers and cutting-edge semiconductors to its controlled-items list. That's a plan, with no effective date announced. Still, it's the hardware mirror of Commerce's access rule.
+
+The demand gets rerouted, not erased. TechCrunch, citing Reuters, reports that Chinese AI companies are rushing to secure computing capacity overseas ahead of tighter US rules. That report comes with no sizing. Meanwhile, Nvidia's quarterly filing, as reported, shows Beijing itself has restricted H200 sales. The likely result is that China-linked demand above the threshold gets pushed into licensed US-cloud capacity, or back onto domestic Chinese silicon. Southeast Asian operators without a US parent now carry license risk on exactly the tenants the workaround was built for. The export control now lives in the lease, not the shipping manifest.
+
+The politics shifted too. With Colette Kress now Nvidia's interim chief, the industry has lost its most prominent voice against tighter controls. And with Democrats having won both chambers in the midterms, Congress looks likelier to follow Commerce with legislation of its own.
+
+Washington's lever needs five governments and their data-center operators to cooperate. Beijing's lever doesn't.
+
+China's one-year suspension of its October 2025 rare-earth export controls was set to lapse, in law, at 11 in the morning on November 10th. TechTimes reported that Beijing had published no extension, and the reporting through mid-November shows none since. So the truce isn't a clean calendar of expiry dates. On rare earths, Beijing has simply gone quiet.
+
+StartupFortune reports that Chinese negotiators have tied magnet approvals to US restrictions on advanced AI chip exports. These are specialized rare-earth magnets, the kind used in fighter jets and missile guidance. That's a single, lower-tier report. On November 14th, Chinese analysts quoted by the Seoul Economic Daily issued a warning. Beijing, they said, could tighten rare-earth controls if Washington used Huang's departure to expand chip curbs. Two days later, Washington issued its rule. Whatever its net scope, Beijing can read it as exactly the trigger those analysts named.
+
+There's no official Chinese response to the November 16th rule in the record. A lapse in law also isn't proof of changed shipments, and we have no flow data. But the ambiguity is itself coercive. Defense primes and magnet buyers now have to plan for restriction with no formal act to point to.
+
+The second-order effect is our inference. Coupling chips and rare earths in one bargaining track changes the escalation math. The next US chip step is now likelier to draw an explicit rare-earth response than a quiet truce. Note the sequence, too. The suspension lapsed six days before the Commerce rule landed. So Beijing doesn't need a new act to answer Washington. It only has to keep the lapse in place. Ex-China refiners such as MP Materials and USA Rare Earth are the names most levered to a formal breakdown.
+
+Europe ran the same intermediary playbook against Russian oil, on the same day.
+
+On November 16th, the EU Council listed 113 individuals and entities, per the law firm Steptoe's summary. They include nearly 50 Russian banks and financial institutions, alongside shadow-fleet intermediaries. Four days earlier, the UK designated the oil producer Slavneft. As Steptoe relays the UK announcement, that makes Britain the first country to have sanctioned all ten of Russia's top oil producers. Same shape as the Commerce rule: target the plumbing around the principal.
+
+The negotiating track is stuck on territory, as it was at last week's US-mediated round in Abu Dhabi. Russia is demanding all of Donbas, while Ukraine insists on dividing territory along current front lines. Putin also doubled down on rejecting foreign peacekeeping troops in Ukraine. Nothing moves until territory does.
+
+But designations aren't barrels lost. We have no flow data showing Russian exports actually falling, and designations tend to reroute trade before they stop it. What the architecture does imply is a slow unwind. Any peace deal would have to peel back layers of bank and shadow-fleet sanctions, through a contested legal process. So a fast peace trade in oil assumes relief the legal structure won't deliver quickly. Meanwhile, with talks stalled, Europe's energy-security and defense spending stays elevated.
+
+So the perimeter is moving from the rival to the leak points around it: rented racks in Southeast Asia, and the banks and tankers around Russian oil. Beijing's answer skips the middleman entirely, with a suspension it can simply let lapse in silence. And if that perimeter pushes compute back home, America's limit is wires, not fuel. The Energy Information Administration's November outlook projects Henry Hub gas averaging just 2 dollars 87 cents from November through March.
+
+Three things to watch. First, the rule's Federal Register publication, which starts the 60-day comment clock. Second, any formal Chinese rare-earth notice or response. Third, Nvidia's earnings after today's close, its first under an interim chief. Listen for China and remote access, not for a number.
+
+That's Strategic Power for November 17th. Stay cautiously optimistic, and I'll talk to you tomorrow.

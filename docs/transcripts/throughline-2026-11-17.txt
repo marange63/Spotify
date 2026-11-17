@@ -1,0 +1,31 @@
+Good morning, this is The Throughline for Tuesday, November 17th, 2026.
+
+Today's headline: Anthropic's amended IPO filing gives the frontier AI race its first filed profit-and-loss statement, and it lands the day before the company prices its shares.
+
+A standing disclosure, since today's headline concerns Anthropic: Anthropic makes the model behind this show.
+
+Eight briefings shipped today. We'll start with the macro backdrop, move through the AI and compute stack, and close on the applied frontier.
+
+Strategic Power has Washington pushing its export-control perimeter outward, past the adversary to the middlemen who rent out compute. A new Commerce rule requires licenses for AI chips at data centers in five countries, including Singapore, that serve China-linked tenants, while rescinding the old global tiering framework. Beijing needs no new act to answer, because its rare-earth truce lapsed on November 10th, and it can simply let that lapse stand while Washington tightens.
+
+From policy to the tape, Capital Markets Radar has the S&P 500 down 1.9 percent on Monday, finally paying the rate bill that bonds, gold, and bitcoin paid all week. AMD and Intel fell harder than Nvidia, so the desk reads the market as pricing something sector-wide, not just Nvidia's own leadership problem. That raises the bar for Nvidia's print after today's close, its first since losing its chief executive last week, now under interim chief Colette Kress, and for Anthropic, which prices tomorrow evening against a 70-to-78-dollar range.
+
+Staying with that pressure, Digital Money has bitcoin steadying near 64,950 dollars after the weekend flush, but spot ETFs have been net sellers and the stablecoin float has been shrinking. Now the third structural buyer, corporate treasuries, runs into index plumbing, as MSCI deletes Strategy from its indexes effective November 30th, just as its coin stack sits below cost. Passive funds must sell the stock, not the coins, so the desk reads a treasury-company flywheel losing speed, though not yet reversing.
+
+That's the macro backdrop. Now the AI and compute stack, which opens on that same Commerce rule.
+
+Semiconductors and Compute Infrastructure calls it a genuine regime change, because the control point moves from where a chip ships to who ultimately uses the compute. Nobody outside Nvidia can size the exposure, since Nvidia stopped disclosing its Singapore-billed revenue more than a year ago, before the rule existed. Separately, Qualcomm's chief executive blamed slower handset chip sales on supply, not demand, which the desk reads as the AI memory boom spilling into ordinary phone DRAM.
+
+Frontier AI Lab Competition has Anthropic's filing itself: third-quarter GAAP revenue of nearly 17 billion dollars, against an operating loss of just 567 million, so near breakeven at scale. Against that, Alibaba says its new Qwen4-Max cut average cost per task about 58 percent versus its prior model, though on a benchmark Alibaba built itself. The desk's read is a two-tier market, where the premium tier was winning through October, while Alibaba's cheap tier keeps getting more credible.
+
+Enterprise Technology sets Anthropic's revenue against its bill: an 81-billion-dollar run rate, annualized from roughly one month of fees, against about 900 billion dollars in compute commitments. The reporting describes most of those commitments as non-cancelable, so they behave like fixed costs set against metered revenue that can flex month to month. Anthropic's cash on hand covers the payments due through next September, but the multi-year total depends on usage growing into commitments that don't flex.
+
+That's the compute stack. Now the applied frontier, where robotaxis and rockets both reveal who holds the leverage.
+
+Robotics and Physical AI has Pony AI and Toyota putting a driverless robotaxi into round-the-clock commercial service in Guangzhou, open to public hailing through Pony's app. That same Toyota body is Waymo's next platform, so the desk reads Toyota as a supplier to competing brains rather than a rival stack. In the US, though, a DC Council committee deadlocked three to three on authorizing robotaxis, so the binding constraint here is political permission, not technical readiness.
+
+Space and the Orbital Economy now has confirmation that ULA's Vulcan failed on its return-to-flight mission, losing all forty Amazon Leo satellites aboard. With New Glenn not targeting a return until January, reliable US heavy lift now runs almost entirely through SpaceX's Falcon, even though no Starship V3 booster has yet been recovered. Meanwhile, China's two state-linked constellations, at roughly 500 satellites combined, now outnumber Amazon Leo, because steady cadence from a low base beats a stalled program.
+
+One change versus last week. All last week, this show tracked a calendar of first public prices on AI risk, and starting tonight those prices finally arrive. Nvidia reports after today's close, and Anthropic prices tomorrow evening. Frontier AI Lab Competition calls those two a joint test of whether frontier-lab revenue can carry its compute commitments. Then on Thursday, bids are due in ING's data-center loan auction, the first credit-market read on the worry over how that buildout gets financed.
+
+That's The Throughline. Stay cautiously optimistic, and I'll talk to you tomorrow.
