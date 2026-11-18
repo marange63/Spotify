@@ -1,0 +1,51 @@
+Good morning. It's Wednesday, November 18th, 2026, and this is your space and orbital economy briefing.
+
+Yesterday this desk said any account of which Vulcan stage failed was speculation until ULA said otherwise. ULA has now said otherwise. Separately, so has SpaceX's chief executive. Both of the weekend's booster failures now have a preliminary cause, and both point at the same place: first-stage performance. What differs is what the shortfall cost, and that is today's lesson.
+
+Start with Vulcan. ULA chief executive Mark Peller has given the clearest account yet of Sunday's loss, which destroyed all forty Amazon Leo satellites aboard. Quoted by Aerospace America, Peller said "we had a significant shortfall in booster first stage performance." Breaking Defense quotes him in nearly identical terms, so this is an on-the-record finding, not a stray remark.
+
+The vehicle was lost about ten minutes into flight, but ULA's early indications put the problem just after liftoff. Yesterday this desk warned that a booster shortfall can surface late in the ascent. ULA's account fits that pattern. By this desk's read, the upper stage inherited a deficit early that it could not make up later.
+
+Peller also cleared part of the vehicle. He said the six solid rocket boosters "all worked very well, so six clean SRBs." That is a meaningful exclusion on the first Vulcan flight since February.
+
+With the solids cleared, the core stage is the only first-stage element still in question. That stage carries a pair of Blue Origin's BE-4 engines. Breaking Defense's own framing points at the "reconfigured core booster," but that is the publication's wording, not ULA's. No quote from Peller or ULA names the engines. Clearing the solids narrows the field. It does not, by elimination, convict the BE-4.
+
+So the requalification flight failed, the fault sits somewhere in the first stage, and the fix is not yet scoped. Until ULA names hardware, nobody can size how long Vulcan stays grounded.
+
+The new business number is Amazon's exposure. According to Space.com, thirty-eight of Amazon's Leo launch bookings are on Vulcan. Sunday was the first of them, so thirty-seven more now sit behind a fix nobody has scoped. Amazon still has about four hundred operational satellites from earlier launches. So the fleet in orbit took a dent, not a collapse. The real exposure is forward-looking.
+
+That creates a choice, by our inference. Amazon can wait on ULA, or it can re-manifest. Waiting leaves the largest block of its manifest idle. Re-manifesting means buying the most reliable heavy lift available, which belongs to SpaceX, Amazon's direct Starlink competitor. No statement from Amazon on either path has surfaced since Sunday. Either way, every slipped slot pushes revenue-generating capacity to the right and stretches the constellation's payback. So Amazon's problem is now manifest concentration, not one lost flight.
+
+And the rival constellation count needs a correction. Yesterday this desk said China's two state-linked constellations, at roughly five hundred satellites combined, now outnumber Amazon Leo. That leaned on an on-orbit count. The fairer test is working satellites.
+
+Jonathan McDowell's tracker, updated November 9th, makes that split. Guowang shows two hundred seventy-nine launched and two hundred twenty-four operational. Qianfan shows two hundred seventy-six launched and one hundred ninety-five operational.
+
+Add the operational counts, and China has about four hundred nineteen working satellites. Amazon has roughly four hundred. That is rough parity, not a clear Chinese lead. On the same numbers, nearly thirty percent of Qianfan's launched satellites are not yet counted as operational.
+
+Not operational does not mean failed. A satellite can still be raising its orbit or sitting in checkout. And trackers disagree, with McDowell's count a week older than the one we used yesterday. But in a contest over spectrum and orbital slots, the satellites that count are the ones actually transmitting. Launched is not working, on either side of the Pacific.
+
+The other booster that fell short this weekend belongs to SpaceX. Starship Flight 15 did land its headline milestone, the first tower catch of the ship, on November 14th. But the Super Heavy booster never made its own catch. Aviation Week reports it "was low on fuel and slightly off course during its return." Elon Musk has now named a cause: "Slight underperformance of engines on this flight is the reason."
+
+That answers the question this desk has carried since Saturday, after SpaceX's webcast commentators floated and then withdrew a guidance explanation. Treat it as a qualitative claim from the chief executive, not a mishap report. No deficit size or engine count is attached.
+
+The explanation cuts both ways. It is good news for the catch system. The tower and recovery logic are not implicated, and SpaceX has caught a Super Heavy three times before. The bad news is where it moves the risk. Engine performance was supposed to be the mature part. If a slight shortfall is enough to cost a recovery, the booster is coming home on thin propellant margin. Recovery then depends on every engine holding to spec on every flight.
+
+Now put the two failures side by side, and an asymmetry falls out. This is our inference, not anyone's stated finding. Both first stages underperformed. Vulcan is expendable, so it holds no propellant back for a return. Its shortfall came straight out of the mission, and the mission was forty satellites. Starship's booster does hold margin back for recovery. Its shortfall ate into that reserve instead. SpaceX lost the booster, while the ship still reached orbit and deployed its twenty-six Starlinks. A reusable design absorbs a propulsion shortfall as lost hardware before it becomes a lost mission. An expendable one has no such buffer.
+
+So for Starship's economics, engine margin, not the catch tower or guidance software, is now the visible constraint on booster reuse. Until SpaceX shows a booster caught and reflown, cost-per-kilogram assumptions for Starship should stay conservative.
+
+Briefly, the Pentagon's paperwork moved too. The Space Force issued contract modifications under National Security Space Launch Phase 3, Lane 2. Their combined ceiling is $985 million, shared across SpaceX, ULA, and Blue Origin. No funds were obligated at award, and no per-company split was disclosed. By this desk's read, the timing is coincidence, not a response to Sunday. What it shows is a Pentagon still spreading capacity across three vendors. Only one of them has a heavy rocket flying reliably. That is a hedge on paper, not a hedge in hardware.
+
+The one vendor that is flying is now deciding where its money goes. The answer looks less like rockets and more like silicon. Bloomberg reports that SpaceX could start selling about $4 billion of bonds this week. The financing is reportedly part of a $40 billion plan to buy Nvidia's next-generation Vera Rubin chips for SpaceX's AI computing business. Treat it as reported, not confirmed. There is no SEC filing or company statement yet, and no word that the deal has priced.
+
+The third-quarter segment numbers behind it are on the record. The AI segment "pulled in about half of all revenue but earned just $431 million." That is a large share of the top line attached to modest earnings.
+
+There are two ways to read the bond. The first is a leverage bet. SpaceX would be borrowing to scale a segment whose profit lags its revenue share. The second reading is about proportion. Four billion against a forty billion dollar plan is a tenth of the total. That suggests most of the buildout is funded some other way, and the bond is financing at the margin. The reporting doesn't settle which.
+
+For SPCX holders, either reading shifts what the stock is a claim on. Since the June IPO, the equity story has rested on launch and Starlink. This moves it toward an AI-compute buildout with thinner earnings and, at the margin, debt. As The Throughline flagged yesterday, bids are due Thursday in ING's data-center loan auction. That is the first credit-market read on how the AI buildout gets financed. A chip-linked SpaceX bond would test the same appetite in the same week. So the company that won heavy lift largely by default is reinvesting that position in silicon, not rockets.
+
+So where does that leave things? What is genuinely inflecting is SpaceX's freedom to allocate capital beyond launch, because its competitors keep handing it the launch market. What remains a setback or a demo is everything that depends on propulsion holding up. That means Vulcan's unscoped fix, Starship's booster recovery, and Amazon's concentrated bet on a rocket that just failed its return to flight.
+
+The open questions are whether ULA's investigation points at the core stage and its engines, and whether SpaceX's bond actually prices. Watch four catalysts. First, ULA's more specific root-cause statement. Second, any sign of Amazon moving launches off Vulcan. Third, confirmation that the SpaceX bond has priced. And fourth, a date for Starship's Flight 16.
+
+That's the briefing. Stay cautiously optimistic, and I'll talk to you tomorrow.
