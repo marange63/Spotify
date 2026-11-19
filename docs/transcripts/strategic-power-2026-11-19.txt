@@ -1,0 +1,49 @@
+Good morning, and welcome to Strategic Power for Thursday, November 19th, 2026.
+
+Today's through-line runs in three steps. Hormuz is now priced as closed by the people who have to cross it. The bill may be landing less in crude than in the dollar and the Fed, though this week's Fed move had drivers of its own. And in chips, the fight over who controls a strategic asset has moved into courtrooms and Congress. One ground rule: the facts come sourced, and the implications are this desk's read.
+
+Start with Hormuz, and with posture. The US Navy now has three carrier strike groups in the Middle East. The USS Theodore Roosevelt has joined the George Washington and the George H.W. Bush. That is the first time since the Iraq war that the US has had three carriers in the region. Read that as cost and signal, not as a decision. Three carriers raise the naval and fiscal price of keeping the strait contested. They don't tell you Washington has chosen to escalate.
+
+Now the measurement. On Monday, this desk said we had no transit count to square talk of a strait all but closed with Gulf oil still flowing. Now we have one. The UK Maritime Trade Operations agency, UKMTO, recorded 308 vessel crossings in the week ending November 11th. That is about sixty-five percent below pre-war levels. Two cautions. It counts ships, not barrels, so don't convert it into lost oil supply. And it predates the wider exchange of US and Iranian strikes that began on Sunday. Even so, as a read on shipper behavior, it says the strait is moving traffic at roughly a third of its old pace.
+
+Layer in the claims. Iran's Revolutionary Guard says six tankers have caught fire in the strait since Sunday. Earlier this week, the same source was claiming three. Reuters says it cannot independently confirm that account, or the identities and condition of the six vessels. UKMTO did report a tanker hit by an unidentified projectile on Monday. But it didn't name the vessel, its operator, or who was responsible. So the escalation is real in posture and in rhetoric, but the damage tally is unverified. The gap between Tehran's claims and the record is widening, not closing.
+
+Then there's insurance. Acting Navy Secretary Hung Cao told the Senate Armed Services Committee on Tuesday that a single Hormuz transit now costs sixty-four million dollars in insurance. Treat that as testimony, not a market quote. Michelle Bockmann, an analyst at the maritime-risk firm Windward, said Cao gave no context. She asked whether he meant the war-risk premium, which is set as a percentage of hull value. If so, she said, the answer depends on vessel type and the rate paid. Independent estimates back her skepticism. Separate figures from S&P Global and from an ENOC executive cited by Reuters land between ten and twenty-one million dollars. That is a third or less of Cao's number, and nobody has reconciled the gap.
+
+Here's what survives the dispute. Whichever number is right, war-risk cover now works like a tax on every Gulf cargo. A tax on Gulf flows is a quiet subsidy to supply outside the Gulf: Atlantic-basin crude, US LNG, and the routes around the strait. That is energy abundance working as strategic defense. So the strait is open in name. Transit counts and insurance costs say it's closed in practice to anyone who can't absorb the premium.
+
+We couldn't verify a clean oil settlement price today, so we won't lean on the oil tape. The dollar and the Fed may be the clearer place to look. The channel there is our inference, and it runs through costs. War-risk premiums and shipping costs can feed inflation expectations. That keeps a central bank leaning hawkish.
+
+In Wednesday's session, Fed Governor Christopher Waller floated a half-point rate hike. October's meeting minutes showed nearly all officials expecting further increases. The Dollar Index rose to near 103.78, a nineteen-month high. Gold fell three point two percent to near thirty-seven hundred twenty-five dollars, its weakest level in more than a year.
+
+On Sunday, this desk cited futures pricing an eighty-nine percent chance of a quarter-point hike in December. Now a sitting governor is floating twice that size. Hawkish pricing has escalated run over run this month, and a live Gulf war hasn't interrupted it.
+
+Be precise about cause. The reported drivers of Wednesday's move are Waller and the minutes, not the Gulf. The Hormuz link is our hypothesis, not the reporting. Still, in this war, the safe-haven bid went to the dollar, not to gold. One possible reason is that America exports energy while Europe and much of Asia import it.
+
+That complicates the easy hard-money story. Gold falling during a war doesn't kill the thesis. It says real rates are beating the geopolitical bid, at least for now. Hard-money assets, gold and Bitcoin alike, likely need a policy pivot, not just a crisis.
+
+Then there's the second bill. A stronger dollar and a steeper rate path raise the cost of capital for the most rate-sensitive strategic build underway. That means data centers, utilities, and the grid expansion running through PJM. So the war's real bill may arrive through financing costs rather than fuel costs. The Fed's December 9th decision hasn't happened, so none of this is locked in.
+
+Energy is one strategic input being contested by force. Chips are being contested by jurisdiction.
+
+The Enterprise Chamber of the Amsterdam Court of Appeal has issued what's called an anti-anti-suit injunction against Wingtech Technology. Wingtech is the Chinese parent of the Dutch chipmaker Nexperia. The order bars Wingtech from enforcing a competing Chinese court injunction. It also tells Wingtech, Nexperia's Chinese operations, and the suspended executive Zhang Xuezheng to stop interfering in the business, backed by financial penalties. On November 15th, Wingtech told the Shanghai Stock Exchange it will appeal, calling the ruling factually and legally unfounded.
+
+Here's the structural point. Two national court systems are now issuing directly conflicting orders over the same company. That is economic statecraft, run through a courtroom.
+
+The skeptical read. A Dutch court binds the conduct it can reach. Nexperia's China operations sit under Chinese jurisdiction, so the order's bite there is untested. The Netherlands could win legal control of a company whose Chinese plants it cannot command. And this is an interim ruling under appeal, not a final judgment.
+
+The stakes cut both ways. If Dutch courts can hold Nexperia against Chinese injunctions, that's a template for prying other European strategic assets from Chinese parents. It also invites Beijing to answer through the parts of the supply chain it physically controls, like rare earths. So control of a strategic chip asset is being decided by whose court can enforce where. Legally, Europe may be winning. Physically, not yet.
+
+The same migration into courtrooms is happening at Nvidia.
+
+First, the backstory. Jensen Huang resigned as Nvidia's chief executive last week. Board chair Harvey Jones says Huang had disclosed personal behavior inconsistent with the company's code of conduct. Reporting ties that to an affair with a woman who had been an executive at Megaspeed, a Singapore-based firm. Megaspeed is reportedly already under federal investigation over suspected export-control violations. US authorities reportedly suspected the woman of spying for China. Beijing denies it, and no conclusive proof has been reported.
+
+Now the new part. Jones says the board does not intend to reinstate Huang. Huang says he would be honored to return if the board wanted him. Meanwhile, a federal shareholder class action alleges Nvidia inflated its share price by concealing details of that relationship. So a national-security suspicion is now being litigated as a securities-disclosure claim. The complaint is an allegation, not a finding.
+
+Congress has text now. Three named bills, the AI Overwatch Act, the MATCH Act, and the Chip Security Act, have been introduced as amendments to the defense bill. Congress is expected to take that bill up in December. Last week, Senate leaders acknowledged there was no defense-bill deal on chip controls. Now there is amendment text. But introduced is not adopted, and three competing vehicles can signal fragmentation as much as momentum.
+
+One second-order effect. If undisclosed national-security risk becomes securities-litigation risk, every chip company with China exposure has a reason to disclose more. That tightens the information environment export hawks work in. Nvidia lost its chief executive, and its China-risk question now sits with judges and legislators, not with management.
+
+Three things to watch. First, the Trump-Xi-Putin meeting in Shenzhen, with Ukraine, Iran, and nuclear issues reportedly on the table. No readout was available as we recorded, so treat any outcome you hear as unconfirmed until it's officially announced. Second, the defense bill's chip amendments as they head toward December floor action. Third, Wingtech's appeal, and the Fed's December 9th decision.
+
+That's Strategic Power for November 19th. Stay cautiously optimistic, and I'll talk to you tomorrow.
