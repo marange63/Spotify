@@ -1,0 +1,53 @@
+Good morning, and welcome to Strategic Power for Friday, November 20th, 2026.
+
+Today's through-line is a reversal of the usual story. The strategic energy problem this week is not scarcity of oil. It is a strait that has stopped moving the price. It is a Europe that has run out of cushion. And it is a grid at home whose limits are now about behavior and the cost of capital, not just megawatts.
+
+Start with the paradox. Aggregator data, citing the IMF's PortWatch tracker, shows two transits through the Strait of Hormuz on November 15. The pre-crisis baseline was 85 a day. That figure comes from a secondary aggregator, not the IMF primary page, so treat it as indicative. Iran's navy also claims two tankers hit mines on Thursday. That is an unverified claim, and the reports differ on whether it was two tankers or three.
+
+And yet the price barely moved. Brent settled Thursday at 91.98 dollars a barrel, according to Reuters. West Texas Intermediate settled at 83.21, its lowest since August 26th.
+
+On Monday this desk argued the chokepoint was losing its coercive bite. The tape has now gone further than that inference. A strait that is nearly shut, in a war with no deal, is not lifting crude.
+
+So what explains it? There are three candidate explanations, and the evidence does not support them equally.
+
+The first is a physical surplus. The International Energy Agency's November report, as carried by Reuters, has supply averaging about 105 million barrels a day in the fourth quarter. That is roughly 1.7 million barrels a day above forecast demand. The agency sees the surplus growing to about 3.8 million barrels a day in 2027. That is the strongest quoted evidence we have.
+
+The second is demand destruction. The same report forecasts world oil demand falling by 2.7 million barrels a day this year, to 102.3 million. That is a contraction, not a slowdown. High prices and substitution have already taken barrels out of the market.
+
+The third is stock management. IEA members agreed to make 71 million barrels of emergency reserves available by the end of February. That is a transient bump. It can mask tightness for a while, and then it fades.
+
+Then there is the weekly US data. The Energy Information Administration reported a 3.4 million barrel crude build for the week ended November 13th, to 417.8 million barrels. Analysts in a Reuters poll had expected a build of only 58,000 barrels. I would not hang the whole price move on one weekly print. Stocks at the Cushing hub actually fell 1.2 million barrels in the same week.
+
+Now the tension I have to flag. The headline on that IEA report is that the market is returning to surplus as Gulf exports recover. That does not sit easily with two transits a day. Both cannot be fully true. Either the aggregator count undersells flows through workarounds, or the surplus is mostly about weak demand and rerouted supply, with Gulf volumes only partly restored. I cannot resolve that from these sources. And note that the IEA page itself was not retrievable, so these figures come from wire copy.
+
+Here is what I would take from it. The evidence points to surplus plus demand loss, not to the market pricing a closed strait. If so, war-risk cover and mine risk act as a tax on Gulf flows and a subsidy to everyone else's barrels. Non-Gulf producers, and the United States in particular, gain share the longer this lasts. Oil services and defense primes selling mine clearance and escort capacity gain too. The risk is that a mine escalation is a tail the market is not paying for at ninety-two dollars. And I would not claim structural demand destruction beyond what the IEA's 2026 number shows.
+
+That is oil. The same closure looks very different in gas, because gas does not have a surplus.
+
+Europe is the clean example. The Dutch TTF benchmark was trading at about 86 euros a megawatt-hour, according to Serbia Energy, an aggregator, so treat the level as reported. Storage across the European Union has fallen to about 70.6 percent. The five-year seasonal average is roughly 89 percent. And Europe currently receives no Qatari cargoes at all.
+
+That is a large storage gap, going into a cold forecast. Crude can be absorbed by a surplus and by demand loss, because oil moves in one global pool. Gas is more regional. Qatari LNG that cannot leave the Gulf cannot be substituted quickly.
+
+The inference here is this desk's read, not a quoted figure. US LNG is the swing supply. Atlantic-basin cargoes, mostly American, are what stand between Europe and an industrial rationing event. That is energy abundance working as strategic defense. It also has a price. If Europe competes harder for American cargoes, the pass-through reaches US gas prices and Asian buyers. And at these levels European heavy industry shrinks first, which is a loss of manufacturing capacity that no summit communique repairs.
+
+The so-what is simple. Abroad, the energy constraint is a chokepoint being absorbed in oil and felt in gas. The country with exportable molecules holds the leverage.
+
+Now to the constraint at home, which is subtler. On Monday, PJM, the largest US grid operator, filed at the Federal Energy Regulatory Commission for new ride-through rules for the biggest data-center loads. We covered the queue and cost-allocation parts of this filing earlier this week. The ride-through piece is the part that matters most for reliability.
+
+PJM proposes voltage and frequency ride-through requirements effective January 16th, 2027. The trigger was an event on July 22nd. Data-center load transferred to backup generation, in what PJM describes as the largest such load transfer in its history. The operator says it serves around 10 gigawatts of existing large computational load.
+
+The point is that a data center is not a passive customer. When it sees a grid disturbance, it protects itself and disconnects. The grid then loses a large block of demand all at once. That is a stability problem, and it gets worse as the fleet grows. So the binding AI-power constraint is migrating. It was megawatts. Then it was who pays. Now it is how these loads behave on the system.
+
+Be skeptical about timing. This is a filing, not a rule. PJM asked regulators to rule within 120 days. Nothing here adds an electron to the grid. What it changes is economics. Ride-through compliance means more power electronics, batteries and backup systems on site. It favors operators who can co-locate with generation. And it hands consumer advocates another argument ahead of the capacity auction. Those watchdogs, from Ohio to Illinois, want that December auction delayed over data-center costs.
+
+That leads to the overlay that pulls all of this together, which is the price of money.
+
+October's producer price index came in at 6.5 percent year over year, the highest in almost four years, according to CNBC. Derivatives traders now price roughly a 96 percent probability of a 25-basis-point Fed hike in December. That is priced, not decided. November inflation and payrolls have not been released.
+
+The market has moved with that pricing. The ten-year Treasury yield was about 5.06 percent on Wednesday. Gold futures fell to 3,743 dollars, the lowest in over a year. Bitcoin fell to about 62,450. The hard-money trade is losing to real yields and a firmer dollar.
+
+Why does this belong in an energy briefing? Because the build everything above depends on is capital-intensive and long-lived. Utilities, independent power producers, nuclear and small modular reactor developers, transmission, and data-center financing all take more expensive money in a hike cycle. A higher discount rate hurts the longest-dated assets first.
+
+So here is the through-line. A near-shut Hormuz is not the binding cost of this war for energy-building countries. The oil market is absorbing it. Gas is where the strait still bites, and the United States holds the cards there. The larger bill may arrive through financing, as the cost of capital rises on exactly the grid, generation and compute that strategic competition requires.
+
+That is Strategic Power for November 20th. Thanks for listening, and we will see you on the next one.
