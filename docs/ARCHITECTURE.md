@@ -140,6 +140,17 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   `GET https://api.github.com/repos/marange63/Spotify/actions/runs?per_page=1`, no auth needed). Prune
   needs nothing extra: deleting the release asset drops the file from the next deploy. If a deploy
   fails, the previous site stays live; the next push (or a manual "Run workflow") redeploys.
+  **Deploy retry (2026-11-21).** `deploy-pages` finds the artifact by listing the run's artifacts,
+  and that listing can lag the upload (upstream `actions/deploy-pages#451`): on 2026-11-21 it
+  answered "No artifacts named github-pages were found" one second after a clean upload, twice in
+  one day, and the day's episodes never went live. The workflow now sleeps 15 s after the upload
+  and gives `deploy-pages` up to three attempts (30 s / 120 s pauses; only the last may fail the
+  job). The retries reuse the artifact already uploaded — do NOT use GitHub's "Re-run failed jobs"
+  for this error, it uploads a second `github-pages` artifact into the same run and then fails on
+  the duplicate. The publish PAT is Contents-only, so it can neither re-run a workflow nor push a
+  change to this file; an empty commit to `main` is the redeploy trigger available to automation,
+  and editing the workflow needs an interactive `git push` by the owner. A deploy that fails
+  anyway is caught by `live_check.py` (below).
   **Self-heal:** `publish_feed.publish` asks `github_release.pages_build_type()` first; if the Pages
   source is still GitHub's legacy `main:/docs` build (workflow source not enabled, or reset), that run
   flips to `AUDIO_HOST="pages"` / `AUDIO_SERVE="release"` — audio is committed into `docs/audio` and
@@ -188,6 +199,29 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   notification failure is logged and never fails the publish). On by default (interactive AND the
   scheduled publish run); suppress with `--no-notify` or by setting `NTFY_TOPIC`/env
   `BRIEFING_NTFY_TOPIC` to `""`. This is the working replacement for the disabled confirmation email.
+  Note what that push does NOT prove: it fires after `git push`, before the Pages deploy has run.
+- **`live_check.py`** — the "is it actually live?" check (2026-11-21; stdlib, read-only: never
+  commits, pushes or re-triggers anything). A successful push is not a published episode — the
+  site is built afterwards by `pages.yml`, and when that deploy failed on 2026-11-21 the publish
+  had already reported success, the completion pass found nothing to do, and the feed stayed a day
+  old for 10.5 h with GitHub's failure email as the only signal. `verify(date, wait, interval)`
+  parses the local `docs/feed.xml` and the live `<FEED_BASE_URL>/feed.xml` (cache-busted) into
+  `{guid: enclosure URL}` and diffs them: `missing` (local only), `stale` (same GUID, different
+  `?v=` token — an in-place republish that never deployed) and `extra` (pruned locally, still
+  served). Any difference means the site is not the current build. When the feeds match it HEADs
+  each of the day's enclosure URLs (one retry), because the workflow only *warns* when it could not
+  mirror an mp3 from the Release. With `--wait N` it polls every `--interval` (30 s) for a deploy
+  still in flight, and stops early when the feeds match, when the Deploy Pages run for the pushed
+  commit (`origin/main`'s sha, read unauthenticated from the public Actions API) has completed
+  without success, or when local `main` is ahead of `origin/main` (nothing was pushed, so waiting
+  cannot help). On NOT LIVE it sends an ntfy alert `Briefings NOT live (<date>)` via
+  `ntfy_push.push`, naming how many of the day's episodes are missing and the cause it can see
+  (unpushed commits / the deploy run's number, state and URL). Exit codes: **0** live, **1** not
+  live (alerted; `--no-notify` suppresses the push only), **2** inconclusive — the site gave no
+  HTTP answer at all, or the check itself raised — which is logged and deliberately NOT an alert,
+  so a network blip or a bug here cannot cry wolf. An HTTP error status from the site (404/5xx)
+  is a real outage and counts as not live. Called by `completion_run.ps1` after phase 2; run it by
+  hand any time with `python live_check.py [--date D] [--no-notify]`. Tests: `tests/test_live_check.py`.
 - **`orchestrator.py`** — deterministic gates of the five-stage pipeline (stdlib only, no agent
   runner): `init` (run dirs + `runs/<date>/run.json`, idempotent), `validate research|plan|deep|review`
   (schema checks with readable errors — `validate research` also enforces the verbatim-quote
@@ -353,6 +387,12 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   opens its own token-window segment, appends to the SAME `logs\daily-<date>.log`, and reads the
   morning's novelty mode from `runs/<date>/run.json` so a resumed prompt is judged on the same bar.
   If `run.json` is absent entirely (the 03:15 job never ran), it runs the full batch.
+  **Live-feed check (2026-11-21).** After phase 2, on EVERY pass, it runs `live_check.py --date
+  <today> --wait <-LiveWaitSeconds, default 600>` — the wait only matters when this pass itself
+  just pushed; on a normal morning the feed is already current and the check returns in a few
+  seconds. NOT LIVE sends the ntfy alert and, if the publish itself had exited 0, turns the pass's
+  exit code into **5** so Task Scheduler records the day as failed; an inconclusive check (exit 2)
+  is logged and never changes the exit code. `-NoPublish` dry runs skip it.
   **`phase1_prompt.ps1`** holds the phase-1 prompt (incl. the resume semantics) as
   `Get-Phase1Prompt`, dot-sourced by both scripts so the two can never drift — the completion pass
   depends entirely on those semantics being obeyed.
