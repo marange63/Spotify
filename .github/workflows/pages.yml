@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url || steps.deployment_retry.outputs.page_url || steps.deployment_final.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -61,5 +61,34 @@ jobs:
         with:
           path: docs
 
+      # deploy-pages looks the artifact up by listing this run's artifacts, and that listing can lag
+      # the upload (actions/deploy-pages#451). On 2026-11-21 it did so twice: the artifact landed at
+      # 08:19:40, the deploy asked at 08:19:41, got "No artifacts named github-pages were found",
+      # and the day's episodes never went live; a fresh run ten hours later lost the same race.
+      # So: let the listing settle first, then up to three attempts with a growing pause. The
+      # retries reuse the artifact already uploaded by this run (re-running the whole job would
+      # upload a second one and fail on the duplicate name). Only the last attempt may fail the job
+      # and send the failure email; an earlier miss that a retry recovers stays green.
+      - name: Let the artifact listing settle
+        run: sleep 15
+
       - id: deployment
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+
+      - name: Pause before retrying the deploy
+        if: steps.deployment.outcome == 'failure'
+        run: sleep 30
+
+      - id: deployment_retry
+        if: steps.deployment.outcome == 'failure'
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+
+      - name: Pause before the final deploy attempt
+        if: steps.deployment_retry.outcome == 'failure'
+        run: sleep 120
+
+      - id: deployment_final
+        if: steps.deployment_retry.outcome == 'failure'
         uses: actions/deploy-pages@v4
