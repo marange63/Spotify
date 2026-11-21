@@ -1,0 +1,35 @@
+Good morning, this is The Throughline for Saturday, November 21st, 2026.
+
+Today's headline: reports of an SEC probe into Nvidia's accounting sent the stock down 14 percent on Friday, pulling the selloff back onto AI with an integrity shock rather than a growth scare.
+
+A standing disclosure, since Anthropic comes up several times today: Anthropic makes the model behind this show.
+
+We'll start with the macro backdrop. Strategic Power finds Washington's chip chokepoint looser in practice than in its rhetoric. Commerce licensed more than 879,000 Nvidia and AMD AI chips for Chinese buyers, including Alibaba and Tencent, though nobody has counted how many actually shipped. At home the binding limit is physical, with the IEA warning that copper, cables, and transformers are already tight.
+
+Capital Markets Radar carries the Nvidia story, and reads the reported, still-unconfirmed SEC probe as a risk that fundamentals can't clear, because it questions whether Tuesday's earnings beat can be relied on. The Nasdaq fell more than twice as far as the Dow, so the broad de-risking continued but the marginal selling went back to AI. And for the first time all week Treasuries hedged, with the ten-year yield back below 5 percent, while gold and bitcoin kept trading as sources of cash.
+
+That crypto behavior is where Digital Money picks up, with bitcoin at a four-month low near 61,700 dollars. The desk also corrects itself on Strategy, whose third-quarter filing shows more than 430 million dollars of bitcoin sold this year, under a program built partly to fund preferred dividends. Strategy is still overwhelmingly a net buyer, but the treasury that was never supposed to sell has been selling to help pay its bills.
+
+Private Credit and the Corporate Credit Cycle finds banks took back the top of the lending market last quarter, and private lenders held or raised their price rather than chase volume. Golub Capital's print shows the cost of that choice, with GAAP earnings at roughly a quarter of its distribution. Golub also bought back stock at an 11 percent discount to net asset value, one of the few market prices anyone gets on private marks.
+
+That's the macro backdrop. Now the AI and compute stack, where Friday's rout actually lives.
+
+Semiconductors and Compute Infrastructure finds the selling broad but the new risks specific. AMD fell nearly 8 percent on Thursday on a short-seller's unproven allegation that its firmware kept reaching a blacklisted Chinese server maker, which AMD denies. And Broadcom has offered Anthropic a loan facility covering roughly a third of Anthropic's 125 billion dollar TPU lease, a sign the chip supply chain is increasingly financing its own demand.
+
+Frontier AI Lab Competition finds Anthropic's stock fell sharply on Friday, its second day of trading. Even so, the underwriters exercised the greenshoe, lifting the IPO's total raise to 93.5 billion dollars. CEO Dario Amodei's opening-bell pledge to pace deployment carries no metric or timeline, so its real test is the first time Anthropic visibly delays a release with a live stock price attached.
+
+AI Products and Applications says the unit of AI spending is shifting from the seat to the job. Replit's new Missions sends a swarm of agents toward a goal inside a hard dollar cap. And OpenAI's repriced GPT-6.2 Astra beats its predecessor on the independent Vals Index at roughly half the cost per task, the first cost-per-task measurement for a major model.
+
+Enterprise Technology asks what is actually being measured, and Databricks is the sharpest case. It is reportedly in talks to raise at a 225 billion dollar valuation, up about 18 percent in a quarter, on just two disclosed product run-rates and no company-wide revenue. Salesforce offers a spot on a government export list and Sage an undefined share of AI-enabled revenue, and neither one counts actual usage.
+
+That's the compute stack. Now the applied frontier.
+
+Robotics and Physical AI has Hyundai completing its buyout of Boston Dynamics and moving to build the robot's actuators in-house. But the arithmetic doesn't close: on a reported joint count, Hyundai's planned US actuator capacity covers only about a third of its own robot target. And the rare-earth magnets inside those actuators still carry China exposure, whoever owns the robot.
+
+Space and the Orbital Economy finds government demand the most durable money in the sector, with Golden Dome reporting its funding fully obligated even under a continuing resolution. But Senate appropriators who want to add 9.4 billion dollars also demand an independent cost estimate, after the CBO priced the program above 1.2 trillion. Almost everything else, from a price hike on Rocket Lab's unflown Neutron to AST SpaceMobile's intermittent service, is still a demo dressed as momentum.
+
+AI in Biopharma R&D closes the tour with pharma and the labs each publishing scorecards that measure speed or access, not the clinical success rate that sets returns. Novo Nordisk's figures imply better than a fivefold cut in design time, while OpenAI's new chemistry benchmark puts its best listed score under 50 percent. So faster candidate generation without better target selection may just mean failing faster and cheaper.
+
+One change versus yesterday, when this show relayed Thursday's selloff as market-wide de-risking rather than doubt about AI. Friday put AI-specific risk back on top. The markets desk locates it in Nvidia's accounting, and the semis desk in AMD's compliance and Broadcom's financing of Anthropic. On the semis desk's read, the market is repricing who bears AI risk, not how much silicon gets ordered.
+
+That's The Throughline. Stay cautiously optimistic, and have a good weekend.
