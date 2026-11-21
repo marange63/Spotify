@@ -28,7 +28,8 @@
 # that is a few seconds and no cost.
 #
 # Everything is appended to the SAME logs\daily-<date>.log as the 03:15 run, so one file tells the
-# whole story of the day. Exit code is non-zero only if publishing failed.
+# whole story of the day. Exit code is non-zero only if publishing failed - or (exit 5) if it
+# succeeded here but the public feed is still not today's build (see the live-feed check below).
 # Reasoning effort for every headless Claude session this script starts. Pinned for the same
 # reason as --model: effortLevel in %USERPROFILE%\.claude\settings.json is user-global, so an
 # interactive /effort would otherwise silently change what the unattended run costs. The
@@ -39,7 +40,7 @@
 # See Wait-ForReset in tools\phase1_prompt.ps1.
 param([switch]$NoPublish, [int]$ChunkSize = 3,
       [ValidateSet('low','medium','high','xhigh','max')][string]$Effort = 'medium',
-      [string]$Deadline = '', [int]$MaxRuntimeMinutes = 0)
+      [string]$Deadline = '', [int]$MaxRuntimeMinutes = 0, [int]$LiveWaitSeconds = 600)
 
 $ErrorActionPreference = 'Continue'
 $proj   = 'C:\Users\wamfo\ClaudeDev\Spotify'
@@ -174,6 +175,27 @@ Log "completion: phase 2 publish_feed.py --require-fresh --skip-published"
 $pubExit = $LASTEXITCODE
 Log "completion: phase 2 exit code: $pubExit"
 
+# LIVE-FEED CHECK (since 2026-11-21). A pushed commit is not a published episode: the Pages site is
+# built by the pages.yml deploy workflow, and on 2026-11-21 that deploy failed after a clean push.
+# publish_feed.py reported success, this pass found nothing to do, and the feed stayed a day old
+# for 10.5 hours with no alert. live_check.py compares the local docs\feed.xml with the live one
+# (and HEADs the day's audio) and sends an ntfy alert on a mismatch. It runs on EVERY pass, because
+# the failure it catches is exactly the one where the publish above has nothing left to do.
+# -LiveWaitSeconds gives a deploy still in flight time to land (this pass may have pushed seconds
+# ago); it returns at once when the feed is already current or the deploy is known to have failed.
+# Exit 1 = NOT live (alerted); 2 = inconclusive (site unreachable, or the check itself broke) -
+# logged, but never allowed to fail the pass.
+Log "completion: live-feed check (live_check.py --wait $LiveWaitSeconds)"
+& $conda run -n Spotify --no-capture-output python live_check.py --date $today --wait $LiveWaitSeconds *>> $log
+$liveExit = $LASTEXITCODE
+switch ($liveExit) {
+    0       { Log "completion: live-feed check: LIVE" }
+    1       { Log "completion: live-feed check: NOT LIVE - the public feed is not today's build (ntfy alert sent)" }
+    default { Log "completion: live-feed check: inconclusive (exit $liveExit) - see the lines above" }
+}
+
 Log "=== completion pass done ==="
 Remove-RunLock -Proj $proj
+# A publish that succeeded locally but is not live is still a failed day: surface it (exit 5).
+if ($pubExit -eq 0 -and $liveExit -eq 1) { exit 5 }
 exit $pubExit

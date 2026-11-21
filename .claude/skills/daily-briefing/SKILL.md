@@ -54,6 +54,13 @@ making Spotify re-download identical audio. The scheduled 08:20 completion pass
 (`tools/completion_run.ps1`) does exactly this automatically — so if the 03:15 run was truncated,
 check whether that pass already fixed it before doing anything by hand.
 
+**A pushed commit is not a live episode.** The Pages site is built after the push by the
+`pages.yml` deploy workflow, which can fail on its own (2026-11-21). To confirm a publish actually
+reached listeners, run `python live_check.py` (add `--wait 300` right after a push; `--no-notify`
+to skip the phone alert): exit 0 = the live feed is this build and the day's audio downloads,
+1 = not live, 2 = could not tell. The completion pass runs it every morning and alerts via ntfy
+(`Briefings NOT live`). Recovery and causes: `docs/ARCHITECTURE.md` (`pages.yml`, `live_check.py`).
+
 **Confirmation email is DISABLED (since 2026-07-08) — do not send it** (no working delivery path;
 see the `publish-confirmation-email-blocked` memory). The ntfy phone push replaces it and fires
 automatically inside `publish_feed.py`. Report the results table and skip the email.
