@@ -1,0 +1,31 @@
+Good morning, this is The Throughline for Sunday, November 22nd, 2026.
+
+Today's headline: bitcoin's latest flush left Strategy, by one tracker's count, worth less on the stock market than the bitcoin it holds, just over a week before an index deletion forces passive funds to sell its shares.
+
+A standing disclosure, since Anthropic comes up today: Anthropic makes the model behind this show.
+
+We'll start with the macro backdrop. Strategic Power has Washington pushing its chip chokepoint into the foundry, where TSMC and Samsung must now presume any advanced chip is controlled unless they can show otherwise. Treasury Secretary Bessent then called the current rules the stopping point, but the desk treats that as a statement of view, and Congress is free to go further in December. At home, the binding input is still power, with PJM's last capacity auction clearing at its price cap and still landing about 6.8 gigawatts short.
+
+From policy to the tape, Digital Money opens by correcting its own Friday call, after a second billion-dollar liquidation wave in eight days took bitcoin near 55,750 dollars. With Strategy now trading below its coin, issuing new stock to buy bitcoin dilutes holders, so the engine that built its coin stack runs in reverse. Then MSCI deletes Strategy after the close on November 30th, with passive selling estimated at about 1.6 billion dollars, a figure that partly comes from the company itself.
+
+Private Credit and the Corporate Credit Cycle finds lenders pricing data-center debt by who stands behind it. Blue Owl's Amazon-leased Virginia data center is being shown to bond buyers at about 195 basis points over the benchmark, roughly in line with where triple-A data-center paper already trades. Meanwhile a Malaysian data-center loan with no reported hyperscaler tenant stalled mid-syndication, so credit is discriminating by counterparty, not repricing the sector wholesale.
+
+That's the macro backdrop. Now the AI and compute stack, where the question is whether the numbers can be trusted.
+
+Semiconductors and Compute Infrastructure corrects yesterday's read and pins Friday's chip rout on a Reuters report that SEC staff are scrutinizing potential accounting issues at Nvidia. Nothing reported says Nvidia's revenue is wrong, but after a 14 percent drop to a one-year low, the desk says that number now carries a credibility discount. Separately, a short seller's report puts AMD's China, Hong Kong, and Singapore billings at roughly a third of revenue, making AMD the one vendor whose China-linked exposure the market can see, if only by proxy.
+
+AI Products and Applications finds vendors, not users, deciding what runs inside the tools you pay for. OpenAI pushed its Space document workspace down to the mass-market Plus tier, while independent reporting says its autonomous dot agents mostly stay on the higher tiers. And GitHub deprecated three models inside Copilot on its own calendar, turning an embedded model into a dependency that teams now have to manage.
+
+Enterprise Technology reads Oracle's unprompted claim to be fully funded for its OpenAI build as risk relocated, not removed, with its 2031 notes yielding around seven-point-three percent in early November. At Ignite, Microsoft bid to become the identity layer for rivals' agents too, Claude Code among them, though discovery is not enforcement. And ServiceNow put a thirteen-fold usage multiple on its agents without disclosing the base it multiplies from.
+
+That's the compute stack. Now the applied frontier, where the same question turns physical.
+
+Robotics and Physical AI has Waymo filing two federal safety recalls after California pulled its driverless freeway service. In a separate open query, NHTSA says most of the school-bus incidents came after Waymo's earlier software fix, so the test is now whether its remedies hold in the field. In defense autonomy, Shield AI agreed to buy radar maker Echodyne for 5.3 billion dollars, with up to 500 million of that contingent on undisclosed performance targets.
+
+Space and the Orbital Economy finds Senate appropriators funding Golden Dome at roughly half the administration's ask. Pure-play space stocks sold off, with Firefly down 23 percent on the week, while SpaceX stock barely moved. With ULA's Vulcan grounded after the first total failure in its history, and New Glenn still down, SpaceX is, for now, America's only working heavy-lift provider.
+
+AI in Biopharma R&D closes the tour with Genesis Molecular AI claiming its Ruby model edges out Isomorphic Labs' flagship engine on potency prediction, three days after Isomorphic's five-billion-dollar raise. Genesis published no head-to-head numbers on the public benchmarks, so even parity is unverified. The clearer figure came from Recursion, about 535 million dollars in partnership cash, and the desk reads pharma as paying for proprietary biology and molecule options, not for any one model.
+
+One thread runs through most of today's briefings: claims are running ahead of proof. Treasury's chip ceiling, Oracle's funding line, ServiceNow's usage multiple, Genesis's benchmark, and Waymo's fix are all assertions still waiting on evidence. Yesterday this show framed Nvidia's slide as an integrity shock for one company, and today that same proof-pending shape runs from Washington to drug discovery.
+
+That's The Throughline. Stay cautiously optimistic, and I'll talk to you tomorrow.
