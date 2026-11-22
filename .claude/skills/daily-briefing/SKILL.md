@@ -52,7 +52,9 @@ update; Spotify re-ingests on its next refresh. `--require-fresh` publishes only
 as `ALREADY PUBLISHED`. Without it you re-run TTS on live episodes and change their enclosure URLs,
 making Spotify re-download identical audio. The scheduled 08:20 completion pass
 (`tools/completion_run.ps1`) does exactly this automatically — so if the 03:15 run was truncated,
-check whether that pass already fixed it before doing anything by hand.
+check whether that pass already fixed it before doing anything by hand. (Job times here are the
+daylight-time ones; from November to March the three scheduled jobs run an hour earlier — 21:00,
+02:15, 07:20 — see "WINTER TIMES" in `docs/ARCHITECTURE.md`.)
 
 **A pushed commit is not a live episode.** The Pages site is built after the push by the
 `pages.yml` deploy workflow, which can fail on its own (2026-11-21). To confirm a publish actually

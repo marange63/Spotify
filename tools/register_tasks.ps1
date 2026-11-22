@@ -7,6 +7,11 @@
 #   -Completion  08:20  finishes anything the 03:15 run left, in a fresh usage-quota window
 #   -Catchup     logon  safety net: if the day is still incomplete, run the completion pass
 #
+# Those are the DAYLIGHT-TIME clock times. The three triggers store their StartBoundary with a UTC
+# offset, so they fire at a fixed UTC instant: from the November clock change to the March one they
+# run an hour earlier - 21:00 / 02:15 / 07:20. Left that way by choice (2026-11-21); see "WINTER
+# TIMES" in docs\ARCHITECTURE.md.
+#
 # WHY -Catchup EXISTS. On 2026-09-09 Windows Update logged the user off at 01:29 and restarted the
 # machine (KB5124008, KB5126052). The three production tasks are registered with
 # LogonType=Interactive, which needs a logged-on session. There was none until 08:30, so the 03:15

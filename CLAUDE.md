@@ -113,7 +113,9 @@ lean:
   writer → reviewer → final-reader, gated by `orchestrator.py`, published by `publish_feed.py`) for
   every enabled prompt, publish and push, and **run to completion without pausing to confirm**. Novelty defaults:
   **relaxed** for interactive runs, **strict** for the scheduled overnight job (22:00 pipeline-only
-  half → 03:15 publish → 08:20 completion pass; everything is on Spotify by 07:00 ET). The confirmation email is
+  half → 03:15 publish → 08:20 completion pass; everything is on Spotify by 07:00 ET — those are the
+  daylight-time clock times: the triggers are fixed in UTC, so from November to March each job runs
+  one hour earlier, 21:00 → 02:15 → 07:20). The confirmation email is
   **disabled** — never send it (an ntfy phone push replaces it, fired automatically).
 - **`docs/ARCHITECTURE.md`** — read it for how any module works (`config.py`, `feed.py`,
   `orchestrator.py`, `publish_feed.py`, the `.claude/agents/`, TTS reliability + pronunciation

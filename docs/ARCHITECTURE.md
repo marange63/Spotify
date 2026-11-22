@@ -327,6 +327,28 @@ The always-on editorial standard lives in `CLAUDE.md`; the daily pipeline workfl
   clock moved. A normal night is fully live by **~03:55**; only a truncated night leaves stragglers
   for the 08:20 pass, which is the one thing that can now land after 07:00. Older dated notes in this
   file still say "5 AM"; read those as history.
+  **WINTER TIMES: EVERYTHING RUNS ONE HOUR EARLIER (found 2026-11-21; left as is by choice).** The
+  three triggers were created on 2026-08-26, under daylight time, and Task Scheduler stored each
+  StartBoundary with a UTC offset (today it reads `2026-08-26T07:20:00-05:00` for the completion
+  task). A boundary with an offset fires at a fixed UTC instant, not a fixed local time, so the
+  wall-clock times follow the season:
+
+  | Task | Daylight time (Mar–Nov) | Standard time (Nov–Mar) |
+  |---|---|---|
+  | `-Midnight` (pipeline-only half) | 22:00 | **21:00** |
+  | `-Daily` (publish) | 03:15 | **02:15** |
+  | `-Completion` | 08:20 | **07:20** |
+
+  **Every "22:00 / 03:15 / 08:20" in this file, in `CLAUDE.md`, the skill and the script comments
+  is the daylight-time name of the job; between the November and March clock changes read each one
+  hour earlier.** The switch happened on 2026-11-01 (publish commits moved from ~04:10 to ~03:15)
+  and reverses on 2027-03-14. It is harmless: the spacing between the jobs is identical, so the
+  usage-window reasoning below holds, a normal winter night is live by ~02:55, and the wall-clock
+  `-Deadline` arguments (`02:45` / `07:30` / `13:00`) simply carry an extra hour of slack. A log
+  timestamp that looks an hour early in winter is this, not a fault. To see the real times:
+  `Get-ScheduledTask CautiousOptimismBriefings-* | Get-ScheduledTaskInfo`. To pin the jobs to the
+  same wall-clock time all year instead, re-save each trigger's StartBoundary as a local time with
+  no offset (elevated shell; never while a job is running).
   **THE EVENING HALF RUNS THE DAY BEFORE IT PUBLISHES.** The `-Midnight` task now fires at 22:00
   (the name is historical — it has not run at midnight since 2026-08-26),
   i.e. the evening BEFORE the date it is producing, so it passes **`-DayOffset 1`** — without it the
