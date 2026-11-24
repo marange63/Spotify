@@ -1,0 +1,61 @@
+Good morning, and welcome to Capital Markets Radar for Tuesday, November 24, 2026.
+
+Yesterday we set out three tests for whether Friday's rout had found a bottom. Test one resolved on Monday, and it resolved loudly. Tests two and three did not. That split is the whole story today.
+
+Start with the tape. The Nasdaq Composite surged 6.51 percent on Monday, and the S&P 500 gained 4.74 percent, per Motley Fool's market coverage. That lands on top of a Friday where the S&P fell 3.70 percent. It also follows a week in which the Nasdaq fell 10.4 percent, its largest weekly drop since March 2020, according to CoinDesk. So the index handed back a large slice of the damage in a single session.
+
+The catalyst was not data. It was a governance headline. Before the open, Nvidia said its board had unanimously voted to reinstate Jensen Huang as CEO, effective immediately. That is how Fox Business reported the company statement. I would note that we have not seen a primary filing, so treat the wording as secondary-sourced. Board chair Harvey Jones said the board believes Huang is the right person to lead the company.
+
+Nvidia then closed up 31.48 percent at 165.05, per Motley Fool. The VIX, by one market wrap, fell about a quarter to roughly 26.6, from nearly 36. That volatility figure is single-sourced, so hold it loosely.
+
+Here is the point. A one-name headline moved the whole index by nearly five percent. That is not a measure of repair. It is a measure of concentration.
+
+Nobody learned anything new about AI demand on Monday. No earnings changed. What changed is that one executive was back in the chair. Short covering and dealer hedging almost certainly amplified the move, though I cannot give you positioning data to prove it. The mechanics are plausible, not documented.
+
+The fragility cuts both ways. The same single name drove the rout and then the rebound. A board that reverses itself within days shows how much of the index level rested on one person. So a key-man premium is now embedded in the heaviest index names, and that caps how far a flow-driven bounce can run.
+
+There is a deeper concentration issue behind this. One market commentator, Boockvar, estimates that data center spending accounts for about half of US GDP growth. That is one analyst's estimate, not an established fact. But if it is even directionally right, the AI complex is not just an equity story. It is a macro one. That is why the macro regime matters more than the bounce.
+
+So let me hand off to test two, which is rates, and which did not move.
+
+The Fed is hiking. In September it raised the upper bound of its target range to 4.00 percent. Minutes released last week said nearly all officials expect a quarter-point hike in December. Over the weekend, the question was whether the equity rout would make the Fed blink.
+
+On Friday, CME FedWatch showed about 92 percent odds of a quarter-point December hike. On Monday, CNBC put those odds at about 96 percent. Half-point bets were dropped. So the blink did not survive. The tail that went away was the aggressive one, not the hike itself.
+
+The yield picture tells the same story. The 10-year fell to 4.92 percent on Friday from 5.15 percent earlier in the week. That was a flight-to-quality move, not a policy repricing. By Monday morning, per CNBC, it had already ticked back up.
+
+The short end carried the same message. The 2-year closed Friday at 4.63 percent, down from 4.88 percent a week earlier. That is a sharp repricing of near-term risk on one week of fear.
+
+So yields eased on fear, then began to rebuild on relief. And further out, the 30-year still sits above 5.3 percent, so term-premium pressure on long-duration assets never let up. That is the wrong direction for the stocks that just bounced.
+
+Here is the second-order effect. A rally that does not lower rates does not repair long-duration multiples. The high-multiple AI names led the drawdown and led the bounce. If the 10-year drifts back toward 5 percent, the discount-rate pressure returns to exactly those stocks.
+
+And the market's hope that the selloff stops the Fed after December looks optimistic to me. The stated intent in the minutes is to hike. A one-week equity drawdown, even a historic one, is not yet the kind of financial-conditions event that reverses that intent. I would flag that the evidence for a re-accelerating inflation print is commentary in our sources, not a number we can quote. So I frame the hawkish risk as the Fed's own stated intent, not as a confirmed data point.
+
+And the calendar matters. November payrolls on December 4, the FOMC decision on December 9, and November CPI on December 10 have not printed. A December hike is a priced expectation, not a fact.
+
+Now the cross-asset tell, and it is the cleanest one on the screen. Bitcoin sat out the rally.
+
+Through last week, bitcoin traded like equity beta. It fell to as low as about 55,500 dollars on Saturday, according to CoinDesk, then recovered to over 61,000 dollars by the end of Sunday. Then Monday came. Nasdaq up more than six percent. Bitcoin up just 0.08 percent, to about 61,213 dollars in early evening trading, per Motley Fool.
+
+So the correlation broke on the way up. It held on the way down. That inverts the simple reading that bitcoin is just long-duration risk beta.
+
+The reason looks idiosyncratic. Spot bitcoin ETFs in the US registered a net outflow of 1.79 billion dollars last week, a level not seen since July. That is CoinDesk's figure. These funds are now down 3.77 billion dollars in net outflows for the year. And bitcoin has fallen seven straight weeks, its second-longest weekly losing streak on record.
+
+Put those together. The marginal buyer is gone, and the marginal seller is a regulated wrapper. The bounce from 55,500 was attributed to short covering, not new demand.
+
+I would not lean on the noisy daily ETF prints for Monday. Sources conflict, and at least one looks like a decimal error. The weekly number and the non-participation are the signals.
+
+The second-order effect is straightforward. If outflows persist, short-covering rallies in bitcoin fade. Crypto treasury companies and miners then face balance-sheet stress at these prices. And if equities stabilize while bitcoin stays heavy, the idea of crypto as a liquidity-sensitive risk asset weakens. It becomes its own deleveraging story.
+
+Let me pull this together.
+
+Monday resolved one of three problems. The beta relief was real, and it was large. But it came from a governance reversal, not from a change in discount rates or demand.
+
+The rates regime is unchanged. A December hike is roughly 96 percent priced, and the 10-year is back near 4.94 percent. The crypto deleveraging is unchanged. Bitcoin did not even try to follow.
+
+Credit is the third leg, and its verdict is still pending. I do not have a fresh, quotable spread print, so I will not assert a level. What I can say is that a hiking Fed and a stressed equity market are exactly the conditions that test leveraged borrowers.
+
+So the next real tests are not another CEO headline. They are payrolls, the Fed meeting, and CPI. Until those print, treat Monday as a relief in beta, not a repair of the macro.
+
+That's the radar for today. Thanks for listening, and we'll see you tomorrow.
