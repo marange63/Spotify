@@ -1,0 +1,45 @@
+Good morning. It's Wednesday, November 25th, and this is your private credit briefing.
+
+On Monday, Houlihan Lokey's data showed private-credit defaults nearly doubling in the third quarter, to 1.5% of outstanding principal. That broke the read this desk had held through the weekend, that realized defaults hadn't turned. Today the question moves one step further. How much cushion is left before stress has to show up, either as accommodation or as loss? And a major dealer now forecasts that the public loan market is heading the same way.
+
+Start with that dealer forecast. JPMorgan analysts now see the US leveraged loan default rate roughly doubling. October's realized rate was 1.96%. JPMorgan's forecast, as relayed in Bloomberg-based reporting, is 4.5% for 2027, with a further rise to 4.75% the year after.
+
+Keep those numbers in separate boxes. The October figure is a measured outcome. The other two are a house view, conditional on a rate and earnings path the reporting doesn't spell out. And this is the syndicated loan universe. It isn't Houlihan's private-credit measure, which uses a different definition and a different set of borrowers. So don't splice Monday's number and today's into one series. Read them as two separate datasets pointing the same way.
+
+What drives the forecast is a wall of maturities. The same reporting puts $862 billion of debt maturing between 2027 and 2029. It doesn't split that between loans and bonds. Spread evenly, that's close to $300 billion coming due in each of those three years.
+
+Forty-six percent of that wall is rated B3 or lower. That makes this a refinancing test before it's a default test. Nearly half of a wall that size is already weak credit. Every one of those borrowers has to roll its debt at prevailing base rates. Some will refinance in the syndicated market at a higher coupon. Some will be amended and extended. And some will be taken out by direct lenders, in unitranche structures. Which of those paths dominates decides who ends up holding the risk.
+
+Here's the second-order effect, and it's this desk's inference. Extension or a private takeout doesn't remove the risk. It moves it. If private credit absorbs a real share of that B3-and-below paper, the riskiest refinancing exposure lands in the model-marked part of the system. That's the part nobody outside the manager can easily see. So the wall tests where the risk ends up, not just how much of it defaults.
+
+Now connect that to the private book. Refinancing at today's base rates is, in effect, a rate shock. And a rate shock is exactly what Houlihan Lokey's own stress test models. It sits in the same report as Monday's default figure. The data comes from Houlihan's own DataBank, a tracked universe rather than an industry census, and the sample size isn't disclosed.
+
+Start with the cushion as it stands. Median borrower interest coverage fell to 1.68 times in September, from 1.73 times in June. Per Yahoo Finance's account of the report, that's the first decline since mid-2025.
+
+The tail matters more than the median. The share of borrowers with coverage below one times rose to 15.1%, from 13.9%. So a growing slice of the book is already short of covering its interest bill on Houlihan's measure.
+
+Now apply the shock. Houlihan's sensitivity analysis says a 100 basis point rise in base rates would take median coverage down to 1.55 times. It would lift the share below one times to 18%. So a modest rate move pushes almost one borrower in five below break-even coverage.
+
+The earnings scenario is harsher. A 25% fall in EBITDA, at current rates, would cut the median to 1.26 times. It would double the share below one times, to 30%. Treat that as a severe stress case, not a forecast. Houlihan isn't predicting that outcome. It's showing how little room there is if it comes.
+
+One more figure, from Houlihan's own release. Seven percent of all loans in the DataBank are now priced below 90% of par. Houlihan describes that as more than double the historical average. So the marks themselves have started to move at the weak end of the book.
+
+Now be precise about what coverage below one times does and doesn't say. It isn't default. A sponsor can inject equity. A lender can toggle the interest to payment-in-kind. A revolver can bridge a quarter. So a rising share below one times predicts accommodation first, and loss later. On Monday, Fitch's count already showed much of the default stress arriving as deferrals and PIK rather than resolved losses. The next phase may look the same. More PIK and more amend-and-extend would flatter the headline default rate, even as the cushion keeps thinning. That's why a benign default print can't be the whole story.
+
+There's a genuine counterpoint in the same report, and it cuts against the easy narrative. Software borrowers in the DataBank are growing into their debt. Median revenue is 24% higher, and median EBITDA 10% higher, than when their loans first closed. So if AI is going to disrupt software credit, it hasn't shown up in this book yet. That risk is prospective. Today's realized numbers don't support it.
+
+So where should the next leg of stress show up first? In the marks. Blue Owl Capital Corp is a large BDC this desk hasn't covered before. In its book as of September 30th, non-accruals were 2.9% of the portfolio at cost. At fair value, they were only 0.8%.
+
+Read the cost figure first, because it counts the problem loans. On that measure, a large lender is carrying a real book of loans that have stopped paying. The fair-value figure is low for a different reason. On this desk's reading, the gap means those loans are already carried at a small fraction of what was lent. So the 0.8% tells you how hard the bad loans are marked, not how few of them there are. That's an inference from two disclosed percentages, not a loan-by-loan mark.
+
+That cost figure sits comfortably with Monday's read that larger borrowers drove much of the third-quarter default rise. It doesn't confirm it. Non-accrual and default are different definitions. One lender isn't Houlihan's universe. And these numbers don't tell us whether the 2.9% is rising.
+
+Blue Owl Capital Corp's net asset value per share rose anyway, to $14.32 from $14.26 at the end of June. A rising NAV alongside that non-accrual load says the losses on known bad loans look recognized. It's the same wide gap between cost and fair-value non-accruals we saw at Goldman Sachs BDC on Sunday. And Blue Owl's NAV rose in the same quarter that Golub Capital BDC's fell, which we covered Saturday. So manager-level dispersion keeps widening. One caveat on timing. These are third-quarter marks, taken before the fourth quarter has had a chance to absorb any of this.
+
+That leaves one live question, and it's the performing book. Those loans are carried at model marks that haven't met the kind of rate or earnings shock Houlihan just quantified. If those marks are realistic, Blue Owl's rising NAV is real. If they aren't, the next markdowns come from loans that are still paying today.
+
+Pulling it together. The credit cycle is turning in forecasts and coverage ratios before it turns in headline bankruptcies. JPMorgan's forward path and Houlihan's stress test come from different universes. But both describe lending books with less room to absorb a shock than a rising NAV at a BDC like Blue Owl Capital Corp would suggest. The biggest unresolved risk isn't today's default print. It's a large performing private book, sitting at model marks, with coverage that a modest rate or earnings move would break.
+
+Watch three things. First, fourth-quarter BDC marks. Look at whether performing-loan marks move and the below-par share widens, not just the non-accrual line. Second, the next Houlihan DataBank, and any JPMorgan update against that 4.5% path. Third, and slower-moving, the New York and Dallas Fed pilot survey of private credit, with aggregate findings due in the first quarter of next year.
+
+That's the lending machine for November 25th. Stay cautiously optimistic, and I'll talk to you tomorrow.

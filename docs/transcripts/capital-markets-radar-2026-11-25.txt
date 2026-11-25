@@ -1,0 +1,53 @@
+Good morning. It's Wednesday, November 25th, 2026, and this is your capital markets radar.
+
+Yesterday this desk argued that a key-man premium now sits in the heaviest index names, and that it caps how far a flow-driven bounce can run. Tuesday was the first test of that claim. And today's data lets us measure what we could only assert yesterday.
+
+Start with the anatomy of Monday's move. The S&P 500 rose 4.73 percent on Jensen Huang's reinstatement. Per Wisevoter's breakdown, Nvidia alone supplied about 111 of the index's 327-point advance. That is roughly a third of the entire gain, from a single stock.
+
+Breadth tells the same story from the other side. The equal-weight S&P 500 rose just 2.59 percent that session, per Twenty-Four Seven Wall Street. That is roughly half the cap-weighted gain. Technology led, while energy and staples actually fell. So Monday wasn't a broad repair trade. It was concentration, dressed up as a rally.
+
+Tuesday delivered the test. Per Yahoo Finance, the S&P slipped about half a percent, and Nvidia fell about 6 percent. Equal weight held up better. The equal-weight S&P fund and the Russell equal-weight gauge both closed modestly higher. Meanwhile the S&P Top 50 ETF, the pure mega-cap sleeve, lost about a point.
+
+Now the caveat. That is one session, not a trend. And a 6 percent give-back after a surge of more than 30 percent leaves Nvidia far above Friday's close. But it is consistent with the thesis. Take the single stock out, and the bounce loses its legs.
+
+Here is the second-order effect, and it is this desk's inference. When one name supplies a third of an index move, that company's governance risk becomes index risk. That strengthens the case for equal-weight exposure as a hedge against the cap-weighted benchmark.
+
+That brings us to the governance wrinkle, where the exact words matter. Nvidia's board, in its own statement, said its decision "followed input from senior U.S. government officials." It added that it is confident Huang's return poses no national security risk. That came six days after the board chair told investors, on the November 17th earnings call, that the board did not intend to reinstate him. Reports that President Trump personally brokered the reversal remain just that, reports. No primary source confirms them. What is confirmed, in the board's own words, is government input into a governance decision at the index's heaviest name.
+
+So what? That is a two-sided risk premium by construction. A policy relationship can put value into the stock as easily as it can take value out. Either way, the index inherits it.
+
+If equities are pricing one man and one policy relationship, credit is pricing the balance sheets behind the buildout. And the broad spread print this desk has been waiting on has finally arrived. Per the ICE BofA high-yield index on FRED, the option-adjusted spread widened from 347 basis points before the rout to 376 last Friday. On Monday it narrowed only to 363.
+
+The lowest-rated CCC tier traced the same path, wider into Friday and only partly back on Monday. So credit sold off into the correction and recovered less than half of that widening on the rally. But a move of under 30 basis points is a repricing, not a break. That argues for a market discriminating by name, not dumping the asset class.
+
+We still have no dated CDS print for Oracle or CoreWeave from this week, so we won't guess at a level.
+
+Now to the AI-debt story that keeps resurfacing. Bloomberg reported that banks led by JPMorgan and MUFG spent months trying to distribute 38 billion dollars of construction debt for a data center leased to Oracle. Treat that headline with care. It is a months-old story, not this week's news. Later reporting citing Bloomberg says lenders ultimately placed most of the package, at roughly two and a half percentage points over the benchmark. Less than a billion dollars was left to place. Some coverage still describes the banks as struggling, which may refer only to that tail. Either way, the headline number overstates the live overhang.
+
+The tenant matters here. S&P has had Oracle at BBB-minus, one notch above junk, since its July downgrade. Its stated triggers for another cut are leverage sustained above four times, or no path to positive free operating cash flow by fiscal 2029.
+
+Moody's offers the strongest counter-case. Earlier this month, Moody's analyst Marc Pinto argued that record credit default swap levels are not a red flag for AI data-center debt. In his view, the stress sits in older, speculative-grade private credit loans. That fits what our private credit desk found on Sunday. A data-center bond backed by an Amazon lease was being marketed with triple-A senior tranches. Meanwhile a loan with no reported investment-grade tenant stalled.
+
+Put together, the Oracle-leased deal fits the same pattern. It mostly cleared, but slowly and at a spread, with a tenant one notch above junk. Our inference is that AI construction debt still gets financed, but the cost of capital now sorts by tenant. That is a slow tax on the capex cycle, not a credit event.
+
+The same split, fundamentals intact while risk appetite is not, shows up in the physical inputs, though less cleanly. Start with uranium, the clean case. Spot held near 90 dollars a pound as of last Friday, and long-term contracts sit higher, at 98 to 99. Yet one source puts the URNM uranium-miners ETF about half below its high of the past year.
+
+That gap is the possible over-read. The physical market for the nuclear-power buildout is holding, while the equities levered to it have halved. That points to positioning and risk appetite, not end demand. There is also a second-order risk, and it is our inference. If equity financing for new supply dries up while spot holds, the inputs tighten further out. The fair caveat is that part of what is unwinding in the miners is froth.
+
+Copper is the harder case. Per Trading Economics, COMEX copper futures fell 3.32 percent to 5.45 dollars a pound on Tuesday. That was the same session Nvidia fell 6 percent. Yet last week our strategic power desk relayed the International Energy Agency's warning that copper, cables and transformers are already tight. One reading is that futures are trading AI risk appetite, not the wire shortage. The other is that a one-day drop is dollar or macro flow, and we have no quoted dollar figure to separate the two. Either way, a single session is not a demand verdict.
+
+The purest gauge of speculative appetite tells a cleaner story. Per Cointelegraph's count, spot bitcoin ETFs saw net outflows of 4.71 billion dollars in November through the 23rd. That tops June's prior monthly record of 4.51 billion. Other trackers show lower totals on different cutoffs, so treat the record as one tally's verdict.
+
+Concentration matters here too. On Monday, BlackRock's IBIT accounted for about 509 million of the roughly 570 million that left the funds. Tuesday was a sixth straight day of outflows, per SoSoValue. Flow that concentrated in one fund could be a few large holders rebalancing, not a broad institutional exit. Concentration of flow is not breadth of selling.
+
+Bitcoin itself traded around 60,000 dollars on Tuesday, per CoinMarketCap. It was down about 1.6 percent on the day and nearly 7 percent on the week. Yesterday we said bitcoin's equity correlation broke on the way up and held on the way down. Tuesday fit that pattern again. Bitcoin sat out Monday's rally, then fell with Tuesday's fade. So what? The regulated wrapper is still the marginal seller, and it sells into weakness.
+
+Finally, rates and energy, because neither moved on Monday's bounce. December hike odds sit near 96 percent, per Trading Economics, the same level we quoted yesterday. Nuveen's fixed-income desk expects hikes in December and again in March, then a pause. So nothing in Monday's move lowered the discount rate on the long-duration names that led it.
+
+Oil is the one disinflationary cross-current. It has been drifting lower on supply-glut concerns ahead of the next OPEC+ meeting.
+
+That sets up the real risk, and it is forward-looking. A Fed priced near-certain to hike, against a bounce resting on one stock, leaves those long-duration names exposed if the next prints run hot. None of those prints has landed. November payrolls come December 4th, the Fed decides December 9th, and November CPI follows on the 10th.
+
+Strip Nvidia out, and the picture is consistent. Equities bounced. But the markets pricing the buildout's funding, the equities tied to its physical inputs, and its most speculative satellite are all still de-risking. What has changed is that we can now see them doing it selectively, by name and by tenant.
+
+That's the radar for today. Stay cautious, stay optimistic, and I'll see you tomorrow.

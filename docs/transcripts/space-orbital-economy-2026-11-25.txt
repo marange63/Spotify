@@ -1,0 +1,49 @@
+Good morning. It's Wednesday, November 25th, 2026, and this is your Cautious Optimism briefing on the orbital economy.
+
+Today's thesis is simple. Amazon's backup ride flew, and it shows how far every would-be Starlink challenger still has to go.
+
+An Ariane 6 lifted off from Kourou on November 24, a day late, carrying 36 Amazon Leo satellites. It's the launch we've flagged as the catalyst to watch on three straight updates. It was the rocket's tenth flight. ArianeGroup, which builds the vehicle, says the mission ran as planned. The last satellites separated two hours and four minutes after liftoff, at roughly 460 kilometers.
+
+There's one limit on that confirmation. Neither ArianeGroup nor Amazon has said the 36 satellites have made contact or are healthy. So bank this as a clean launch and a clean separation, not yet as 36 working satellites.
+
+The reason this flight mattered is the one before it. On November 15, a ULA Vulcan Centaur failed on the way to orbit and destroyed 40 Amazon Leo satellites. It was ULA's first total mission failure. Ten days on, ULA still hasn't named a cause. Ariane 6 was the next ride in line, and it delivered.
+
+Now, sizing what it changes, starting with the provider. Arianespace says it has now placed 136 Amazon Leo satellites in orbit this year, across four launches. Trackers put Amazon's whole fleet at roughly 390. So by our arithmetic, a European rocket carried roughly a third of Amazon's constellation in a single year, slightly more on these counts. That's a real dependence on allied launch for an American broadband system. And it deepens every week Vulcan waits on a diagnosis.
+
+That fleet figure needs a caution. It isn't clear whether any tracker count yet includes this launch. And one tracker's own count from the day before the launch was higher than every count published since. So discount any clean "the fleet now stands at X" claim you hear today.
+
+What we can say is this. Amazon already missed its FCC milestone of half its first-generation constellation in orbit by this past July. The FCC granted a conditional waiver in June, citing a shortage of launch capacity. Yesterday we put that bar at 1,616 satellites, from the FCC order itself. On any of these tracker counts, Amazon is roughly a quarter of the way there. As we also noted yesterday, the failed Vulcan was the first of 38 launches Amazon bought on that rocket. One Ariane 6 flight replaces one lost Vulcan ride. It does not replace the rest of that Vulcan contract, which waits on ULA finding a cause. And it does not close the milestone gap.
+
+The unit economics follow, and this is our inference. The 40 satellites lost on Vulcan are capital written off with no revenue against them. Every satellite built and still waiting for a ride is capital sitting idle on the ground. Both stretch the constellation's payback period. So for Amazon, the binding constraint isn't the satellite factory. It's the queue for rockets.
+
+Amazon is not the only would-be Starlink rival stuck in that queue. The clearest evidence this week is in China. It's our first test of the launch-scarcity argument outside the United States.
+
+Start with Guowang, China's state-backed megaconstellation. Jonathan McDowell's tracking, updated November 9th, counts 279 Guowang satellites launched. The stated target for 2026 is 310. That leaves Guowang 31 short as of that count. But thirty-one satellites with about seven weeks left from that count is not obviously a miss. It depends on a launch cadence the data doesn't pin down.
+
+Qianfan, also known as SpaceSail, looks worse. KeepTrack counts 274 satellites over 17 flights, after a Kinetica-2 launch on November 3. The operator's target is 324 by year-end, so by our arithmetic Qianfan is 50 short. At its average of about 16 satellites per flight, closing that gap takes roughly three more launches before New Year's. And Qianfan went nearly two months without launching, from early July to late August. KeepTrack's own verdict is that the target looks unlikely to be met.
+
+The more telling number sits inside Guowang. Of those 279 satellites launched, McDowell lists only 224 as operational. That's a 55-satellite gap, roughly a fifth of everything launched. The cause is unknown, and some may simply still be raising orbit. So don't call it a failure rate. Call it an open question. But it's the cleanest example today of the gap between a launched constellation and a working one.
+
+One caveat covers all the China figures. They come from Western trackers reading public orbital data, not from Chinese operator disclosures. Still, China's binding constraint looks like cadence too, not ambition and not spectrum filings.
+
+Now put the three challengers side by side, because the picture sharpens. On these tracker counts, Amazon, the supposed Western laggard, has more production satellites up than either Chinese megaconstellation. The trackers use different methods, so don't read that as a precise ranking. Read it as the same order of magnitude: all three challengers sit in the low hundreds.
+
+Then look at the incumbent. SpaceX reported in October that Starlink reached 13.6 million subscribers in the third quarter. That was up from 12 million the quarter before. Subscribers and satellites are different units, so this is a contrast, not a ratio. The challengers are counting satellites in the hundreds. Starlink is counting paying customers in the millions, and it added 1.6 million in a single quarter.
+
+Our read is that the race that matters through 2027 isn't the challengers against Starlink. It's the challengers against each other, to reach service scale first. Every month a challenger spends waiting on a rocket is a month Starlink can lock in terminals, distribution deals, and paying users. There's a strategic layer too, also our inference. Slow Chinese deployment buys Starlink time in the contested markets where Guowang and Qianfan would compete. So the cadence gap is a geopolitical lead as well as a commercial one.
+
+And the rides the Western challengers are waiting on aren't getting closer. That starts with a correction. On November 22nd we relayed Blue Origin chief executive Dave Limp's aim of getting New Glenn back to flight "this year." But CNBC had already reported on November 5th that the return to flight had slipped to January 2027. Blue Origin is still rebuilding its damaged launch pad. And January is a target, not a manifest date. That matters because New Glenn is one of very few non-SpaceX heavy-lift options for a constellation like Amazon's.
+
+AST SpaceMobile adds a third slipping schedule. Its third-quarter report moved its target of about 45 satellites in orbit from the end of this year to mid-2027. We haven't seen AST blame its launch providers. Linking the slip to the launch crunch is our read, but it fits the pattern.
+
+Now line up the rides. Vulcan has no named cause ten days after a failure. New Glenn won't fly before January. Rocket Lab's Neutron hasn't flown, and its debut is now scheduled for 2027. That is the thin set of non-SpaceX rides every Western challenger is counting on. One more anomaly on any of them would move several constellations' timelines at once. That makes this a correlated risk across the sector, not a company-specific one. For holders of the space pure plays, that correlation is the risk to price.
+
+So where does this leave us? What's genuinely inflecting is Starlink's subscriber base. Amazon's deployment is also moving again, on a European rocket that keeps showing up. What's still a demo is service at scale for any challenger, whether Amazon, Guowang, or Qianfan. So is dependable cadence from Neutron or New Glenn.
+
+The same gap between an award and a delivery runs all the way out to the Moon. On November 9th, NASA selected Intuitive Machines for its CLPS 2 lunar-delivery program. It's a 10-year, multiple-award contract with a ceiling of 10 to 15 billion dollars. That ceiling is shared across every company NASA picks, and Intuitive Machines' own share hasn't been disclosed. So for its holders, the seat is a hunting license, not revenue.
+
+The open question for December is whether challenger cadence on either side of the Pacific can reach service scale before Starlink's lead locks in.
+
+There are four catalysts to watch. First, a date for Amazon's next Leo launch, which no provider has named yet. Second, ULA naming what actually failed on Vulcan. Third, whether New Glenn holds its January return. And fourth, whether Guowang and Qianfan close in on 310 and 324 by year-end.
+
+That's the briefing. Stay cautiously optimistic, and I'll talk to you tomorrow.

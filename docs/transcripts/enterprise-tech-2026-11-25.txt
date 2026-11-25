@@ -1,0 +1,49 @@
+Good morning. It's Wednesday, November 25th, 2026.
+
+AI is finally showing up at the big incumbents as counted dollars, not slide-deck promises. It's no longer a question of whether AI sells. It's what AI costs, and whether it's big enough yet to matter. Today that shows up three ways. At Workday, AI dollars are real but can't yet cover a slowing core. At Palo Alto Networks, the price is margin. At HPE, AI volume is surging while segment margin thins.
+
+Start with Workday, which reported fiscal third-quarter results after the close yesterday. It's the first seat-priced software incumbent to report since the November 17th selloff, when Workday fell alongside Salesforce and ServiceNow. So this print is the first earnings test of that trade.
+
+The headline AI number is a real step up in disclosure. Workday said its AI products drove nearly 150 million dollars of new annual contract value in the third quarter alone. That's more than three times what it delivered a year ago. Compare ServiceNow. It offered only a target and a thirteen-fold usage multiple, without saying thirteen times what. Salesforce still hasn't put a production number on Agentforce. Workday gave a booked dollar figure with a year-ago base. Credit it.
+
+Now the caveats. First, new contract value is annualized bookings, not recognized revenue. Second, "AI products" is Workday's own category, and the company hasn't defined it. Management did say more than half of that total came from AI products it built itself and from Flex Credits, its usage-based add-on. That suggests most of it is new monetization rather than relabeled seats. But it's still a company classification, not an audited revenue line.
+
+Third is scale. By our own arithmetic, 150 million dollars is about one and a half percent of the 9.958 billion dollars Workday now guides for full-year subscription revenue. Tripling from a small base is still small.
+
+And the core is what the market judged. Subscription revenue grew 12.8 percent in the third quarter. But Workday guided fourth-quarter subscription revenue to about 2.6 billion dollars, growth of 10 percent. That's a confirmed deceleration. Per SiliconANGLE, it also came in narrowly below what analysts expected.
+
+The forward indicators don't offer much relief. Twelve-month subscription backlog grew 12.3 percent, and management credited early renewals for the outperformance. Our read is that early renewals borrow from future quarters. Total subscription backlog grew just 6 percent. Shares fell in late trading, though outlets disagree on how far. The plain read is that investors are pricing the seat-based core, not the AI story. AI isn't failing at Workday. It just isn't big enough yet to offset a maturing subscription business.
+
+There's a second AI number, and it shouldn't be merged with the first. Management also cited more than 750 million dollars of annual recurring revenue from what it calls "AI SKUs." That's a broader measure than the new contract value figure. So Workday is reporting AI monetization two different ways on one call. Even the best discloser this week hasn't settled on a yardstick. Treat any single AI-revenue figure, from any vendor, as a definition first and a number second.
+
+Margin is where Workday's choice shows. Non-GAAP operating margin was 31.4 percent in the quarter, and Workday raised its full-year guide to 31.5 percent. Rising margin alongside slowing growth reads two ways. One is disciplined execution. The other is a seat business being harvested rather than reinvested in.
+
+Workday is also adding to its AI position through acquisitions, without disclosing what it pays. Its acquisition of C1.ai, an agent-identity company, has just closed. On the call, chief executive Aneel Bhusri described it as "an essential identity, governance, and security layer for people, money, and autonomous agents." Pair it with Honeydew, the semantic-layer company Workday agreed to buy last week. Honeydew supplies the business logic. C1.ai supplies the identity. Our read is that Workday is assembling the control layer beneath its agents, inside the HR and finance system of record.
+
+That puts Workday into a contest this desk has been tracking. Microsoft is issuing Entra identities to agents. The pending CrowdStrike-Zscaler combination is positioned to bill agent identity as security spend. Now the system that already decides who counts as a worker wants to govern agents too. Standalone identity vendors like Okta face bundling from three directions. So the Workday takeaway is this. AI is real money there, but it doesn't set the stock yet. The core seat trajectory still does.
+
+Workday protects its margin while it builds its AI position. Palo Alto Networks is choosing to spend margin instead. Last week this desk covered Palo Alto's 4.5 billion dollar all-stock deal for Applied Compute. Its platform lets enterprises adapt open-weight models to their own data and run them in production. The deal hasn't closed yet.
+
+What we hadn't covered is the cost in margin. Palo Alto's chief financial officer, Dipak Golechha, said the deal could cut operating margin by up to 100 basis points in fiscal 2027, and by up to 200 in fiscal 2028. Those are ceilings, not forecasts. Acquisitions already do real work inside Palo Alto's headline growth. Now the company has put a margin price on buying growth this way.
+
+The purchase price tells a similar story. On November 2nd, Applied Compute raised fresh capital at a 3.25 billion dollar post-money valuation. Sixteen days later, Palo Alto agreed to pay 4.5 billion. By our math, that's a step-up of about 1.25 billion dollars.
+
+That round brought in 350 million dollars of cash. The cash lowers Palo Alto's net cost for the business. But it doesn't shrink the step-up, because the same cash sits inside both the round's valuation and the deal price. Our read is that credible open-weight deployment capability is scarce and getting bid up fast. The so-what: security's leader is paying in margin and stock to own how enterprises run their own models.
+
+That bet assumes enterprises will run their own models. The hardware that would run them reported this week. HPE held its fiscal fourth-quarter call on Monday. AI systems orders reached 4.5 billion dollars in the quarter, up more than 130 percent. That's unambiguous volume.
+
+AI networking is surging too. Those orders hit a record 1.2 billion dollars in the quarter, and grew nearly 200 percent for the full year. Two caveats before calling this enterprise adoption. Orders aren't revenue. Backlog converts only as fast as buyers can finance, power, and site the gear. And nothing we have from HPE says who the buyers are: enterprises, governments, or neoclouds. On Sunday, this desk covered Oracle defending its AI financing in public. An order book is only as good as the balance sheets behind it.
+
+Now the catch, which is margin. HPE's cloud-and-AI segment posted an 18.4 percent operating margin in the quarter. Management called that higher than it anticipated. The guide for next fiscal year is about 14 percent. Don't read that as a like-for-like collapse. A strong single quarter set against a full-year guide overstates the step-down.
+
+Still, the direction is down, and we have no company-stated cause. There are three competing explanations, all our inference. One is a mix shift toward lower-margin AI systems. Another is price competition among server vendors. A third is component and memory costs being passed through. The evidence here can't tell them apart.
+
+What the evidence can show is where the profit sits. HPE guides earnings per share to grow 27 to 35 percent next year, the same range as revenue. So company-level profitability holds while the AI segment margin steps down. That implies the profit is coming from elsewhere in the mix. Volume is surging. Pricing power for the box-builder is not. One more inference follows. Whoever the buyers are, they may be getting AI capacity on improving terms. That supports the self-hosted inference bet Palo Alto just paid for.
+
+HPE's chief executive, Antonio Neri, was also explicit that enterprise AI adoption is "still in its early stages." He expects inference to exceed 80 percent of AI infrastructure demand by 2030. That's his projection, not a measurement.
+
+Pull it together. At Workday, AI dollars are real but can't yet cover a slowing seat core, so the market prices the core. Palo Alto Networks is paying for its AI position in margin. HPE's AI business is paying in segment margin, even as volume roars. AI dollars are finally being counted, and so are their costs and their limits.
+
+Three things to watch, each a test of that thesis. First, whether Salesforce's next report puts a booked or production number on Agentforce. Second, Snowflake, scheduled to report December 2nd. The question is whether it puts a counted dollar figure on AI, and what that figure costs its margin. Third, AWS re:Invent, starting November 30th. The question there is whether the cloud offers enterprises a cheaper way to run their own models than the owned hardware HPE sells.
+
+That's the briefing. Have a good Wednesday.
