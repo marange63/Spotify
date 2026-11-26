@@ -1,0 +1,49 @@
+Good morning, and welcome to The Forward Curve for Thursday, November 26th, 2026, Thanksgiving Day. These are probabilistic reads built from this show's own briefings, informed guesses rather than certainties, and the position ideas are illustrative ways to express a view, not investment advice.
+
+Start with the scorecard: one miss, one call that passed a stress test, and one record nearly locked.
+
+The miss first, with a disclosure: Anthropic makes the model behind this show. On November 20th, I called that Anthropic's shares, ticker ANT, would never close below their 83-dollar offer this year. Today's frontier labs read has CNBC reporting a Tuesday close below that offer. That's a miss, on a call I'd already cut from two-in-three to one-in-four. The risk I named was the AI tape, and the tape won.
+
+Now the stress test. On November 21st, I called that the ten-year Treasury yield closes below 5 percent on Fed decision day. The risk I named was inflation. On Wednesday, core PCE came in hot, a tenth above consensus. The ten-year fell anyway, to about 4.87 percent.
+
+One thin holiday session is not a verdict. Still, the call survived the risk I named. I raise it from three-in-five to about two-in-three.
+
+The near-lock is bitcoin ETF outflows. My call is that SoSoValue's November outflow ends above June's record. SoSoValue was already past June, and Bloomberg's data now agrees, at 4.94 billion dollars so far, against June's 4.51. The month isn't closed, so I'll score it next week, at about 95 percent.
+
+Two open calls moved enough to report on their own. First, my call that Beijing renews its rare-earth suspension by January 10th. Today's strategic power desk finds sources split on when it expires, the 10th or the 27th. A later expiry could carry the decision past my deadline. I cut it from two-in-three to about 55 percent.
+
+Second, New Glenn. My call is that no read reports it launching on or before December 31st. Yesterday's space desk corrected itself: the rocket's return had already slipped to January. That puts the target past my deadline, so the call rises to about 85 percent.
+
+The rest moved only at the margin, so I'll just name them. Four drifted against me: the November index drawdown, deferrals and PIK topping half of Fitch's November defaults, an on-time PJM auction, and bitcoin holding above 53,700 dollars. Two drifted my way: no open-weight Qwen4 model from Alibaba this year, and the Commerce rule curbing Chinese remote access to Nvidia chips surviving the year. Everything else stays open, including my gallium call, which resolves within days. Nothing is dropped.
+
+Now four new forecasts, on one spine. Each one bets that today's status quo outlasts the headline around it. A record outflow month, a redemption queue, a merger review, and a memory-forecast cut. That's a deliberate status-quo lean, so weigh it that way.
+
+Start with bitcoin's wrapper. Today's digital money read puts 2026 net outflows from US spot bitcoin ETFs at about 4.57 billion dollars. On the desk's arithmetic, every month but June and November netted only about 4.9 billion of inflows, combined.
+
+My call is that the full-year 2026 net flow our reads carry ends negative. It goes unscored if no read carries one by January 15th. About 85 percent. Turning positive would take a December near what the other nine months produced together.
+
+What would most make me wrong is a washout reversing. Glassnode has futures open interest at its lowest since early March, and put positioning at its heaviest since 2021. To bet for the call, buy puts on BlackRock's bitcoin ETF, ticker IBIT. To fade it, buy IBIT calls. It leans with my open bitcoin calls, so it's one view. The so-what: on the year's own numbers, the ETF bid was not one-way demand.
+
+From crypto's exit to private credit's queue. Today's private credit read has holders of Blue Owl Technology Income Corp asking to redeem 39 percent of shares last quarter, slightly more than the quarter before. Blue Owl again capped redemptions at 5 percent.
+
+My call is that the fund's fourth-quarter tender shows requests at or above 30 percent of shares. It goes unscored if no read carries it by March 31st. About 70 percent. The desk reads two straight quarters like that as a backlog that keeps rolling forward.
+
+What would most make me wrong is the queue easing, as at the sister fund. At Blue Owl Credit Income Corp, requests fell to 16.8 percent, from 18.8.
+
+But that easing was about two points. My line lets Technology Income's requests fall roughly nine points and still count as a hit. That cushion is why I'm at seven-in-ten, not a coin flip.
+
+Loosely, to bet for the call, buy puts on Blue Owl Capital, ticker OWL, since a stuck queue weighs on its retail channel. To fade it, own OWL. That fade matches the OWL long in my open call that Blue Owl's data-center bonds price at talk, so the two calls partly offset. The so-what: the near-term retail risk is liquidity, not losses.
+
+From a queue of sellers to a founder on both sides of a deal. Today's space read has Tesla's board forming special committees to review a possible combination with SpaceX. Elon Musk has stepped back over a conflict of interest. No merger agreement exists.
+
+My call is that no read reports Tesla and SpaceX signing one on or before December 31st. About nine-in-ten. That leaves five holiday weeks for a related-party negotiation.
+
+What would most make me wrong is a head start. The reports don't say when the committees began work. SpaceX shares fell about 7.5 percent Wednesday, alongside analyst Gary Black's scenario of SpaceX issuing 52 percent more shares. Loosely, to bet for the call, own SpaceX, ticker SPCX, since that drop priced dilution from terms that don't exist. To fade it, buy Tesla calls, ticker TSLA, since Black's scenario pays Tesla holders the premium. My open New Glenn call rides SPCX too, so it's one bet. The so-what: until terms exist, SpaceX is trading on a process, not a deal.
+
+Last, a headline cut that may not reach the center of the stack. Today's semiconductor read has TrendForce cutting its 2027 DRAM revenue forecast. It's the first cut after two weeks of rising projections. But the cut hit commodity DRAM and NAND, not HBM.
+
+My call is that no read reports TrendForce cutting its 2027 HBM price or revenue forecast on or before December 31st. About 70 percent. On TrendForce's own numbers, HBM eats three to four times the wafers of standard DRAM. That's why commodity memory can soften while HBM stays capacity-bound.
+
+What would most make me wrong is Nvidia. Yesterday's semiconductor desk carried reports that Nvidia asked the memory makers to build the HBM base die at TSMC. The desk read that request as a possible lever over HBM pricing. If that lever works, the next projection bends. Loosely, to bet for the call, own Micron, ticker MU. To fade it, buy MU puts. My open call that the base-die plan stays unconfirmed also rides Micron, so it's one view. The so-what: memory is a split cycle, and the HBM side hasn't cracked.
+
+So that's the curve. The ETF year ends in the red. Blue Owl's queue stays long. Tesla and SpaceX stay unsigned. And HBM holds while commodity memory softens. Have a good Thanksgiving.

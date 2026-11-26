@@ -1,0 +1,47 @@
+Good morning. This is your Cautious Optimism Briefing for Thursday, November 26th.
+
+Two things changed since yesterday, and together they reframe the year. The record Bitcoin ETF exit now shows up on a second dataset. And for calendar 2026 as a whole, the ETF wrapper has become a net seller. Meanwhile, the one Bitcoin buyer Glassnode names this month is Strategy, a treasury company whose own stock rides on the coin. That's a real bid, but it isn't new outside demand. That's today's thesis.
+
+Start with the record. On Monday, this desk had November running about three hundred seventy million dollars short of June's outflow record. Yesterday, the record had broken, but only on one tracker's count. Today, Bloomberg data answers that caveat. US spot Bitcoin ETFs recorded four point nine four billion dollars of net outflows in November through the 24th. That beats June's prior monthly record of four point five one billion.
+
+So two datasets now agree on the direction. They still disagree on the size, because the trackers use different cutoffs. Treat the Bloomberg number as Bloomberg's read, not a reconciled final total. All of these flow figures also come through secondary reporting of tracker data, not the issuers' own tables. And the flow data can't tell us who is doing the redeeming.
+
+Wednesday added more. Another four hundred fifty three million dollars left the funds on November 25th. That figure comes from a different aggregator, so don't add it to Bloomberg's monthly total. The exit hasn't stopped.
+
+Here is the new frame. The latest withdrawals bring net outflows for 2026 to about four point five seven billion dollars. Now some arithmetic, and it's ours, not the data provider's. Take June and November out of that full-year figure. Every other month of 2026 netted only about four point nine billion dollars of inflows, combined. In other words, two record months have more than erased the rest of the year.
+
+For scale on price, Bitcoin is down nearly thirty percent over the past month. It also sits more than half below its all-time high of around one hundred twenty six thousand dollars, set in October 2025.
+
+For 2026 overall, then, the wrapper was a net seller, not a sticky bid. The thesis that spot ETFs are durable, one-way institutional demand hasn't just paused. On the year's own numbers, it hasn't held. Our inference is that any recovery will need some other buyer to lead it.
+
+The wrapper isn't the only structural holder selling. Glassnode's weekly report from mid-November says the public miners MARA and Riot reported sales of about twenty eight thousand Bitcoin this month. There are two ways to read that, and both are our inference. The bullish read is that a miner's treasury is a finite stock. Coin that's already sold can't be sold again, so this overhang has a shelf life. The bearish read is that miners selling into a drawdown may simply need the cash. Glassnode's data doesn't say which. Either way, the seller list keeps widening. This month it has run from the ETF wrapper, to leveraged longs, to long-term holders, and now to miner treasuries.
+
+On the buy side, the same Glassnode report says Strategy kept buying. That bid is real, and it does go into Bitcoin itself. But Strategy is a Bitcoin treasury company, so its buying comes from inside the trade. It isn't the new outside money a recovery needs.
+
+The same pattern shows up one layer out, in the equities. Coinbase is the clearest public-equity read-through, and there, too, the visible buyer is the company itself. First, the bear case on the stock. On November 2nd, Morgan Stanley downgraded Coinbase to Underweight from Equal Weight. It cut its price target by more than half, to one hundred twenty dollars.
+
+The model changes are the real story, and they hit both earnings and valuation. The bank cut its 2027 adjusted EBITDA estimate by forty seven percent. That's far deeper than its twenty eight percent cut to revenue for the same year. Then it cut the multiple it applies to those earnings, from twenty times EBITDA to twelve.
+
+By our arithmetic, that multiple cut is about forty percent. So this isn't only a call that earnings will be lower. It's a call that exchange earnings deserve a cyclical multiple, not a structural one. That's the opposite of what the institutionalization story promised. And Coinbase no longer headlines trading volume as a key metric, as this desk has noted. That leaves outside models like this one doing more of the price-setting. Analyst Michael Cyprys's quoted rationale is narrow. He wrote that confidence in the earnings recovery has deteriorated.
+
+Here's the twist. Coinbase closed at one hundred two dollars and thirty five cents on Tuesday, November 24th. By our arithmetic, Morgan Stanley's target now sits about seventeen percent above that close. The stock has already fallen through its most prominent bear's number.
+
+Against that, management is buying. Coinbase CEO Brian Armstrong posted on X on November 25th, quote, "Coinbase is buying back stock this quarter." He gave no dollar figure and no share count. So the size of this quarter's buying is still undisclosed.
+
+The buyback history is where it gets awkward. Coinbase had repurchased about ten point one seven million shares for a combined two billion dollars. By our arithmetic, that's an average of roughly one hundred ninety seven dollars a share. That's nearly double Tuesday's close.
+
+About two billion dollars remained available under the board's authorization at the end of September. At today's price, each remaining dollar retires roughly twice the shares the first two billion did. That's a real, mechanical float-reduction lever for the stock. It is not evidence of a fundamental turn. And keep the two assets separate. These repurchases can support Coinbase's share count. They do nothing for Bitcoin's price.
+
+Exchange risk has a second chapter this week, and it runs straight through the on-chain dollar. On November 18th, an Abu Dhabi court issued a worldwide freezing order tied to the late-October Binance hack. The order covers up to six point five billion dollars. That figure is a ceiling on what can be pursued, not money recovered. The firmer number is the US Justice Department's court approval to seize or freeze more than one point two billion dollars. Bloomberg has reported the theft itself at about six point three billion. So the firm recovery authority covers only a fraction of what was taken.
+
+One detail matters for stablecoins. Two and a half billion dollars of the stolen assets were Tether's USDT. Our inference is that a large share of the loot sits in a token its issuer can, in principle, freeze. That makes issuer control a recovery tool. It's also a reminder that the on-chain dollar still runs through a central gatekeeper. There's no evidence yet that Tether has frozen any of it, so don't read the hack into USDT's supply numbers.
+
+That brings us to on-chain liquidity, which is shrinking fast. Glassnode data reported by The Block shows the supply of major stablecoins fell fourteen point two billion dollars over the thirty days to November 11th. The Block calls it the largest such contraction since the 2022 bear market. It also says the drop is more than twice the comparable decline in December 2022, the month after FTX collapsed. That figure is two weeks old, so read it as historical scale, not a fresh print. On that measure, this drawdown has already outrun the post-FTX month. Yesterday's measure stops just short. Long-term holders' realized losses are the heaviest since the FTX collapse. That's the worst since FTX, not worse than it. So the benchmark for this month is now the worst stretch of the last cycle.
+
+Weigh both cases. The bull case first. Coinbase trades below even a high-profile bear's target. Miner selling is a finite overhang. And for Coinbase holders, each remaining buyback dollar now retires twice the shares. Now the skeptical case. Coinbase's own repurchases so far averaged nearly double today's price. The ETF exit is a record on two datasets, and the year is net negative. And stablecoin supply has already shrunk faster than it did in the month after FTX. Notice the difference. The bull case rests on positioning and mechanics. The skeptical case rests on demand, and demand is what's missing.
+
+Three things to watch. First, the next ETF prints after the holiday, measured against the new record. Second, any disclosure of what Coinbase actually spent on buybacks this quarter. Third, Strategy's deletion from MSCI's indexes after the November 30th close. That's a date to mark, nothing more.
+
+The bottom line: 2026 has turned the ETF wrapper into a net seller for the year. Bitcoin's one named buyer is a company whose stock rides on the coin, and Coinbase's buyer is Coinbase. Neither is fresh outside capital.
+
+That's the briefing. Talk to you tomorrow.

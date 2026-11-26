@@ -1,0 +1,47 @@
+Good morning, this is Cautious Optimism Briefings. It's Thursday, November 26th, 2026.
+
+One disclosure before we start. Anthropic makes the model behind this show, and one item today is an Anthropic product.
+
+This week's product news is not about new capability. It's about reach. Two agents moved closer to the places you already work and are already signed in. That sharpens a question this show has tracked since November 14th. When an agent acts on your behalf, where does the human approval actually sit? Yesterday, we covered Claude Approvals, a product that can remove that gate entirely. Today, the protocol underneath went the other way.
+
+Start with the browser. Perplexity's agent, called Computer, used to be tied to its own browser, Comet. Now, per AlphaSignal, it "runs inside any Chromium browser through the Chrome extension, taking over tabs from a side panel without the Comet install." This may be the second step of a staged rollout. One secondary account says that on October 30th, Perplexity let Computer's Mac and Windows apps work inside a user's own Chrome. The newer step, as reported, widens that to any Chromium browser through the extension. Treat the timing loosely. Perplexity's own post could not be retrieved, and secondary accounts disagree on when each step landed. Call it recent, not a specific day.
+
+The mechanism is not in dispute, and it's the part that matters. Per the release-note tracker Releasebot, Computer can now finish tasks "using sites they're already signed in to." That is the real change. The barrier to browser agents was never intelligence. It was distribution. Asking someone to switch their daily browser to try an agent is a big ask, and Perplexity just withdrew it.
+
+This extends a point from November 20th. Back then, Google's computer-use agent for the Mac could operate any app a user granted it. We argued that it routes around curated integration lists. Perplexity's extension does the same for the web. Every site you're logged into is now, in principle, within the agent's reach. No partner has to build anything first. That's our inference, and it weakens the idea, floated here on November 19th, that integration lists would become the new storefront.
+
+Reach cuts both ways, though. If an agent can act inside your signed-in bank tab or your inbox, a prompt injection on a hostile page stops being an annoying error. It becomes an action taken with your credentials. That risk is our inference, not a documented incident.
+
+So what does Perplexity offer as a guard? One secondary account of its settings describes a control under Browser use. It lets you "set which websites the Chrome extension can act on before you use it." That's the only permission control we found described. It comes from a reviewed account of the settings screen, not a Perplexity policy page. No source we reviewed described a per-action confirmation, such as a prompt before a purchase or a submitted form. None described a way to pause the agent and take over. So, as far as the record shows, there is a gate at the door, in the form of a site allow list. Nothing is documented once the agent is working inside an approved site.
+
+For enterprises, that gap matters more than it does for consumers. An employee's browser holds signed-in sessions to email, sales, and finance tools. The control we found is described as something the user sets. Nothing we reviewed describes an admin-managed version. Our read is that security teams will want one before this goes near corporate sessions.
+
+There are two honest readings of the move itself, and nothing available settles them. One is that requiring a separate browser didn't scale, and Perplexity is conceding that. The other is that the extension is a low-friction funnel toward installing Comet later. Either way, there's no usage, reliability, or task-completion data. This is a distribution change, not proof the agent works better.
+
+The second-order effect is about switching costs, and it's our inference. If browser agents ride on the browser you already have, trying a rival agent costs one extension install. Competition shifts from which browser you use to which agent's completion rate and trust model you'll accept. The takeaway is that the barrier to browser agents just fell, and the permission model is now the thing to watch.
+
+One loose thread from yesterday resolves here. Yesterday, we asked whether any vendor outside Anthropic would adopt skills over MCP. Perplexity has a feature called Agent API Skills. Its own documentation says, "Custom skills use the open Agent Skills format." The page makes no mention of MCP. So the answer is half yes. Perplexity uses the open format for packaging agent instructions, but it runs those skills through its own Agent API. That's parallel standardization on a format, not interoperability between the two systems.
+
+The same instinct, bringing the newest capability to the surface people already use, showed up at OpenAI. On November 19th, this show noted that OpenAI's newest GPT-6.2 models had skipped the regular chat tab in ChatGPT. They went to ChatGPT Work, Codex, and the API instead.
+
+On November 23rd, OpenAI closed that gap for paying users. Its release notes say, "We're rolling out a version of GPT-6.2, optimized for the chat tab, for Plus, Pro, Business and Enterprise tiers." By our reading of that list, free users are not included. The paywall, once again, sits a rung up. OpenAI doesn't say which GPT-6.2 model this version comes from. There's no independent evaluation yet, so any quality gains are OpenAI's claims, not confirmed ones.
+
+The wording matters more than the rollout. "A version of GPT-6.2, optimized for the chat tab" means one model name now covers surface-specific tunes. Even the tier lists differ by surface. On November 20th, OpenAI's own post put GPT-6.2 in Work and Codex for Plus, Pro, Enterprise, and Edu. The chat-tab list names Business and leaves out Edu. On Sunday, this show argued that a model embedded in a tool behaves like a dependency you don't control. Now the dependency is the model and the surface together, not the model name alone.
+
+For an enterprise standardizing on ChatGPT, that's a real burden, and it's our inference. A team can't assume the chat tab, Work, and Codex behave identically under one label. The so-what is simple. Evaluating GPT-6.2 now means evaluating it surface by surface, not once.
+
+If agents are moving into the places you already work, yesterday's question returns. Where does the human come back in? That's where Anthropic's MCP update lands. A reminder that Anthropic makes the model behind this show.
+
+On November 24th, Anthropic moved two MCP extensions, Tasks and Elicitation, to general availability in Claude and Claude Code. Elicitation is the one that matters for this arc. In Anthropic's words, a server "can pause to ask the user for input through a form or link, then continue where it left off." That makes the human checkpoint a primitive in the protocol itself. Any MCP server can call it. It's no longer a design choice each product has to invent alone.
+
+The timing is striking. Claude Approvals, launched November 23rd, showed a product that can take the human out of a merge. The very next day, the protocol under it standardized a way to put one back, for any server that chooses to.
+
+Now map that back onto Perplexity. The gate Perplexity's extension appears to lack is a mid-task checkpoint. That's exactly what Elicitation standardizes. But it standardizes it only for MCP servers. Nothing in our sources says Perplexity's browser actions run through MCP. So the industry now has a common mid-task checkpoint, just not on the surface where exposure is growing fastest.
+
+And there's a catch. Elicitation lets a server ask for input. It doesn't require one to. We have no evidence of which MCP servers are calling it in production. A standardized checkpoint can sit unused, just as yesterday's Approvals policy file can be written to skip people. Anthropic also announced a File Uploads extension, but it's only "rolling out soon," so there's nothing to evaluate yet.
+
+The second-order effect lands on governance teams, and it's our inference. Whether a connected workflow keeps a human in the loop is now a choice each server builder makes. Governance teams will need to audit which servers call Elicitation, and at which steps. The checkpoint has stopped being a product guarantee. It's a setting, and someone in your organization now owns it.
+
+Three things to watch from here. First, whether Perplexity publishes a real permission model, and tier terms, for Computer in Chrome. Second, whether the chat-tab GPT-6.2 reaches free users, or gets graded independently. Third, whether named MCP servers actually ship Elicitation flows.
+
+This week's moves aren't about what AI can newly do. They're about where it shows up, and who decides when it has to stop and ask. That's it for today. Thanks for listening, and I'll catch you in the next briefing.

@@ -1,0 +1,31 @@
+Good morning, this is The Throughline for Thursday, November 26th, 2026.
+
+Today's headline: Washington's squeeze on the offshore route to Nvidia chips has produced its first named casualties, from a blacklisted Southeast Asian network to a Chinese lab reportedly abandoning a Blackwell lease.
+
+We'll start with the macro backdrop. Strategic Power reports Commerce adding Megaspeed and six affiliates to the Entity List, about seventeen months after informal pressure had already led Nvidia to cut the network off. Beijing's reply, its rare-earth suspension, lapses in January, on a date the desk no longer trusts to the day. And Washington's hedge, a US-Qatar minerals framework, has ambitious language but no disclosed dollars.
+
+From enforcement to markets, Capital Markets Radar finds bonds passing their first inflation test, if only in one holiday-thinned session. October core PCE came in a tenth above consensus, yet the 10-year yield fell, as investors bought duration to hedge stress in AI stocks. Nvidia fell another 4 percent Wednesday, and a new USTR tariff proposal reaching well beyond China is a slower inflation risk the rally didn't price.
+
+That risk-off mood hits hardest in Digital Money, where Bloomberg data now confirms that November's spot bitcoin ETF outflows broke June's monthly record, at 4.94 billion dollars. For 2026 as a whole, the ETF wrapper has turned net seller, and the one named buyer, Strategy, is a bitcoin treasury company buying from inside the trade. The desk's read is that the bull case rests on mechanics, while the bear case rests on demand, and demand is what's missing.
+
+In lending, Private Credit and the Corporate Credit Cycle has the clearest market test of private marks the desk has seen. BC Partners' BDC agreed to buy Investcorp's at a 10 percent discount to net asset value, and the desk reads deals like this as a quiet loss-recognition channel that bypasses the default statistics. Underneath it, one Blue Owl retail fund faces redemption requests near 39 percent of shares against a 5 percent cap, a liquidity mismatch rather than a credit loss.
+
+That's the macro backdrop. Now the AI and compute stack, where the offshore squeeze from our headline surfaces twice more. A standing disclosure: Anthropic makes the model behind this show.
+
+Semiconductors and Compute Infrastructure has Nvidia's resellers reportedly scrambling for new buyers as that route closes, a loss the desk says nobody has sized and Nvidia's guidance may not yet reflect. TSMC's investment arm also holds roughly half a billion dollars of Anthropic stock bought at the IPO, escalating supplier financing from credit to equity. And TrendForce cut its 2027 DRAM forecast on softer Chinese cloud demand, while HBM stays capacity-bound.
+
+Frontier AI Lab Competition reads Moonshot's cancelled lease, which it had offered to half-prepay, as a lab short of permission rather than money. DeepSeek is reportedly rationing its app, while cloud-owning Alibaba cut its flagship's price, so the desk sees China's labs splitting into haves and have-nots. On the US side, the desk reads Anthropic's first close below its 83-dollar IPO price as a weak mood signal, not evidence investors are constraining the lab.
+
+AI Products and Applications finds Perplexity's Computer agent running inside any Chromium browser through an extension, acting on sites you're already signed into, with only a site allow-list documented as a guardrail. Anthropic, meanwhile, made MCP's Elicitation extension generally available, a standard way for a server to pause and ask a human for input. But nothing requires a server to use it, so the human checkpoint becomes a setting someone owns, not a product guarantee.
+
+Enterprise Technology finds the week's biggest counted AI dollars in Dell's order book, where a 132-billion-dollar AI server backlog runs about six quarters ahead of current shipments. Dell says every AI order this quarter was vetted for customers' access to capital, land and power, answering the financing worry in words rather than numbers. Up the chain, a filing reportedly shows Anthropic lifting its firm Azure spending floor by about 2.3 billion dollars, a commitment on paper against a lab's balance sheet.
+
+That's the compute stack. Now the applied frontier, where dates and licenses are running ahead of proof.
+
+Robotics and Physical AI has XPENG dating its IRON humanoid's production line to January 2027, with no volume or price attached. IRON runs on the same in-house chips and models as XPENG's cars, a cost edge the desk says changes who can afford to build humanoids at scale. The fielded evidence points the other way, with three Waymo robotaxis entering coned-off freeway lanes on a single day, just days after Waymo narrowed its own operating scope.
+
+Space and the Orbital Economy has the FCC conditionally licensing Starmind, SpaceX's orbital data-center constellation of up to a million satellites, on a fourteen-year buildout clock. With the debris ruling for most of its altitude range still open, the desk banks the grant as an option, not capacity. The same day, SpaceX shares fell on a possible Tesla merger, and Rocket Lab and AST SpaceMobile sold off alongside, a sign the listed space sector may trade on one company's headlines.
+
+AI in Biopharma R&D closes the tour with Novartis, whose investor day put AI's hard numbers on enrollment and paperwork, not on whether drugs work. Novartis says AI sped one program's enrollment by six months and cut clinical-report authoring and review time by a quarter. But its own executives say evidence of better clinical success "will take longer to emerge," a cautious note from one of the industry's largest sponsors.
+
+That's The Throughline. Stay cautiously optimistic, and I'll talk to you tomorrow.
