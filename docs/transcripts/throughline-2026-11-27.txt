@@ -1,0 +1,25 @@
+Good morning, this is The Throughline for Friday, November 27th, 2026.
+
+Today's headline: S&P Global Ratings has carried Nvidia's governance scare from the stock market into the credit market, putting Nvidia's double-A rating on CreditWatch negative over Jensen Huang's brief departure and reinstatement as chief executive.
+
+We'll start with the macro backdrop. Capital Markets Radar stresses that this is a watch, not a downgrade, on a company that just posted record revenue, and Moody's has not followed. So the desk reads it as a rating agency pricing who controls Nvidia, not what it earns, with the real tail in S&P's open questions about export controls and China exposure. Further down the quality stack, credit is sorting rather than breaking: CCC-and-lower spreads sit near 13.9 percent, up from 9.2 a year ago, as markets price a near-certain December hike that squeezes the weakest borrowers first.
+
+That sorting reaches the speculative end too. Digital Money has spot bitcoin ETFs on a seven-session outflow streak, with November's record outflow at about 5.4 billion dollars and early signs the selling is spreading beyond BlackRock's IBIT. Galaxy Digital has withdrawn its bull call and named a daily close below roughly 58,500 dollars as the trigger for a lower low, a line bitcoin has breached intraday but not yet closed below. The desk also corrects its own earlier read on stablecoins: this week's supply drop was concentrated in one issuer, Sky Dollar, not a broad exit from the dollar rails.
+
+In lending, Private Credit and the Corporate Credit Cycle finally has two real prices rather than more spread commentary. The New York State pension is considering borrowing about four billion dollars against its own stakes in private credit funds, keeping the first-loss equity rather than selling the risk. And Goldman is closing a sale of loans out of one of its BDCs close to where they were carried, breaking a run of discount deals, though the seller got to pick the loans.
+
+From lenders to owners, Private Equity and the Deal Economy has Blackstone, Carlyle and Hellman and Friedman pricing their third Medline sell-down of the year at 35 dollars and 50 cents a share, down from 41 dollars in March. Medline is also buying back some of the sponsors' stock alongside the deal, so the company's own balance sheet is quietly absorbing part of the supply. The desk's read is that these are real distributions bought at a falling price, not a reopened exit window.
+
+That's the macro backdrop. Now the AI and compute stack, where the common question is who absorbs the cost of running these models. A standing disclosure: Anthropic makes the model behind this show.
+
+Frontier AI Lab Competition has the first cross-lab cost-per-task read, from a single evaluator, and while Google's Gemini 4 Neon tops LiveBench, Claude Fable 5.2 costs about five times as much per finished task as GPT-6.2 Astra. Anthropic's Rust rewrite of its API layer cut serving CPU sharply, but serving CPU isn't the accelerator cost that drives that gap. And the gap weighs heavily because Anthropic's amended IPO filing discloses about 895 billion dollars of purchase and lease commitments.
+
+AI Products and Applications shows the same cost question reaching subscribers, as OpenAI starts merging ChatGPT's Chat and Work limits into one shared meter, beginning with a small group of Pro users. GitHub, meanwhile, will bill organizations for Copilot code review starting December 30th. Going the other way, Cognition has made its new Devin model, post-trained on Moonshot's Kimi K3, free to paying Devin tiers for two weeks, using its own post-training as a pricing weapon rather than a meter.
+
+Enterprise Technology has Bloomberg reporting that SAP is preparing to cut at least 10,000 jobs, concentrated in product, engineering and sales. The desk reads that as AI possibly showing up first in a software vendor's own cost base, even as Microsoft starts selling standalone Copilot on Tuesday at a list price of 30 dollars per user per month. So enterprise AI is still priced by the human seat, even as its clearest payoff so far may be needing fewer people.
+
+That's the compute stack. Now the applied frontier, where AI in Biopharma R&D closes today's tour. Novartis chief executive Vas Narasimhan, who also sits on Anthropic's board, has publicly placed AI's realistic payoff "somewhere in the middle," between the frontier labs' cure talk and the skeptics. That's a notable check from the industry's most AI-forward large sponsor. The one measured result in hand is still a workflow win in document review, while design-layer bets like Isomorphic Labs and Flagship's new Etcelera have no patient results yet.
+
+One thread runs through today's tour: real transaction prices are starting to replace headline claims, from Medline's falling sell-down ladder and Goldman's loan sale to a cost-per-task gap that no leaderboard showed.
+
+That's The Throughline. Stay cautiously optimistic, and I'll talk to you tomorrow.

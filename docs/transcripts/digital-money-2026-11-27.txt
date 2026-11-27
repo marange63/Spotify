@@ -1,0 +1,53 @@
+Good morning, this is your Cautious Optimism Briefing on digital money for Friday, November 27th, 2026.
+
+November's capitulation has climbed another rung. This month's sellers have run from leveraged longs, to the ETF wrapper, to long-term holders, to miner treasuries. Now the forecasters have joined them. And the bitcoin ETF exit is starting to look broader, not just longer.
+
+Start with Galaxy Digital, because it's the newest thing on the tape. Per The Block, Galaxy has withdrawn its October bull call on bitcoin. It now treats a daily close below $58,525 as the start of a move toward a lower low. That's a specific, falsifiable line from a named institutional player, not a vague caution.
+
+Now set that line against price. Bitcoin dropped as low as about $57,300 on Wednesday. By early Thursday morning it was back near $60,525. That leaves spot roughly two thousand dollars above Galaxy's trigger. That gap, like the other shares and differences in today's briefing, is our own arithmetic from the reported figures. Wednesday's low was intraday, and nothing in hand shows a daily close below the line. So the trigger hasn't fired.
+
+There are two ways to read the call itself. The bearish read is simple: a named bull now expects a lower low. The contrarian read is that a forecaster abandoning a bull thesis after a drawdown is trend-following, not new information about flows. Both are inferences. What isn't in dispute is that this month's seller list now includes the people who were writing the bull case. And what pushed Galaxy there is the flow tape.
+
+Spot bitcoin ETFs have now run their outflow streak to seven straight sessions. Wednesday alone took $453.1 million out of the funds. The Block puts November's cumulative outflow at roughly $5.39 billion. Other trackers' counts run lower, because they use different cutoff dates. So the disagreement is about size, not direction. And all of these figures come through secondary reporting of tracker data, not the issuers' own tables.
+
+The new detail is concentration. BlackRock's IBIT accounted for $329.7 million of Wednesday's outflow. That's about 73 percent of the day, with Grayscale and Bitwise funds next in line. On Monday's outflow, IBIT's share was about 89 percent. So the biggest fund's share of the selling is falling.
+
+One session is a tilt, not a verdict. And the flow data still can't tell us who is redeeming. But here's why the tilt matters. An exit concentrated in one large holder tends to stop once that holder finishes rebalancing. An exit spread across many holders needs a new buyer to absorb it. That's the marginal-buyer problem, and a broadening exit makes it harder, not easier.
+
+The on-chain dollar tells the opposite story about concentration. Stablecoin supply fell $4.43 billion in the week to November 23rd, and the full issuer table from Stablecoin Insider now shows where it went.
+
+Start with the two majors. Tether's supply fell $641 million on the week, about the same as USD Coin's $607 million. Together they explain less than a third of the drop. Roughly $3.2 billion came from everyone else.
+
+Most of that came from a single coin. Sky Dollar, ticker USDS, the stablecoin of the Sky and MakerDAO ecosystem, fell $2.08 billion in that one week. That's nearly 39 percent of its supply gone in seven days. Sky Dollar alone accounts for about two-thirds of the decline outside Tether and USD Coin.
+
+The rest of the table is much quieter. PayPal's stablecoin and World Liberty Financial's USD1 each lost a few hundred million dollars. Dai and Ethena's USDe barely moved, and a few smaller coins actually grew. So the drop wasn't broad. It was concentrated in one issuer. That corrects our read on Tuesday, when we called the contraction broadening.
+
+What drove the Sky Dollar redemptions is still an open question, and the source doesn't say. Two things would separate the explanations. One is whether Sky Dollar held its peg through the week. The other is whether the outflow came from one large holder, or from many. The snapshot answers neither, so next week's table is the place to look.
+
+That also limits the Treasury read-through. The usual story is that shrinking stablecoin supply means less issuer demand for T-bills and repo collateral. But this snapshot says nothing about what backs Sky Dollar, or Tether, or any other coin in the table. Without a reserve disclosure, we can't responsibly turn this week's drop into a Treasury-demand claim.
+
+One more correction belongs here. We had leaned on BlackRock's shrinking BUIDL fund as evidence against dollars rotating into tokenized Treasuries. The Block now reports that the tokenized Treasury and money-market category outside BUIDL has reached a record $10.5 billion. That doesn't prove stablecoin dollars are moving in. But it does mean the flagship's decline isn't the whole category. The takeaway: this week's on-chain dollar shrink is mostly one issuer's story, and it tells us less about Treasury demand than the headline total suggests.
+
+Step back from crypto entirely, and the pressure looks wider still. Gold has been falling alongside bitcoin. Per CoinDesk on November 20th, gold had dropped in a near-straight line from highs near $4,150 on November 10th, leaving it down 15 percent for the quarter. Bitcoin, on the same read, was down 28 percent for the quarter.
+
+There are two readings of why they fell together.
+
+Reading one is a real-yield shock. Per ING, cited by CoinDesk, two-year real interest rates pushed above 2.40 percent that week, the highest since 2023. Gold and bitcoin share almost nothing as assets, except that neither pays a yield. When real yields climb this fast, the cost of holding either one climbs too.
+
+Reading two is plain risk-off. On that same Friday, November 20th, the ten-year Treasury yield fell about ten basis points. It fell again this week, as investors bought duration to hedge stress in AI stocks. Falling nominal yields are not what a rate shock looks like. On this reading, bitcoin and gold were simply sold alongside other risk, while Treasuries did the hedging.
+
+The two readings can coexist, but the data in hand doesn't settle it. Real yields rising while nominal yields fall would mean inflation expectations are dropping. That would look more like a growth scare than an inflation scare. But the real-yield figure is a two-year rate and the nominal figure is the ten-year, so that's a possibility, not a finding. Gold's slide may also partly reflect its own positioning unwinding. We're not picking a reading today.
+
+What is clear is the portfolio consequence. The whole non-yielding hedge sleeve, gold included, sold off as a block. If bitcoin and gold fall together, neither one diversifies the other. And that failure is showing up in exactly the regime where allocators would want it to work.
+
+One dated event lands inside the next few sessions, and it bears on the buyer question. MSCI deletes Strategy from its indexes after Monday's close, November 30th. BloFin Research, cited by CoinDesk, estimated that index-tracking funds must sell about 13 million shares, roughly 3 percent of the stock. That's an estimate of passive selling, not a measured flow. And it hits Strategy's equity, not bitcoin directly. But Strategy is the one large buyer Glassnode has named this month. Pressure on its stock is pressure on the bid.
+
+So weigh both sides. The bull case first. Spot bitcoin is still above Galaxy's trigger. Glassnode had bitcoin futures open interest down 12 percent in the week to November 22nd, at its lowest since early March. That removes one source of forced selling, though leverage has rebuilt between flushes before. And contrarians read forecaster capitulation as a late-stage signal, though that's an inference, not a rule.
+
+Now the skeptic's case. The ETF exit has run seven sessions and may be spreading beyond its largest holder. Gold and bitcoin are falling together, so the hedge sleeve offers no shelter. And there's still no identified outside buyer of size. Put simply, bulls are betting the selling has exhausted itself. Skeptics are still waiting for someone to show up on the bid.
+
+Three things to watch from here. First, the first ETF session with a net inflow, which would be the cleanest sign the streak has broken. Second, whether bitcoin posts a daily close below Galaxy's $58,525 trigger. Third, whether next week's stablecoin snapshot shows Sky Dollar's redemptions continuing, or the shrink spreading to other issuers.
+
+The bottom line: the selling has climbed from leveraged traders to the people who write the bull cases. The ETF exit looks less like one fund's housekeeping, while the stablecoin shrink turns out to be mostly one issuer. Neither price nor flows has broken decisively, so the next few sessions carry more weight than usual.
+
+That's the briefing for November 27th. Stay cautiously optimistic, and we'll talk again tomorrow.

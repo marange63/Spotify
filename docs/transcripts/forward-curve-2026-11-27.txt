@@ -1,0 +1,51 @@
+Good morning, and welcome to The Forward Curve for Friday, November 27th, 2026. These are probabilistic reads built from this show's own briefings, informed guesses rather than certainties, and the position ideas are illustrative ways to express a view, not investment advice.
+
+Start with the scorecard. Nothing resolved over the holiday. But three open calls moved against me, one moved my way, and one premise of mine needs a correction.
+
+The biggest move is Global Payments. My call is that no read reports GTCR making a formal proposal on or before December 31st. My main reason was financing. Today's private equity read has Blackstone, Warburg Pincus and Apollo in talks to help GTCR finance the deal. It's one unnamed-source report, but it hits that reason directly. I cut the call from three-in-five to about 45 percent. My related call, that no Global Payments buyout gets signed this year, slips a notch, to about four-in-five.
+
+Second, Nvidia. My call is that no read reports Nvidia restating results, or missing a scheduled SEC filing, by year-end. Today's capital markets read has S&P flagging questions about Nvidia's internal controls around its China exposure. That's a third institution asking questions, after the SEC and California's Justice Department. I trim the call from four-in-five to about three-in-four.
+
+Third, my call that all three major indexes finish November down more than 3 percent. On Wednesday, the Dow actually rose, and the Nasdaq fell well under 1 percent. Without Tuesday's Nasdaq close, I can't redo the arithmetic exactly. With a session and a half left, I cut it from one-in-four to about one-in-six.
+
+The call that moved my way is the bitcoin ETF record. Per The Block, SoSoValue's November outflow is now about 5.39 billion dollars, nearly a billion past June's record. I'll score it when the month closes, at better than 95 percent.
+
+Now the correction. On November 24th, I said Salesforce reports that week. No read has carried that report since. So my Agentforce disclosure call stays open until December 4th, and goes unscored if nothing arrives.
+
+Three calls come due within days. Beijing's gallium and germanium suspension runs out today, and no read yet carries its decision. My call that Beijing extends it holds at about two-in-five.
+
+Strategy's deletion-day close comes Monday, and that call holds at three-in-five. My call that Google doubles Gemini Carbon's prices on December 1st holds at four-in-five. Everything else stays open, and nothing is dropped.
+
+Now five new forecasts, on one spine: named lines and running clocks. Each call asks whether a line gets crossed by a set date. Two lean toward the status quo, three toward change.
+
+Start at the top of the quality stack. Today's capital markets read has S&P placing Nvidia's double-A rating on CreditWatch negative, over governance after Jensen Huang's exit and return. Moody's did not follow. It kept Nvidia at double-A-one, stable, saying the reinstatement "restores strategic continuity."
+
+My call is that no read reports Moody's downgrading Nvidia, or moving it to a negative outlook or review, on or before December 31st. About three-in-four. With no sourced base rate, I lean on Moody's words and a credit market that barely flinched. Nvidia's default swaps sat near 143 basis points on Tuesday, before S&P acted. That's close to a record for the name, but far from distress.
+
+What would most make me wrong is a finding. S&P pointed to potential export-control violations, and Huang is expected to appear before Congress twice in December. If a hearing hardens a question into a fact, Moody's could move fast. Loosely, to bet for the call, sell out-of-the-money NVDA puts. To hedge it, buy NVDA puts. That matches my open restatement call, so count them as one view. The so-what: until a second agency agrees, governance at Nvidia is an equity discount, not a credit event.
+
+From the top of the quality stack to the bottom. Galaxy Digital has withdrawn its bitcoin bull call. It now treats a daily close below 58,525 dollars as the start of a move to a lower low. Bitcoin broke that line intraday on Wednesday, then bounced to about two thousand dollars above it, in thin holiday trading.
+
+My call is that a read reports a bitcoin daily close below Galaxy's line on or before December 9th. About two-in-three. ETF outflows have run seven straight sessions, and today's digital money read sees signs the selling is spreading beyond BlackRock's fund. And MSCI deletes Strategy, the one buyer Glassnode has named this month, after Monday's close.
+
+What would most make me wrong is a washout that's already done. Glassnode has futures open interest at its lowest since early March, so one source of forced selling is gone. To bet for the call, buy puts on BlackRock's bitcoin ETF, IBIT, expiring after December 9th. To fade it, buy IBIT calls. My open call that bitcoin holds above 53,700 dollars through December 9th stays at about 55 percent. So the view is this: Galaxy's line breaks, but the deeper floor holds.
+
+Now from markets to operators, where AI's first payoff may be a payroll line. Today's enterprise read has Bloomberg reporting that SAP is preparing to cut at least 10,000 positions, at least 9 percent of its workforce. SAP hasn't announced it.
+
+My call is that SAP itself confirms a program of at least 10,000 job cuts on or before January 31st. About 55 percent. SAP ran a program of the same size in 2024, so it has a playbook.
+
+What would most make me wrong is Germany. SAP's largest workforce sits under an employment guarantee through 2028, and working around it can slow a formal number. Loosely, to bet for the call, own SAP's US-listed shares, ticker SAP, since a confirmed program puts a margin figure on the AI story. I skip the fade. The so-what: if SAP confirms, AI's first hard return at a software incumbent shows up as fewer people.
+
+That leads to pricing, because fewer people means fewer seats. AWS re:Invent opens Monday, and chief executive Matt Garman keynotes Tuesday. That's the same day Microsoft's standalone Copilot goes on sale at 30 dollars per user, at list.
+
+My call is that if AWS names a price for an agent offering at re:Invent, that price is consumption-based, per task, token or hour, not per user. About three-in-four. It goes unscored if no read carries an AWS agent price by December 11th. Today's products read has OpenAI moving agent work onto a shared usage meter, and GitHub billing AI code review to the organization.
+
+What would most make me wrong is Microsoft's precedent. A flat per-user price slots into the budget line Copilot already claims. I skip the trade. Amazon, ticker AMZN, is far too large to move on one pricing page. The so-what: a meter from AWS would make the seat look like the exception.
+
+Last, the slowest clock on the board. Isomorphic Labs, the Alphabet-backed drug designer, has a year-end target for its first clinical trials. Across four biopharma reads in a week, nothing has moved. Its own release this month speaks only of "driving our first therapeutic programs towards clinical trials," with no date.
+
+My call is that no read reports Isomorphic starting a first clinical trial, or dosing a first patient, on or before December 31st. About four-in-five. The target is a company goal, not a filed IND, and about five weeks remain.
+
+What would most make me wrong is progress we can't see. A company that just raised five billion dollars has every reason to hit a public goal. I skip the trade. Alphabet, ticker GOOGL, is far too large for one program to move it. The so-what: the design layer's biggest bet still has no patient result.
+
+So that's the curve. Moody's holds. Galaxy's line breaks. SAP confirms, narrowly. AWS meters the agent. And Isomorphic's clock runs out. Have a good Friday.

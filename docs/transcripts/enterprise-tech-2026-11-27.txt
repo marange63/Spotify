@@ -1,0 +1,43 @@
+Good morning. It's Friday, November 27th, 2026. Here's the enterprise technology briefing.
+
+The theme today is that AI is starting to show up in enterprise software as a cut to the vendor's own cost base, not as a revenue line. Meanwhile, the industry still prices AI per human seat. Those two facts are on a collision course, and this week's news gives us the clearest look yet at both sides.
+
+Start with SAP. Bloomberg reported on Thursday, citing people familiar with the matter, that SAP is preparing to eliminate at least 10,000 positions as it reshapes its software business around AI. That would be at least 9 percent of its global workforce. This is reported, not confirmed, and SAP has not announced it. Both numbers are floors from anonymous sourcing, not a final count. But the reporting is specific enough to take seriously.
+
+The detail that matters most is which functions get hit. According to that reporting, product, engineering, and sales are expected to see the largest cuts. That is the core cost base of a software vendor. It is not the customer-support desk, where you'd expect AI to show up first. If AI is the cause, it's substituting inside SAP's own building, not just being sold to SAP's customers.
+
+That extends an arc this desk has tracked all week. In Wednesday's briefing, we covered Workday guiding its seat-priced subscription revenue to 10 percent growth for the fourth quarter, a confirmed deceleration. The market priced that seat-based core, not the AI story. Now one of the biggest incumbents in enterprise software is reportedly turning AI on its own headcount.
+
+Geography shapes where those cuts land. In Germany, where SAP has the largest number of employees, the labor council negotiated an employment guarantee through 2028 earlier this year. So the reported cuts are likely to fall disproportionately outside Germany. That means the function and location mix may reflect where SAP is free to cut, as much as where AI substitutes best.
+
+There's also a precedent worth naming. SAP ran a program of the same size in 2024. That one cost around 3 billion euros and took over a year. A second program at that scale suggests restructuring is becoming a recurring operating tool at SAP, not a one-time reset.
+
+That supports a skeptical read to hold alongside the AI story. Some of this may be ordinary margin management wearing an AI label. There is no SAP statement quantifying what AI actually does for engineering productivity. And cuts in sales could reflect a shift toward cloud and partner-led selling, as much as AI doing the selling. So treat substitution as one reading, not the established cause.
+
+One second-order effect is worth flagging, and it's our inference. If SAP's internal engineering and sales capacity shrinks, more implementation and selling work may move to systems integrators and partners. That would be a tailwind for consulting demand around SAP migrations, even as SAP's own headcount falls. Either way, the takeaway is plain. The first hard AI return on investment at a major software incumbent may be showing up in its own payroll, not its revenue line.
+
+If AI's first measurable payoff is fewer people, look at how Microsoft is pricing it. Starting this coming Tuesday, new customers can buy Copilot without a Microsoft 365 subscription. Microsoft posted the change quietly ahead of the effective date, so this is a live catalyst, not this week's announcement.
+
+Standalone pricing is a flat 30 dollars per user per month for enterprises, and 21 dollars for small businesses. Both are list prices, before discounts. The offer runs through any Microsoft channel, including the Cloud Solution Provider program. It covers commercial, education, government, and nonprofit buyers.
+
+Read that three ways. The generous read is that Microsoft is expanding Copilot's addressable market to shops that never bought the full Microsoft 365 suite. The skeptical read is that Microsoft wants growth from outside an installed base it hasn't fully converted. We can't size that gap, because Microsoft hasn't disclosed a current paid-seat total. A third read is simpler. It's a channel move that opens partner-led sales into new buyer categories, and its demand effect is unproven.
+
+Two things about the product are still unknown. The first is realized price. "Before discounts" means large enterprise agreements may land well below list. The second is entitlements. GeekWire's reporter asked Microsoft whether the standalone version gets the same grounding in a company's work data as the bundled add-on. She reported no word back. If standalone Copilot can't see work data the way the bundled version does, it may be a thinner product than its price suggests.
+
+On adoption, Microsoft keeps offering deployment counts rather than paid or active-use metrics. At Ignite, it highlighted Volkswagen Group deploying Copilot to more than 330,000 employees. But "deployed to" is not "paying for," and it is not "actively using."
+
+Microsoft's own earnings call tells the same story. On the late-October call, an analyst asked directly about Copilot seats. Chief financial officer Amy Hood confirmed that Microsoft did not disclose an updated Copilot number this quarter. Satya Nadella instead cited daily users, up nearly 50 percent quarter over quarter. He also pointed to fast growth in very large Copilot accounts. Those are usage and account-growth metrics, not a paid-seat total. So Microsoft's Copilot adoption story remains a keynote claim more than a filed metric.
+
+Now put the two stories together. Enterprise AI is still priced by the human seat, at 30 dollars a month per enterprise user for Copilot at list. Yet the clearest AI return on investment emerging this week is fewer humans, at SAP. If customers follow SAP's playbook, the seat count that per-user AI pricing depends on shrinks with them. That's our inference, not a confirmed trend.
+
+And the seat base is already growing slowly. On that same October call, Microsoft said paid Microsoft 365 commercial seats grew 5 percent, with some drag from weaker sales execution. Standalone Copilot is a test of that tension. If uptake is weak, it suggests Copilot's real constraint is workflow and change management, not packaging. Either way, per-seat AI pricing is selling into a base that AI itself may shrink.
+
+Headcount is one way to take cost out of the software stack. Consolidation is the other. This desk covered the terms of CrowdStrike's all-stock deal for Zscaler on Tuesday: the exchange ratio, the premium, the ownership split, and the stock reaction. What's new is the cost side. CrowdStrike is targeting 500 million dollars in annualized run-rate cost synergies, within 18 to 24 months of close.
+
+Put that against the scale of the combined business. CrowdStrike expects the merged company to start with more than 10 billion dollars in combined annual recurring revenue. By our arithmetic, the cost target is at most about 5 percent of that. The composition of those savings is undisclosed. It could be infrastructure consolidation, overlapping go-to-market spend, or vendor contracts. It is not necessarily jobs.
+
+And it's a target, not an outcome. As we noted Tuesday, CrowdStrike doesn't expect the deal to close until the second half of its fiscal 2028. So any realized savings are at least two years away, and security-tool consolidation tends to run slower than vendors promise. Still, the pattern matches SAP. The industry is underwriting its AI-era margins by cutting its own cost base, not purely by selling more AI.
+
+One thing to watch next week. AWS re:Invent runs Monday through Friday in Las Vegas. Chief executive Matt Garman's keynote is Tuesday, December 1st, the same day Microsoft's standalone Copilot pricing takes effect. Nothing from the event has been announced yet. The pre-event news has been agent-authorization plumbing. The real question for Tuesday is whether AWS prices its agent platform by consumption rather than by human seat. If it does, that's a different answer to the problem SAP and Microsoft are both wrestling with. And watch whether SAP confirms the cuts and puts a charge on them. As AI changes how many people enterprises need, software's oldest pricing unit, the seat, is the thing under pressure.
+
+That's the briefing. Have a good Friday.
