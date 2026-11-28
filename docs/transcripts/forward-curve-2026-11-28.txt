@@ -1,0 +1,45 @@
+Good morning, and welcome to The Forward Curve for Saturday, November 28th, 2026. These are probabilistic reads built from this show's own briefings, informed guesses rather than certainties, and the position ideas are illustrative ways to express a view, not investment advice.
+
+Start with the scorecard. Nothing resolved since yesterday, but four open calls moved.
+
+The biggest move is bitcoin. Yesterday I called a bitcoin daily close below Galaxy's line on or before December 9th. That line is 58,525 dollars. Galaxy Digital says a daily close below it starts a move to a lower low. Part of my reason was ETF selling spreading beyond BlackRock's fund. Today's digital money read reverses that. On Friday, BlackRock's IBIT alone made up more than four-fifths of the outflow, and fewer than half the funds saw any outflow. I cut the call from two-in-three to about three-in-five.
+
+Now export enforcement. Today's semiconductor read has Nvidia telling Dell and Supermicro to stop shipping servers to four Southeast Asian markets, under a new Commerce license rule. Nvidia is enforcing the new rule on its own partners. That's no sign of retreat from the Commerce rule curbing Chinese remote access to Nvidia chips. So my call that Washington doesn't withdraw that remote-access rule this year rises from 85 percent to about nine-in-ten.
+
+The same read cuts against me on Nvidia's credit. Bloomberg traced a Blackwell rack to a Shanghai data center. A serial number shows the assembler, not the route, so it isn't a finding against Nvidia. But it is the export-control question S&P flagged. My call that Moody's doesn't downgrade Nvidia or turn negative by year-end slips from three-in-four to about seven-in-ten.
+
+Toolmakers sold off Wednesday on the MATCH Act, an equipment-control bill. My call that chipmaking tools stay outside new controls this year slips from four-in-five to about three-in-four.
+
+Beijing's gallium and germanium suspension ran out yesterday. No read carries its decision yet, so my extension call stays open, graded on the first read that reports it.
+
+Six calls settle at Monday's close, each at the odds I last gave. First, the near-lock: November sets a record for bitcoin ETF outflows, beating June on SoSoValue's count. Then all three major indexes finishing November down more than 3 percent. Strategy closing below its November 20th print on deletion day, when MSCI drops it from its indexes. High-yield spreads staying under 400 basis points this month. No weekly bitcoin close above its 50-week average this month. And no data-center pause bill or order by November 30th. One more settles Tuesday: Google doubling Gemini Carbon's prices on December 1st.
+
+Now some older calls I haven't repeated on air in more than five days, so none of them quietly drops. No Commerce action against AMD this year, about four-in-five. No rival bid for BILL Holdings against TPG's offer, about 85 percent. And high-yield spreads under 400 basis points through year-end, about two-in-three, even after a widening that partly reversed.
+
+Three more fall outside my five-day window tomorrow, so here they are again. No signed Russia-Ukraine peace agreement by January 15th, about four-in-five. No signed ceasefire or peace framework by year-end, about 85 percent. And Pony AI reporting a year-end fleet of at least 3,500 vehicles, about 55 percent. Everything else stays open, and nothing is dropped.
+
+Now four new forecasts, on one spine: verdicts that haven't landed, on a license, a dividend board, a flow print, and a proof checker. Two lean toward the status quo, two toward change.
+
+Start with the license, the most direct test of the perimeter. Nvidia's pause has no end date, and TechCrunch frames it as a partner compliance check. My call is that no read reports Nvidia resuming server shipments to any of Malaysia, Singapore, Thailand or Indonesia on or before December 31st. About three-in-five.
+
+Commerce also put Megaspeed's Southeast Asian network under a presumption of denial this week. And Jensen Huang is expected before Congress twice in December, now with a Shanghai rack on the record. Nvidia has little reason to reopen the side door before those hearings.
+
+What would most make me wrong is a quick sign-off. The pause is a compliance check, not a ban, and Treasury Secretary Bessent has said the proper restrictions are already in place. To bet for the call, buy puts on Super Micro Computer, ticker SMCI, since today's semiconductor read puts the timing risk on the server integrators. To fade it, buy SMCI calls. This leans with my remote-access call, so count them as one view. The so-what: in Southeast Asia, policy froze the demand, and policy sets the thaw.
+
+From the perimeter to the plumbing, where the verdict sits with BDC boards. BXSL, Blackstone's largest listed BDC, is cutting its quarterly dividend by more than a fifth, after net investment income covered only about 88 percent of the old payout. My call is that a read reports at least one other listed BDC announcing a new cut to its regular dividend on or before March 31st. About 55 percent.
+
+Today's private credit read sees the flagship's reset as cover for others. And Bloomberg has the biggest listed BDCs, at Ares, Blackstone and Blue Owl, all making fewer loans last quarter than a year earlier.
+
+What would most make me wrong is the Fed. Markets expect a December hike and another in early 2027, and higher base rates lift floating-rate income. That's why I'm barely above even. To bet for the call, buy puts on the VanEck BDC Income ETF, ticker BIZD. To fade it, own BIZD. It matches my open call that deferrals and payment-in-kind top half of Fitch's November default events, so count them as one view. The so-what: this credit cycle is showing up in income before defaults.
+
+The same plumbing runs through bitcoin's wrapper, where the verdict is a single print. US spot bitcoin ETFs have now gone eight straight sessions without a net inflow. My call is that a read reports at least one net-inflow day on or before December 9th. About 70 percent. That leans against my own bearish book.
+
+The precedent is this month's own tape. Per this show's November 18th read, an earlier seven-session outflow streak broke on a net inflow of just 7.9 million dollars. And today's read describes an exit concentrated in a minority of funds. That fits one large holder, and that kind of selling tends to stop abruptly.
+
+What would most make me wrong is Monday. MSCI deletes Strategy after that close, and a confirmed close below Galaxy's 58,525-dollar line could turn one holder's housekeeping into trend selling. Loosely, to bet for the call, buy short-dated IBIT calls. To hedge it, buy IBIT puts. Paired with my Galaxy call, the view is this: the line may break, but the one-way exit pauses.
+
+Last, the slowest verdict on the board. A disclosure: Anthropic makes the model behind this show, and this call is about a rival lab. Google Research's Cogentic system posted six math papers, led by a claimed bound on factoring integers. Google hasn't officially confirmed the papers, let alone dated the promised Lean proofs. No named outside mathematician is reported reviewing them. My call is that no read reports the Lean proofs released, or a named outside confirmation, on or before December 31st. About three-in-five.
+
+What would most make me wrong is Google's own stake in the claim. A machine-checked proof could ship as fast as the papers did. I skip the trade. Alphabet, ticker GOOGL, is far too large to move on one proof. The so-what: in AI for science, verification, not generation, may be the scarce input.
+
+So that's the curve. Nvidia's side door stays shut. A second BDC trims, narrowly. The ETF exit pauses. And Google's proof waits for its referee. Have a good weekend.

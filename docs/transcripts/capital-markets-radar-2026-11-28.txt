@@ -1,0 +1,63 @@
+Good morning, and welcome to the Capital Markets Radar for Saturday, November 28th.
+
+The marginal debate at the Fed has moved. It is no longer about whether they hike in December. It is about how big the move is, and how high the terminal rate goes.
+
+Start with what is priced. According to CME FedWatch, as relayed by CNBC, markets are fully pricing a quarter-point hike at the December 8th and 9th meeting, with only low odds of a half-point move. That is pricing, not a decision. The meeting has not happened.
+
+What is new is the size debate. Governor Christopher Waller favors a half-point hike in December and has said the Fed may need to "shock" markets. That is a stated preference ahead of the meeting. It is not the consensus, but it is on the table.
+
+Sell-side forecasts are drifting the same way. Standard Chartered expects hikes in December and in the first half of 2027, taking rates to a peak of 4.25% to 4.50%, with easing only in the second half of next year. Again, that is a forecast.
+
+The data feeding this is hot on both halves of the mix. October PCE rose 3.8% year on year, and core PCE climbed to 3.3%. Third-quarter GDP was revised up to a 4.3% annualized pace. That is strong growth and strong inflation at the same time, which is the combination that keeps a central bank hiking.
+
+The market's reaction was in the long end. Treasury yields reversed higher on Friday after the GDP revision, pushing the ten-year to about 4.9%. Sources range a few basis points around that level. On Wednesday's close, the thirty-year sat at 5.24%.
+
+One caution. Friday was a half day with thin liquidity. The yield move may overstate conviction.
+
+So the takeaway is this. A 4.3% growth print and a 5.2% thirty-year say the repricing is duration-wide. It is not just a front-end story about the policy rate.
+
+Now, the one thing that might have stayed the Fed's hand just turned. Earlier this week, oil was the disinflationary cross-current, drifting lower on glut fears. That has flipped.
+
+Brent settled at 95.44 dollars on Friday, down 1.17% on the day. But for the week, Brent rose more than 3%, and CNBC called it the first weekly gain in November. WTI settled at 83.08 dollars. CNBC notes there was no Thursday settlement because of the holiday.
+
+The driver is supply risk. Iran has continued to attack ships transiting the Strait of Hormuz. On Thursday, Saudi Aramco's Jazan refinery temporarily halted some operations after a projectile struck it, killing a worker. Saudi Arabia blamed the Iran-backed Houthis. That is the kingdom's attribution, not independent confirmation. The Houthis also claimed attacks on Ras Tanura, the kingdom's largest refinery and a major export hub. That one is a claim, not confirmed damage.
+
+Now put the Hormuz volumes in context. Kpler data, as reported by The National, shows clearance averaged 9.25 million barrels a day over the seven days to November 24. That is about 54% of the 17.14 million barrels a day before the war. An earlier Kpler reading, for the week to November 15, was also about half.
+
+That matters for how you read the move. Flows have sat near half of normal for at least two weeks. So the weekly gain in Brent is an incremental risk premium on an already impaired market. It is not a fresh loss of barrels. And that Kpler figure predates the Jazan strike.
+
+The second-order point is about spare capacity. Strikes on Saudi refining and export nodes hit the buffer that OPEC+ quota decisions assume. OPEC+ is set to keep first-quarter 2027 output targets unchanged when it meets Sunday, according to people familiar with the talks. That is an expectation, and the meeting has not happened. The market's focus may shift from quotas to infrastructure risk.
+
+So the takeaway is this. Oil is now adding to inflation risk on top of a 3.8% PCE print. It reinforces the hike path instead of relieving it.
+
+That brings us to equities, where Friday's rebound needs careful reading. The S&P 500 closed up 1.60% on the day, at 7,297.49. Semiconductors led the move, with Micron up more than 7%.
+
+Volatility came in alongside it. The VIX fell about 11% to 23.81. For the full holiday week, the Dow led with a 3.4% gain, while the S&P and the Nasdaq each added less than two percent.
+
+Here is why I would not call that a repair. The semiconductor index still closed the week lower. The VIX at 23.81 is still a nervous reading. And on Wednesday, Nvidia slumped 4%, which shows how fast the bounce lost its legs once the one-name rally faded.
+
+The deeper scar is in the Nasdaq-100. It closed at a record 31,224.47 on October 6. By the November 20th close, it was about 19.8% lower. A thin, half-day rally of under 2.5% on the Nasdaq does not change that arithmetic. It is relief in beta, not a change in the de-rating.
+
+The part I would watch more closely is credit. The ICE BofA high-yield spread was 3.03% on October 6, the day of the equity peak. By November 24, it had widened to 3.72%. That is 69 basis points in seven weeks.
+
+This is the transmission channel. The Fed minutes said AI-related debt had grown rapidly, largely through complex, opaque financing structures. They also described AI demand as a material source of inflation risk. So the same AI buildout is pushing up inflation, raising the cost of the debt that funds it, and losing its equity currency at the same time.
+
+Now connect that back to the Waller tail. A half-point shock would land hardest on the longest-duration equities and the weakest balance sheets in high yield. The market is not pricing that as the base case. But the spread move says credit is already paying attention.
+
+So the takeaway is this. Friday's bounce was cover over a hardening regime. It was not a thaw.
+
+The speculative tail of the same trade is crypto. Bitcoin ended the week below 60,000 dollars. US spot Bitcoin ETFs lost approximately 5.39 billion dollars in November through the 25th. That is the largest monthly withdrawal in Farside Investors' records since the funds launched in January 2024. 21Shares said stablecoin supply had contracted by 10.7 billion dollars. Pegs held, but dollar liquidity is leaving the crypto rails.
+
+The newer angle is reflexivity. JPMorgan reportedly put Strategy's market-to-net-asset-value ratio below one. Methodologies differ, so treat the exact level with caution. But the logic is clear. When a treasury company trades below its coin holdings, it stops being a marginal buyer and can become a seller. A small ether treasury company, BTCS, has already sold ether to repay debt.
+
+There is also a reported risk that index provider MSCI removes bitcoin treasury companies on December 1st. That rests on a single source, so I would treat it as an unverified flow risk and not a scheduled event. Official ETF flow data for Friday is not due until Monday.
+
+So the takeaway is this. In a hiking regime, crypto trades as the highest-beta duration asset, and the buyers of last resort are getting weaker.
+
+Last, gold, because it shows what this regime is actually pricing. Gold sold off hard from its early-November levels. Standard Chartered tied the first leg to October CPI, which rose 0.4% month on month against 0.3% expected. Friday brought a snapback. Gold climbed 1.94% to 3,637 dollars an ounce, per Rio Times.
+
+The drawdown is the story. A metal sold as a debasement hedge fell through a period of rising inflation, because the real-rate and dollar channels dominated. The Friday bounce may be short-covering rather than a regime change. If hikes are what is driving gold, then the eventual pause is the asymmetric upside trigger.
+
+Now the calendar, because none of this is decided. OPEC+ meets Sunday. November payrolls arrive on December 4th. The FOMC decision comes on December 9th, and November CPI follows on December 10th. Until then, every hike number I gave you is pricing or forecast, not outcome.
+
+That is the radar for Saturday. Have a good weekend, and I will be back with the next read.

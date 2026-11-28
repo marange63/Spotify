@@ -1,0 +1,41 @@
+Good morning, this is The Throughline for Saturday, November 28th, 2026.
+
+Today's headline: Nvidia reportedly froze its partners' server shipments into four Southeast Asian markets, the same week Bloomberg traced a Blackwell rack to a data center in Shanghai.
+
+We'll start with the macro backdrop. Digital Money has spot bitcoin ETFs on an eighth straight day of outflows. There's still no inflow session in the streak.
+
+The bigger change is who is selling. BlackRock's IBIT took about 84 percent of the day's outflow, up from roughly 73 percent on Wednesday. So the exit is re-concentrating on one fund, not broadening as the desk read it on Friday. If that's one large holder rebalancing, the selling could stop suddenly rather than fade.
+
+One layer down, Circle's latest quarterly growth was flattered by a one-time token presale. Strip that out, and the desk's arithmetic shows the core business shrinking about 8 percent year over year. USDC also kept leaking market share to Tether, the less transparent issuer. So more of the on-chain dollar is concentrating on one opaque balance sheet.
+
+From issuers to lenders, Private Credit and the Corporate Credit Cycle finds credit turning in sale prices and payouts before it shows up in default rates. HSBC reportedly sold its slice of the loan behind Oracle's Project Jupiter data center at about 85 cents on the dollar. That sale followed a force-majeure notice that would let Oracle defer payments if the project slips. Nothing reported says the project has slipped. But the question is no longer whether Oracle is good for it. It's whether Oracle is obligated to pay on time.
+
+Elsewhere in that briefing, Blackstone's largest listed BDC, BXSL, is cutting its dividend by about 22 percent. The desk reads that as an income signal, not a default signal. And litigation alleges one BDC's advisers used restructurings to flatter its non-accrual numbers. So the sector's reported credit metrics are now themselves contested evidence.
+
+That's the macro backdrop. Now the AI and compute stack, where today's headline sits. A standing disclosure: Anthropic makes the model behind this show.
+
+Semiconductors and Compute Infrastructure has the enforcement story. Nvidia has reportedly told Dell and Supermicro to stop shipping servers carrying its chips into Malaysia, Singapore, Thailand and Indonesia. It's a pause of unspecified length, and Singapore hasn't confirmed it. The desk's point is that displaced capacity there isn't clearing at a discount. It isn't clearing at all.
+
+The same week, Bloomberg traced a Blackwell rack to a Shanghai data center. That lands against Jensen Huang's on-record dismissals of smuggling. Still, a serial number shows who assembled the rack, not how it got there. The detail the desk banks is that a Chinese firm pledged the rack as collateral for a loan of about 14 million dollars. So restricted Blackwell hardware is now bankable inside China.
+
+The perimeter is also moving upstream, to the toolmakers. Applied Materials and Lam Research fell about 6 and 7 percent on Wednesday, as a bill called the MATCH Act weighed on China-exposed equipment makers. Lam fell further, and the desk reads China exposure as the variable now sorting equipment valuations.
+
+Frontier AI Lab Competition moves the contest from leaderboards to checkable proofs. Cogentic, a multi-agent system attributed to Google Research, posted a claimed factoring algorithm that would beat the best proven bound, set in 1992. That's a claim about rigor, not a faster way to break encryption.
+
+The caveats are heavy. Google hasn't officially confirmed the work, and no outside reviewer has publicly confirmed the proof. One estimate judges the new bound worse than simply trying every divisor. Still, the desk's point is that a math claim eventually gets a yes-or-no verdict, which a benchmark score never does.
+
+Separately, OpenAI's self-reported numbers put its cheap Sol model within half a point of the flagship Astra, at about a fifth of the cost. The desk reads that as OpenAI compressing its own margins.
+
+AI Products and Applications carries the verification question into enterprise trust. OpenAI is testing Private Inference, a promise to protect customer data while the model is running, not just afterward. It's a bet on winning back regulated buyers who have stayed on self-hosted models. But the desk found no attestation mechanism a customer could use to check the promise, unlike Google's and Microsoft's rival offerings. For now, it can't be verified.
+
+Anthropic's Skills over MCP beta guards the other direction, what a vendor's server tells your agent to do. It requires user approval before a server-supplied skill runs local code, and again whenever that skill's files change. The desk's takeaway is that connecting a server becomes a standing subscription to someone else's instructions.
+
+That's the compute stack. Now the applied frontier, where Robotics and Physical AI closes today's tour. Xpeng's co-president told Bloomberg its IRON humanoid could sell to Chinese consumers at the price of an average Xpeng EV. That could reflect a real cost edge from a shared car supply chain, or a loss-leading launch price. There's still no yuan figure or volume target to tell them apart, and no reliability data at all.
+
+Outside China, Korean actuator maker Robotis posted a quarterly loss, partly on raw-material delays. That's the desk's first sign of Beijing's still-active April 2025 rare-earth controls showing up in a robotics supplier's results.
+
+And Shield AI's pending deal for counter-drone radar maker Echodyne, worth up to 5.3 billion dollars, shows capital paying to own scarce hardware rather than license it.
+
+One thread runs through four of today's briefings: claims are running ahead of outside checks. Google's proof awaits reviewers, OpenAI's privacy promise lacks attestation, Huang's dismissals now face a traced rack, and BDC credit metrics are contested in court.
+
+That's The Throughline. Have a good weekend, and stay cautiously optimistic.
